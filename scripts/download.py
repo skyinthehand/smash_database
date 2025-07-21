@@ -224,9 +224,12 @@ def write_matches(all_nodes, entrant2user, event_dir):
                 ] if node['games'] is not None else []
 
         phase = None
+        phaseOrder = None
         wave = None
         if node['phaseGroup'] is not None:
             phase = node['phaseGroup']['displayIdentifier']
+            if node['phaseGroup']['phase'] is not None:
+                phaseOrder = node['phaseGroup']['phase']['phaseOrder']
             if node['phaseGroup']['wave'] is not None:
                 wave = node['phaseGroup']['wave']['identifier']
         match_data = {
@@ -237,6 +240,7 @@ def write_matches(all_nodes, entrant2user, event_dir):
                 "round_text": node['fullRoundText'],
                 "round": node['round'],
                 "phase": phase,
+                "phaseOrder": phaseOrder,
                 "wave": wave,
                 "dq": dq,
                 "cancel": cancel,
