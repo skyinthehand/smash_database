@@ -86,6 +86,7 @@ def get_standings_query():
               participants {
                 user {
                   id
+                  discriminator
                   genderPronoun
                   authorizations(types: [TWITTER, DISCORD]) {
                     externalId
@@ -125,6 +126,7 @@ def get_seeds_query():
               participants {
                 user {
                   id
+                  discriminator
                   genderPronoun
                   authorizations(types: [TWITTER, DISCORD]) {
                     externalId

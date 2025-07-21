@@ -336,6 +336,7 @@ def extend_user_info(user_data, player_data, users, users_file_path):
         user_id = user['id']
         player_id = player['id']
         gamer_tag = player['gamerTag']
+        discriminator = user['discriminator']
         prefix = player['prefix']
         gender_pronoun = user['genderPronoun'] if user['genderPronoun'] is not None else "unknown"
         x_id = None
@@ -356,6 +357,7 @@ def extend_user_info(user_data, player_data, users, users_file_path):
                 "user_id": user_id,
                 "player_id": player_id,
                 "gamer_tag": gamer_tag,
+                "discriminator": discriminator,
                 "prefix": prefix,
                 "gender_pronoun": gender_pronoun,
                 "x_id": x_id,
