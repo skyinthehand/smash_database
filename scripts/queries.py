@@ -178,7 +178,7 @@ def get_phase_groups_query():
       }
     }"""
 
-def get_tournaments_by_game_query(country_code="", before_now=True, past=False):
+def get_tournaments_by_game_query(country_code="", before_now=True, past=False, before_date_timestamp=None):
     first_row = """query TournamentsByGame($gameId: ID!, $perPage: Int!, $page: Int!) {"""
     second_row = """tournaments(query: {perPage: $perPage, page: $page, sortBy: "startAt desc", filter: {videogameIds: [$gameId], published: true, *other_filters*}}) {"""
     nodes_query = """nodes {
@@ -212,7 +212,7 @@ def get_tournaments_by_game_query(country_code="", before_now=True, past=False):
     if past:
       filters += """ ,past: true """
     if before_now:
-      filters += f" ,beforeDate: {int(datetime.now().timestamp())} "
+      filters += f" ,beforeDate: {before_date_timestamp if before_date_timestamp is not None else int(datetime.now().timestamp())} "
     
     second_row = second_row.replace("*other_filters*", filters)
 
