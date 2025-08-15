@@ -278,7 +278,7 @@ def download_standings(event_id, event_dir):
     player_data = []
     entrant2user = {}
     for node in standings_data:
-        if node['entrant']['participants'] is not None:
+        if node['entrant']['participants'] is not None and len(node['entrant']['participants']) > 0:
             user_data.append(node['entrant']['participants'][0]['user'])
             player_data.append(node['entrant']['participants'][0]['player'])
             if node['entrant']['participants'][0]['user'] is not None and node['entrant']['participants'][0]['player'] is not None:
@@ -310,7 +310,7 @@ def download_seeds(event_id, user_data, player_data, entrant2user, event_dir):
     seeds_data = fetch_all_nodes(query, variables, keys, per_page=100)
 
     for seed in seeds_data:
-        if seed['entrant']['participants'] is not None:
+        if seed['entrant']['participants'] is not None and len(seed['entrant']['participants']) > 0:
             if seed['entrant']['id'] not in entrant2user:
                 user_data.append(seed['entrant']['participants'][0]['user'])
                 player_data.append(seed['entrant']['participants'][0]['player'])
