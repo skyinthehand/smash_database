@@ -19,6 +19,9 @@ def get_event_sets_query():
             phaseGroup {
               id
               displayIdentifier
+              phase {
+                phaseOrder
+              }
               wave {
                 id
                 identifier

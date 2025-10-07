@@ -129,9 +129,12 @@ def write_matches(all_nodes, entrant2user, event_dir):
 
         # フェーズとウェーブ情報の処理
         phase = None
+        phaseOrder = None
         wave = None
         if node.get('phaseGroup'):
             phase = node['phaseGroup'].get('displayIdentifier')
+            if node['phaseGroup']['phase'] is not None:
+                phaseOrder = node['phaseGroup']['phase']['phaseOrder']
             if node['phaseGroup'].get('wave'):
                 wave = node['phaseGroup']['wave'].get('identifier')
 
@@ -144,6 +147,7 @@ def write_matches(all_nodes, entrant2user, event_dir):
             "round_text": node.get('fullRoundText'),
             "round": node.get('round'),
             "phase": phase,
+            "phaseOrder": phaseOrder,
             "wave": wave,
             "dq": dq,
             "cancel": cancel,
