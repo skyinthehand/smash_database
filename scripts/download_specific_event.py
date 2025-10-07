@@ -358,6 +358,7 @@ def extend_user_info(user_data, player_data, users, users_file_path):
         user_id = user['id']
         player_id = player['id']
         gamer_tag = player.get('gamerTag')
+        discriminator = user.get('discriminator')
         prefix = player.get('prefix')
         # genderPronoun が None の場合のデフォルト値を設定
         gender_pronoun = user.get('genderPronoun') if user.get('genderPronoun') is not None else "unknown"
@@ -383,6 +384,7 @@ def extend_user_info(user_data, player_data, users, users_file_path):
                 "user_id": user_id,
                 "player_id": player_id,
                 "gamer_tag": gamer_tag,
+                "discriminator": discriminator,
                 "prefix": prefix,
                 "gender_pronoun": gender_pronoun,
                 "x_id": x_id,

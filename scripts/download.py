@@ -25,6 +25,7 @@ def main():
     parser.add_argument("--url", default="https://api.start.gg/gql/alpha", help="API URL")
     parser.add_argument("--token", required=True, help="API token")
     parser.add_argument("--finish_date", type=lambda s: datetime.strptime(s, '%Y-%m-%d'), default=datetime(2018, 1, 1), help="Finish date for data retrieval (YYYY-MM-DD)")
+    parser.add_argument("--before_end_date", type=lambda s: datetime.strptime(s, '%Y-%m-%d'), default=datetime(2018, 1, 1), help="Before end date for data retrieval (YYYY-MM-DD)")
     parser.add_argument("--max_retries", type=int, default=100, help="Maximum number of retries for API requests")
     parser.add_argument("--retry_delay", type=int, default=5, help="Delay between retries in seconds")
     parser.add_argument("--indent_num", type=int, default=2, help="Indentation level for JSON output")
@@ -53,9 +54,9 @@ def main():
     with open(args.event_prompt_file_path, "r") as f:
         event_prompt = f.read()
 
-    download_all_tournaments(args.game_id, args.country_code, args.finish_date, args.startgg_dir, args.done_file_path, args.users_file_path, args.tournament_file_path, openai_client, event_prompt)
+    download_all_tournaments(args.game_id, args.country_code, args.finish_date, args.before_end_date, args.startgg_dir, args.done_file_path, args.users_file_path, args.tournament_file_path, openai_client, event_prompt)
 
-def download_all_tournaments(game_id, country_code, finish_date, startgg_dir, done_file_path, users_file_path, tournament_file_path, openai_client, event_prompt):
+def download_all_tournaments(game_id, country_code, finish_date, before_end_date, startgg_dir, done_file_path, users_file_path, tournament_file_path, openai_client, event_prompt):
     done_tournaments = read_set(done_file_path, as_int=True)
     users = read_users_jsonl(users_file_path)
     tournaments = read_tournaments_jsonl(tournament_file_path)
@@ -66,7 +67,7 @@ def download_all_tournaments(game_id, country_code, finish_date, startgg_dir, do
     page = 1
     while True:
         try:
-            tournaments_info, total_pages = fetch_latest_tournaments_by_game(game_id, country_code=country_code, page=page)
+            tournaments_info, total_pages = fetch_latest_tournaments_by_game(game_id, country_code=country_code, page=page, before_date_timestamp=int(before_end_date.timestamp()))
         except FetchError as e:
             print(e)
             continue
@@ -277,7 +278,7 @@ def download_standings(event_id, event_dir):
     player_data = []
     entrant2user = {}
     for node in standings_data:
-        if node['entrant']['participants'] is not None:
+        if node['entrant']['participants'] is not None and len(node['entrant']['participants']) > 0:
             user_data.append(node['entrant']['participants'][0]['user'])
             player_data.append(node['entrant']['participants'][0]['player'])
             if node['entrant']['participants'][0]['user'] is not None and node['entrant']['participants'][0]['player'] is not None:
@@ -309,7 +310,7 @@ def download_seeds(event_id, user_data, player_data, entrant2user, event_dir):
     seeds_data = fetch_all_nodes(query, variables, keys, per_page=100)
 
     for seed in seeds_data:
-        if seed['entrant']['participants'] is not None:
+        if seed['entrant']['participants'] is not None and len(seed['entrant']['participants']) > 0:
             if seed['entrant']['id'] not in entrant2user:
                 user_data.append(seed['entrant']['participants'][0]['user'])
                 player_data.append(seed['entrant']['participants'][0]['player'])
@@ -336,6 +337,7 @@ def extend_user_info(user_data, player_data, users, users_file_path):
         user_id = user['id']
         player_id = player['id']
         gamer_tag = player['gamerTag']
+        discriminator = user['discriminator']
         prefix = player['prefix']
         gender_pronoun = user['genderPronoun'] if user['genderPronoun'] is not None else "unknown"
         x_id = None
@@ -356,6 +358,7 @@ def extend_user_info(user_data, player_data, users, users_file_path):
                 "user_id": user_id,
                 "player_id": player_id,
                 "gamer_tag": gamer_tag,
+                "discriminator": discriminator,
                 "prefix": prefix,
                 "gender_pronoun": gender_pronoun,
                 "x_id": x_id,
@@ -372,9 +375,9 @@ def extend_tournament_info(new_tournament_info, tournament_file_path):
     extend_jsonl([new_tournament_info], tournament_file_path, with_version=True)
 
 # 特定のゲームのトーナメントを最新のものから取得する関数
-def fetch_latest_tournaments_by_game(game_id, country_code, limit=5, page=1):
+def fetch_latest_tournaments_by_game(game_id, country_code, limit=5, page=1, before_date_timestamp=None):
     response_data = fetch_data_with_retries(
-        get_tournaments_by_game_query(country_code),
+        get_tournaments_by_game_query(country_code, before_date_timestamp=before_date_timestamp),
         {"gameId": game_id, "perPage": limit, "page": page},
     )
     if "data" not in response_data or response_data["data"] is None or "tournaments" not in response_data["data"] or response_data["data"]["tournaments"] is None:
