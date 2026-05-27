@@ -1,0 +1,140 @@
+name: "StartGG: Gap Check"
+
+on:
+  schedule:
+    - cron: "0 10 * * 0"   # 毎週日曜 10:00 UTC = 19:00 JST
+  workflow_dispatch:
+
+concurrency:
+  group: data-gap-check
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  gap-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Prepare chore-update branch
+        run: |
+          set -euxo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch origin chore-update || true
+          if git show-ref --verify --quiet refs/remotes/origin/chore-update; then
+            git checkout -B chore-update origin/chore-update
+          else
+            git checkout -B chore-update
+          fi
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          set -euxo pipefail
+          python -m pip install --upgrade pip requests
+
+      - name: Resolve check range
+        id: range
+        run: |
+          set -euxo pipefail
+          SINCE_JST="$(TZ=Asia/Tokyo date -d '60 days ago' +%F)"
+          TODAY_JST="$(TZ=Asia/Tokyo date +%F)"
+          echo "since_jst=$SINCE_JST" >> "$GITHUB_OUTPUT"
+          echo "today_jst=$TODAY_JST" >> "$GITHUB_OUTPUT"
+
+      - name: Download missing tournaments (JP, last 60 days)
+        id: download
+        env:
+          STARTGG_TOKEN: ${{ secrets.STARTGG_TOKEN }}
+        run: |
+          set -euxo pipefail
+          python scripts/fetch/download.py \
+            --token "$STARTGG_TOKEN" \
+            --country_code "JP" \
+            --finish_date "${{ steps.range.outputs.since_jst }}"
+
+      - name: Run tests
+        run: |
+          set -euxo pipefail
+          python -m unittest scripts.test.test_validate_data
+
+      - name: Update chore tournament log
+        run: |
+          set -euxo pipefail
+          python scripts/fix/update_chore_tournament_log.py \
+            --mark-start "${{ steps.range.outputs.since_jst }}" \
+            --mark-end "${{ steps.range.outputs.today_jst }}" \
+            --workflow "data_gap_check"
+
+      - name: Detect changes
+        id: detect_changes
+        run: |
+          set -euxo pipefail
+          if git diff --quiet; then
+            echo "has_changes=false" >> "$GITHUB_OUTPUT"
+            echo "No gaps found."
+          else
+            echo "has_changes=true" >> "$GITHUB_OUTPUT"
+            git status --short
+          fi
+
+      - name: Commit changes
+        if: steps.detect_changes.outputs.has_changes == 'true'
+        run: |
+          set -euxo pipefail
+          git add -A
+          git commit -m "chore(data): gap check recovery"
+
+      - name: Push chore-update branch
+        if: steps.detect_changes.outputs.has_changes == 'true'
+        run: |
+          set -euxo pipefail
+          for attempt in 1 2 3; do
+            if git push --set-upstream origin chore-update; then
+              exit 0
+            fi
+            git pull --rebase origin chore-update
+          done
+          exit 1
+
+      - name: Ensure main PR exists
+        if: steps.detect_changes.outputs.has_changes == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euxo pipefail
+          PR_NUMBER="$(gh pr list \
+            --repo "$GITHUB_REPOSITORY" \
+            --head chore-update \
+            --base main \
+            --state open \
+            --json number \
+            --jq '.[0].number // empty')"
+
+          if [ -z "$PR_NUMBER" ]; then
+            gh pr create \
+              --repo "$GITHUB_REPOSITORY" \
+              --base main \
+              --head chore-update \
+              --title "chore(data): sync chore-update into main" \
+              --body "Automated data update PR from \`chore-update\` into \`main\`."
+          fi
+
+      - name: Debug on failure
+        if: failure()
+        run: |
+          echo "Workflow failed."
+          git status --porcelain
+          ls -la data/startgg
