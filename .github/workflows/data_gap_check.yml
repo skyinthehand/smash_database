@@ -1,0 +1,153 @@
+name: "StartGG: Gap Check"
+
+on:
+  schedule:
+    - cron: "0 10 * * 0"   # 毎週日曜 10:00 UTC = 19:00 JST
+  workflow_dispatch:
+
+concurrency:
+  group: data-gap-check
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  gap-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          set -euxo pipefail
+          python -m pip install --upgrade pip requests
+
+      - name: Resolve check range
+        id: range
+        run: |
+          set -euxo pipefail
+          SINCE_JST="$(TZ=Asia/Tokyo date -d '60 days ago' +%F)"
+          TODAY_JST="$(TZ=Asia/Tokyo date +%F)"
+          echo "since_jst=$SINCE_JST" >> "$GITHUB_OUTPUT"
+          echo "today_jst=$TODAY_JST" >> "$GITHUB_OUTPUT"
+
+      - name: Prepare gap-check branch
+        run: |
+          set -euxo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          BRANCH="gap-check/${{ steps.range.outputs.today_jst }}"
+          git fetch origin main
+          git checkout -B "$BRANCH" origin/main
+          echo "gap_branch=$BRANCH" >> "$GITHUB_ENV"
+
+      - name: Download missing tournaments (JP, last 60 days)
+        env:
+          STARTGG_TOKEN: ${{ secrets.STARTGG_TOKEN }}
+        run: |
+          set -euxo pipefail
+          python scripts/fetch/download.py \
+            --token "$STARTGG_TOKEN" \
+            --country_code "JP" \
+            --finish_date "${{ steps.range.outputs.since_jst }}" \
+            2>&1 | tee /tmp/download_gap.log
+
+      - name: Run tests
+        run: |
+          set -euxo pipefail
+          python -m unittest scripts.test.test_validate_data
+
+      - name: Generate gap report
+        id: gap_report
+        run: |
+          set -euo pipefail
+
+          GAPS=$(grep '^Download ' /tmp/download_gap.log | sed 's/^Download //' || true)
+
+          if [ -n "$GAPS" ]; then
+            echo "has_gaps=true" >> "$GITHUB_OUTPUT"
+
+            {
+              echo "## :mag: ギャップチェック: 取得漏れあり"
+              echo ""
+              echo "以下のトーナメントが未取得であることが検出され、データを補完しました。"
+              echo "調査後に PR を手動でマージしてください。"
+              echo ""
+              echo "| 大会名・日付 |"
+              echo "|---|"
+              echo "$GAPS" | while IFS= read -r line; do
+                echo "| $line |"
+              done
+            } >> "$GITHUB_STEP_SUMMARY"
+
+            {
+              echo "## 取得漏れトーナメント"
+              echo ""
+              echo "ギャップチェック（過去60日スキャン）で以下のトーナメントが未取得であることが検出されました。"
+              echo ""
+              echo "| 大会名・日付 |"
+              echo "|---|"
+              echo "$GAPS" | while IFS= read -r line; do
+                echo "| $line |"
+              done
+              echo ""
+              echo "---"
+              echo "_調査後に手動でマージしてください。_"
+            } > /tmp/pr_body.md
+
+          else
+            echo "has_gaps=false" >> "$GITHUB_OUTPUT"
+            echo "## :white_check_mark: ギャップチェック: 取得漏れなし" >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Update chore tournament log
+        run: |
+          set -euxo pipefail
+          python scripts/fix/update_chore_tournament_log.py \
+            --mark-start "${{ steps.range.outputs.since_jst }}" \
+            --mark-end "${{ steps.range.outputs.today_jst }}" \
+            --workflow "data_gap_check"
+
+      - name: Commit changes
+        if: steps.gap_report.outputs.has_gaps == 'true'
+        run: |
+          set -euxo pipefail
+          git add -A
+          git commit -m "chore(data): gap check recovery"
+
+      - name: Push gap-check branch
+        if: steps.gap_report.outputs.has_gaps == 'true'
+        run: |
+          set -euxo pipefail
+          git push --set-upstream origin "$gap_branch"
+
+      - name: Create PR
+        if: steps.gap_report.outputs.has_gaps == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euxo pipefail
+          gh pr create \
+            --repo "$GITHUB_REPOSITORY" \
+            --base main \
+            --head "$gap_branch" \
+            --title "chore(data): gap check recovery (${{ steps.range.outputs.today_jst }})" \
+            --body-file /tmp/pr_body.md
+
+      - name: Debug on failure
+        if: failure()
+        run: |
+          echo "Workflow failed."
+          git status --porcelain
+          ls -la data/startgg
