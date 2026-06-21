@@ -20,7 +20,7 @@ from scripts.utils import (
     set_indent_num, set_page_delay,
     fetch_data_with_retries, fetch_all_nodes,
     set_retry_parameters, set_api_parameters,
-    FetchError, NoPhaseError, AllFallbacksExhaustedError,
+    FetchError, NoPhaseError,
 )
 
 REQUIRED_EVENT_FILES = ("attr.json", "matches.json", "standings.json", "seeds.json")
@@ -418,9 +418,7 @@ def fetch_with_page_fallback(query, variables, keys, per_page_values, label, eve
             print(
                 f"Event {event_id}: {label} query hit complexity limits with per_page={per_page}. Retrying with a smaller page size."
             )
-    raise AllFallbacksExhaustedError(
-        f"Event {event_id}: {label} query failed at all page sizes {list(per_page_values)}. Last error: {last_error}"
-    ) from last_error
+    raise last_error
 
 def build_match_dedupe_key(match_data):
     return (
