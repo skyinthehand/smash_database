@@ -180,6 +180,9 @@ class NoPhaseError(Exception):
     def __init__(self, message):
         super().__init__(message)
 
+class AllFallbacksExhaustedError(Exception):
+    pass
+
 __max_retries = 100
 __retry_delay = 5
 __page_delay = 2

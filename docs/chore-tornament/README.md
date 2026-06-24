@@ -2685,25 +2685,25 @@ GitHub Actions が確認した日付と、`data/startgg/events/Japan/YYYY/MM/DD`
 | 2026-04-25 | yes | yes | 2026-04-26 04:01:54 JST | update_tournament |
 | 2026-04-26 | yes | yes | 2026-04-27 03:53:31 JST | update_tournament |
 | 2026-04-27 | no | yes | 2026-04-27 03:53:31 JST | update_tournament |
-| 2026-04-28 | no | no |  |  |
-| 2026-04-29 | no | no |  |  |
-| 2026-04-30 | no | no |  |  |
-| 2026-05-01 | no | no |  |  |
-| 2026-05-02 | no | no |  |  |
-| 2026-05-03 | no | no |  |  |
-| 2026-05-04 | no | no |  |  |
-| 2026-05-05 | no | no |  |  |
-| 2026-05-06 | no | no |  |  |
-| 2026-05-07 | no | no |  |  |
-| 2026-05-08 | no | no |  |  |
-| 2026-05-09 | no | no |  |  |
-| 2026-05-10 | no | no |  |  |
-| 2026-05-11 | no | no |  |  |
-| 2026-05-12 | no | no |  |  |
-| 2026-05-13 | no | no |  |  |
-| 2026-05-14 | no | no |  |  |
-| 2026-05-15 | no | no |  |  |
-| 2026-05-16 | no | no |  |  |
+| 2026-04-28 | yes | yes | 2026-04-29 04:39:57 JST | update_tournament |
+| 2026-04-29 | yes | yes | 2026-04-30 04:24:55 JST | update_tournament |
+| 2026-04-30 | yes | yes | 2026-05-01 04:19:26 JST | update_tournament |
+| 2026-05-01 | yes | yes | 2026-05-02 04:10:43 JST | update_tournament |
+| 2026-05-02 | yes | yes | 2026-05-03 03:57:44 JST | update_tournament |
+| 2026-05-03 | no | yes | 2026-05-04 03:57:44 JST | update_tournament |
+| 2026-05-04 | no | yes | 2026-05-05 04:27:18 JST | update_tournament |
+| 2026-05-05 | no | yes | 2026-05-06 04:17:04 JST | update_tournament |
+| 2026-05-06 | yes | yes | 2026-05-07 04:44:42 JST | update_tournament |
+| 2026-05-07 | yes | yes | 2026-05-08 04:42:22 JST | update_tournament |
+| 2026-05-08 | yes | yes | 2026-05-09 04:15:20 JST | update_tournament |
+| 2026-05-09 | yes | yes | 2026-05-10 04:02:52 JST | update_tournament |
+| 2026-05-10 | yes | yes | 2026-05-11 04:16:44 JST | update_tournament |
+| 2026-05-11 | yes | yes | 2026-05-12 04:44:45 JST | update_tournament |
+| 2026-05-12 | yes | yes | 2026-05-13 04:48:51 JST | update_tournament |
+| 2026-05-13 | yes | yes | 2026-05-14 04:52:36 JST | update_tournament |
+| 2026-05-14 | yes | yes | 2026-05-15 04:44:52 JST | update_tournament |
+| 2026-05-15 | yes | yes | 2026-05-16 04:28:29 JST | update_tournament |
+| 2026-05-16 | no | yes | 2026-05-16 04:28:29 JST | update_tournament |
 | 2026-05-17 | no | no |  |  |
 | 2026-05-18 | no | no |  |  |
 | 2026-05-19 | no | no |  |  |
