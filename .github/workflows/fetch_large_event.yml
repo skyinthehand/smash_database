@@ -96,18 +96,21 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euxo pipefail
+          {
+            echo "Large event fetch triggered manually via workflow_dispatch."
+            echo ""
+            echo "**Tournament IDs:** \`${{ inputs.tournament_ids }}\`"
+            echo "**Timeout:** ${{ inputs.timeout_minutes }} minutes"
+            echo "**Run:** ${{ github.run_number }}"
+            echo ""
+            echo "調査後に手動でマージしてください。"
+          } > /tmp/pr_body_large.md
           gh pr create \
             --repo "$GITHUB_REPOSITORY" \
             --base main \
             --head "$event_branch" \
             --title "chore(data): fetch large event (tournament_ids=${{ inputs.tournament_ids }})" \
-            --body "Large event fetch triggered manually via workflow_dispatch.
-
-**Tournament IDs:** \`${{ inputs.tournament_ids }}\`
-**Timeout:** ${{ inputs.timeout_minutes }} minutes
-**Run:** ${{ github.run_number }}
-
-調査後に手動でマージしてください。"
+            --body-file /tmp/pr_body_large.md
 
       - name: Debug on failure
         if: failure()
