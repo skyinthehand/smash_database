@@ -17,8 +17,32 @@ git add は一切行わない。読み取り専用の確認ツール。
 """
 
 import json
+import os
 import subprocess
 import sys
+
+
+# ---------------------------------------------------------------------------
+# ヘルパー: 競合ファイルと同じディレクトリの attr.json から event_id を取得
+# ---------------------------------------------------------------------------
+
+def get_event_id(path: str) -> str:
+    """
+    matches.json と同じディレクトリにある attr.json を読み、event_id を返す。
+
+    attr.json は matches.json と違って通常は競合しない（コミット内容が
+    ours/theirs で一致するため git add 済みの状態で残る）ので、
+    作業ツリーのファイルをそのまま読めばよい。
+
+    取得できない場合は "unknown" を返す。
+    """
+    attr_path = os.path.join(os.path.dirname(path), "attr.json")
+    try:
+        with open(attr_path, "r", encoding="utf-8") as f:
+            attr = json.load(f)
+        return str(attr.get("event_id", "unknown"))
+    except (OSError, json.JSONDecodeError):
+        return "unknown"
 
 
 # ---------------------------------------------------------------------------
@@ -169,11 +193,13 @@ def check_file(path: str) -> str:
 
     戻り値: "ok" | "diff" | "skip"
     """
+    event_id = get_event_id(path)
+
     raw2 = git_show(2, path)
     raw3 = git_show(3, path)
 
     if raw2 is None or raw3 is None:
-        print(f"[SKIP] {path}")
+        print(f"[SKIP] {path}  event_id={event_id}")
         if raw2 is None:
             print(f"       stage 2 (ours) を取得できませんでした")
         if raw3 is None:
@@ -185,7 +211,7 @@ def check_file(path: str) -> str:
         obj2 = json.loads(raw2.decode("utf-8"))
         obj3 = json.loads(raw3.decode("utf-8"))
     except json.JSONDecodeError as e:
-        print(f"[SKIP] {path}")
+        print(f"[SKIP] {path}  event_id={event_id}")
         print(f"       JSON parse エラー: {e}")
         return "skip"
 
@@ -205,14 +231,14 @@ def check_file(path: str) -> str:
 
     if set2 == set3:
         # セットが一致 → 順序のみの差
-        print(f"[OK]   {path}")
+        print(f"[OK]   {path}  event_id={event_id}")
         print(f"       ours={len(data2)} theirs={len(data3)} 件（順序のみの差・値は同一）")
         print(f"       ours   (HEAD):       {ours_commit}")
         print(f"       theirs (MERGE_HEAD): {theirs_commit}")
         return "ok"
     else:
         # セットが不一致 → 値の差分あり
-        print(f"[DIFF] {path}")
+        print(f"[DIFF] {path}  event_id={event_id}")
         print(f"       ours   (HEAD):       {ours_commit}")
         print(f"       theirs (MERGE_HEAD): {theirs_commit}")
         only_in_ours   = set2 - set3
