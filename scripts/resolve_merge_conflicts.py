@@ -17,13 +17,27 @@ git merge 中に発生した競合ファイルを、重複排除ルールに従�
 重複時の優先ルール:
   - CSV / JSONL  : ours（stage 2 = 現ブランチ）優先。theirs（stage 3 = origin/main）は新規IDのみ追加。
   - JSON / README: checked_at_utc（または Last Checked At 列）が新しい方を採用。
+
+オプション: --redownload-conflicts
+  data/startgg/events 以下で競合している matches.json を、ours/theirs の
+  マージではなく start.gg からの再取得で上書きする。
+  scripts/check_event_conflicts.py で競合イベントを検出し、
+  scripts/fix/redownload_event.py の再取得ロジックを呼び出す。
+  --token が必須。デフォルトでは無効（何もしない）。
 """
 
+import argparse
 import json
+import os
 import re
 import subprocess
 import sys
 from collections import OrderedDict
+from pathlib import Path
+
+ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+if ROOT_DIR not in sys.path:
+    sys.path.insert(0, ROOT_DIR)
 
 
 # ---------------------------------------------------------------------------
@@ -314,6 +328,66 @@ def resolve_readme(path: str) -> None:
 
 
 # ---------------------------------------------------------------------------
+# 5. data/startgg/events 以下の競合イベント — start.gg から再取得して上書き
+# ---------------------------------------------------------------------------
+
+def resolve_events_by_redownload(token: str, events_root: str, users_file_path: str, only_event_ids: list | None) -> list:
+    """
+    data/startgg/events 以下で競合している matches.json を検出し、
+    該当イベントを scripts/fix/redownload_event.py の再取得ロジックで
+    削除 → start.gg から再取得することで解消する。
+
+    ours/theirs のどちらかを選ぶのではなく、start.gg 上の最新データを
+    正として上書きするため、値そのものが食い違う [DIFF] ケースにも対応できる。
+
+    only_event_ids が指定された場合は、競合イベントのうち該当する event_id のみを対象にする。
+    戻り値: 実際に再取得を試みたイベントディレクトリのパス一覧（git add 対象の案内に使う）。
+    """
+    from scripts.check_event_conflicts import get_event_id, list_conflicting_event_paths
+    from scripts.fix.redownload_event import redownload_event
+    from scripts.utils import read_users_jsonl, set_api_parameters, set_indent_num, set_retry_parameters
+
+    print(f"\n[5] data/startgg/events 以下の競合イベントを再取得")
+
+    paths = list_conflicting_event_paths()
+    if not paths:
+        print("  競合中の events ファイルは見つかりませんでした。")
+        return []
+
+    conflicts = []
+    for path in paths:
+        event_id_str = get_event_id(path)
+        if event_id_str == "unknown":
+            print(f"  [WARN] event_id を特定できませんでした: {path}")
+            continue
+        conflicts.append((int(event_id_str), path))
+
+    if only_event_ids is not None:
+        conflicts = [(eid, path) for eid, path in conflicts if eid in only_event_ids]
+
+    if not conflicts:
+        print("  再取得対象のイベントはありませんでした。")
+        return []
+
+    set_indent_num(2)
+    set_retry_parameters(20, 5)
+    set_api_parameters("https://api.start.gg/gql/alpha", token)
+    users = read_users_jsonl(users_file_path)
+    events_root_path = Path(events_root)
+
+    touched_dirs = []
+    for event_id, path in conflicts:
+        print(f"\n  -- event_id={event_id} ({path}) --")
+        ok = redownload_event(event_id, events_root_path, users, users_file_path, apply=True)
+        if ok:
+            touched_dirs.append(os.path.dirname(path))
+        else:
+            print(f"  [WARN] event_id={event_id} の再取得に失敗しました。")
+
+    return touched_dirs
+
+
+# ---------------------------------------------------------------------------
 # 後検証: 競合マーカーが残っていないか確認
 # ---------------------------------------------------------------------------
 
@@ -343,7 +417,35 @@ def verify_no_conflict_markers(paths: list) -> bool:
 # メイン
 # ---------------------------------------------------------------------------
 
+def parse_args():
+    parser = argparse.ArgumentParser(description="git merge 中の競合ファイルを解消する")
+    parser.add_argument(
+        "--redownload-conflicts",
+        action="store_true",
+        help="data/startgg/events 以下の競合イベントを ours/theirs マージではなく "
+             "start.gg からの再取得で上書きする（デフォルトでは無効）",
+    )
+    parser.add_argument("--token", default="", help="start.gg API token（--redownload-conflicts 使用時は必須）")
+    parser.add_argument("--events-root", default="data/startgg/events", help="Events root directory")
+    parser.add_argument("--users-file-path", default="data/startgg/users.jsonl", help="Path to users.jsonl")
+    parser.add_argument(
+        "--event-id",
+        type=int,
+        nargs="+",
+        default=None,
+        help="--redownload-conflicts と併用: 競合イベントのうち、指定した event_id のみを再取得対象にする"
+             "（省略時は競合中の全イベントが対象）",
+    )
+    return parser.parse_args()
+
+
 def main():
+    args = parse_args()
+
+    if args.redownload_conflicts and not args.token:
+        print("[ERROR] --redownload-conflicts には --token が必須です。", file=sys.stderr)
+        sys.exit(1)
+
     print("=" * 60)
     print("競合ファイル解消スクリプト")
     print("※ git add は行いません。内容確認後、手動で git add してください。")
@@ -374,16 +476,26 @@ def main():
     ]
     ok = verify_no_conflict_markers(all_paths)
 
+    # -- events 以下の競合イベント再取得（オプトイン） --
+    redownloaded_dirs = []
+    if args.redownload_conflicts:
+        redownloaded_dirs = resolve_events_by_redownload(
+            args.token, args.events_root, args.users_file_path, args.event_id
+        )
+
     print("\n" + "=" * 60)
     if ok:
         print("完了。競合マーカーはすべて解消されました。")
         print()
         print("次のステップ（手動で実行してください）:")
-        print("  git add data/startgg/done.csv \\")
-        print("          data/startgg/tournaments.jsonl \\")
-        print("          data/startgg/users.jsonl \\")
-        print("          docs/chore-tornament/checked_dates.json \\")
-        print("          docs/chore-tornament/README.md")
+        git_add_targets = [
+            "data/startgg/done.csv",
+            "data/startgg/tournaments.jsonl",
+            "data/startgg/users.jsonl",
+            "docs/chore-tornament/checked_dates.json",
+            "docs/chore-tornament/README.md",
+        ] + [f'"{d}"' for d in redownloaded_dirs]
+        print("  git add " + " \\\n          ".join(git_add_targets))
         print("  git merge --continue")
     else:
         print("[WARNING] 競合マーカーが残存しているファイルがあります。手動で確認してください。")
