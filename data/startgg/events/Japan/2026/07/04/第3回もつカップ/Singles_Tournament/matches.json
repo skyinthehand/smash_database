@@ -479,109 +479,6 @@
       ]
     },
     {
-      "winner_id": 1846904,
-      "loser_id": 1681905,
-      "winner_score": 3,
-      "loser_score": 1,
-      "round_text": "Round 5",
-      "round": 5,
-      "phase": "1",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": [
-        {
-          "game_id": 39208888,
-          "order_num": 1,
-          "winner_id": 1846904,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": 1681905,
-              "selection_id": 58601722,
-              "character_id": 1453,
-              "character_name": "Joker"
-            },
-            {
-              "user_id": 1846904,
-              "selection_id": 58601723,
-              "character_id": 1313,
-              "character_name": "Ness"
-            }
-          ]
-        },
-        {
-          "game_id": 39208889,
-          "order_num": 2,
-          "winner_id": 1681905,
-          "entrant1_score": 0,
-          "entrant2_score": null,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": 1681905,
-              "selection_id": 58601724,
-              "character_id": 1453,
-              "character_name": "Joker"
-            },
-            {
-              "user_id": 1846904,
-              "selection_id": 58601725,
-              "character_id": 1313,
-              "character_name": "Ness"
-            }
-          ]
-        },
-        {
-          "game_id": 39208890,
-          "order_num": 3,
-          "winner_id": 1846904,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": 1681905,
-              "selection_id": 58601726,
-              "character_id": 1453,
-              "character_name": "Joker"
-            },
-            {
-              "user_id": 1846904,
-              "selection_id": 58601727,
-              "character_id": 1313,
-              "character_name": "Ness"
-            }
-          ]
-        },
-        {
-          "game_id": 39208891,
-          "order_num": 4,
-          "winner_id": 1846904,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": 1681905,
-              "selection_id": 58601728,
-              "character_id": 1453,
-              "character_name": "Joker"
-            },
-            {
-              "user_id": 1846904,
-              "selection_id": 58601729,
-              "character_id": 1313,
-              "character_name": "Ness"
-            }
-          ]
-        }
-      ]
-    },
-    {
       "winner_id": 2366819,
       "loser_id": 2322500,
       "winner_score": 3,
@@ -679,6 +576,109 @@
               "selection_id": 58603844,
               "character_id": 1311,
               "character_name": "Mii Brawler"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "winner_id": 1846904,
+      "loser_id": 1681905,
+      "winner_score": 3,
+      "loser_score": 1,
+      "round_text": "Round 5",
+      "round": 5,
+      "phase": "1",
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": [
+        {
+          "game_id": 39208888,
+          "order_num": 1,
+          "winner_id": 1846904,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 1681905,
+              "selection_id": 58601722,
+              "character_id": 1453,
+              "character_name": "Joker"
+            },
+            {
+              "user_id": 1846904,
+              "selection_id": 58601723,
+              "character_id": 1313,
+              "character_name": "Ness"
+            }
+          ]
+        },
+        {
+          "game_id": 39208889,
+          "order_num": 2,
+          "winner_id": 1681905,
+          "entrant1_score": 0,
+          "entrant2_score": null,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 1681905,
+              "selection_id": 58601724,
+              "character_id": 1453,
+              "character_name": "Joker"
+            },
+            {
+              "user_id": 1846904,
+              "selection_id": 58601725,
+              "character_id": 1313,
+              "character_name": "Ness"
+            }
+          ]
+        },
+        {
+          "game_id": 39208890,
+          "order_num": 3,
+          "winner_id": 1846904,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 1681905,
+              "selection_id": 58601726,
+              "character_id": 1453,
+              "character_name": "Joker"
+            },
+            {
+              "user_id": 1846904,
+              "selection_id": 58601727,
+              "character_id": 1313,
+              "character_name": "Ness"
+            }
+          ]
+        },
+        {
+          "game_id": 39208891,
+          "order_num": 4,
+          "winner_id": 1846904,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 1681905,
+              "selection_id": 58601728,
+              "character_id": 1453,
+              "character_name": "Joker"
+            },
+            {
+              "user_id": 1846904,
+              "selection_id": 58601729,
+              "character_id": 1313,
+              "character_name": "Ness"
             }
           ]
         }
@@ -2141,6 +2141,101 @@
       ]
     },
     {
+      "winner_id": 1444097,
+      "loser_id": 1635625,
+      "winner_score": 0,
+      "loser_score": -1,
+      "round_text": "Round 4",
+      "round": 4,
+      "phase": "4",
+      "wave": null,
+      "dq": true,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "winner_id": 2378333,
+      "loser_id": 1343875,
+      "winner_score": 3,
+      "loser_score": 0,
+      "round_text": "Round 4",
+      "round": 4,
+      "phase": "2",
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": [
+        {
+          "game_id": 39207847,
+          "order_num": 1,
+          "winner_id": 2378333,
+          "entrant1_score": 0,
+          "entrant2_score": null,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 1343875,
+              "selection_id": 58599868,
+              "character_id": 1405,
+              "character_name": "Mr. Game & Watch"
+            },
+            {
+              "user_id": 2378333,
+              "selection_id": 58599869,
+              "character_id": 1328,
+              "character_name": "Samus"
+            }
+          ]
+        },
+        {
+          "game_id": 39207848,
+          "order_num": 2,
+          "winner_id": 2378333,
+          "entrant1_score": 0,
+          "entrant2_score": null,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 1343875,
+              "selection_id": 58599870,
+              "character_id": 1405,
+              "character_name": "Mr. Game & Watch"
+            },
+            {
+              "user_id": 2378333,
+              "selection_id": 58599871,
+              "character_id": 1328,
+              "character_name": "Samus"
+            }
+          ]
+        },
+        {
+          "game_id": 39207849,
+          "order_num": 3,
+          "winner_id": 2378333,
+          "entrant1_score": 0,
+          "entrant2_score": null,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 1343875,
+              "selection_id": 58599872,
+              "character_id": 1405,
+              "character_name": "Mr. Game & Watch"
+            },
+            {
+              "user_id": 2378333,
+              "selection_id": 58599873,
+              "character_id": 1328,
+              "character_name": "Samus"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "winner_id": 1686770,
       "loser_id": 2322500,
       "winner_score": 3,
@@ -2260,101 +2355,6 @@
               "selection_id": 58603878,
               "character_id": 1326,
               "character_name": "Roy"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "winner_id": 1444097,
-      "loser_id": 1635625,
-      "winner_score": 0,
-      "loser_score": -1,
-      "round_text": "Round 4",
-      "round": 4,
-      "phase": "4",
-      "wave": null,
-      "dq": true,
-      "cancel": false,
-      "state": 3,
-      "details": []
-    },
-    {
-      "winner_id": 2378333,
-      "loser_id": 1343875,
-      "winner_score": 3,
-      "loser_score": 0,
-      "round_text": "Round 4",
-      "round": 4,
-      "phase": "2",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": [
-        {
-          "game_id": 39207847,
-          "order_num": 1,
-          "winner_id": 2378333,
-          "entrant1_score": 0,
-          "entrant2_score": null,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": 1343875,
-              "selection_id": 58599868,
-              "character_id": 1405,
-              "character_name": "Mr. Game & Watch"
-            },
-            {
-              "user_id": 2378333,
-              "selection_id": 58599869,
-              "character_id": 1328,
-              "character_name": "Samus"
-            }
-          ]
-        },
-        {
-          "game_id": 39207848,
-          "order_num": 2,
-          "winner_id": 2378333,
-          "entrant1_score": 0,
-          "entrant2_score": null,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": 1343875,
-              "selection_id": 58599870,
-              "character_id": 1405,
-              "character_name": "Mr. Game & Watch"
-            },
-            {
-              "user_id": 2378333,
-              "selection_id": 58599871,
-              "character_id": 1328,
-              "character_name": "Samus"
-            }
-          ]
-        },
-        {
-          "game_id": 39207849,
-          "order_num": 3,
-          "winner_id": 2378333,
-          "entrant1_score": 0,
-          "entrant2_score": null,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": 1343875,
-              "selection_id": 58599872,
-              "character_id": 1405,
-              "character_name": "Mr. Game & Watch"
-            },
-            {
-              "user_id": 2378333,
-              "selection_id": 58599873,
-              "character_id": 1328,
-              "character_name": "Samus"
             }
           ]
         }
@@ -5965,109 +5965,6 @@
       ]
     },
     {
-      "winner_id": 2366819,
-      "loser_id": 2378333,
-      "winner_score": 3,
-      "loser_score": 1,
-      "round_text": "Winners Round 1",
-      "round": 1,
-      "phase": "1",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": [
-        {
-          "game_id": 39210288,
-          "order_num": 1,
-          "winner_id": 2378333,
-          "entrant1_score": 0,
-          "entrant2_score": null,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": 2366819,
-              "selection_id": 58604193,
-              "character_id": 1311,
-              "character_name": "Mii Brawler"
-            },
-            {
-              "user_id": 2378333,
-              "selection_id": 58604194,
-              "character_id": 1328,
-              "character_name": "Samus"
-            }
-          ]
-        },
-        {
-          "game_id": 39210289,
-          "order_num": 2,
-          "winner_id": 2366819,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": 2366819,
-              "selection_id": 58604195,
-              "character_id": 1311,
-              "character_name": "Mii Brawler"
-            },
-            {
-              "user_id": 2378333,
-              "selection_id": 58604196,
-              "character_id": 1328,
-              "character_name": "Samus"
-            }
-          ]
-        },
-        {
-          "game_id": 39210290,
-          "order_num": 3,
-          "winner_id": 2366819,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": 2366819,
-              "selection_id": 58604197,
-              "character_id": 1311,
-              "character_name": "Mii Brawler"
-            },
-            {
-              "user_id": 2378333,
-              "selection_id": 58604198,
-              "character_id": 1328,
-              "character_name": "Samus"
-            }
-          ]
-        },
-        {
-          "game_id": 39210291,
-          "order_num": 4,
-          "winner_id": 2366819,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": 2366819,
-              "selection_id": 58604199,
-              "character_id": 1311,
-              "character_name": "Mii Brawler"
-            },
-            {
-              "user_id": 2378333,
-              "selection_id": 58604200,
-              "character_id": 1328,
-              "character_name": "Samus"
-            }
-          ]
-        }
-      ]
-    },
-    {
       "winner_id": 1648405,
       "loser_id": 1343757,
       "winner_score": 3,
@@ -6187,6 +6084,109 @@
               "selection_id": 58605226,
               "character_id": 1275,
               "character_name": "Cloud"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "winner_id": 2366819,
+      "loser_id": 2378333,
+      "winner_score": 3,
+      "loser_score": 1,
+      "round_text": "Winners Round 1",
+      "round": 1,
+      "phase": "1",
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": [
+        {
+          "game_id": 39210288,
+          "order_num": 1,
+          "winner_id": 2378333,
+          "entrant1_score": 0,
+          "entrant2_score": null,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2366819,
+              "selection_id": 58604193,
+              "character_id": 1311,
+              "character_name": "Mii Brawler"
+            },
+            {
+              "user_id": 2378333,
+              "selection_id": 58604194,
+              "character_id": 1328,
+              "character_name": "Samus"
+            }
+          ]
+        },
+        {
+          "game_id": 39210289,
+          "order_num": 2,
+          "winner_id": 2366819,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2366819,
+              "selection_id": 58604195,
+              "character_id": 1311,
+              "character_name": "Mii Brawler"
+            },
+            {
+              "user_id": 2378333,
+              "selection_id": 58604196,
+              "character_id": 1328,
+              "character_name": "Samus"
+            }
+          ]
+        },
+        {
+          "game_id": 39210290,
+          "order_num": 3,
+          "winner_id": 2366819,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2366819,
+              "selection_id": 58604197,
+              "character_id": 1311,
+              "character_name": "Mii Brawler"
+            },
+            {
+              "user_id": 2378333,
+              "selection_id": 58604198,
+              "character_id": 1328,
+              "character_name": "Samus"
+            }
+          ]
+        },
+        {
+          "game_id": 39210291,
+          "order_num": 4,
+          "winner_id": 2366819,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2366819,
+              "selection_id": 58604199,
+              "character_id": 1311,
+              "character_name": "Mii Brawler"
+            },
+            {
+              "user_id": 2378333,
+              "selection_id": 58604200,
+              "character_id": 1328,
+              "character_name": "Samus"
             }
           ]
         }

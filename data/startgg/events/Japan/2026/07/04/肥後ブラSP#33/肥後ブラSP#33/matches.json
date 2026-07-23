@@ -16,6 +16,20 @@
     },
     {
       "winner_id": 2151549,
+      "loser_id": 2731258,
+      "winner_score": 3,
+      "loser_score": 2,
+      "round_text": "Grand Final Reset",
+      "round": 6,
+      "phase": "1",
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "winner_id": 2151549,
       "loser_id": 1912175,
       "winner_score": 2,
       "loser_score": 1,
@@ -813,20 +827,6 @@
       "details": []
     },
     {
-      "winner_id": 2209359,
-      "loser_id": 1859098,
-      "winner_score": 3,
-      "loser_score": 0,
-      "round_text": "Winners Round 2",
-      "round": 2,
-      "phase": "2",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": []
-    },
-    {
       "winner_id": 1858109,
       "loser_id": 2089359,
       "winner_score": 3,
@@ -834,6 +834,20 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "winner_id": 2209359,
+      "loser_id": 1859098,
+      "winner_score": 3,
+      "loser_score": 0,
+      "round_text": "Winners Round 2",
+      "round": 2,
+      "phase": "2",
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1765,20 +1779,6 @@
       "details": []
     },
     {
-      "winner_id": 3271554,
-      "loser_id": 2128713,
-      "winner_score": 0,
-      "loser_score": -1,
-      "round_text": "Winners Round 1",
-      "round": 1,
-      "phase": "1",
-      "wave": null,
-      "dq": true,
-      "cancel": false,
-      "state": 3,
-      "details": []
-    },
-    {
       "winner_id": 1625968,
       "loser_id": 2793395,
       "winner_score": 3,
@@ -1788,6 +1788,20 @@
       "phase": "1",
       "wave": null,
       "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "winner_id": 3271554,
+      "loser_id": 2128713,
+      "winner_score": 0,
+      "loser_score": -1,
+      "round_text": "Winners Round 1",
+      "round": 1,
+      "phase": "1",
+      "wave": null,
+      "dq": true,
       "cancel": false,
       "state": 3,
       "details": []
@@ -2182,20 +2196,6 @@
       "dq": false,
       "cancel": false,
       "state": 3,
-      "details": []
-    },
-    {
-      "winner_id": 2151549,
-      "loser_id": 2731258,
-      "winner_score": 0,
-      "loser_score": 0,
-      "round_text": "Grand Final Reset",
-      "round": 6,
-      "phase": "1",
-      "wave": null,
-      "dq": false,
-      "cancel": true,
-      "state": 1,
       "details": []
     }
   ],
