@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 """matches.json / standings.json の data が空配列になっているイベントを一覧表示する。
 
-2 つのカテゴリに分けて洗い出す:
-  - EMPTY_MATCHES  : matches.json の data が空配列（待機リスト枠なども含む）
+3 つのカテゴリに分けて洗い出す:
+  - BOTH_EMPTY     : matches.json も standings.json も data が空配列
+                      （待機リスト枠など、そもそもデータが存在しないもの）
+  - EMPTY_MATCHES  : matches.json の data だけが空配列（standings は非空）
   - EMPTY_STANDINGS: matches.json は非空なのに standings.json の data が空配列
                       （「試合はあったのに standings が欠けている」実データの欠損）
 
@@ -46,26 +48,28 @@ def load_data_list(path: Path):
     return obj.get("data")
 
 
-def find_empty_events(events_root: Path) -> tuple[list[tuple[Path, str]], list[tuple[Path, str]]]:
+def find_empty_events(
+    events_root: Path,
+) -> tuple[list[tuple[Path, str]], list[tuple[Path, str]], list[tuple[Path, str]]]:
+    both_empty = []
     empty_matches = []
     empty_standings = []
 
     for event_dir in iter_event_dirs(events_root):
         matches = load_data_list(event_dir / "matches.json")
-        if matches is None:
-            continue
-
-        if matches == []:
-            empty_matches.append((event_dir, get_event_id(event_dir)))
-            continue
-
         standings = load_data_list(event_dir / "standings.json")
-        if standings is None:
+        if matches is None or standings is None:
             continue
-        if standings == []:
-            empty_standings.append((event_dir, get_event_id(event_dir)))
 
-    return empty_matches, empty_standings
+        entry = (event_dir, get_event_id(event_dir))
+        if matches == [] and standings == []:
+            both_empty.append(entry)
+        elif matches == []:
+            empty_matches.append(entry)
+        elif standings == []:
+            empty_standings.append(entry)
+
+    return both_empty, empty_matches, empty_standings
 
 
 def print_section(title: str, results: list[tuple[Path, str]]) -> None:
@@ -85,9 +89,11 @@ def main() -> None:
     args = parser.parse_args()
 
     events_root = Path(args.events_root)
-    empty_matches, empty_standings = find_empty_events(events_root)
+    both_empty, empty_matches, empty_standings = find_empty_events(events_root)
 
-    print_section("EMPTY_MATCHES: matches.json の data が空", empty_matches)
+    print_section("BOTH_EMPTY: matches.json も standings.json も data が空", both_empty)
+    print()
+    print_section("EMPTY_MATCHES: matches.json の data だけが空（standings は非空）", empty_matches)
     print()
     print_section("EMPTY_STANDINGS: matches.json は非空なのに standings.json の data が空", empty_standings)
 
