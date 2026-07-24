@@ -514,6 +514,7 @@ def build_match_dedupe_key(match_data):
         match_data.get("round_text"),
         match_data.get("round"),
         match_data.get("phase"),
+        match_data.get("phase_order"),
         match_data.get("wave"),
         match_data.get("dq"),
         match_data.get("cancel"),
@@ -576,10 +577,14 @@ def write_matches(all_nodes, entrant2user, event_dir):
                 ] if games is not None else []
 
         phase = None
+        phase_order = None
         wave = None
         phase_group = node.get('phaseGroup')
         if phase_group is not None:
             phase = phase_group.get('displayIdentifier')
+            phase_info = phase_group.get('phase')
+            if phase_info is not None:
+                phase_order = phase_info.get('phaseOrder')
             wave_info = phase_group.get('wave')
             if wave_info is not None:
                 wave = wave_info.get('identifier')
@@ -591,6 +596,7 @@ def write_matches(all_nodes, entrant2user, event_dir):
                 "round_text": node.get('fullRoundText'),
                 "round": node.get('round'),
                 "phase": phase,
+                "phase_order": phase_order,
                 "wave": wave,
                 "dq": dq,
                 "cancel": cancel,

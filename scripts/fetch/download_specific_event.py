@@ -135,6 +135,7 @@ def build_match_dedupe_key(match_data):
         match_data.get("round_text"),
         match_data.get("round"),
         match_data.get("phase"),
+        match_data.get("phase_order"),
         match_data.get("wave"),
         match_data.get("dq"),
         match_data.get("cancel"),
@@ -230,9 +231,12 @@ def write_matches(all_nodes, entrant2user, event_dir):
 
         # フェーズとウェーブ情報の処理
         phase = None
+        phase_order = None
         wave = None
         if node.get('phaseGroup'):
             phase = node['phaseGroup'].get('displayIdentifier')
+            if node['phaseGroup'].get('phase'):
+                phase_order = node['phaseGroup']['phase'].get('phaseOrder')
             if node['phaseGroup'].get('wave'):
                 wave = node['phaseGroup']['wave'].get('identifier')
 
@@ -245,6 +249,7 @@ def write_matches(all_nodes, entrant2user, event_dir):
             "round_text": node.get('fullRoundText'),
             "round": node.get('round'),
             "phase": phase,
+            "phase_order": phase_order,
             "wave": wave,
             "dq": dq,
             "cancel": cancel,
