@@ -1261,6 +1261,65 @@
       ]
     },
     {
+      "winner_id": 1999357,
+      "loser_id": 2074178,
+      "winner_score": 2,
+      "loser_score": 0,
+      "round_text": "Round 2",
+      "round": 2,
+      "phase": "1",
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": [
+        {
+          "game_id": 39209898,
+          "order_num": 1,
+          "winner_id": 1999357,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2074178,
+              "selection_id": 58603571,
+              "character_id": 1271,
+              "character_name": "Bayonetta"
+            },
+            {
+              "user_id": 1999357,
+              "selection_id": 58603572,
+              "character_id": 1530,
+              "character_name": "Banjo-Kazooie"
+            }
+          ]
+        },
+        {
+          "game_id": 39209899,
+          "order_num": 2,
+          "winner_id": 1999357,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2074178,
+              "selection_id": 58603573,
+              "character_id": 1271,
+              "character_name": "Bayonetta"
+            },
+            {
+              "user_id": 1999357,
+              "selection_id": 58603574,
+              "character_id": 1332,
+              "character_name": "Sonic"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "winner_id": 2174701,
       "loser_id": 2027967,
       "winner_score": 2,
@@ -1336,65 +1395,6 @@
               "selection_id": 58604722,
               "character_id": 1315,
               "character_name": "Pac-Man"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "winner_id": 1999357,
-      "loser_id": 2074178,
-      "winner_score": 2,
-      "loser_score": 0,
-      "round_text": "Round 2",
-      "round": 2,
-      "phase": "1",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": [
-        {
-          "game_id": 39209898,
-          "order_num": 1,
-          "winner_id": 1999357,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": 2074178,
-              "selection_id": 58603571,
-              "character_id": 1271,
-              "character_name": "Bayonetta"
-            },
-            {
-              "user_id": 1999357,
-              "selection_id": 58603572,
-              "character_id": 1530,
-              "character_name": "Banjo-Kazooie"
-            }
-          ]
-        },
-        {
-          "game_id": 39209899,
-          "order_num": 2,
-          "winner_id": 1999357,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": 2074178,
-              "selection_id": 58603573,
-              "character_id": 1271,
-              "character_name": "Bayonetta"
-            },
-            {
-              "user_id": 1999357,
-              "selection_id": 58603574,
-              "character_id": 1332,
-              "character_name": "Sonic"
             }
           ]
         }

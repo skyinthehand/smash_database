@@ -5,6 +5,87 @@
       "loser_id": 2692474,
       "winner_score": 3,
       "loser_score": 0,
+      "round_text": "Grand Final",
+      "round": 6,
+      "phase": "1",
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": [
+        {
+          "game_id": 39259748,
+          "order_num": 1,
+          "winner_id": 998485,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 998485,
+              "selection_id": 58669797,
+              "character_id": 1299,
+              "character_name": "Lucas"
+            },
+            {
+              "user_id": 2692474,
+              "selection_id": 58669798,
+              "character_id": 1405,
+              "character_name": "Mr. Game & Watch"
+            }
+          ]
+        },
+        {
+          "game_id": 39259749,
+          "order_num": 2,
+          "winner_id": 998485,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 998485,
+              "selection_id": 58669799,
+              "character_id": 1299,
+              "character_name": "Lucas"
+            },
+            {
+              "user_id": 2692474,
+              "selection_id": 58669800,
+              "character_id": 1405,
+              "character_name": "Mr. Game & Watch"
+            }
+          ]
+        },
+        {
+          "game_id": 39259750,
+          "order_num": 3,
+          "winner_id": 998485,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 998485,
+              "selection_id": 58669801,
+              "character_id": 1299,
+              "character_name": "Lucas"
+            },
+            {
+              "user_id": 2692474,
+              "selection_id": 58669802,
+              "character_id": 1405,
+              "character_name": "Mr. Game & Watch"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "winner_id": 998485,
+      "loser_id": 2692474,
+      "winner_score": 3,
+      "loser_score": 0,
       "round_text": "Winners Final",
       "round": 5,
       "phase": "1",
@@ -1120,20 +1201,6 @@
       "dq": false,
       "cancel": false,
       "state": 3,
-      "details": []
-    },
-    {
-      "winner_id": 2692474,
-      "loser_id": 998485,
-      "winner_score": 0,
-      "loser_score": 0,
-      "round_text": "Grand Final",
-      "round": 6,
-      "phase": "1",
-      "wave": null,
-      "dq": false,
-      "cancel": true,
-      "state": 1,
       "details": []
     }
   ],
