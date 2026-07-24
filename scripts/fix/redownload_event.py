@@ -49,6 +49,14 @@ from scripts.utils import (  # noqa: E402
 )
 
 
+def count_data_entries(path: Path) -> int:
+    """JSON ファイルの {"data": [...]} の要素数を返す。存在しない/壊れている場合は 0。"""
+    try:
+        return len(read_json(str(path)).get("data", []))
+    except (OSError, ValueError):
+        return 0
+
+
 def find_existing_event_dir(events_root: Path, event_id: int) -> Path | None:
     """events_root 以下の attr.json を走査し、event_id が一致するディレクトリを返す。"""
     for attr_path in events_root.rglob("attr.json"):
@@ -135,6 +143,9 @@ def redownload_event(
             )
         )
 
+    before_matches = count_data_entries(event_dir / "matches.json") if existing_dir is not None else 0
+    before_standings = count_data_entries(event_dir / "standings.json") if existing_dir is not None else 0
+
     if existing_dir is not None:
         shutil.rmtree(existing_dir)
         print(f"[{event_id}] deleted {existing_dir}")
@@ -164,6 +175,30 @@ def redownload_event(
         str(event_dir),
     )
     print(f"[{event_id}] re-downloaded to {event_dir}")
+
+    after_matches = count_data_entries(event_dir / "matches.json")
+    after_standings = count_data_entries(event_dir / "standings.json")
+    if before_matches > 0 and after_matches == 0:
+        print(
+            f"\n{'!' * 70}\n"
+            f"[WARNING] event_id={event_id}: matches.json had {before_matches} entries before, "
+            f"but is now empty after redownload.\n"
+            f"This looks like data loss (e.g. the event_id no longer resolves to the same "
+            f"tournament on start.gg), not a genuinely empty result. Consider restoring the "
+            f"previous data with `git checkout -- \"{event_dir}\"` before committing.\n"
+            f"{'!' * 70}\n",
+            file=sys.stderr,
+        )
+    if before_standings > 0 and after_standings == 0:
+        print(
+            f"\n{'!' * 70}\n"
+            f"[WARNING] event_id={event_id}: standings.json had {before_standings} entries before, "
+            f"but is now empty after redownload.\n"
+            f"This looks like data loss, not a genuinely empty result. Consider restoring the "
+            f"previous data with `git checkout -- \"{event_dir}\"` before committing.\n"
+            f"{'!' * 70}\n",
+            file=sys.stderr,
+        )
     return True
 
 
