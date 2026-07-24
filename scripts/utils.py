@@ -3,6 +3,7 @@ import os
 import json
 import csv
 import sys
+import random
 import requests
 
 # 国コードをリージョンに変換する関数
@@ -69,14 +70,35 @@ def extend_jsonl(data, file_path, with_version):
             json.dump(d, f, ensure_ascii=False)
             f.write("\n")
 
-def read_jsonl(file_path):
-    output = []
+def _read_json_records(file_path):
     with open(file_path, "r", encoding="utf-8") as f:
-        for line in f:
-            line = line.strip()
-            if line:
-                output.append(json.loads(line))
-    return output
+        text = f.read()
+
+    if not text.strip():
+        return []
+
+    stripped = text.lstrip()
+    if stripped.startswith("["):
+        records = json.loads(text)
+        if not isinstance(records, list):
+            raise ValueError(f"{file_path} must contain a JSON array when JSON format is used.")
+        return records
+
+    records = []
+    decoder = json.JSONDecoder()
+    index = 0
+    length = len(text)
+    while index < length:
+        while index < length and text[index].isspace():
+            index += 1
+        if index >= length:
+            break
+        record, index = decoder.raw_decode(text, index)
+        records.append(record)
+    return records
+
+def read_jsonl(file_path):
+    return _read_json_records(file_path)
 
 def set_indent_num(num):
     global __indent_num
@@ -85,23 +107,30 @@ def set_indent_num(num):
 def read_users_jsonl(file_path):
     if not os.path.exists(file_path):
         return {}
-    with open(file_path, "r", encoding="utf-8") as f:
-        users = {}
-        for line in f:
-            user = json.loads(line)
-            del user["version"]
-            users[user["user_id"]] = user
+    users = {}
+    for user in _read_json_records(file_path):
+        if not isinstance(user, dict):
+            continue
+        if "user_id" not in user:
+            continue
+        user.pop("version", None)
+        if "startgg_discriminator" not in user:
+            user["startgg_discriminator"] = user.get("discriminator")
+        user.pop("discriminator", None)
+        users[user["user_id"]] = user
     return users
     
 def read_tournaments_jsonl(file_path):
     if not os.path.exists(file_path):
         return {}
-    with open(file_path, "r", encoding="utf-8") as f:
-        tournaments = {}
-        for line in f:
-            tournament = json.loads(line)
-            del tournament["version"]
-            tournaments[tournament["tournament_id"]] = tournament
+    tournaments = {}
+    for tournament in _read_json_records(file_path):
+        if not isinstance(tournament, dict):
+            continue
+        if "tournament_id" not in tournament:
+            continue
+        tournament.pop("version", None)
+        tournaments[tournament["tournament_id"]] = tournament
     return tournaments
 
 def read_csv(file_path):
@@ -151,9 +180,22 @@ class NoPhaseError(Exception):
     def __init__(self, message):
         super().__init__(message)
 
+class AllFallbacksExhaustedError(Exception):
+    pass
+
+class MaxPagesExceededError(Exception):
+    def __init__(self, total_pages, max_pages, per_page):
+        self.total_pages = total_pages
+        self.max_pages = max_pages
+        self.per_page = per_page
+        super().__init__(
+            f"total_pages={total_pages} exceeds max_pages={max_pages} at per_page={per_page}"
+        )
+
 __max_retries = 100
 __retry_delay = 5
 __page_delay = 2
+__request_timeout = 60
 __api_url = "https://api.start.gg/gql/alpha"
 __headers = {}
 
@@ -166,6 +208,10 @@ def set_retry_parameters(max_retries, retry_delay):
     __max_retries = max_retries
     __retry_delay = retry_delay
 
+def set_request_timeout(timeout):
+    global __request_timeout
+    __request_timeout = timeout
+
 def set_api_parameters(url, token):
     global __api_url, __headers
     __api_url = url
@@ -175,20 +221,44 @@ def set_api_parameters(url, token):
     }
 
 def fetch_data_with_retries(query, variables):
+    status_code = None
+    last_error_message = ""
     for attempt in range(__max_retries):
         try:
-            response = requests.post(__api_url, json={"query": query, "variables": json.dumps(variables)}, headers=__headers)
+            print(
+                f"Requesting start.gg data: page={variables.get('page', 1)} per_page={variables.get('perPage')} keys={sorted(variables.keys())}"
+            )
+            response = requests.post(
+                __api_url,
+                json={"query": query, "variables": json.dumps(variables)},
+                headers=__headers,
+                timeout=__request_timeout,
+            )
             response.raise_for_status()
             response_data = json.loads(response.text)
             return response_data
         except (requests.exceptions.RequestException, json.JSONDecodeError) as e:
             print(query)
             print(variables)
-            print(f"Request or JSON parsing failed: {e}. Retrying {attempt + 1}/{__max_retries}...")
-            time.sleep(__retry_delay)
-    raise Exception("Max retries exceeded")
+            last_error_message = str(e)
+            wait = __retry_delay
+            status_code = None
+            if isinstance(e, requests.exceptions.HTTPError):
+                status_code = e.response.status_code if e.response is not None else None
+                if status_code == 429:
+                    wait = max(__retry_delay * (attempt + 1), __retry_delay)
+                    last_error_message = "Too Many Requests"
+                    print(f"Received HTTP 429 Too Many Requests. Waiting {wait} seconds before retrying...", file=sys.stderr)
+                elif status_code is not None and status_code >= 500:
+                    wait = __retry_delay * (attempt + 1)
+            jitter = random.uniform(0, max(1.0, wait * 0.1))
+            wait += jitter
+            print(f"Request or JSON parsing failed: {e}. Retrying {attempt + 1}/{__max_retries} after {wait:.2f} seconds...")
+            time.sleep(wait)
+    status_message = f"Max retries exceeded for query. Last status code: {status_code}. Last error: {last_error_message}"
+    raise FetchError(status_message)
 
-def fetch_all_nodes(query, variables, keys, per_page=10):
+def fetch_all_nodes(query, variables, keys, per_page=10, max_pages=None):
     all_nodes = []
     variables = variables.copy()
     variables["page"] = 1
@@ -205,11 +275,23 @@ def fetch_all_nodes(query, variables, keys, per_page=10):
             raise FetchError(f"Error: 'nodes' key not found in response. Query: {query}\nVariables: {variables}\nKeys: {keys}\nResponse data: {response_data}\n in fetch_all_nodes")
         nodes = data["nodes"]
         all_nodes.extend(nodes)
-        if len(nodes) > 0:
+        page_info = data.get("pageInfo") if isinstance(data, dict) else None
+        total_pages = page_info.get("totalPages") if isinstance(page_info, dict) else None
+        current_page = variables["page"]
+
+        if total_pages is not None:
+            if max_pages is not None and current_page == 1 and total_pages > max_pages:
+                raise MaxPagesExceededError(total_pages, max_pages, per_page)
+            if current_page >= total_pages:
+                break
             variables["page"] += 1
             time.sleep(__page_delay)
-        else:
+            continue
+
+        if len(nodes) == 0:
             break
+        variables["page"] += 1
+        time.sleep(__page_delay)
     return all_nodes
 
 def analyze_event_setting(openai_client, event_prompt, tournament_name, event_name, event_id):

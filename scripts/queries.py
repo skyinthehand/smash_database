@@ -10,6 +10,9 @@ def get_event_sets_query():
           perPage: $perPage
           sortType: STANDARD
         ) {
+          pageInfo {
+            totalPages
+          }
           nodes {
             id
             state
@@ -74,10 +77,70 @@ def get_event_sets_query():
       }
     }"""
 
+def get_event_sets_light_query():
+    return """query EventSetsLight($eventId: ID!, $page: Int!, $perPage: Int!) {
+      event(id: $eventId) {
+        id
+        name
+        sets(
+          page: $page
+          perPage: $perPage
+          sortType: STANDARD
+        ) {
+          pageInfo {
+            totalPages
+          }
+          nodes {
+            id
+            state
+            winnerId
+            round
+            fullRoundText
+            phaseGroup {
+              id
+              displayIdentifier
+              wave {
+                id
+                identifier
+              }
+            }
+            slots {
+              id
+              entrant {
+                id
+              }
+              standing {
+                stats {
+                  score {
+                    label
+                    value
+                  }
+                }
+              }
+            }
+            games {
+              id
+              orderNum
+              winnerId
+              entrant1Score
+              entrant2Score
+              stage {
+                id
+                name
+              }
+            }
+          }
+        }
+      }
+    }"""
+
 def get_standings_query():
     return """query EventStandings($eventId: ID!, $page: Int!, $perPage: Int!) {
       event(id: $eventId) {
         standings(query: {page: $page, perPage: $perPage}) {
+          pageInfo {
+            totalPages
+          }
           nodes {
             placement
             entrant {
@@ -88,6 +151,7 @@ def get_standings_query():
                   id
                   discriminator
                   genderPronoun
+                  discriminator
                   authorizations(types: [TWITTER, DISCORD]) {
                     externalId
                     externalUsername
@@ -128,6 +192,7 @@ def get_seeds_query():
                   id
                   discriminator
                   genderPronoun
+                  discriminator
                   authorizations(types: [TWITTER, DISCORD]) {
                     externalId
                     externalUsername
@@ -146,6 +211,39 @@ def get_seeds_query():
       }
     }"""
 
+def get_user_query():
+    return """query UserDetails($userId: ID!) {
+      user(id: $userId) {
+        id
+        genderPronoun
+        discriminator
+        authorizations(types: [TWITTER, DISCORD]) {
+          externalId
+          externalUsername
+          type
+        }
+      }
+    }"""
+
+def get_user_player_query():
+    return """query UserAndPlayer($userId: ID!, $playerId: ID!) {
+      user(id: $userId) {
+        id
+        genderPronoun
+        discriminator
+        authorizations(types: [TWITTER, DISCORD]) {
+          externalId
+          externalUsername
+          type
+        }
+      }
+      player(id: $playerId) {
+        id
+        gamerTag
+        prefix
+      }
+    }"""
+
 def get_tournament_events_query():
     return """query TournamentEvents($tournamentId: ID!, $gameId: ID!) {
       tournament(id: $tournamentId) {
@@ -159,6 +257,25 @@ def get_tournament_events_query():
         }
       }
     }""" 
+
+def get_event_entrants_query():
+    return """query EventEntrants($eventId: ID!, $page: Int!, $perPage: Int!) {
+      event(id: $eventId) {
+        entrants(query: {page: $page, perPage: $perPage}) {
+          pageInfo {
+            totalPages
+          }
+          nodes {
+            id
+            participants {
+              user {
+                id
+              }
+            }
+          }
+        }
+      }
+    }"""
 
 def get_phase_groups_query():
     return """query PhaseGroupsByEvent($eventId: ID!, $page: Int!, $perPage: Int!) {
@@ -256,3 +373,53 @@ def get_event_details_by_tournament_query():
       }
     }
     """
+
+def get_tournament_by_id_query():
+    return """query TournamentById($tournamentId: ID!) {
+      tournament(id: $tournamentId) {
+        id
+        name
+        startAt
+        endAt
+        countryCode
+        city
+        lat
+        lng
+        mapsPlaceId
+        postalCode
+        venueAddress
+        venueName
+        timezone
+        url
+      }
+    }"""
+
+def get_event_details_by_id_query():
+    return """query EventById($eventId: ID!) {
+      event(id: $eventId) {
+        id
+        name
+        slug
+        startAt
+        numEntrants
+        isOnline
+        state
+        tournament {
+          id
+          name
+          slug
+          startAt
+          endAt
+          countryCode
+          city
+          lat
+          lng
+          venueName
+          timezone
+          postalCode
+          venueAddress
+          mapsPlaceId
+          url
+        }
+      }
+    }"""
