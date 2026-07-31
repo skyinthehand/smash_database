@@ -31,9 +31,9 @@ description: "Task list for 002-incremental-schema-backfill"
 
 **Purpose**: 新規ファイルの骨格を用意する
 
-- [ ] T001 `scripts/fetch/backfill_schema_version.py` に空の argparse スケルトン
+- [X] T001 `scripts/fetch/backfill_schema_version.py` に空の argparse スケルトン
       (`contracts/cli.md` の引数一覧を反映した `main()` のみ、ロジックは未実装)を作成する
-- [ ] T002 [P] `scripts/test/test_backfill_schema_version.py` を作成し、
+- [X] T002 [P] `scripts/test/test_backfill_schema_version.py` を作成し、
       `scripts.fetch.backfill_schema_version` を import するだけの空テストケースを用意する
 
 ---
@@ -44,19 +44,19 @@ description: "Task list for 002-incremental-schema-backfill"
 
 **⚠️ CRITICAL**: このフェーズが完了するまで、いずれのユーザーストーリーの実装も開始しない
 
-- [ ] T003 `scripts/utils.py` に `EVENT_DATA_VERSION = 1` 定数を、既存の `JSON_VERSION`
+- [X] T003 `scripts/utils.py` に `EVENT_DATA_VERSION = 1` 定数を、既存の `JSON_VERSION`
       の直後に追加する
-- [ ] T004 [P] `scripts/fetch/download.py` の `write_event_attributes()` を変更し、
+- [X] T004 [P] `scripts/fetch/download.py` の `write_event_attributes()` を変更し、
       呼び出しのたびに `scripts.utils.EVENT_DATA_VERSION` の値を `attr.json` の
       `event_data_version` フィールドとして常に書き込むようにする(新規引数は追加せず、
       関数内部で定数を直接参照する。これにより呼び出し元 `redownload_event.py` /
       `backfill_events.py` の呼び出しシグネチャは変更不要)
-- [ ] T005 [P] `scripts/fetch/download_specific_event.py` の `write_event_attributes()`
+- [X] T005 [P] `scripts/fetch/download_specific_event.py` の `write_event_attributes()`
       にも同様の変更を行う(T004 と同一内容、別実装への反映)
-- [ ] T006 [P] `docs/data_model.md` の `attr.json` サンプルに `event_data_version` を
+- [X] T006 [P] `docs/data_model.md` の `attr.json` サンプルに `event_data_version` を
       追記し、「注意点」セクションに既存の `version` フィールドとは別物である旨を追記する
       (data-model.md の「`docs/data_model.md` への追記内容」参照)
-- [ ] T007 [P] `scripts/test/test_validate_data.py` に、`event_data_version` を含まない
+- [X] T007 [P] `scripts/test/test_validate_data.py` に、`event_data_version` を含まない
       `attr.json` でも `validate_event_dir()` が必須フィールドエラーを出さないことを
       確認する回帰テストを追加する(`ATTR_REQUIRED_FIELDS` に追加していないことの保証)
 
@@ -75,38 +75,38 @@ description: "Task list for 002-incremental-schema-backfill"
 
 ### Tests for User Story 1
 
-- [ ] T008 [P] [US1] `scripts/test/test_backfill_schema_version.py` に、
+- [X] T008 [P] [US1] `scripts/test/test_backfill_schema_version.py` に、
       `event_data_version` が無い/現在の `EVENT_DATA_VERSION` より低いイベント
       ディレクトリが対象として検出されるテストを追加する
-- [ ] T009 [P] [US1] 同ファイルに、カーソルファイルを使って2回実行した際、
+- [X] T009 [P] [US1] 同ファイルに、カーソルファイルを使って2回実行した際、
       1回目で処理した分を2回目でスキップし、続きから処理されることを確認するテストを
       追加する
-- [ ] T010 [P] [US1] 同ファイルに、`event_data_version` が既に最新のイベントは
+- [X] T010 [P] [US1] 同ファイルに、`event_data_version` が既に最新のイベントは
       再取得関数(モック)を一切呼び出さずスキップされることを確認するテストを追加する
-- [ ] T011 [P] [US1] 同ファイルに、対象が1件もない状態で実行すると、
+- [X] T011 [P] [US1] 同ファイルに、対象が1件もない状態で実行すると、
       再取得関数を呼ばずに終了コード0で正常終了する(FR-010)ことを確認するテストと、
       全ディレクトリを一周した場合にカーソルが先頭に戻ることを確認するテストを追加する
 
 ### Implementation for User Story 1
 
-- [ ] T012 [US1] `scripts/fetch/backfill_schema_version.py` に、イベントディレクトリの
+- [X] T012 [US1] `scripts/fetch/backfill_schema_version.py` に、イベントディレクトリの
       安定ソート順列挙(`pathlib.Path.rglob("attr.json")` の結果をパス文字列でソート)と、
       カーソルファイル(`--cursor_path`)の読み込み/開始位置決定ロジックを実装する
-- [ ] T013 [US1] 同ファイルに、各ディレクトリの `attr.json` から `event_data_version`
+- [X] T013 [US1] 同ファイルに、各ディレクトリの `attr.json` から `event_data_version`
       を読み(無ければ0扱い)、目標バージョン未満のものだけを処理対象とし、
       `--max_events` に達するか一周するまでスキャンを続けるループを実装する
       (T012 に依存)
-- [ ] T014 [US1] 同ファイルに、対象イベントの実際の再取得処理
+- [X] T014 [US1] 同ファイルに、対象イベントの実際の再取得処理
       (`scripts.fetch.download` の `download_standings` / `download_seeds` /
       `download_all_set` / `extend_user_info` / `write_event_attributes` を、
       `scripts/fix/redownload_event.py` と同様の呼び出しパターンで使用)を実装する
       (T013 に依存)
-- [ ] T015 [US1] 同ファイルに、`contracts/cli.md` に定義された引数
+- [X] T015 [US1] 同ファイルに、`contracts/cli.md` に定義された引数
       (`--token`, `--events_root`, `--users_file_path`, `--cursor_path`, `--max_events`,
       `--max_retries`, `--retry_delay`, `--indent_num`, `--url`)を処理する `main()` と、
       終了時のカーソル書き込み、および要約行
       (`Done. processed=X skipped=Y wrapped_around=Z`)の出力を実装する(T014 に依存)
-- [ ] T016 [US1] `.github/workflows/schema_backfill.yml` を新規作成し、
+- [X] T016 [US1] `.github/workflows/schema_backfill.yml` を新規作成し、
       `schedule`(日次 cron、初期値)と `workflow_dispatch` のトリガー、
       checkout / setup-python / install の各ステップ、および
       `scripts/fetch/backfill_schema_version.py` を実行するステップを、
@@ -126,7 +126,7 @@ description: "Task list for 002-incremental-schema-backfill"
 
 ### Tests for User Story 2
 
-- [ ] T017 [P] [US2] `scripts/test/test_backfill_schema_version.py` に、
+- [X] T017 [P] [US2] `scripts/test/test_backfill_schema_version.py` に、
       `scripts.utils.EVENT_DATA_VERSION` を monkeypatch で +1 し、
       それまで「最新」だったイベント(旧バージョンの `event_data_version` を持つ)が
       再び対象として検出されることを確認するテストを追加する(スキャン・カーソル
@@ -134,10 +134,10 @@ description: "Task list for 002-incremental-schema-backfill"
 
 ### Implementation for User Story 2
 
-- [ ] T018 [US2] `scripts/utils.py` の `EVENT_DATA_VERSION` 定義箇所に、
+- [X] T018 [US2] `scripts/utils.py` の `EVENT_DATA_VERSION` 定義箇所に、
       「新フィールドを追加する際はこの値を1つ上げ、対応する取得・保存ロジックの変更と
       `docs/data_model.md` の更新を同一PRに含める」という運用ルールをコメントとして
-      記載する(T003 に依存)
+      記載する(T003 に依存)(T003 実装時に併せて記載済み)
 
 **Checkpoint**: 新フィールド追加が「定数を1つ上げる + 取得ロジック実装」だけで
 バックフィル対象に組み込まれることが T017 で保証される。
@@ -154,19 +154,20 @@ description: "Task list for 002-incremental-schema-backfill"
 
 ### Implementation for User Story 3
 
-- [ ] T019 [US3] `.github/workflows/schema_backfill.yml` に
+- [X] T019 [US3] `.github/workflows/schema_backfill.yml` に
       `concurrency: { group: chore-update-branch, cancel-in-progress: true }` を追加する
-      (T016 に依存)
-- [ ] T020 [US3] 同ワークフローに、`chore-update` ブランチの準備・コミット・
+      (T016 に依存)(T016 実装時に併せて記載済み)
+- [X] T020 [US3] 同ワークフローに、`chore-update` ブランチの準備・コミット・
       push(失敗時は `git pull --rebase` してリトライ)の各ステップを、
       `update_tournament.yml` と同一パターンで追加する(`main` へ直接pushしない)
-      (T019 に依存)
-- [ ] T021 [US3] 同ワークフローに、「`chore-update` → `main` のオープンPRが無ければ
+      (T019 に依存)(T016 実装時に併せて記載済み)
+- [X] T021 [US3] 同ワークフローに、「`chore-update` → `main` のオープンPRが無ければ
       作成する」ステップを `update_tournament.yml` から流用して追加する(T020 に依存)
+      (T016 実装時に併せて記載済み)
 
 ### Tests for User Story 3
 
-- [ ] T022 [P] [US3] `scripts/test/test_backfill_schema_version.py` に、
+- [X] T022 [P] [US3] `scripts/test/test_backfill_schema_version.py` に、
       `scripts/fetch/backfill_schema_version.py` が `scripts.utils.fetch_data_with_retries`
       / `fetch_all_nodes` 経由でのみAPIアクセスし、`requests`/`urllib` を直接importして
       いないことを確認する静的チェックのテストを追加する
@@ -178,12 +179,13 @@ description: "Task list for 002-incremental-schema-backfill"
 
 ## Phase 6: Polish & Cross-Cutting Concerns
 
-- [ ] T023 [P] `python -m unittest scripts.test.test_backfill_schema_version` と
+- [X] T023 [P] `python -m unittest scripts.test.test_backfill_schema_version` と
       `python -m unittest scripts.test.test_validate_data` を実行し、
-      すべてパスすることを確認する
+      すべてパスすることを確認する(既存の全テストスイート26件も含めて確認済み、
+      すべてOK)
 - [ ] T024 `quickstart.md` の手順2(一時ディレクトリでの少数実行)と手順3
       (`gh workflow run schema_backfill.yml` による手動実行)を実際に行い、結果を確認する
-- [ ] T025 [P] `docs/githubAction.md` に `schema_backfill.yml` の説明を追記し、
+- [X] T025 [P] `docs/githubAction.md` に `schema_backfill.yml` の説明を追記し、
       既存の日次ワークフロー一覧に追加する
 
 ---

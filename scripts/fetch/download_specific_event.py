@@ -23,6 +23,7 @@ from scripts.utils import (
     fetch_data_with_retries, fetch_all_nodes,
     set_retry_parameters, set_api_parameters,
     FetchError, NoPhaseError,
+    EVENT_DATA_VERSION,
 )
 
 REQUIRED_EVENT_FILES = ("attr.json", "matches.json", "standings.json", "seeds.json")
@@ -287,6 +288,7 @@ def write_event_attributes(num_entrants, event_id, event_name, tournament_name, 
         "status": "completed", # イベントが終了していることを前提とする
         "timestamp": timestamp, # イベント開始タイムスタンプ
         "fetched_at": int(datetime.now().timestamp()), # データ取得日時
+        "event_data_version": EVENT_DATA_VERSION,
     }
     write_json(json_data, f"{event_dir}/attr.json", with_version=True)
     print(f"Successfully wrote attr.json for event {event_id} to {event_dir}")

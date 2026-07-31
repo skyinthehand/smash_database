@@ -64,7 +64,8 @@
     "event_type": "main",
     "game_rule": "1on1"
   },
-  "status": "completed"
+  "status": "completed",
+  "event_data_version": 1
 }
 ```
 
@@ -139,3 +140,7 @@
 ## 注意点
 - doubles/crew などは user_id が取得できず `null` になる場合がある。
 - `labels` は OpenAI による推定であり、正確性は保証されない。
+- `event_data_version` は「イベントごとに取得されるべきデータの内容(スキーマ世代)」を
+  表す整数値であり、ファイル形式全体を表す `version` とは別物(`scripts/utils.py` の
+  `EVENT_DATA_VERSION` 定数が現在の目標値)。本機能導入前に取得された既存イベントには
+  存在せず、その場合は `0` 相当(最も古い)として扱う。
