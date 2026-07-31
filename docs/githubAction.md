@@ -59,7 +59,7 @@
 ### `schema_backfill.yml`
 - 定義ファイル: `.github/workflows/schema_backfill.yml`
 - 実行タイミング:
-  - `schedule`: 毎日 `18:30 UTC` = 毎日 `03:30 JST`
+  - `schedule`: 毎時30分(`cron: "30 * * * *"`)
   - `workflow_dispatch`(`max_events` 入力で1回あたりの処理件数を上書き可能)
 - 実行内容:
   - `scripts/fetch/backfill_schema_version.py` を実行し、`attr.json` の
@@ -90,7 +90,7 @@
   - `workflow_dispatch` の場合: 実行した時点ですぐ起動し、同じ補正処理と再生成をその場で実行する。
 
 - `schema_backfill.yml`
-  - `schedule` の場合: 毎日 `03:30 JST` に起動し、`schema_backfill_cursor.txt` を使って
+  - `schedule` の場合: 毎時30分に起動し、`schema_backfill_cursor.txt` を使って
     `event_data_version` が古いイベントのバックフィルを継続する。
   - `workflow_dispatch` の場合: 実行した時点ですぐ起動し、同じ処理をその場で実行する
     (`max_events` 入力で1回あたりの処理件数を上書き可能)。

@@ -80,10 +80,9 @@
 ## 6. スケジュールと同時実行制御
 
 - **Decision**: 新規ワークフロー `.github/workflows/schema_backfill.yml` を追加し、
-  `schedule: cron: "30 18 * * *"`(`update_tournament.yml`/`update_user.yml` と
-  ずらした時刻で日次実行、初期値)+ `workflow_dispatch` を trigger とする。
+  `schedule: cron: "30 * * * *"`(毎時30分実行)+ `workflow_dispatch` を trigger とする。
   `concurrency.group: chore-update-branch` を共有し、`chore-update` ブランチへの
-  同時書き込みを防ぐ。
+  同時書き込みを防ぐ(実装時にユーザー指示により日次から毎時実行へ変更)。
 - **Rationale**: 既存の日次更新ワークフロー群と同じ concurrency グループを
   共有することが FR-008 の直接的な実装であり、`cancel-in-progress: true` を
   引き継ぐことで、日次更新が優先実行中であれば本ワークフローは待機/
