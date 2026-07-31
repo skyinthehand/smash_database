@@ -1,0 +1,848 @@
+{
+  "data": [
+    {
+      "winner_id": 2284679,
+      "loser_id": 160362,
+      "winner_score": 3,
+      "loser_score": 1,
+      "round_text": "Grand Final",
+      "round": 5,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "winner_id": 2284679,
+      "loser_id": 160362,
+      "winner_score": 2,
+      "loser_score": 0,
+      "round_text": "Grand Final Reset",
+      "round": 5,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "winner_id": 160362,
+      "loser_id": 2284679,
+      "winner_score": 3,
+      "loser_score": 1,
+      "round_text": "Winners Final",
+      "round": 4,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": [
+        {
+          "game_id": 39791115,
+          "order_num": 1,
+          "winner_id": 160362,
+          "entrant1_score": 0,
+          "entrant2_score": null,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 160362,
+              "selection_id": 59521101,
+              "character_id": 1328,
+              "character_name": "Samus"
+            },
+            {
+              "user_id": 2284679,
+              "selection_id": 59521102,
+              "character_id": 1319,
+              "character_name": "Pikachu"
+            }
+          ]
+        },
+        {
+          "game_id": 39791116,
+          "order_num": 2,
+          "winner_id": 2284679,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 160362,
+              "selection_id": 59521103,
+              "character_id": 1328,
+              "character_name": "Samus"
+            },
+            {
+              "user_id": 2284679,
+              "selection_id": 59521104,
+              "character_id": 1319,
+              "character_name": "Pikachu"
+            }
+          ]
+        },
+        {
+          "game_id": 39791117,
+          "order_num": 3,
+          "winner_id": 160362,
+          "entrant1_score": 0,
+          "entrant2_score": null,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 160362,
+              "selection_id": 59521105,
+              "character_id": 1328,
+              "character_name": "Samus"
+            },
+            {
+              "user_id": 2284679,
+              "selection_id": 59521106,
+              "character_id": 1319,
+              "character_name": "Pikachu"
+            }
+          ]
+        },
+        {
+          "game_id": 39791118,
+          "order_num": 4,
+          "winner_id": 160362,
+          "entrant1_score": 0,
+          "entrant2_score": null,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 160362,
+              "selection_id": 59521107,
+              "character_id": 1328,
+              "character_name": "Samus"
+            },
+            {
+              "user_id": 2284679,
+              "selection_id": 59521108,
+              "character_id": 1319,
+              "character_name": "Pikachu"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "winner_id": 2284679,
+      "loser_id": 1637955,
+      "winner_score": 3,
+      "loser_score": 1,
+      "round_text": "Losers Final",
+      "round": -8,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": [
+        {
+          "game_id": 39791123,
+          "order_num": 1,
+          "winner_id": 1637955,
+          "entrant1_score": 0,
+          "entrant2_score": null,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2284679,
+              "selection_id": 59521117,
+              "character_id": 1319,
+              "character_name": "Pikachu"
+            },
+            {
+              "user_id": 1637955,
+              "selection_id": 59521118,
+              "character_id": 1302,
+              "character_name": "Mario"
+            }
+          ]
+        },
+        {
+          "game_id": 39791124,
+          "order_num": 2,
+          "winner_id": 2284679,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2284679,
+              "selection_id": 59521119,
+              "character_id": 1319,
+              "character_name": "Pikachu"
+            },
+            {
+              "user_id": 1637955,
+              "selection_id": 59521120,
+              "character_id": 1302,
+              "character_name": "Mario"
+            }
+          ]
+        },
+        {
+          "game_id": 39791125,
+          "order_num": 3,
+          "winner_id": 2284679,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2284679,
+              "selection_id": 59521121,
+              "character_id": 1319,
+              "character_name": "Pikachu"
+            },
+            {
+              "user_id": 1637955,
+              "selection_id": 59521122,
+              "character_id": 1302,
+              "character_name": "Mario"
+            }
+          ]
+        },
+        {
+          "game_id": 39791126,
+          "order_num": 4,
+          "winner_id": 2284679,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2284679,
+              "selection_id": 59521123,
+              "character_id": 1319,
+              "character_name": "Pikachu"
+            },
+            {
+              "user_id": 1637955,
+              "selection_id": 59521124,
+              "character_id": 1302,
+              "character_name": "Mario"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "winner_id": 1637955,
+      "loser_id": 1810996,
+      "winner_score": 3,
+      "loser_score": 1,
+      "round_text": "Losers Semi-Final",
+      "round": -7,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "winner_id": 2284679,
+      "loser_id": 927362,
+      "winner_score": 3,
+      "loser_score": 2,
+      "round_text": "Winners Semi-Final",
+      "round": 3,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": [
+        {
+          "game_id": 39791106,
+          "order_num": 1,
+          "winner_id": 2284679,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2284679,
+              "selection_id": 59521083,
+              "character_id": 1319,
+              "character_name": "Pikachu"
+            },
+            {
+              "user_id": 927362,
+              "selection_id": 59521084,
+              "character_id": 1331,
+              "character_name": "Snake"
+            }
+          ]
+        },
+        {
+          "game_id": 39791107,
+          "order_num": 2,
+          "winner_id": 2284679,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2284679,
+              "selection_id": 59521085,
+              "character_id": 1319,
+              "character_name": "Pikachu"
+            },
+            {
+              "user_id": 927362,
+              "selection_id": 59521086,
+              "character_id": 1331,
+              "character_name": "Snake"
+            }
+          ]
+        },
+        {
+          "game_id": 39791108,
+          "order_num": 3,
+          "winner_id": 927362,
+          "entrant1_score": 0,
+          "entrant2_score": null,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2284679,
+              "selection_id": 59521087,
+              "character_id": 1319,
+              "character_name": "Pikachu"
+            },
+            {
+              "user_id": 927362,
+              "selection_id": 59521088,
+              "character_id": 1331,
+              "character_name": "Snake"
+            }
+          ]
+        },
+        {
+          "game_id": 39791109,
+          "order_num": 4,
+          "winner_id": 927362,
+          "entrant1_score": 0,
+          "entrant2_score": null,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2284679,
+              "selection_id": 59521089,
+              "character_id": 1319,
+              "character_name": "Pikachu"
+            },
+            {
+              "user_id": 927362,
+              "selection_id": 59521090,
+              "character_id": 1331,
+              "character_name": "Snake"
+            }
+          ]
+        },
+        {
+          "game_id": 39791110,
+          "order_num": 5,
+          "winner_id": 2284679,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2284679,
+              "selection_id": 59521091,
+              "character_id": 1319,
+              "character_name": "Pikachu"
+            },
+            {
+              "user_id": 927362,
+              "selection_id": 59521092,
+              "character_id": 1331,
+              "character_name": "Snake"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "winner_id": 160362,
+      "loser_id": 2719089,
+      "winner_score": 3,
+      "loser_score": 1,
+      "round_text": "Winners Semi-Final",
+      "round": 3,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": [
+        {
+          "game_id": 39791111,
+          "order_num": 1,
+          "winner_id": 160362,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 160362,
+              "selection_id": 59521093,
+              "character_id": 1341,
+              "character_name": "Zero Suit Samus"
+            },
+            {
+              "user_id": 2719089,
+              "selection_id": 59521094,
+              "character_id": 1302,
+              "character_name": "Mario"
+            }
+          ]
+        },
+        {
+          "game_id": 39791112,
+          "order_num": 2,
+          "winner_id": 2719089,
+          "entrant1_score": 0,
+          "entrant2_score": null,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 160362,
+              "selection_id": 59521095,
+              "character_id": 1341,
+              "character_name": "Zero Suit Samus"
+            },
+            {
+              "user_id": 2719089,
+              "selection_id": 59521096,
+              "character_id": 1302,
+              "character_name": "Mario"
+            }
+          ]
+        },
+        {
+          "game_id": 39791113,
+          "order_num": 3,
+          "winner_id": 160362,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 160362,
+              "selection_id": 59521097,
+              "character_id": 1328,
+              "character_name": "Samus"
+            },
+            {
+              "user_id": 2719089,
+              "selection_id": 59521098,
+              "character_id": 1302,
+              "character_name": "Mario"
+            }
+          ]
+        },
+        {
+          "game_id": 39791114,
+          "order_num": 4,
+          "winner_id": 160362,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 160362,
+              "selection_id": 59521099,
+              "character_id": 1328,
+              "character_name": "Samus"
+            },
+            {
+              "user_id": 2719089,
+              "selection_id": 59521100,
+              "character_id": 1302,
+              "character_name": "Mario"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "winner_id": 1637955,
+      "loser_id": 927362,
+      "winner_score": 3,
+      "loser_score": 1,
+      "round_text": "Losers Quarter-Final",
+      "round": -6,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "winner_id": 1810996,
+      "loser_id": 2719089,
+      "winner_score": 3,
+      "loser_score": 2,
+      "round_text": "Losers Quarter-Final",
+      "round": -6,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "winner_id": 1810996,
+      "loser_id": 2031786,
+      "winner_score": 3,
+      "loser_score": 2,
+      "round_text": "Losers Round 3",
+      "round": -5,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "winner_id": 1637955,
+      "loser_id": 838663,
+      "winner_score": 3,
+      "loser_score": 2,
+      "round_text": "Losers Round 3",
+      "round": -5,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "winner_id": 2284679,
+      "loser_id": 2031786,
+      "winner_score": 3,
+      "loser_score": 2,
+      "round_text": "Winners Quarter-Final",
+      "round": 2,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "winner_id": 927362,
+      "loser_id": 1810996,
+      "winner_score": 3,
+      "loser_score": 0,
+      "round_text": "Winners Quarter-Final",
+      "round": 2,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "winner_id": 160362,
+      "loser_id": 838663,
+      "winner_score": 3,
+      "loser_score": 0,
+      "round_text": "Winners Quarter-Final",
+      "round": 2,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "winner_id": 2719089,
+      "loser_id": 1637955,
+      "winner_score": 3,
+      "loser_score": 0,
+      "round_text": "Winners Quarter-Final",
+      "round": 2,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "winner_id": 1637955,
+      "loser_id": 1840167,
+      "winner_score": 3,
+      "loser_score": 2,
+      "round_text": "Losers Round 2",
+      "round": -4,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "winner_id": 838663,
+      "loser_id": 2021590,
+      "winner_score": 3,
+      "loser_score": 1,
+      "round_text": "Losers Round 2",
+      "round": -4,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "winner_id": 1810996,
+      "loser_id": 3163717,
+      "winner_score": 3,
+      "loser_score": 2,
+      "round_text": "Losers Round 2",
+      "round": -4,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "winner_id": 2031786,
+      "loser_id": 936904,
+      "winner_score": 3,
+      "loser_score": 1,
+      "round_text": "Losers Round 2",
+      "round": -4,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "winner_id": 1840167,
+      "loser_id": 2969795,
+      "winner_score": 3,
+      "loser_score": 0,
+      "round_text": "Losers Round 1",
+      "round": -3,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "winner_id": 2021590,
+      "loser_id": 2756779,
+      "winner_score": 3,
+      "loser_score": 1,
+      "round_text": "Losers Round 1",
+      "round": -3,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "winner_id": 3163717,
+      "loser_id": 2019783,
+      "winner_score": 3,
+      "loser_score": 0,
+      "round_text": "Losers Round 1",
+      "round": -3,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "winner_id": 936904,
+      "loser_id": 3225119,
+      "winner_score": 3,
+      "loser_score": 0,
+      "round_text": "Losers Round 1",
+      "round": -3,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "winner_id": 2284679,
+      "loser_id": 2969795,
+      "winner_score": 3,
+      "loser_score": 0,
+      "round_text": "Winners Round 1",
+      "round": 1,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "winner_id": 2031786,
+      "loser_id": 1840167,
+      "winner_score": 3,
+      "loser_score": 2,
+      "round_text": "Winners Round 1",
+      "round": 1,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "winner_id": 1810996,
+      "loser_id": 2756779,
+      "winner_score": 3,
+      "loser_score": 1,
+      "round_text": "Winners Round 1",
+      "round": 1,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "winner_id": 927362,
+      "loser_id": 2021590,
+      "winner_score": 3,
+      "loser_score": 0,
+      "round_text": "Winners Round 1",
+      "round": 1,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "winner_id": 160362,
+      "loser_id": 2019783,
+      "winner_score": 3,
+      "loser_score": 0,
+      "round_text": "Winners Round 1",
+      "round": 1,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "winner_id": 838663,
+      "loser_id": 3163717,
+      "winner_score": 3,
+      "loser_score": 0,
+      "round_text": "Winners Round 1",
+      "round": 1,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "winner_id": 1637955,
+      "loser_id": 3225119,
+      "winner_score": 3,
+      "loser_score": 1,
+      "round_text": "Winners Round 1",
+      "round": 1,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "winner_id": 2719089,
+      "loser_id": 936904,
+      "winner_score": 0,
+      "loser_score": -1,
+      "round_text": "Winners Round 1",
+      "round": 1,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": true,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    }
+  ],
+  "version": "1.0"
+}
