@@ -65,7 +65,8 @@
     "game_rule": "1on1"
   },
   "status": "completed",
-  "event_data_version": 1
+  "event_data_version": 2,
+  "guest_entrant_count": 0
 }
 ```
 
@@ -144,3 +145,8 @@
   表す整数値であり、ファイル形式全体を表す `version` とは別物(`scripts/utils.py` の
   `EVENT_DATA_VERSION` 定数が現在の目標値)。本機能導入前に取得された既存イベントには
   存在せず、その場合は `0` 相当(最も古い)として扱う。
+- `guest_entrant_count` は、start.gg アカウントにリンクされていない(ゲスト)参加者数。
+  `download_standings()` が `standings` クエリから取得した参加者一覧のうち、
+  `participants[0].user` が `null` だったエントラント数をそのまま数えており、
+  追加のAPI呼び出しは発生しない。本機能導入前に取得された既存イベントには
+  存在しない(`null`)。

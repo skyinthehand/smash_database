@@ -341,7 +341,8 @@ def download_all_tournaments(
                             _record_skip(skipped_events, tournament_id, tournament_name, event_id, event_name, e)
                             continue
                         labels = {}
-                        write_event_attributes(num_entrants, event_id, event_name, tournament_name, timestamp, place, url, labels, is_online, event_dir)
+                        guest_entrant_count = count_guest_entrants(user_data)
+                        write_event_attributes(num_entrants, event_id, event_name, tournament_name, timestamp, place, url, labels, is_online, event_dir, guest_entrant_count=guest_entrant_count)
                     print(
                         f"Tournament {tournament_id}: finished event {event_id} ({event_name})."
                     )
@@ -612,7 +613,13 @@ def write_matches(all_nodes, entrant2user, event_dir):
         
     write_json(json_data, f"{event_dir}/matches.json", with_version=True)
 
-def write_event_attributes(num_entrants, event_id, event_name, tournament_name, timestamp, place, url, labels, is_online, event_dir):
+def count_guest_entrants(user_data):
+    """user_data (download_standings が返す user 辞書のリスト) のうち、
+    start.gg アカウントにリンクされていない(user が None の)エントラント数を返す。"""
+    return sum(1 for user in user_data if user is None)
+
+
+def write_event_attributes(num_entrants, event_id, event_name, tournament_name, timestamp, place, url, labels, is_online, event_dir, guest_entrant_count=None):
     json_data = {
         "event_id": event_id,
         "tournament_name": tournament_name,
@@ -627,6 +634,7 @@ def write_event_attributes(num_entrants, event_id, event_name, tournament_name, 
         "timestamp": timestamp,
         "fetched_at": int(datetime.now().timestamp()),
         "event_data_version": EVENT_DATA_VERSION,
+        "guest_entrant_count": guest_entrant_count,
     }
     write_json(json_data, f"{event_dir}/attr.json", with_version=True)
 
@@ -903,7 +911,8 @@ def download_by_ids(
                 continue
 
             labels = {}
-            write_event_attributes(num_entrants, event_id, event_name, tournament_name, timestamp, place, url, labels, is_online, event_dir)
+            guest_entrant_count = count_guest_entrants(user_data)
+            write_event_attributes(num_entrants, event_id, event_name, tournament_name, timestamp, place, url, labels, is_online, event_dir, guest_entrant_count=guest_entrant_count)
             print(f"Tournament {tournament_id}: finished event {event_id} ({event_name}).")
 
             existing_events = tournaments[tournament_id]["events"]

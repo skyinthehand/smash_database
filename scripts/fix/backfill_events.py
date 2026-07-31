@@ -14,6 +14,7 @@ if ROOT_DIR not in sys.path:
     sys.path.insert(0, ROOT_DIR)
 
 from scripts.fetch.download import (
+    count_guest_entrants,
     download_all_set,
     download_seeds,
     download_standings,
@@ -196,6 +197,7 @@ def main() -> int:
             labels,
             event.get("isOnline"),
             event_dir,
+            guest_entrant_count=count_guest_entrants(user_data),
         )
 
         tournament_id = tournament.get("id")

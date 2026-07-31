@@ -272,7 +272,7 @@ def write_matches(all_nodes, entrant2user, event_dir):
         print(f"No processable matches found after filtering. Skipped {skipped_count} incomplete sets.")
 
 
-def write_event_attributes(num_entrants, event_id, event_name, tournament_name, timestamp, place, url, labels, is_online, event_dir):
+def write_event_attributes(num_entrants, event_id, event_name, tournament_name, timestamp, place, url, labels, is_online, event_dir, guest_entrant_count=None):
     """イベントの属性情報をattr.jsonとして保存する"""
     os.makedirs(event_dir, exist_ok=True) # ディレクトリが存在しない場合は作成
     json_data = {
@@ -289,6 +289,7 @@ def write_event_attributes(num_entrants, event_id, event_name, tournament_name, 
         "timestamp": timestamp, # イベント開始タイムスタンプ
         "fetched_at": int(datetime.now().timestamp()), # データ取得日時
         "event_data_version": EVENT_DATA_VERSION,
+        "guest_entrant_count": guest_entrant_count,
     }
     write_json(json_data, f"{event_dir}/attr.json", with_version=True)
     print(f"Successfully wrote attr.json for event {event_id} to {event_dir}")
@@ -314,37 +315,43 @@ def download_standings(event_id, event_dir):
         )
         if not standings_nodes:
              print(f"No standings data found for event {event_id}.")
-             return [], [], {} # データがない場合は空を返す
+             return [], [], {}, 0 # データがない場合は空を返す
     except FetchError as e:
         print(f"Error fetching standings for event {event_id}: {e}")
-        return [], [], {} # エラー時も空を返す
+        return [], [], {}, 0 # エラー時も空を返す
 
     placements_list = []
     processed_count = 0
     skipped_count = 0
+    guest_count = 0  # start.gg アカウントにリンクされていない(user が無い)エントラント数
 
     for node in standings_nodes:
-        # 必要な情報が欠けている場合はスキップ
+        # 構造的に不正・不完全なノードはスキップ(ゲスト起因とは別に数える)
         if (node is None or node.get('entrant') is None or
             node['entrant'].get('participants') is None or
             not node['entrant']['participants'] or # リストが空でないか
-            node['entrant']['participants'][0].get('user') is None or
-            node['entrant']['participants'][0].get('player') is None or
             node.get('placement') is None or node['entrant'].get('id') is None):
             # print(f"Skipping standing entry due to missing data: {node}")
             skipped_count += 1
             continue
 
-        user = node['entrant']['participants'][0]['user']
-        player = node['entrant']['participants'][0]['player']
+        participant = node['entrant']['participants'][0]
+        user = participant.get('user')
+        player = participant.get('player')
+
+        if user is None or user.get('id') is None:
+            # start.gg アカウントにリンクされていないゲスト参加者
+            guest_count += 1
+            skipped_count += 1
+            continue
+
+        if player is None:
+            skipped_count += 1
+            continue
+
         entrant_id = node['entrant']['id']
         user_id = user.get('id')
         placement = node['placement']
-
-        if user_id is None:
-            # print(f"Skipping standing entry due to missing user ID: {node}")
-            skipped_count += 1
-            continue
 
         user_data.append(user)
         player_data.append(player)
@@ -354,7 +361,7 @@ def download_standings(event_id, event_dir):
 
     if not placements_list:
         print(f"No valid placements could be processed for event {event_id}. Skipped {skipped_count} entries.")
-        return user_data, player_data, entrant2user # ユーザー情報は返す可能性がある
+        return user_data, player_data, entrant2user, guest_count # ユーザー情報は返す可能性がある
 
     placements_list.sort(key=lambda x: x[0]) # 順位でソート
     placements_dicts = [
@@ -368,7 +375,7 @@ def download_standings(event_id, event_dir):
     write_json(json_data, f"{event_dir}/standings.json", with_version=True)
     print(f"Successfully wrote {len(placements_dicts)} standings to {event_dir}/standings.json. Processed {processed_count}, Skipped {skipped_count} entries.")
 
-    return user_data, player_data, entrant2user
+    return user_data, player_data, entrant2user, guest_count
 
 def download_seeds(event_id, user_data, player_data, entrant2user, event_dir):
     """シードデータを取得し、seeds.jsonとして保存する"""
@@ -693,7 +700,7 @@ def download_specific_event(tournament_slug, event_slug, startgg_dir, done_file_
     # 5. 各種データをダウンロード・保存
     try:
         # 5a. スタンディング (ユーザー情報と entrant->user マッピングも得る)
-        user_data, player_data, entrant2user = download_standings(event_id, event_dir)
+        user_data, player_data, entrant2user, guest_entrant_count = download_standings(event_id, event_dir)
         if not entrant2user: # entrant2userが空なら、以降の処理が困難な場合がある
             print(f"Warning: No entrant-to-user mapping created for event {event_id}. Subsequent data might be incomplete.")
             # ここで処理を中断するかどうかは要件による
@@ -714,7 +721,7 @@ def download_specific_event(tournament_slug, event_slug, startgg_dir, done_file_
         # 5e. イベント属性
         labels = {}
 
-        write_event_attributes(num_entrants, event_id, event_name, tournament_name, timestamp, place, tournament_url, labels, is_online, event_dir)
+        write_event_attributes(num_entrants, event_id, event_name, tournament_name, timestamp, place, tournament_url, labels, is_online, event_dir, guest_entrant_count=guest_entrant_count)
 
         # 6. tournaments.jsonl を更新
         # トーナメントがまだ記録されていなければ追加、存在すればイベント情報を追加

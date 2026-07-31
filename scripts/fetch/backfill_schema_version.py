@@ -24,6 +24,7 @@ if ROOT_DIR not in sys.path:
     sys.path.insert(0, ROOT_DIR)
 
 from scripts.fetch.download import (  # noqa: E402
+    count_guest_entrants,
     download_all_set,
     download_seeds,
     download_standings,
@@ -164,6 +165,7 @@ def backfill_one_event(event_dir: Path, users: dict, users_file_path: str) -> bo
         {},
         event.get("isOnline"),
         str(event_dir),
+        guest_entrant_count=count_guest_entrants(user_data),
     )
     print(f"[{event_id}] backfilled to event_data_version={EVENT_DATA_VERSION} ({event_dir})")
     return True
