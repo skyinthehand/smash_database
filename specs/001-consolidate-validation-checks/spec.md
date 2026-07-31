@@ -49,6 +49,10 @@
 2. **Given** イベントディレクトリの `matches.json` と `standings.json` の `data` がともに空で、
    `num_entrants` が0(または未エントラント)、**When** `test_validate_data` を実行する、
    **Then** 既存動作どおり異常として報告されない(waiting list等の正当な空イベントを誤検知しない)。
+3. **Given** イベントディレクトリの `standings.json` の `data` が非空で `matches.json` の `data` が空、
+   **When** `test_validate_data` を実行する、**Then** バリデーションはこのイベントを ERROR
+   として報告する(常にテスト失敗となる。従来はこの逆方向は WARNING 扱いだったが、本機能で
+   ERROR に格上げする)。
 
 ---
 
@@ -96,6 +100,32 @@
 
 ---
 
+### User Story 4 - 日次ワークフローが実データ全体を自動検証する (Priority: P1)
+
+メンテナとして、日次自動更新ワークフロー(`update_tournament.yml` / `update_user.yml`)が、
+合成データに対するユニットテストだけでなく、`data/startgg/events` 配下の実データ全件に対して
+`validate_data.py` によるチェックを自動実行し、ERROR 相当の異常があればワークフロー自体を
+失敗させてほしい。
+
+**Why this priority**: 現状、いずれのワークフローも `python -m unittest
+scripts.test.test_validate_data`(一時ディレクトリの合成データに対するユニットテスト)しか
+実行しておらず、`validate_data.py` が実データに対して実行される経路が一切存在しない。
+このため、User Story 1〜3 でどれだけ判定ロジックを追加・強化しても、日次更新の実データに
+対しては何も検証されないままになる。この機能全体の前提となる、最も優先度の高い変更。
+
+**Independent Test**: `data/startgg/events` に既知の ERROR 相当のディレクトリ(例: 必須ファイル欠落)
+を一時的に作成した状態でワークフロー相当のコマンドを実行し、失敗することを確認する。
+
+**Acceptance Scenarios**:
+
+1. **Given** 日次更新ワークフローが新しいデータを取り込んだ、**When** ワークフローの検証ステップが
+   実行される、**Then** `data/startgg/events` の実データ全件に対して `validate_data.py` のチェックが
+   実行される。
+2. **Given** 実データ全件チェックが ERROR 相当の異常を検出した、**When** ワークフローが実行される、
+   **Then** ワークフロー全体が失敗として報告される。
+
+---
+
 ### Edge Cases
 
 - `num_entrants` フィールド自体が欠落している、または整数でない場合はどう扱うか
@@ -135,6 +165,17 @@
   仕組みから再現・検証できる形で提供しなければならない。
 - **FR-008**: FR-007 の退行検知は、再取得前のデータ状態と再取得後のデータ状態を比較すること
   によって判定しなければならない。空のまま(非退行)のケースを誤って異常と報告してはならない。
+- **FR-009**: システムは、既存の「`standings.json` の `data` が非空でありながら `matches.json` の
+  `data` が空」であるイベントディレクトリの検出結果を、現状の WARNING(`--strict` 指定時のみ
+  失敗)から ERROR(常にテスト失敗)に変更しなければならない。
+- **FR-010**: 日次自動更新ワークフロー(`update_tournament.yml` / `update_user.yml`)は、既存の
+  ユニットテスト実行(`python -m unittest scripts.test.test_validate_data`)に加えて、
+  `data/startgg/events` の実データ全件に対する `validate_data.py` のチェック(既存の `main()`
+  相当のフルスキャン)を MUST 実行する。このステップが ERROR を検出した場合、ワークフロー
+  全体を MUST 失敗させる。
+- **FR-011**: FR-009 の ERROR 化(既存 8 件の EMPTY_MATCHES: event_id 1173798, 1208737, 1230608,
+  1240729, 1265092, 1265086, 1262547, 1168796)および FR-010 のCI組み込みを有効化する前に、
+  この 8 件のデータを再取得等で修正し、実データがクリーンな状態にすることを MUST 前提条件とする。
 
 ### Key Entities *(include if feature involves data)*
 
@@ -157,12 +198,20 @@
 - **SC-003**: `num_entrants = 0` の正当な空イベント(waiting list等、現状多数存在)について、
   誤検知(false positive)が発生しない。既知の10件の既存違反イベントもすべて
   `num_entrants = 0` であるため、この除外ルールにより新チェックの対象外となることを許容する。
+- **SC-004**: 日次自動更新ワークフローが実行されるたびに、`data/startgg/events` の実データ全件が
+  `validate_data.py` によって検証され、ERROR 相当の異常があれば人手を介さずワークフローが
+  失敗として報告される(現状は合成データのユニットテストしか実行されておらず、実データは
+  一切検証されていない)。
+- **SC-005**: 既存の EMPTY_MATCHES 8 件(FR-011)がすべて修正された後、本機能を有効化した
+  時点でワークフローが誤って失敗しない(既知の欠損がクリーンな状態から運用を開始できる)。
 
 ## Assumptions
 
-- 対象は「`matches.json` は非空なのに `standings.json` が空」という、
-  現在 `validate_data.py` では未検出の1方向のみとする(逆方向の
-  「`matches` 空・`standings` 非空」は既に警告として実装済みのため変更しない)。
+- 新規に検出対象へ追加するのは「`matches.json` は非空なのに `standings.json` が空」という、
+  現在 `validate_data.py` では未検出の方向(FR-001〜FR-006、WARNING 扱い)。
+  逆方向の「`matches` 空・`standings` 非空」は既に WARNING として実装済みだったが、
+  本機能でこちらは ERROR に格上げする(FR-009)。両方向で重大度が異なる
+  (新方向=WARNING、既存方向=ERROR)のは意図的な決定である。
 - `num_entrants == 0` の除外ルールは、既存の `standings`/`seeds` 空チェックとの一貫性を優先し、
   新チェックにも同様に適用する。この結果、現状確認されている10件の既存違反
   (event_id: 1077435, 520798, 1178502, 1182225, 1186909, 1210678, 1226835, 1239495,
@@ -174,6 +223,12 @@
   参照が必要になる点は、計画(`/speckit-plan`)フェーズで設計する。
 - 大会名・イベント名の変更に伴う event_id の孤立は、本会話で既に「今は対応不要」と
   明言されているため、本機能のスコープに含めない。
+- 実データ全件を検証する CI ステップ(FR-010)は `update_tournament.yml` / `update_user.yml`
+  の2ワークフローを対象とする。他のデータ更新系ワークフロー(`data_backfill.yml` 等)への
+  展開は本機能のスコープ外とする(必要であれば別機能として扱う)。
+- EMPTY_MATCHES の既存 8 件(FR-011)の修正(再取得)作業自体は、この spec が定義する
+  「チェック機構の実装」の一部ではなく、本機能を有効化するための前提作業(実装順序上の
+  依存関係)として扱う。
 - API のクエリ複雑度エラーがフォールバックを使い切っても解消しないケースは、
   データバリデーションではなくスクリプト実行時エラーであるため、
   `test_validate_data` (静的なデータ検証) のスコープには含めない。
