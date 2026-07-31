@@ -56,6 +56,21 @@
   - 差分があれば `chore-update` ブランチへ直接 push
   - `check_events_in_tournaments.py` が失敗した場合は workflow 全体も失敗にする
 
+### `schema_backfill.yml`
+- 定義ファイル: `.github/workflows/schema_backfill.yml`
+- 実行タイミング:
+  - `schedule`: 毎時30分(`cron: "30 * * * *"`)
+  - `workflow_dispatch`(`max_events` 入力で1回あたりの処理件数を上書き可能)
+- 実行内容:
+  - `scripts/fetch/backfill_schema_version.py` を実行し、`attr.json` の
+    `event_data_version`(`scripts/utils.py` の `EVENT_DATA_VERSION`)が古い既存イベントを
+    安定ソート順で循環スキャンし、`schema_backfill_cursor.txt` に保存されたカーソルの
+    続きから、1回につき `--max_events`(既定200件)まで再取得する
+  - `python -m unittest scripts.test.test_validate_data` /
+    `scripts.test.test_backfill_schema_version` を実行
+  - 差分があれば `chore-update` ブランチへ直接 push
+  - `chore-update` -> `main` の PR を自動作成または再利用する
+
 ## 手動実行と定期実行の挙動
 
 - `update_tournament.yml`
@@ -73,6 +88,12 @@
 - `data_monthly_check.yml`
   - `schedule` の場合: 毎日 `03:10 JST` に起動し、`tournaments.jsonl` の補正と `docs/chore-tornament` の再生成を行う。
   - `workflow_dispatch` の場合: 実行した時点ですぐ起動し、同じ補正処理と再生成をその場で実行する。
+
+- `schema_backfill.yml`
+  - `schedule` の場合: 毎時30分に起動し、`schema_backfill_cursor.txt` を使って
+    `event_data_version` が古いイベントのバックフィルを継続する。
+  - `workflow_dispatch` の場合: 実行した時点ですぐ起動し、同じ処理をその場で実行する
+    (`max_events` 入力で1回あたりの処理件数を上書き可能)。
 
 - 共通挙動
   - どの workflow も最初に `chore-update` ブランチへ checkout し、差分がある場合のみそのブランチへ commit / push する。

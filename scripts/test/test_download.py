@@ -9,14 +9,16 @@ from unittest.mock import patch
 from scripts.fetch.download import (
     build_match_dedupe_key,
     configure_fetch_behavior,
+    count_guest_entrants,
     dedupe_set_nodes,
     download_all_tournaments,
     fetch_all_sets,
     get_event_directory,
     should_skip_tournament,
+    write_event_attributes,
     write_matches,
 )
-from scripts.utils import FetchError
+from scripts.utils import EVENT_DATA_VERSION, FetchError, read_json
 
 
 class DownloadTests(unittest.TestCase):
@@ -100,6 +102,36 @@ class DownloadTests(unittest.TestCase):
         variant = dict(base)
         variant["details"] = [{"game_id": 11}]
         self.assertEqual(build_match_dedupe_key(base), build_match_dedupe_key(variant))
+
+    def test_write_event_attributes_includes_version_and_guest_count(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            place = {
+                "country_code": "JP",
+                "city": "Tokyo",
+                "lat": 0,
+                "lng": 0,
+                "venue_name": "v",
+                "timezone": "Asia/Tokyo",
+                "postal_code": "p",
+                "venue_address": "a",
+                "maps_place_id": "m",
+            }
+            write_event_attributes(
+                10, 999, "Event", "Tournament", 1710001000, place,
+                "https://example.com", {}, True, tmpdir,
+                guest_entrant_count=3,
+            )
+            attr = read_json(os.path.join(tmpdir, "attr.json"))
+            self.assertEqual(attr["event_data_version"], EVENT_DATA_VERSION)
+            self.assertEqual(attr["guest_entrant_count"], 3)
+
+    def test_count_guest_entrants_counts_none_users(self):
+        user_data = [{"id": 1}, None, {"id": 2}, None, None]
+        self.assertEqual(count_guest_entrants(user_data), 3)
+
+    def test_count_guest_entrants_zero_when_no_guests(self):
+        user_data = [{"id": 1}, {"id": 2}]
+        self.assertEqual(count_guest_entrants(user_data), 0)
 
     def test_write_matches_dedupes_semantically_identical_matches(self):
         node = {

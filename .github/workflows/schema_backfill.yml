@@ -1,0 +1,135 @@
+name: "StartGG: Schema Version Backfill"
+
+on:
+  schedule:
+    - cron: "30 * * * *"
+  workflow_dispatch:
+    inputs:
+      max_events:
+        description: "Maximum number of events to re-download in this run."
+        required: false
+        default: "200"
+
+concurrency:
+  group: chore-update-branch
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  schema-backfill:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Prepare chore-update branch
+        run: |
+          set -euxo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch origin chore-update || true
+          if git show-ref --verify --quiet refs/remotes/origin/chore-update; then
+            git checkout -B chore-update origin/chore-update
+          else
+            git checkout -B chore-update
+          fi
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          set -euxo pipefail
+          python -m pip install --upgrade pip requests
+
+      - name: Backfill outdated event schema versions
+        env:
+          STARTGG_TOKEN: ${{ secrets.STARTGG_TOKEN }}
+        run: |
+          set -euxo pipefail
+          MAX_EVENTS="${{ inputs.max_events }}"
+          if [ -z "$MAX_EVENTS" ]; then
+            MAX_EVENTS="200"
+          fi
+          python scripts/fetch/backfill_schema_version.py \
+            --token "$STARTGG_TOKEN" \
+            --max_events "$MAX_EVENTS"
+
+      - name: Run tests
+        run: |
+          set -euxo pipefail
+          python -m unittest scripts.test.test_validate_data
+          python -m unittest scripts.test.test_backfill_schema_version
+
+      - name: Detect changes
+        id: detect_changes
+        run: |
+          set -euxo pipefail
+          if git diff --quiet; then
+            echo "has_changes=false" >> "$GITHUB_OUTPUT"
+            echo "changed_files_count=0" >> "$GITHUB_OUTPUT"
+            echo "No changes to create PR."
+          else
+            echo "has_changes=true" >> "$GITHUB_OUTPUT"
+            echo "changed_files_count=$(git diff --name-only | wc -l | tr -d ' ')" >> "$GITHUB_OUTPUT"
+            git status --short
+          fi
+
+      - name: Commit changes
+        if: steps.detect_changes.outputs.has_changes == 'true'
+        run: |
+          set -euxo pipefail
+          git add -A
+          git commit -m "chore(data): backfill event schema version"
+
+      - name: Push chore-update branch
+        if: steps.detect_changes.outputs.has_changes == 'true'
+        run: |
+          set -euxo pipefail
+          for attempt in 1 2 3; do
+            if git push --set-upstream origin chore-update; then
+              exit 0
+            fi
+            git pull --rebase origin chore-update
+          done
+          exit 1
+
+      - name: Ensure main PR exists without auto-merge
+        if: steps.detect_changes.outputs.has_changes == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euxo pipefail
+          PR_NUMBER="$(gh pr list \
+            --repo "$GITHUB_REPOSITORY" \
+            --head chore-update \
+            --base main \
+            --state open \
+            --json number \
+            --jq '.[0].number // empty')"
+
+          if [ -z "$PR_NUMBER" ]; then
+            PR_URL="$(gh pr create \
+              --repo "$GITHUB_REPOSITORY" \
+              --base main \
+              --head chore-update \
+              --title "chore(data): sync chore-update into main" \
+              --body "Automated data update PR from \`chore-update\` into \`main\`." )"
+            PR_NUMBER="${PR_URL##*/}"
+          fi
+          echo "PR #$PR_NUMBER is ready for manual review and merge."
+
+      - name: Debug on failure
+        if: failure()
+        run: |
+          echo "Workflow failed."
+          git status --porcelain
+          ls -la data/startgg
