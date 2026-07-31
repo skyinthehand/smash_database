@@ -128,6 +128,37 @@ scripts.test.test_validate_data`(一時ディレクトリの合成データに�
 
 ---
 
+### User Story 5 - ゲスト参加者による誤検知を防ぐ (Priority: P2)
+
+メンテナとして、start.gg アカウントにリンクされていない「ゲスト参加者」が一定数いるだけの
+正常なイベントを、`standings`/`matches` の欠落率チェックが誤って ERROR/WARNING として
+報告しないようにしたい。
+
+**Why this priority**: 実際に `ミコッチ杯#5`(event_id=1639508)を調査した結果、
+`standings` の `user_id` 欠落率25.0%、`matches` の `winner_id`/`loser_id` 欠落率16.1%は、
+いずれも同じ4人のゲスト参加者(start.gg アカウント未リンク)に起因することが判明した。
+これは取得失敗ではなく、start.gg 側が `participants[].user` を `null` で返す仕様上の
+挙動であり、再取得しても解消しない。既存の閾値ベースチェックは、この正当なケースを
+誤検知する設計になっている。
+
+**Independent Test**: `guest_entrant_count` を含む `attr.json` を持つ一時イベントディレクトリを
+用意し、ゲスト起因の欠落のみで構成された `standings`/`matches` に対して
+`validate_event_dir()` を呼び出し、調整後の比率でエラーにならないことを確認する。
+
+**Acceptance Scenarios**:
+
+1. **Given** イベントの `attr.json` に `guest_entrant_count` が保存されており、
+   `standings` の `user_id` 欠落数がちょうど `guest_entrant_count` 以下、**When** `test_validate_data`
+   を実行する、**Then** ゲスト起因分を分子・分母の両方から除外して再計算した比率で判定され、
+   閾値を超えなければ ERROR/WARNING としない。
+2. **Given** `guest_entrant_count` を差し引いてもなお欠落率が閾値を超える、**When** `test_validate_data`
+   を実行する、**Then** 従来どおり異常として報告する(ゲストでは説明できない欠落が残っている)。
+3. **Given** `attr.json` に `guest_entrant_count` が存在しない(未再取得の既存データ)、**When**
+   `test_validate_data` を実行する、**Then** 従来どおり調整前の比率で判定する
+   (フォールバック、既存動作を変えない)。
+
+---
+
 ### Edge Cases
 
 - `num_entrants` フィールド自体が欠落している、または整数でない場合はどう扱うか
@@ -182,11 +213,30 @@ scripts.test.test_validate_data`(一時ディレクトリの合成データに�
   1262547, 1168796)はいずれも `region` が `"North America"` または `"Other"` であり、FR-009 の
   ERROR 化では WARNING のまま扱われるため、これらを先に修正することは FR-010 のCI組み込みを
   有効化するための前提条件ではない。
+- **FR-012**: フェッチ処理(`scripts/fetch/download.py` / `scripts/fetch/download_specific_event.py` /
+  `scripts/fix/redownload_event.py`)は、既に `fetch_entrant_user_map()` 等が start.gg API から
+  取得している entrant 一覧(`get_event_entrants_query()` の結果)から、start.gg アカウントに
+  リンクされていない「ゲスト参加者数」(`guest_entrant_count` = 取得した entrant 総数 −
+  リンク済み entrant 数)を算出し、`attr.json` の新規フィールドとして永続化しなければならない。
+  この算出のために新たな API 呼び出しを追加してはならない(既存の取得結果を再利用する)。
+- **FR-013**: `validate_data.py` の `standings` の `user_id` 欠落率チェックは、対象イベントの
+  `attr.json` に `guest_entrant_count` が存在する場合、欠落数(分子)と `standings` 件数(分母)の
+  両方から `guest_entrant_count` を差し引いた上で比率を再計算しなければならない。
+- **FR-014**: `validate_data.py` の `matches` の `winner_id`/`loser_id` 欠落率チェックも同様に、
+  分子・分母の両方から `guest_entrant_count` 相当分を差し引いた上で比率を再計算しなければ
+  ならない。ゲスト参加者は複数の試合に出場しうるため、この調整は欠落数を実際より少なく
+  見積もる可能性がある保守的な近似であることを許容する。
+- **FR-015**: `attr.json` に `guest_entrant_count` が存在しない(未再取得の既存データ)場合、
+  システムは従来どおり調整前の比率でチェックしなければならない(フォールバック)。既存データ
+  への一括バックフィルは本機能のスコープに含めない(過去の `fetched_at` フィールド追加時と
+  同じ方針: 新規・再取得分のみに適用)。
 
 ### Key Entities *(include if feature involves data)*
 
 - **Event Directory**: `attr.json` / `matches.json` / `seeds.json` / `standings.json` を含む
   1イベント分のデータ一式。`num_entrants` (エントラント数) を `attr.json` から参照する。
+  新規・再取得分の `attr.json` は `guest_entrant_count`(start.gg アカウント未リンクの
+  参加者数)も保持する。
 - **Validation Finding**: `validate_event_dir()` が返すエラーまたは警告メッセージ。
   対象イベントディレクトリと理由を含む。
 
@@ -211,6 +261,8 @@ scripts.test.test_validate_data`(一時ディレクトリの合成データに�
 - **SC-005**: FR-009 の ERROR 化は `region = "Japan"` に限定されるため、本機能を有効化した時点で、
   現在確認されている非日本地域の EMPTY_MATCHES 7 件(WARNING のまま)によってワークフローが
   誤って失敗しない。
+- **SC-006**: `ミコッチ杯#5`(event_id=1639508)のようなゲスト参加者起因の欠落率超過は、
+  再取得後は `guest_entrant_count` による調整によって誤って ERROR/WARNING と報告されなくなる。
 
 ## Assumptions
 
@@ -240,3 +292,11 @@ scripts.test.test_validate_data`(一時ディレクトリの合成データに�
 - API のクエリ複雑度エラーがフォールバックを使い切っても解消しないケースは、
   データバリデーションではなくスクリプト実行時エラーであるため、
   `test_validate_data` (静的なデータ検証) のスコープには含めない。
+- `guest_entrant_count` は `fetch_entrant_user_map()` が既に取得済みの entrant 一覧から算出する
+  ため、追加の API 呼び出し・レート制限への影響はない。
+- `guest_entrant_count` による調整は、matches 側では「ゲスト1人 = 欠落1件」という保守的な
+  近似を用いる(実際にはゲスト参加者が複数試合に出場し、複数のnull枠を生み得る)。
+  より精密な調整(トーナメント形式に応じた理論上限の算出等)は本機能のスコープに含めない。
+- 既存の26,736件のイベントディレクトリには一括バックフィルを行わない。`guest_entrant_count`
+  は再取得・新規取得されたイベントにのみ付与され、それ以外は従来どおりの判定基準が
+  適用され続ける。
