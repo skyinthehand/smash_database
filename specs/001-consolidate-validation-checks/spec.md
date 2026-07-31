@@ -50,9 +50,11 @@
    `num_entrants` が0(または未エントラント)、**When** `test_validate_data` を実行する、
    **Then** 既存動作どおり異常として報告されない(waiting list等の正当な空イベントを誤検知しない)。
 3. **Given** イベントディレクトリの `standings.json` の `data` が非空で `matches.json` の `data` が空、
-   **When** `test_validate_data` を実行する、**Then** バリデーションはこのイベントを ERROR
-   として報告する(常にテスト失敗となる。従来はこの逆方向は WARNING 扱いだったが、本機能で
-   ERROR に格上げする)。
+   かつ `attr.json` の `region` が `"Japan"`、**When** `test_validate_data` を実行する、
+   **Then** バリデーションはこのイベントを ERROR として報告する(常にテスト失敗となる。従来は
+   この逆方向は WARNING 扱いだったが、`region = "Japan"` に限り ERROR に格上げする)。
+4. **Given** 同条件だが `region` が `"Japan"` 以外、**When** `test_validate_data` を実行する、
+   **Then** バリデーションは従来どおり WARNING として報告する(`--strict` 指定時のみ失敗)。
 
 ---
 
@@ -166,16 +168,20 @@ scripts.test.test_validate_data`(一時ディレクトリの合成データに�
 - **FR-008**: FR-007 の退行検知は、再取得前のデータ状態と再取得後のデータ状態を比較すること
   によって判定しなければならない。空のまま(非退行)のケースを誤って異常と報告してはならない。
 - **FR-009**: システムは、既存の「`standings.json` の `data` が非空でありながら `matches.json` の
-  `data` が空」であるイベントディレクトリの検出結果を、現状の WARNING(`--strict` 指定時のみ
-  失敗)から ERROR(常にテスト失敗)に変更しなければならない。
+  `data` が空」であるイベントディレクトリの検出結果を、`attr.json` の `region` が `"Japan"` の
+  場合に限り、現状の WARNING(`--strict` 指定時のみ失敗)から ERROR(常にテスト失敗)に
+  変更しなければならない。`region` が `"Japan"` 以外の場合は、従来どおり WARNING のままとする。
 - **FR-010**: 日次自動更新ワークフロー(`update_tournament.yml` / `update_user.yml`)は、既存の
   ユニットテスト実行(`python -m unittest scripts.test.test_validate_data`)に加えて、
   `data/startgg/events` の実データ全件に対する `validate_data.py` のチェック(既存の `main()`
   相当のフルスキャン)を MUST 実行する。このステップが ERROR を検出した場合、ワークフロー
   全体を MUST 失敗させる。
-- **FR-011**: FR-009 の ERROR 化(既存 8 件の EMPTY_MATCHES: event_id 1173798, 1208737, 1230608,
-  1240729, 1265092, 1265086, 1262547, 1168796)および FR-010 のCI組み込みを有効化する前に、
-  この 8 件のデータを再取得等で修正し、実データがクリーンな状態にすることを MUST 前提条件とする。
+- **FR-011**: FR-009 の ERROR 化は `region = "Japan"` のイベントのみを対象とするため、実データ調査の
+  結果、現時点で該当する既存違反は event_id=1173798(Japan)の1件のみであり、これは既に
+  再取得により修正済みである。残る7件(event_id: 1208737, 1230608, 1240729, 1265092, 1265086,
+  1262547, 1168796)はいずれも `region` が `"North America"` または `"Other"` であり、FR-009 の
+  ERROR 化では WARNING のまま扱われるため、これらを先に修正することは FR-010 のCI組み込みを
+  有効化するための前提条件ではない。
 
 ### Key Entities *(include if feature involves data)*
 
@@ -202,8 +208,9 @@ scripts.test.test_validate_data`(一時ディレクトリの合成データに�
   `validate_data.py` によって検証され、ERROR 相当の異常があれば人手を介さずワークフローが
   失敗として報告される(現状は合成データのユニットテストしか実行されておらず、実データは
   一切検証されていない)。
-- **SC-005**: 既存の EMPTY_MATCHES 8 件(FR-011)がすべて修正された後、本機能を有効化した
-  時点でワークフローが誤って失敗しない(既知の欠損がクリーンな状態から運用を開始できる)。
+- **SC-005**: FR-009 の ERROR 化は `region = "Japan"` に限定されるため、本機能を有効化した時点で、
+  現在確認されている非日本地域の EMPTY_MATCHES 7 件(WARNING のまま)によってワークフローが
+  誤って失敗しない。
 
 ## Assumptions
 
@@ -226,9 +233,10 @@ scripts.test.test_validate_data`(一時ディレクトリの合成データに�
 - 実データ全件を検証する CI ステップ(FR-010)は `update_tournament.yml` / `update_user.yml`
   の2ワークフローを対象とする。他のデータ更新系ワークフロー(`data_backfill.yml` 等)への
   展開は本機能のスコープ外とする(必要であれば別機能として扱う)。
-- EMPTY_MATCHES の既存 8 件(FR-011)の修正(再取得)作業自体は、この spec が定義する
-  「チェック機構の実装」の一部ではなく、本機能を有効化するための前提作業(実装順序上の
-  依存関係)として扱う。
+- FR-009 の ERROR 化を `region = "Japan"` に限定するのは、非日本地域の大会データは
+  メンテナの優先度・確認頻度が相対的に低く、日次ワークフローを不必要に失敗させたくないため。
+  日本地域以外の EMPTY_MATCHES(現状7件)は WARNING のまま残り、修正は本機能の前提条件と
+  しない。将来的に他地域にも ERROR 化を広げたくなった場合は、別途スコープを見直す。
 - API のクエリ複雑度エラーがフォールバックを使い切っても解消しないケースは、
   データバリデーションではなくスクリプト実行時エラーであるため、
   `test_validate_data` (静的なデータ検証) のスコープには含めない。
