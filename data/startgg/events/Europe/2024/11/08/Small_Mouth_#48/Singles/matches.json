@@ -8,6 +8,7 @@
       "round_text": "Grand Final",
       "round": 5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -89,6 +90,7 @@
       "round_text": "Winners Final",
       "round": 4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -170,6 +172,7 @@
       "round_text": "Losers Final",
       "round": -8,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -273,6 +276,7 @@
       "round_text": "Losers Semi-Final",
       "round": -7,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -354,6 +358,7 @@
       "round_text": "Winners Semi-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -435,6 +440,7 @@
       "round_text": "Winners Semi-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -538,6 +544,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -619,6 +626,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -722,6 +730,7 @@
       "round_text": "Losers Round 3",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -803,6 +812,7 @@
       "round_text": "Losers Round 3",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -906,6 +916,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -987,6 +998,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1090,6 +1102,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1193,6 +1206,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1312,12 +1326,13 @@
     },
     {
       "winner_id": 2449558,
-      "loser_id": 2365843,
+      "loser_id": null,
       "winner_score": 3,
       "loser_score": 2,
       "round_text": "Losers Round 2",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1326,7 +1341,7 @@
         {
           "game_id": 26063499,
           "order_num": 1,
-          "winner_id": 2365843,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": 0,
           "stage": null,
@@ -1338,7 +1353,7 @@
               "character_name": "Marth"
             },
             {
-              "user_id": 2365843,
+              "user_id": null,
               "selection_id": 37936008,
               "character_id": 1289,
               "character_name": "Greninja"
@@ -1348,7 +1363,7 @@
         {
           "game_id": 26063500,
           "order_num": 2,
-          "winner_id": 2365843,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
@@ -1360,7 +1375,7 @@
               "character_name": "Marth"
             },
             {
-              "user_id": 2365843,
+              "user_id": null,
               "selection_id": 37936010,
               "character_id": 1289,
               "character_name": "Greninja"
@@ -1382,7 +1397,7 @@
               "character_name": "Mewtwo"
             },
             {
-              "user_id": 2365843,
+              "user_id": null,
               "selection_id": 37936012,
               "character_id": 1289,
               "character_name": "Greninja"
@@ -1404,7 +1419,7 @@
               "character_name": "Mewtwo"
             },
             {
-              "user_id": 2365843,
+              "user_id": null,
               "selection_id": 37936014,
               "character_id": 1289,
               "character_name": "Greninja"
@@ -1426,7 +1441,7 @@
               "character_name": "Samus"
             },
             {
-              "user_id": 2365843,
+              "user_id": null,
               "selection_id": 37936016,
               "character_id": 1289,
               "character_name": "Greninja"
@@ -1443,6 +1458,7 @@
       "round_text": "Losers Round 2",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1568,6 +1584,7 @@
       "round_text": "Losers Round 2",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1649,6 +1666,7 @@
       "round_text": "Losers Round 2",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1745,13 +1763,14 @@
       ]
     },
     {
-      "winner_id": 2365843,
+      "winner_id": null,
       "loser_id": null,
       "winner_score": 3,
       "loser_score": 0,
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1760,7 +1779,7 @@
         {
           "game_id": 26063932,
           "order_num": 1,
-          "winner_id": 2365843,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
@@ -1772,7 +1791,7 @@
               "character_name": "Wario"
             },
             {
-              "user_id": 2365843,
+              "user_id": null,
               "selection_id": 37936803,
               "character_id": 1289,
               "character_name": "Greninja"
@@ -1782,7 +1801,7 @@
         {
           "game_id": 26063933,
           "order_num": 2,
-          "winner_id": 2365843,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
@@ -1794,7 +1813,7 @@
               "character_name": "Wario"
             },
             {
-              "user_id": 2365843,
+              "user_id": null,
               "selection_id": 37936805,
               "character_id": 1289,
               "character_name": "Greninja"
@@ -1804,7 +1823,7 @@
         {
           "game_id": 26063934,
           "order_num": 3,
-          "winner_id": 2365843,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
@@ -1816,7 +1835,7 @@
               "character_name": "Wario"
             },
             {
-              "user_id": 2365843,
+              "user_id": null,
               "selection_id": 37936807,
               "character_id": 1289,
               "character_name": "Greninja"
@@ -1833,6 +1852,7 @@
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1914,6 +1934,7 @@
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1995,6 +2016,7 @@
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2076,6 +2098,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2151,12 +2174,13 @@
     },
     {
       "winner_id": 2359877,
-      "loser_id": 2365843,
+      "loser_id": null,
       "winner_score": 3,
       "loser_score": 1,
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2177,7 +2201,7 @@
               "character_name": "Luigi"
             },
             {
-              "user_id": 2365843,
+              "user_id": null,
               "selection_id": 37935600,
               "character_id": 1289,
               "character_name": "Greninja"
@@ -2199,7 +2223,7 @@
               "character_name": "Luigi"
             },
             {
-              "user_id": 2365843,
+              "user_id": null,
               "selection_id": 37935602,
               "character_id": 1289,
               "character_name": "Greninja"
@@ -2209,7 +2233,7 @@
         {
           "game_id": 26063257,
           "order_num": 3,
-          "winner_id": 2365843,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
@@ -2221,7 +2245,7 @@
               "character_name": "Luigi"
             },
             {
-              "user_id": 2365843,
+              "user_id": null,
               "selection_id": 37935604,
               "character_id": 1289,
               "character_name": "Greninja"
@@ -2243,7 +2267,7 @@
               "character_name": "Luigi"
             },
             {
-              "user_id": 2365843,
+              "user_id": null,
               "selection_id": 37935606,
               "character_id": 1289,
               "character_name": "Greninja"
@@ -2260,6 +2284,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2341,6 +2366,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2466,6 +2492,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2547,6 +2574,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2650,6 +2678,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2753,6 +2782,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,

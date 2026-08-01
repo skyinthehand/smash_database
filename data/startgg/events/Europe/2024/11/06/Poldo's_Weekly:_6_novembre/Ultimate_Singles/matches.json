@@ -8,6 +8,7 @@
       "round_text": "Grand Final",
       "round": 4,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -133,6 +134,7 @@
       "round_text": "Grand Final Reset",
       "round": 4,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -214,6 +216,7 @@
       "round_text": "Winners Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -333,12 +336,13 @@
     },
     {
       "winner_id": 959742,
-      "loser_id": 975326,
+      "loser_id": null,
       "winner_score": 3,
       "loser_score": 1,
       "round_text": "Losers Final",
       "round": -6,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -353,7 +357,7 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 975326,
+              "user_id": null,
               "selection_id": 37890576,
               "character_id": 1530,
               "character_name": "Banjo-Kazooie"
@@ -375,7 +379,7 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 975326,
+              "user_id": null,
               "selection_id": 37890578,
               "character_id": 1530,
               "character_name": "Banjo-Kazooie"
@@ -391,13 +395,13 @@
         {
           "game_id": 26029945,
           "order_num": 3,
-          "winner_id": 975326,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
           "selections": [
             {
-              "user_id": 975326,
+              "user_id": null,
               "selection_id": 37890580,
               "character_id": 1408,
               "character_name": "Dark Samus"
@@ -419,7 +423,7 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 975326,
+              "user_id": null,
               "selection_id": 37890582,
               "character_id": 1408,
               "character_name": "Dark Samus"
@@ -435,13 +439,14 @@
       ]
     },
     {
-      "winner_id": 975326,
+      "winner_id": null,
       "loser_id": 686692,
       "winner_score": 3,
       "loser_score": 2,
       "round_text": "Losers Semi-Final",
       "round": -5,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -450,7 +455,7 @@
         {
           "game_id": 26029913,
           "order_num": 1,
-          "winner_id": 975326,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": 0,
           "stage": null,
@@ -462,7 +467,7 @@
               "character_name": "Ken"
             },
             {
-              "user_id": 975326,
+              "user_id": null,
               "selection_id": 37890525,
               "character_id": 1530,
               "character_name": "Banjo-Kazooie"
@@ -472,7 +477,7 @@
         {
           "game_id": 26029914,
           "order_num": 2,
-          "winner_id": 975326,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
@@ -484,7 +489,7 @@
               "character_name": "Ken"
             },
             {
-              "user_id": 975326,
+              "user_id": null,
               "selection_id": 37890527,
               "character_id": 1530,
               "character_name": "Banjo-Kazooie"
@@ -506,7 +511,7 @@
               "character_name": "Ken"
             },
             {
-              "user_id": 975326,
+              "user_id": null,
               "selection_id": 37890529,
               "character_id": 1530,
               "character_name": "Banjo-Kazooie"
@@ -528,7 +533,7 @@
               "character_name": "Ken"
             },
             {
-              "user_id": 975326,
+              "user_id": null,
               "selection_id": 37890531,
               "character_id": 1530,
               "character_name": "Banjo-Kazooie"
@@ -538,7 +543,7 @@
         {
           "game_id": 26029917,
           "order_num": 5,
-          "winner_id": 975326,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
@@ -550,7 +555,7 @@
               "character_name": "Ken"
             },
             {
-              "user_id": 975326,
+              "user_id": null,
               "selection_id": 37890533,
               "character_id": 1530,
               "character_name": "Banjo-Kazooie"
@@ -567,6 +572,7 @@
       "round_text": "Winners Semi-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -664,12 +670,13 @@
     },
     {
       "winner_id": 813688,
-      "loser_id": 975326,
+      "loser_id": null,
       "winner_score": 3,
       "loser_score": 1,
       "round_text": "Winners Semi-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -690,7 +697,7 @@
               "character_name": "Dr. Mario"
             },
             {
-              "user_id": 975326,
+              "user_id": null,
               "selection_id": 37889117,
               "character_id": 1530,
               "character_name": "Banjo-Kazooie"
@@ -712,7 +719,7 @@
               "character_name": "Dr. Mario"
             },
             {
-              "user_id": 975326,
+              "user_id": null,
               "selection_id": 37889119,
               "character_id": 1530,
               "character_name": "Banjo-Kazooie"
@@ -722,7 +729,7 @@
         {
           "game_id": 26029032,
           "order_num": 3,
-          "winner_id": 975326,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
@@ -734,7 +741,7 @@
               "character_name": "Dr. Mario"
             },
             {
-              "user_id": 975326,
+              "user_id": null,
               "selection_id": 37889121,
               "character_id": 1530,
               "character_name": "Banjo-Kazooie"
@@ -756,7 +763,7 @@
               "character_name": "Dr. Mario"
             },
             {
-              "user_id": 975326,
+              "user_id": null,
               "selection_id": 37889123,
               "character_id": 1530,
               "character_name": "Banjo-Kazooie"
@@ -766,13 +773,14 @@
       ]
     },
     {
-      "winner_id": 975326,
+      "winner_id": null,
       "loser_id": 1450102,
       "winner_score": 3,
       "loser_score": 1,
       "round_text": "Losers Quarter-Final",
       "round": -4,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -787,7 +795,7 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 975326,
+              "user_id": null,
               "selection_id": 37889478,
               "character_id": 1530,
               "character_name": "Banjo-Kazooie"
@@ -803,13 +811,13 @@
         {
           "game_id": 26029241,
           "order_num": 2,
-          "winner_id": 975326,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
           "selections": [
             {
-              "user_id": 975326,
+              "user_id": null,
               "selection_id": 37889480,
               "character_id": 1530,
               "character_name": "Banjo-Kazooie"
@@ -825,13 +833,13 @@
         {
           "game_id": 26029242,
           "order_num": 3,
-          "winner_id": 975326,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
           "selections": [
             {
-              "user_id": 975326,
+              "user_id": null,
               "selection_id": 37889482,
               "character_id": 1530,
               "character_name": "Banjo-Kazooie"
@@ -847,13 +855,13 @@
         {
           "game_id": 26029243,
           "order_num": 4,
-          "winner_id": 975326,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
           "selections": [
             {
-              "user_id": 975326,
+              "user_id": null,
               "selection_id": 37889484,
               "character_id": 1530,
               "character_name": "Banjo-Kazooie"
@@ -876,6 +884,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -4,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1001,6 +1010,7 @@
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1082,6 +1092,7 @@
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1185,6 +1196,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 1,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1266,6 +1278,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 1,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1340,13 +1353,14 @@
       ]
     },
     {
-      "winner_id": 975326,
+      "winner_id": null,
       "loser_id": 155847,
       "winner_score": 3,
       "loser_score": 1,
       "round_text": "Winners Quarter-Final",
       "round": 1,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1361,7 +1375,7 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 975326,
+              "user_id": null,
               "selection_id": 37889085,
               "character_id": 1530,
               "character_name": "Banjo-Kazooie"
@@ -1377,13 +1391,13 @@
         {
           "game_id": 26029010,
           "order_num": 2,
-          "winner_id": 975326,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
           "selections": [
             {
-              "user_id": 975326,
+              "user_id": null,
               "selection_id": 37889087,
               "character_id": 1530,
               "character_name": "Banjo-Kazooie"
@@ -1399,13 +1413,13 @@
         {
           "game_id": 26029011,
           "order_num": 3,
-          "winner_id": 975326,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
           "selections": [
             {
-              "user_id": 975326,
+              "user_id": null,
               "selection_id": 37889089,
               "character_id": 1530,
               "character_name": "Banjo-Kazooie"
@@ -1421,13 +1435,13 @@
         {
           "game_id": 26029012,
           "order_num": 4,
-          "winner_id": 975326,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
           "selections": [
             {
-              "user_id": 975326,
+              "user_id": null,
               "selection_id": 37889091,
               "character_id": 1530,
               "character_name": "Banjo-Kazooie"
@@ -1450,6 +1464,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 1,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
