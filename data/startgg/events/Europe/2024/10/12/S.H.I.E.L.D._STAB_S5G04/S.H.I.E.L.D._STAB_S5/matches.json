@@ -8,6 +8,7 @@
       "round_text": "Grand Final",
       "round": 5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -111,6 +112,7 @@
       "round_text": "Grand Final Reset",
       "round": 5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -214,6 +216,7 @@
       "round_text": "Winners Final",
       "round": 4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -339,6 +342,7 @@
       "round_text": "Losers Final",
       "round": -8,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -420,6 +424,7 @@
       "round_text": "Losers Semi-Final",
       "round": -7,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -523,6 +528,7 @@
       "round_text": "Winners Semi-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -626,101 +632,102 @@
       "round_text": "Winners Semi-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
       "state": 3,
       "details": [
         {
-          "game_id": 25508066,
+          "game_id": 30616820,
           "order_num": 1,
           "winner_id": 813547,
-          "entrant1_score": 0,
+          "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Small Battlefield",
           "selections": [
             {
               "user_id": 813547,
-              "selection_id": 37093421,
-              "character_id": 1274,
-              "character_name": "Captain Falcon"
+              "selection_id": 45003848,
+              "character_id": 1292,
+              "character_name": "Inkling"
             },
             {
               "user_id": 1924593,
-              "selection_id": 37093422,
-              "character_id": 1292,
-              "character_name": "Inkling"
+              "selection_id": 45003849,
+              "character_id": 1274,
+              "character_name": "Captain Falcon"
             }
           ]
         },
         {
-          "game_id": 25508067,
+          "game_id": 30616821,
           "order_num": 2,
           "winner_id": 1924593,
           "entrant1_score": 0,
-          "entrant2_score": 0,
+          "entrant2_score": null,
           "stage": "Hollow Bastion",
           "selections": [
             {
               "user_id": 813547,
-              "selection_id": 37093423,
-              "character_id": 1274,
-              "character_name": "Captain Falcon"
+              "selection_id": 45003850,
+              "character_id": 1292,
+              "character_name": "Inkling"
             },
             {
               "user_id": 1924593,
-              "selection_id": 37093424,
-              "character_id": 1292,
-              "character_name": "Inkling"
+              "selection_id": 45003851,
+              "character_id": 1274,
+              "character_name": "Captain Falcon"
             }
           ]
         },
         {
-          "game_id": 25508068,
+          "game_id": 30616822,
           "order_num": 3,
           "winner_id": 813547,
-          "entrant1_score": 0,
+          "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Final Destination",
           "selections": [
             {
               "user_id": 813547,
-              "selection_id": 37093425,
-              "character_id": 1274,
-              "character_name": "Captain Falcon"
+              "selection_id": 45003852,
+              "character_id": 1292,
+              "character_name": "Inkling"
             },
             {
               "user_id": 1924593,
-              "selection_id": 37093426,
-              "character_id": 1292,
-              "character_name": "Inkling"
+              "selection_id": 45003853,
+              "character_id": 1274,
+              "character_name": "Captain Falcon"
             }
           ]
         },
         {
-          "game_id": 25508069,
+          "game_id": 30616823,
           "order_num": 4,
           "winner_id": 1924593,
           "entrant1_score": 0,
-          "entrant2_score": 0,
+          "entrant2_score": null,
           "stage": "Kalos Pokémon League",
           "selections": [
             {
               "user_id": 813547,
-              "selection_id": 37093427,
-              "character_id": 1274,
-              "character_name": "Captain Falcon"
+              "selection_id": 45003854,
+              "character_id": 1292,
+              "character_name": "Inkling"
             },
             {
               "user_id": 1924593,
-              "selection_id": 37093428,
-              "character_id": 1292,
-              "character_name": "Inkling"
+              "selection_id": 45003855,
+              "character_id": 1274,
+              "character_name": "Captain Falcon"
             }
           ]
         },
         {
-          "game_id": 25508070,
+          "game_id": 30616824,
           "order_num": 5,
           "winner_id": 1924593,
           "entrant1_score": 0,
@@ -729,15 +736,15 @@
           "selections": [
             {
               "user_id": 813547,
-              "selection_id": 37093429,
-              "character_id": 1274,
-              "character_name": "Captain Falcon"
+              "selection_id": 45003856,
+              "character_id": 1292,
+              "character_name": "Inkling"
             },
             {
               "user_id": 1924593,
-              "selection_id": 37093430,
-              "character_id": 1292,
-              "character_name": "Inkling"
+              "selection_id": 45003857,
+              "character_id": 1274,
+              "character_name": "Captain Falcon"
             }
           ]
         }
@@ -751,6 +758,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -876,6 +884,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -957,6 +966,7 @@
       "round_text": "Losers Round 3",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1082,6 +1092,7 @@
       "round_text": "Losers Round 3",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1185,6 +1196,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1288,6 +1300,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1391,6 +1404,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1472,6 +1486,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1575,6 +1590,7 @@
       "round_text": "Losers Round 2",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1678,6 +1694,7 @@
       "round_text": "Losers Round 2",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1803,6 +1820,7 @@
       "round_text": "Losers Round 2",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1906,6 +1924,7 @@
       "round_text": "Losers Round 2",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2009,6 +2028,7 @@
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2112,6 +2132,7 @@
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2237,6 +2258,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2318,6 +2340,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2443,6 +2466,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2546,6 +2570,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2671,6 +2696,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2752,6 +2778,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
