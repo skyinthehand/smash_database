@@ -8,6 +8,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -67,6 +68,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -126,6 +128,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -185,6 +188,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -199,6 +203,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -213,6 +218,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -227,6 +233,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -241,6 +248,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -255,20 +263,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": []
-    },
-    {
-      "winner_id": 1317388,
-      "loser_id": 2810088,
-      "winner_score": 2,
-      "loser_score": 0,
-      "round_text": "Round 1",
-      "round": 1,
-      "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -283,6 +278,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -335,20 +331,6 @@
       ]
     },
     {
-      "winner_id": 615990,
-      "loser_id": 2810088,
-      "winner_score": 2,
-      "loser_score": 0,
-      "round_text": "Round 1",
-      "round": 1,
-      "phase": "1",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": []
-    },
-    {
       "winner_id": 726020,
       "loser_id": 22321,
       "winner_score": 2,
@@ -356,6 +338,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -370,6 +353,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -384,6 +368,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -398,6 +383,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -457,6 +443,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -471,6 +458,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -530,6 +518,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -544,6 +533,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -558,70 +548,12 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
       "state": 3,
       "details": []
-    },
-    {
-      "winner_id": 726020,
-      "loser_id": 22321,
-      "winner_score": 2,
-      "loser_score": 0,
-      "round_text": "Round 1",
-      "round": 1,
-      "phase": "1",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": [
-        {
-          "game_id": 25853610,
-          "order_num": 1,
-          "winner_id": 726020,
-          "entrant1_score": 0,
-          "entrant2_score": null,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": 726020,
-              "selection_id": 37622923,
-              "character_id": 1302,
-              "character_name": "Mario"
-            },
-            {
-              "user_id": 22321,
-              "selection_id": 37622924,
-              "character_id": 1304,
-              "character_name": "Marth"
-            }
-          ]
-        },
-        {
-          "game_id": 25853611,
-          "order_num": 2,
-          "winner_id": 726020,
-          "entrant1_score": 0,
-          "entrant2_score": null,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": 726020,
-              "selection_id": 37622925,
-              "character_id": 1302,
-              "character_name": "Mario"
-            },
-            {
-              "user_id": 22321,
-              "selection_id": 37622926,
-              "character_id": 1304,
-              "character_name": "Marth"
-            }
-          ]
-        }
-      ]
     },
     {
       "winner_id": 1975246,
@@ -631,6 +563,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -683,87 +616,6 @@
       ]
     },
     {
-      "winner_id": 1975246,
-      "loser_id": 1317388,
-      "winner_score": 2,
-      "loser_score": 1,
-      "round_text": "Round 1",
-      "round": 1,
-      "phase": "1",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": [
-        {
-          "game_id": 25853865,
-          "order_num": 1,
-          "winner_id": 1317388,
-          "entrant1_score": 0,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": 1975246,
-              "selection_id": 37623322,
-              "character_id": 1285,
-              "character_name": "Falco"
-            },
-            {
-              "user_id": 1317388,
-              "selection_id": 37623323,
-              "character_id": 1335,
-              "character_name": "Wario"
-            }
-          ]
-        },
-        {
-          "game_id": 25853866,
-          "order_num": 2,
-          "winner_id": 1975246,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": 1975246,
-              "selection_id": 37623324,
-              "character_id": 1285,
-              "character_name": "Falco"
-            },
-            {
-              "user_id": 1317388,
-              "selection_id": 37623325,
-              "character_id": 1335,
-              "character_name": "Wario"
-            }
-          ]
-        },
-        {
-          "game_id": 25853867,
-          "order_num": 3,
-          "winner_id": 1975246,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": 1975246,
-              "selection_id": 37623326,
-              "character_id": 1285,
-              "character_name": "Falco"
-            },
-            {
-              "user_id": 1317388,
-              "selection_id": 37623327,
-              "character_id": 1335,
-              "character_name": "Wario"
-            }
-          ]
-        }
-      ]
-    },
-    {
       "winner_id": 615990,
       "loser_id": 726020,
       "winner_score": 2,
@@ -771,6 +623,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -785,20 +638,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": []
-    },
-    {
-      "winner_id": 22321,
-      "loser_id": 2810088,
-      "winner_score": 2,
-      "loser_score": 1,
-      "round_text": "Round 1",
-      "round": 1,
-      "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -813,6 +653,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -827,34 +668,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": []
-    },
-    {
-      "winner_id": 1727554,
-      "loser_id": 2822366,
-      "winner_score": 2,
-      "loser_score": 0,
-      "round_text": "Round 1",
-      "round": 1,
-      "phase": "1",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": []
-    },
-    {
-      "winner_id": 615990,
-      "loser_id": 1975246,
-      "winner_score": 2,
-      "loser_score": 0,
-      "round_text": "Round 1",
-      "round": 1,
-      "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
