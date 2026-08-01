@@ -8,6 +8,7 @@
       "round_text": "Grand Final",
       "round": 6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -89,6 +90,7 @@
       "round_text": "Winners Final",
       "round": 5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -186,12 +188,13 @@
     },
     {
       "winner_id": 902982,
-      "loser_id": 1225122,
+      "loser_id": null,
       "winner_score": 3,
       "loser_score": 1,
       "round_text": "Losers Final",
       "round": -10,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -212,7 +215,7 @@
               "character_name": "Luigi"
             },
             {
-              "user_id": 1225122,
+              "user_id": null,
               "selection_id": 37367359,
               "character_id": 1274,
               "character_name": "Captain Falcon"
@@ -222,7 +225,7 @@
         {
           "game_id": 25680591,
           "order_num": 2,
-          "winner_id": 1225122,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
@@ -234,7 +237,7 @@
               "character_name": "Luigi"
             },
             {
-              "user_id": 1225122,
+              "user_id": null,
               "selection_id": 37367361,
               "character_id": 1274,
               "character_name": "Captain Falcon"
@@ -256,7 +259,7 @@
               "character_name": "R.O.B."
             },
             {
-              "user_id": 1225122,
+              "user_id": null,
               "selection_id": 37367363,
               "character_id": 1274,
               "character_name": "Captain Falcon"
@@ -278,7 +281,7 @@
               "character_name": "R.O.B."
             },
             {
-              "user_id": 1225122,
+              "user_id": null,
               "selection_id": 37367365,
               "character_id": 1274,
               "character_name": "Captain Falcon"
@@ -288,13 +291,14 @@
       ]
     },
     {
-      "winner_id": 1225122,
+      "winner_id": null,
       "loser_id": 1943732,
       "winner_score": 3,
       "loser_score": 1,
       "round_text": "Losers Semi-Final",
       "round": -9,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -315,7 +319,7 @@
               "character_name": "Mewtwo"
             },
             {
-              "user_id": 1225122,
+              "user_id": null,
               "selection_id": 37366828,
               "character_id": 1274,
               "character_name": "Captain Falcon"
@@ -325,7 +329,7 @@
         {
           "game_id": 25680284,
           "order_num": 2,
-          "winner_id": 1225122,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
@@ -337,7 +341,7 @@
               "character_name": "Mewtwo"
             },
             {
-              "user_id": 1225122,
+              "user_id": null,
               "selection_id": 37366830,
               "character_id": 1274,
               "character_name": "Captain Falcon"
@@ -347,7 +351,7 @@
         {
           "game_id": 25680285,
           "order_num": 3,
-          "winner_id": 1225122,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
@@ -359,7 +363,7 @@
               "character_name": "Mewtwo"
             },
             {
-              "user_id": 1225122,
+              "user_id": null,
               "selection_id": 37366832,
               "character_id": 1274,
               "character_name": "Captain Falcon"
@@ -369,7 +373,7 @@
         {
           "game_id": 25680286,
           "order_num": 4,
-          "winner_id": 1225122,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
@@ -381,7 +385,7 @@
               "character_name": "Mewtwo"
             },
             {
-              "user_id": 1225122,
+              "user_id": null,
               "selection_id": 37366834,
               "character_id": 1274,
               "character_name": "Captain Falcon"
@@ -398,6 +402,7 @@
       "round_text": "Winners Semi-Final",
       "round": 4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -479,6 +484,7 @@
       "round_text": "Winners Semi-Final",
       "round": 4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -575,13 +581,14 @@
       ]
     },
     {
-      "winner_id": 1225122,
+      "winner_id": null,
       "loser_id": 1885964,
       "winner_score": 3,
       "loser_score": 0,
       "round_text": "Losers Quarter-Final",
       "round": -8,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -590,7 +597,7 @@
         {
           "game_id": 25679492,
           "order_num": 1,
-          "winner_id": 1225122,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
@@ -602,7 +609,7 @@
               "character_name": "Cloud"
             },
             {
-              "user_id": 1225122,
+              "user_id": null,
               "selection_id": 37365404,
               "character_id": 1274,
               "character_name": "Captain Falcon"
@@ -612,7 +619,7 @@
         {
           "game_id": 25679493,
           "order_num": 2,
-          "winner_id": 1225122,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
@@ -624,7 +631,7 @@
               "character_name": "Cloud"
             },
             {
-              "user_id": 1225122,
+              "user_id": null,
               "selection_id": 37365406,
               "character_id": 1274,
               "character_name": "Captain Falcon"
@@ -634,7 +641,7 @@
         {
           "game_id": 25679494,
           "order_num": 3,
-          "winner_id": 1225122,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
@@ -646,7 +653,7 @@
               "character_name": "Cloud"
             },
             {
-              "user_id": 1225122,
+              "user_id": null,
               "selection_id": 37365408,
               "character_id": 1274,
               "character_name": "Captain Falcon"
@@ -663,6 +670,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -8,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -759,13 +767,14 @@
       ]
     },
     {
-      "winner_id": 1225122,
+      "winner_id": null,
       "loser_id": 1235013,
       "winner_score": 3,
       "loser_score": 0,
       "round_text": "Losers Round 4",
       "round": -7,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -774,13 +783,13 @@
         {
           "game_id": 25679017,
           "order_num": 1,
-          "winner_id": 1225122,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
           "selections": [
             {
-              "user_id": 1225122,
+              "user_id": null,
               "selection_id": 37364530,
               "character_id": 1274,
               "character_name": "Captain Falcon"
@@ -796,13 +805,13 @@
         {
           "game_id": 25679018,
           "order_num": 2,
-          "winner_id": 1225122,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
           "selections": [
             {
-              "user_id": 1225122,
+              "user_id": null,
               "selection_id": 37364532,
               "character_id": 1274,
               "character_name": "Captain Falcon"
@@ -818,13 +827,13 @@
         {
           "game_id": 25679019,
           "order_num": 3,
-          "winner_id": 1225122,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
           "selections": [
             {
-              "user_id": 1225122,
+              "user_id": null,
               "selection_id": 37364534,
               "character_id": 1274,
               "character_name": "Captain Falcon"
@@ -847,6 +856,7 @@
       "round_text": "Losers Round 4",
       "round": -7,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -928,6 +938,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1025,12 +1036,13 @@
     },
     {
       "winner_id": 1751347,
-      "loser_id": 1225122,
+      "loser_id": null,
       "winner_score": 3,
       "loser_score": 1,
       "round_text": "Winners Quarter-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1039,7 +1051,7 @@
         {
           "game_id": 25677845,
           "order_num": 1,
-          "winner_id": 1225122,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
@@ -1051,7 +1063,7 @@
               "character_name": "Wario"
             },
             {
-              "user_id": 1225122,
+              "user_id": null,
               "selection_id": 37362434,
               "character_id": 1274,
               "character_name": "Captain Falcon"
@@ -1073,7 +1085,7 @@
               "character_name": "Wario"
             },
             {
-              "user_id": 1225122,
+              "user_id": null,
               "selection_id": 37362436,
               "character_id": 1274,
               "character_name": "Captain Falcon"
@@ -1095,7 +1107,7 @@
               "character_name": "Wario"
             },
             {
-              "user_id": 1225122,
+              "user_id": null,
               "selection_id": 37362438,
               "character_id": 1274,
               "character_name": "Captain Falcon"
@@ -1117,7 +1129,7 @@
               "character_name": "Wario"
             },
             {
-              "user_id": 1225122,
+              "user_id": null,
               "selection_id": 37362440,
               "character_id": 1274,
               "character_name": "Captain Falcon"
@@ -1134,6 +1146,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1259,6 +1272,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1377,13 +1391,14 @@
       ]
     },
     {
-      "winner_id": 1225122,
+      "winner_id": null,
       "loser_id": 1638109,
       "winner_score": 3,
       "loser_score": 0,
       "round_text": "Losers Round 3",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1392,7 +1407,7 @@
         {
           "game_id": 25678300,
           "order_num": 1,
-          "winner_id": 1225122,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
@@ -1404,7 +1419,7 @@
               "character_name": "Zelda"
             },
             {
-              "user_id": 1225122,
+              "user_id": null,
               "selection_id": 37363236,
               "character_id": 1274,
               "character_name": "Captain Falcon"
@@ -1414,7 +1429,7 @@
         {
           "game_id": 25678301,
           "order_num": 2,
-          "winner_id": 1225122,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
@@ -1426,7 +1441,7 @@
               "character_name": "Zelda"
             },
             {
-              "user_id": 1225122,
+              "user_id": null,
               "selection_id": 37363238,
               "character_id": 1274,
               "character_name": "Captain Falcon"
@@ -1436,7 +1451,7 @@
         {
           "game_id": 25678302,
           "order_num": 3,
-          "winner_id": 1225122,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
@@ -1448,7 +1463,7 @@
               "character_name": "Zelda"
             },
             {
-              "user_id": 1225122,
+              "user_id": null,
               "selection_id": 37363240,
               "character_id": 1274,
               "character_name": "Captain Falcon"
@@ -1465,6 +1480,7 @@
       "round_text": "Losers Round 3",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1568,6 +1584,7 @@
       "round_text": "Losers Round 3",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1671,6 +1688,7 @@
       "round_text": "Losers Round 3",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1752,6 +1770,7 @@
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1833,6 +1852,7 @@
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1958,6 +1978,7 @@
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2039,6 +2060,7 @@
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2142,6 +2164,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2223,6 +2246,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2348,6 +2372,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2422,13 +2447,14 @@
       ]
     },
     {
-      "winner_id": 1225122,
+      "winner_id": null,
       "loser_id": 1279275,
       "winner_score": 3,
       "loser_score": 0,
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2437,13 +2463,13 @@
         {
           "game_id": 25677102,
           "order_num": 1,
-          "winner_id": 1225122,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
           "selections": [
             {
-              "user_id": 1225122,
+              "user_id": null,
               "selection_id": 37361091,
               "character_id": 1274,
               "character_name": "Captain Falcon"
@@ -2459,13 +2485,13 @@
         {
           "game_id": 25677103,
           "order_num": 2,
-          "winner_id": 1225122,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
           "selections": [
             {
-              "user_id": 1225122,
+              "user_id": null,
               "selection_id": 37361093,
               "character_id": 1274,
               "character_name": "Captain Falcon"
@@ -2481,13 +2507,13 @@
         {
           "game_id": 25677104,
           "order_num": 3,
-          "winner_id": 1225122,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
           "selections": [
             {
-              "user_id": 1225122,
+              "user_id": null,
               "selection_id": 37361095,
               "character_id": 1274,
               "character_name": "Captain Falcon"
@@ -2510,6 +2536,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2591,6 +2618,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2716,6 +2744,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2797,6 +2826,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2900,6 +2930,7 @@
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3003,6 +3034,7 @@
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3084,6 +3116,7 @@
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3165,6 +3198,7 @@
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3246,6 +3280,7 @@
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3327,6 +3362,7 @@
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3408,6 +3444,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3489,6 +3526,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3570,6 +3608,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3651,6 +3690,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3732,6 +3772,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3813,6 +3854,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,

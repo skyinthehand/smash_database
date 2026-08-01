@@ -1,7 +1,7 @@
 {
   "event_id": 1216402,
   "tournament_name": "Smash Cup Flensburg #20",
-  "event_name": "Amateur Bracket",
+  "event_name": "Amateur Bracket Side Event",
   "region": "Europe",
   "place": {
     "country_code": "DE",
@@ -17,12 +17,11 @@
   "num_entrants": 15,
   "offline": true,
   "url": "/tournament/smash-cup-flensburg-20",
-  "labels": {
-    "registration_type": "full-open",
-    "event_type": "main",
-    "game_rule": "1on1"
-  },
+  "labels": {},
   "status": "completed",
   "timestamp": 1729425600,
+  "fetched_at": 1785586160,
+  "event_data_version": 2,
+  "guest_entrant_count": 2,
   "version": "1.0"
 }

@@ -8,6 +8,7 @@
       "round_text": "Grand Final",
       "round": 5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -111,6 +112,7 @@
       "round_text": "Winners Final",
       "round": 4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -236,6 +238,7 @@
       "round_text": "Losers Final",
       "round": -8,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -361,6 +364,7 @@
       "round_text": "Losers Semi-Final",
       "round": -7,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -464,6 +468,7 @@
       "round_text": "Winners Semi-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -589,6 +594,7 @@
       "round_text": "Winners Semi-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -670,6 +676,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -751,6 +758,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -832,6 +840,7 @@
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -935,6 +944,7 @@
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1016,6 +1026,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1097,6 +1108,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1222,6 +1234,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1303,6 +1316,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1400,12 +1414,13 @@
     },
     {
       "winner_id": 2056079,
-      "loser_id": 2054708,
+      "loser_id": null,
       "winner_score": 3,
       "loser_score": 1,
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1426,7 +1441,7 @@
               "character_name": "Piranha Plant"
             },
             {
-              "user_id": 2054708,
+              "user_id": null,
               "selection_id": 37271411,
               "character_id": 1292,
               "character_name": "Inkling"
@@ -1436,7 +1451,7 @@
         {
           "game_id": 25622434,
           "order_num": 2,
-          "winner_id": 2054708,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": "Small Battlefield",
@@ -1448,7 +1463,7 @@
               "character_name": "Piranha Plant"
             },
             {
-              "user_id": 2054708,
+              "user_id": null,
               "selection_id": 37271413,
               "character_id": 1292,
               "character_name": "Inkling"
@@ -1470,7 +1485,7 @@
               "character_name": "Piranha Plant"
             },
             {
-              "user_id": 2054708,
+              "user_id": null,
               "selection_id": 37271415,
               "character_id": 1292,
               "character_name": "Inkling"
@@ -1492,7 +1507,7 @@
               "character_name": "Piranha Plant"
             },
             {
-              "user_id": 2054708,
+              "user_id": null,
               "selection_id": 37271723,
               "character_id": 1292,
               "character_name": "Inkling"
@@ -1509,6 +1524,7 @@
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1584,12 +1600,13 @@
     },
     {
       "winner_id": 2622971,
-      "loser_id": 2054708,
+      "loser_id": null,
       "winner_score": 3,
       "loser_score": 2,
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1598,7 +1615,7 @@
         {
           "game_id": 25621487,
           "order_num": 1,
-          "winner_id": 2054708,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Final Destination",
@@ -1610,7 +1627,7 @@
               "character_name": "Steve"
             },
             {
-              "user_id": 2054708,
+              "user_id": null,
               "selection_id": 37269793,
               "character_id": 1453,
               "character_name": "Joker"
@@ -1620,7 +1637,7 @@
         {
           "game_id": 25621488,
           "order_num": 2,
-          "winner_id": 2054708,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Yoshi's Story",
@@ -1632,7 +1649,7 @@
               "character_name": "Steve"
             },
             {
-              "user_id": 2054708,
+              "user_id": null,
               "selection_id": 37269930,
               "character_id": 1292,
               "character_name": "Inkling"
@@ -1654,7 +1671,7 @@
               "character_name": "Steve"
             },
             {
-              "user_id": 2054708,
+              "user_id": null,
               "selection_id": 37270054,
               "character_id": 1292,
               "character_name": "Inkling"
@@ -1676,7 +1693,7 @@
               "character_name": "Steve"
             },
             {
-              "user_id": 2054708,
+              "user_id": null,
               "selection_id": 37270210,
               "character_id": 1453,
               "character_name": "Joker"
@@ -1698,7 +1715,7 @@
               "character_name": "Steve"
             },
             {
-              "user_id": 2054708,
+              "user_id": null,
               "selection_id": 37270211,
               "character_id": 1453,
               "character_name": "Joker"
@@ -1715,6 +1732,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
