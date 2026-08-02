@@ -8,6 +8,7 @@
       "round_text": "Round 5",
       "round": 5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -22,6 +23,7 @@
       "round_text": "Round 5",
       "round": 5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -103,6 +105,7 @@
       "round_text": "Round 4",
       "round": 4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -206,6 +209,7 @@
       "round_text": "Round 4",
       "round": 4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -220,6 +224,7 @@
       "round_text": "Round 3",
       "round": 3,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -301,6 +306,7 @@
       "round_text": "Round 3",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -382,6 +388,7 @@
       "round_text": "Round 3",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -463,6 +470,7 @@
       "round_text": "Round 3",
       "round": 3,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -544,6 +552,7 @@
       "round_text": "Grand Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -647,6 +656,7 @@
       "round_text": "Grand Final Reset",
       "round": 2,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -743,87 +753,6 @@
       ]
     },
     {
-      "winner_id": 544127,
-      "loser_id": 2816341,
-      "winner_score": 2,
-      "loser_score": 1,
-      "round_text": "Round 2",
-      "round": 2,
-      "phase": "1",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": [
-        {
-          "game_id": 26295756,
-          "order_num": 1,
-          "winner_id": 2816341,
-          "entrant1_score": 0,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": 544127,
-              "selection_id": 38295138,
-              "character_id": 1282,
-              "character_name": "Dr. Mario"
-            },
-            {
-              "user_id": 2816341,
-              "selection_id": 38295139,
-              "character_id": 1407,
-              "character_name": "King K. Rool"
-            }
-          ]
-        },
-        {
-          "game_id": 26295757,
-          "order_num": 2,
-          "winner_id": 544127,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": 2816341,
-              "selection_id": 38295141,
-              "character_id": 1407,
-              "character_name": "King K. Rool"
-            },
-            {
-              "user_id": 544127,
-              "selection_id": 38295224,
-              "character_id": 1335,
-              "character_name": "Wario"
-            }
-          ]
-        },
-        {
-          "game_id": 26295758,
-          "order_num": 3,
-          "winner_id": 544127,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": 2816341,
-              "selection_id": 38295143,
-              "character_id": 1407,
-              "character_name": "King K. Rool"
-            },
-            {
-              "user_id": 544127,
-              "selection_id": 38295352,
-              "character_id": 1274,
-              "character_name": "Captain Falcon"
-            }
-          ]
-        }
-      ]
-    },
-    {
       "winner_id": 1030039,
       "loser_id": 1976514,
       "winner_score": 3,
@@ -831,6 +760,7 @@
       "round_text": "Round 2",
       "round": 2,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -905,6 +835,88 @@
       ]
     },
     {
+      "winner_id": 544127,
+      "loser_id": 2816341,
+      "winner_score": 2,
+      "loser_score": 1,
+      "round_text": "Round 2",
+      "round": 2,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": [
+        {
+          "game_id": 26295756,
+          "order_num": 1,
+          "winner_id": 2816341,
+          "entrant1_score": 0,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 544127,
+              "selection_id": 38295138,
+              "character_id": 1282,
+              "character_name": "Dr. Mario"
+            },
+            {
+              "user_id": 2816341,
+              "selection_id": 38295139,
+              "character_id": 1407,
+              "character_name": "King K. Rool"
+            }
+          ]
+        },
+        {
+          "game_id": 26295757,
+          "order_num": 2,
+          "winner_id": 544127,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2816341,
+              "selection_id": 38295141,
+              "character_id": 1407,
+              "character_name": "King K. Rool"
+            },
+            {
+              "user_id": 544127,
+              "selection_id": 38295224,
+              "character_id": 1335,
+              "character_name": "Wario"
+            }
+          ]
+        },
+        {
+          "game_id": 26295758,
+          "order_num": 3,
+          "winner_id": 544127,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2816341,
+              "selection_id": 38295143,
+              "character_id": 1407,
+              "character_name": "King K. Rool"
+            },
+            {
+              "user_id": 544127,
+              "selection_id": 38295352,
+              "character_id": 1274,
+              "character_name": "Captain Falcon"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "winner_id": 1877594,
       "loser_id": 212256,
       "winner_score": 3,
@@ -912,6 +924,7 @@
       "round_text": "Round 2",
       "round": 2,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -993,6 +1006,7 @@
       "round_text": "Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -1007,6 +1021,7 @@
       "round_text": "Winners Final",
       "round": 1,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1110,6 +1125,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -1124,6 +1140,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1205,6 +1222,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1308,6 +1326,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1389,6 +1408,7 @@
       "round_text": "Losers Final",
       "round": -4,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1470,6 +1490,7 @@
       "round_text": "Losers Semi-Final",
       "round": -3,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,

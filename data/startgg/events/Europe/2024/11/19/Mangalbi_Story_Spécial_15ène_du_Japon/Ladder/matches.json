@@ -8,6 +8,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -67,6 +68,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -126,6 +128,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -185,6 +188,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -266,6 +270,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -325,6 +330,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -367,6 +373,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -419,65 +426,6 @@
       ]
     },
     {
-      "winner_id": 1247970,
-      "loser_id": 2777807,
-      "winner_score": 2,
-      "loser_score": 0,
-      "round_text": "Round 1",
-      "round": 1,
-      "phase": "1",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": [
-        {
-          "game_id": 26324328,
-          "order_num": 1,
-          "winner_id": 1247970,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": 1247970,
-              "selection_id": 38337508,
-              "character_id": 1295,
-              "character_name": "Kirby"
-            },
-            {
-              "user_id": 2777807,
-              "selection_id": 38337509,
-              "character_id": 1453,
-              "character_name": "Joker"
-            }
-          ]
-        },
-        {
-          "game_id": 26324329,
-          "order_num": 2,
-          "winner_id": 1247970,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": 1247970,
-              "selection_id": 38337510,
-              "character_id": 1271,
-              "character_name": "Bayonetta"
-            },
-            {
-              "user_id": 2777807,
-              "selection_id": 38337511,
-              "character_id": 1453,
-              "character_name": "Joker"
-            }
-          ]
-        }
-      ]
-    },
-    {
       "winner_id": 2403552,
       "loser_id": 1818154,
       "winner_score": 2,
@@ -485,6 +433,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -566,6 +515,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -647,6 +597,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -699,323 +650,6 @@
       ]
     },
     {
-      "winner_id": 1860140,
-      "loser_id": 1818154,
-      "winner_score": 2,
-      "loser_score": 0,
-      "round_text": "Round 1",
-      "round": 1,
-      "phase": "1",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": [
-        {
-          "game_id": 26324396,
-          "order_num": 1,
-          "winner_id": 1860140,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": 1860140,
-              "selection_id": 38337629,
-              "character_id": 1315,
-              "character_name": "Pac-Man"
-            },
-            {
-              "user_id": 1818154,
-              "selection_id": 38337630,
-              "character_id": 1311,
-              "character_name": "Mii Brawler"
-            }
-          ]
-        },
-        {
-          "game_id": 26324397,
-          "order_num": 2,
-          "winner_id": 1860140,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": 1860140,
-              "selection_id": 38337631,
-              "character_id": 1315,
-              "character_name": "Pac-Man"
-            },
-            {
-              "user_id": 1818154,
-              "selection_id": 38337632,
-              "character_id": 1795,
-              "character_name": "Pyra & Mythra"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "winner_id": 2403552,
-      "loser_id": 1818154,
-      "winner_score": 2,
-      "loser_score": 0,
-      "round_text": "Round 1",
-      "round": 1,
-      "phase": "1",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": [
-        {
-          "game_id": 26324477,
-          "order_num": 1,
-          "winner_id": 2403552,
-          "entrant1_score": 0,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": 2403552,
-              "selection_id": 38337786,
-              "character_id": 1526,
-              "character_name": "Hero"
-            },
-            {
-              "user_id": 1818154,
-              "selection_id": 38337787,
-              "character_id": 1323,
-              "character_name": "R.O.B."
-            }
-          ]
-        },
-        {
-          "game_id": 26324478,
-          "order_num": 2,
-          "winner_id": 2403552,
-          "entrant1_score": 0,
-          "entrant2_score": null,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": 2403552,
-              "selection_id": 38337788,
-              "character_id": 1291,
-              "character_name": "Ike"
-            },
-            {
-              "user_id": 1818154,
-              "selection_id": 38337789,
-              "character_id": 1273,
-              "character_name": "Bowser"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "winner_id": 2403552,
-      "loser_id": 1818154,
-      "winner_score": 2,
-      "loser_score": 0,
-      "round_text": "Round 1",
-      "round": 1,
-      "phase": "1",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": [
-        {
-          "game_id": 26324510,
-          "order_num": 1,
-          "winner_id": 2403552,
-          "entrant1_score": 0,
-          "entrant2_score": null,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": 2403552,
-              "selection_id": 38337852,
-              "character_id": 1314,
-              "character_name": "Olimar"
-            },
-            {
-              "user_id": 1818154,
-              "selection_id": 38337853,
-              "character_id": 1275,
-              "character_name": "Cloud"
-            }
-          ]
-        },
-        {
-          "game_id": 26324511,
-          "order_num": 2,
-          "winner_id": 2403552,
-          "entrant1_score": 0,
-          "entrant2_score": null,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": 2403552,
-              "selection_id": 38337854,
-              "character_id": 1532,
-              "character_name": "Terry"
-            },
-            {
-              "user_id": 1818154,
-              "selection_id": 38337855,
-              "character_id": 1406,
-              "character_name": "Incineroar"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "winner_id": 1247970,
-      "loser_id": 2403552,
-      "winner_score": 2,
-      "loser_score": 1,
-      "round_text": "Round 1",
-      "round": 1,
-      "phase": "1",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": [
-        {
-          "game_id": 26324800,
-          "order_num": 1,
-          "winner_id": 1247970,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": 2403552,
-              "selection_id": 38338430,
-              "character_id": 1746,
-              "character_name": "Random Character"
-            },
-            {
-              "user_id": 1247970,
-              "selection_id": 38338431,
-              "character_id": 1746,
-              "character_name": "Random Character"
-            }
-          ]
-        },
-        {
-          "game_id": 26324801,
-          "order_num": 2,
-          "winner_id": 2403552,
-          "entrant1_score": 0,
-          "entrant2_score": null,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": 2403552,
-              "selection_id": 38338432,
-              "character_id": 1746,
-              "character_name": "Random Character"
-            },
-            {
-              "user_id": 1247970,
-              "selection_id": 38338433,
-              "character_id": 1746,
-              "character_name": "Random Character"
-            }
-          ]
-        },
-        {
-          "game_id": 26324802,
-          "order_num": 3,
-          "winner_id": 1247970,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": 2403552,
-              "selection_id": 38338434,
-              "character_id": 1746,
-              "character_name": "Random Character"
-            },
-            {
-              "user_id": 1247970,
-              "selection_id": 38338435,
-              "character_id": 1746,
-              "character_name": "Random Character"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "winner_id": 1247970,
-      "loser_id": 2777807,
-      "winner_score": 2,
-      "loser_score": 0,
-      "round_text": "Round 1",
-      "round": 1,
-      "phase": "1",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": [
-        {
-          "game_id": 26324306,
-          "order_num": 1,
-          "winner_id": 1247970,
-          "entrant1_score": 0,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": 1247970,
-              "selection_id": 38337474,
-              "character_id": 1280,
-              "character_name": "Donkey Kong"
-            },
-            {
-              "user_id": 2777807,
-              "selection_id": 38337475,
-              "character_id": 1453,
-              "character_name": "Joker"
-            }
-          ]
-        },
-        {
-          "game_id": 26324307,
-          "order_num": 2,
-          "winner_id": 1247970,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": 1247970,
-              "selection_id": 38337476,
-              "character_id": 1766,
-              "character_name": "Steve"
-            },
-            {
-              "user_id": 2777807,
-              "selection_id": 38337477,
-              "character_id": 1453,
-              "character_name": "Joker"
-            }
-          ]
-        }
-      ]
-    },
-    {
       "winner_id": 1247970,
       "loser_id": 2403552,
       "winner_score": 2,
@@ -1023,6 +657,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1076,71 +711,13 @@
     },
     {
       "winner_id": 1247970,
-      "loser_id": 1860140,
-      "winner_score": 2,
-      "loser_score": 0,
-      "round_text": "Round 1",
-      "round": 1,
-      "phase": "1",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": [
-        {
-          "game_id": 26324347,
-          "order_num": 1,
-          "winner_id": 1247970,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": 1860140,
-              "selection_id": 38337542,
-              "character_id": 1315,
-              "character_name": "Pac-Man"
-            },
-            {
-              "user_id": 1247970,
-              "selection_id": 38337543,
-              "character_id": 1441,
-              "character_name": "Piranha Plant"
-            }
-          ]
-        },
-        {
-          "game_id": 26324348,
-          "order_num": 2,
-          "winner_id": 1247970,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": 1860140,
-              "selection_id": 38337544,
-              "character_id": 1315,
-              "character_name": "Pac-Man"
-            },
-            {
-              "user_id": 1247970,
-              "selection_id": 38337545,
-              "character_id": 1747,
-              "character_name": "Min Min"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "winner_id": 1247970,
       "loser_id": 1818154,
       "winner_score": 2,
       "loser_score": 0,
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1200,6 +777,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1259,6 +837,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1306,6 +885,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1374,124 +954,6 @@
               "selection_id": 38337525,
               "character_id": 1897,
               "character_name": "Sora"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "winner_id": 1860140,
-      "loser_id": 2825246,
-      "winner_score": 2,
-      "loser_score": 0,
-      "round_text": "Round 1",
-      "round": 1,
-      "phase": "1",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": [
-        {
-          "game_id": 26324339,
-          "order_num": 1,
-          "winner_id": 1860140,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": 1860140,
-              "selection_id": 38337530,
-              "character_id": 1315,
-              "character_name": "Pac-Man"
-            },
-            {
-              "user_id": 2825246,
-              "selection_id": 38337531,
-              "character_id": 1897,
-              "character_name": "Sora"
-            }
-          ]
-        },
-        {
-          "game_id": 26324340,
-          "order_num": 2,
-          "winner_id": 1860140,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": 1860140,
-              "selection_id": 38337532,
-              "character_id": 1315,
-              "character_name": "Pac-Man"
-            },
-            {
-              "user_id": 2825246,
-              "selection_id": 38337533,
-              "character_id": 1897,
-              "character_name": "Sora"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "winner_id": 2403552,
-      "loser_id": 1818154,
-      "winner_score": 2,
-      "loser_score": 0,
-      "round_text": "Round 1",
-      "round": 1,
-      "phase": "1",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": [
-        {
-          "game_id": 26324446,
-          "order_num": 1,
-          "winner_id": 2403552,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": 2403552,
-              "selection_id": 38337724,
-              "character_id": 1331,
-              "character_name": "Snake"
-            },
-            {
-              "user_id": 1818154,
-              "selection_id": 38337725,
-              "character_id": 1323,
-              "character_name": "R.O.B."
-            }
-          ]
-        },
-        {
-          "game_id": 26324447,
-          "order_num": 2,
-          "winner_id": 2403552,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": 2403552,
-              "selection_id": 38337726,
-              "character_id": 1331,
-              "character_name": "Snake"
-            },
-            {
-              "user_id": 1818154,
-              "selection_id": 38337727,
-              "character_id": 1323,
-              "character_name": "R.O.B."
             }
           ]
         }
