@@ -8,11 +8,101 @@
       "round_text": "Grand Final",
       "round": 5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
       "state": 3,
-      "details": []
+      "details": [
+        {
+          "game_id": 26675609,
+          "order_num": 1,
+          "winner_id": 2123280,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2123280,
+              "selection_id": 38881775,
+              "character_id": 1407,
+              "character_name": "King K. Rool"
+            },
+            {
+              "user_id": 1022857,
+              "selection_id": 38881776,
+              "character_id": 1340,
+              "character_name": "Zelda"
+            }
+          ]
+        },
+        {
+          "game_id": 26675610,
+          "order_num": 2,
+          "winner_id": 2123280,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2123280,
+              "selection_id": 38881777,
+              "character_id": 1407,
+              "character_name": "King K. Rool"
+            },
+            {
+              "user_id": 1022857,
+              "selection_id": 38881778,
+              "character_id": 1340,
+              "character_name": "Zelda"
+            }
+          ]
+        },
+        {
+          "game_id": 26675611,
+          "order_num": 3,
+          "winner_id": 1022857,
+          "entrant1_score": 0,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2123280,
+              "selection_id": 38881779,
+              "character_id": 1407,
+              "character_name": "King K. Rool"
+            },
+            {
+              "user_id": 1022857,
+              "selection_id": 38881780,
+              "character_id": 1340,
+              "character_name": "Zelda"
+            }
+          ]
+        },
+        {
+          "game_id": 26675612,
+          "order_num": 4,
+          "winner_id": 2123280,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2123280,
+              "selection_id": 38881781,
+              "character_id": 1407,
+              "character_name": "King K. Rool"
+            },
+            {
+              "user_id": 1022857,
+              "selection_id": 38881782,
+              "character_id": 1340,
+              "character_name": "Zelda"
+            }
+          ]
+        }
+      ]
     },
     {
       "winner_id": 2123280,
@@ -22,11 +112,101 @@
       "round_text": "Winners Final",
       "round": 4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
       "state": 3,
-      "details": []
+      "details": [
+        {
+          "game_id": 26675603,
+          "order_num": 1,
+          "winner_id": 2123280,
+          "entrant1_score": 0,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2123280,
+              "selection_id": 38881767,
+              "character_id": 1314,
+              "character_name": "Olimar"
+            },
+            {
+              "user_id": 1022857,
+              "selection_id": 38881768,
+              "character_id": 1340,
+              "character_name": "Zelda"
+            }
+          ]
+        },
+        {
+          "game_id": 26675604,
+          "order_num": 2,
+          "winner_id": 2123280,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2123280,
+              "selection_id": 38881769,
+              "character_id": 1777,
+              "character_name": "Sephiroth"
+            },
+            {
+              "user_id": 1022857,
+              "selection_id": 38881770,
+              "character_id": 1340,
+              "character_name": "Zelda"
+            }
+          ]
+        },
+        {
+          "game_id": 26675605,
+          "order_num": 3,
+          "winner_id": 1022857,
+          "entrant1_score": 0,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2123280,
+              "selection_id": 38881771,
+              "character_id": 1777,
+              "character_name": "Sephiroth"
+            },
+            {
+              "user_id": 1022857,
+              "selection_id": 38881772,
+              "character_id": 1340,
+              "character_name": "Zelda"
+            }
+          ]
+        },
+        {
+          "game_id": 26675606,
+          "order_num": 4,
+          "winner_id": 2123280,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2123280,
+              "selection_id": 38881773,
+              "character_id": 1777,
+              "character_name": "Sephiroth"
+            },
+            {
+              "user_id": 1022857,
+              "selection_id": 38881774,
+              "character_id": 1340,
+              "character_name": "Zelda"
+            }
+          ]
+        }
+      ]
     },
     {
       "winner_id": 1022857,
@@ -36,6 +216,7 @@
       "round_text": "Losers Final",
       "round": -8,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -50,6 +231,7 @@
       "round_text": "Losers Semi-Final",
       "round": -7,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -64,11 +246,101 @@
       "round_text": "Winners Semi-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
       "state": 3,
-      "details": []
+      "details": [
+        {
+          "game_id": 26675566,
+          "order_num": 1,
+          "winner_id": 2123280,
+          "entrant1_score": 0,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2123280,
+              "selection_id": 38881717,
+              "character_id": 1314,
+              "character_name": "Olimar"
+            },
+            {
+              "user_id": 2850933,
+              "selection_id": 38881718,
+              "character_id": 1407,
+              "character_name": "King K. Rool"
+            }
+          ]
+        },
+        {
+          "game_id": 26675567,
+          "order_num": 2,
+          "winner_id": 2123280,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2123280,
+              "selection_id": 38881719,
+              "character_id": 1314,
+              "character_name": "Olimar"
+            },
+            {
+              "user_id": 2850933,
+              "selection_id": 38881720,
+              "character_id": 1407,
+              "character_name": "King K. Rool"
+            }
+          ]
+        },
+        {
+          "game_id": 26675568,
+          "order_num": 3,
+          "winner_id": 2850933,
+          "entrant1_score": 0,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2123280,
+              "selection_id": 38881721,
+              "character_id": 1314,
+              "character_name": "Olimar"
+            },
+            {
+              "user_id": 2850933,
+              "selection_id": 38881722,
+              "character_id": 1407,
+              "character_name": "King K. Rool"
+            }
+          ]
+        },
+        {
+          "game_id": 26675569,
+          "order_num": 4,
+          "winner_id": 2123280,
+          "entrant1_score": 0,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2123280,
+              "selection_id": 38881723,
+              "character_id": 1314,
+              "character_name": "Olimar"
+            },
+            {
+              "user_id": 2850933,
+              "selection_id": 38881724,
+              "character_id": 1407,
+              "character_name": "King K. Rool"
+            }
+          ]
+        }
+      ]
     },
     {
       "winner_id": 1022857,
@@ -78,11 +350,101 @@
       "round_text": "Winners Semi-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
       "state": 3,
-      "details": []
+      "details": [
+        {
+          "game_id": 26675596,
+          "order_num": 1,
+          "winner_id": 1022857,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2760115,
+              "selection_id": 38881753,
+              "character_id": 1323,
+              "character_name": "R.O.B."
+            },
+            {
+              "user_id": 1022857,
+              "selection_id": 38881754,
+              "character_id": 1340,
+              "character_name": "Zelda"
+            }
+          ]
+        },
+        {
+          "game_id": 26675597,
+          "order_num": 2,
+          "winner_id": 1022857,
+          "entrant1_score": 0,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2760115,
+              "selection_id": 38881755,
+              "character_id": 1323,
+              "character_name": "R.O.B."
+            },
+            {
+              "user_id": 1022857,
+              "selection_id": 38881756,
+              "character_id": 1340,
+              "character_name": "Zelda"
+            }
+          ]
+        },
+        {
+          "game_id": 26675598,
+          "order_num": 3,
+          "winner_id": 2760115,
+          "entrant1_score": 0,
+          "entrant2_score": null,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2760115,
+              "selection_id": 38881757,
+              "character_id": 1323,
+              "character_name": "R.O.B."
+            },
+            {
+              "user_id": 1022857,
+              "selection_id": 38881758,
+              "character_id": 1340,
+              "character_name": "Zelda"
+            }
+          ]
+        },
+        {
+          "game_id": 26675599,
+          "order_num": 4,
+          "winner_id": 1022857,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2760115,
+              "selection_id": 38881759,
+              "character_id": 1323,
+              "character_name": "R.O.B."
+            },
+            {
+              "user_id": 1022857,
+              "selection_id": 38881760,
+              "character_id": 1340,
+              "character_name": "Zelda"
+            }
+          ]
+        }
+      ]
     },
     {
       "winner_id": 2850933,
@@ -92,6 +454,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -106,6 +469,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -120,6 +484,7 @@
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -134,6 +499,7 @@
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -148,11 +514,79 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
       "state": 3,
-      "details": []
+      "details": [
+        {
+          "game_id": 26675521,
+          "order_num": 1,
+          "winner_id": 2123280,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2123280,
+              "selection_id": 38881639,
+              "character_id": 1314,
+              "character_name": "Olimar"
+            },
+            {
+              "user_id": 2852564,
+              "selection_id": 38881640,
+              "character_id": 1846,
+              "character_name": "Kazuya"
+            }
+          ]
+        },
+        {
+          "game_id": 26675522,
+          "order_num": 2,
+          "winner_id": 2123280,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2123280,
+              "selection_id": 38881641,
+              "character_id": 1314,
+              "character_name": "Olimar"
+            },
+            {
+              "user_id": 2852564,
+              "selection_id": 38881642,
+              "character_id": 1846,
+              "character_name": "Kazuya"
+            }
+          ]
+        },
+        {
+          "game_id": 26675523,
+          "order_num": 3,
+          "winner_id": 2123280,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2123280,
+              "selection_id": 38881643,
+              "character_id": 1314,
+              "character_name": "Olimar"
+            },
+            {
+              "user_id": 2852564,
+              "selection_id": 38881644,
+              "character_id": 1846,
+              "character_name": "Kazuya"
+            }
+          ]
+        }
+      ]
     },
     {
       "winner_id": 2850933,
@@ -162,11 +596,101 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
       "state": 3,
-      "details": []
+      "details": [
+        {
+          "game_id": 26675530,
+          "order_num": 1,
+          "winner_id": 2850933,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2850933,
+              "selection_id": 38881655,
+              "character_id": 1407,
+              "character_name": "King K. Rool"
+            },
+            {
+              "user_id": 2852687,
+              "selection_id": 38881656,
+              "character_id": 1326,
+              "character_name": "Roy"
+            }
+          ]
+        },
+        {
+          "game_id": 26675531,
+          "order_num": 2,
+          "winner_id": 2850933,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2850933,
+              "selection_id": 38881657,
+              "character_id": 1407,
+              "character_name": "King K. Rool"
+            },
+            {
+              "user_id": 2852687,
+              "selection_id": 38881658,
+              "character_id": 1326,
+              "character_name": "Roy"
+            }
+          ]
+        },
+        {
+          "game_id": 26675532,
+          "order_num": 3,
+          "winner_id": 2852687,
+          "entrant1_score": 0,
+          "entrant2_score": null,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2850933,
+              "selection_id": 38881659,
+              "character_id": 1407,
+              "character_name": "King K. Rool"
+            },
+            {
+              "user_id": 2852687,
+              "selection_id": 38881660,
+              "character_id": 1326,
+              "character_name": "Roy"
+            }
+          ]
+        },
+        {
+          "game_id": 26675533,
+          "order_num": 4,
+          "winner_id": 2850933,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2850933,
+              "selection_id": 38881661,
+              "character_id": 1407,
+              "character_name": "King K. Rool"
+            },
+            {
+              "user_id": 2852687,
+              "selection_id": 38881662,
+              "character_id": 1326,
+              "character_name": "Roy"
+            }
+          ]
+        }
+      ]
     },
     {
       "winner_id": 1022857,
@@ -176,11 +700,79 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
       "state": 3,
-      "details": []
+      "details": [
+        {
+          "game_id": 26675541,
+          "order_num": 1,
+          "winner_id": 1022857,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 1022857,
+              "selection_id": 38881673,
+              "character_id": 1316,
+              "character_name": "Palutena"
+            },
+            {
+              "user_id": 2851300,
+              "selection_id": 38881674,
+              "character_id": 1320,
+              "character_name": "Pit"
+            }
+          ]
+        },
+        {
+          "game_id": 26675542,
+          "order_num": 2,
+          "winner_id": 1022857,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 1022857,
+              "selection_id": 38881675,
+              "character_id": 1406,
+              "character_name": "Incineroar"
+            },
+            {
+              "user_id": 2851300,
+              "selection_id": 38881676,
+              "character_id": 1320,
+              "character_name": "Pit"
+            }
+          ]
+        },
+        {
+          "game_id": 26675543,
+          "order_num": 3,
+          "winner_id": 1022857,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 1022857,
+              "selection_id": 38881677,
+              "character_id": 1340,
+              "character_name": "Zelda"
+            },
+            {
+              "user_id": 2851300,
+              "selection_id": 38881678,
+              "character_id": 1320,
+              "character_name": "Pit"
+            }
+          ]
+        }
+      ]
     },
     {
       "winner_id": 2760115,
@@ -190,11 +782,79 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
       "state": 3,
-      "details": []
+      "details": [
+        {
+          "game_id": 26675552,
+          "order_num": 1,
+          "winner_id": 2760115,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2760115,
+              "selection_id": 38881693,
+              "character_id": 1323,
+              "character_name": "R.O.B."
+            },
+            {
+              "user_id": 2852686,
+              "selection_id": 38881694,
+              "character_id": 1795,
+              "character_name": "Pyra & Mythra"
+            }
+          ]
+        },
+        {
+          "game_id": 26675553,
+          "order_num": 2,
+          "winner_id": 2760115,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2760115,
+              "selection_id": 38881695,
+              "character_id": 1280,
+              "character_name": "Donkey Kong"
+            },
+            {
+              "user_id": 2852686,
+              "selection_id": 38881696,
+              "character_id": 1795,
+              "character_name": "Pyra & Mythra"
+            }
+          ]
+        },
+        {
+          "game_id": 26675554,
+          "order_num": 3,
+          "winner_id": 2760115,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2760115,
+              "selection_id": 38881697,
+              "character_id": 1280,
+              "character_name": "Donkey Kong"
+            },
+            {
+              "user_id": 2852686,
+              "selection_id": 38881698,
+              "character_id": 1795,
+              "character_name": "Pyra & Mythra"
+            }
+          ]
+        }
+      ]
     },
     {
       "winner_id": 2852686,
@@ -204,6 +864,7 @@
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -218,6 +879,7 @@
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -232,11 +894,79 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
       "state": 3,
-      "details": []
+      "details": [
+        {
+          "game_id": 26675499,
+          "order_num": 1,
+          "winner_id": 2852564,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2852564,
+              "selection_id": 38881610,
+              "character_id": 1846,
+              "character_name": "Kazuya"
+            },
+            {
+              "user_id": null,
+              "selection_id": 38881611,
+              "character_id": 1292,
+              "character_name": "Inkling"
+            }
+          ]
+        },
+        {
+          "game_id": 26675500,
+          "order_num": 2,
+          "winner_id": 2852564,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2852564,
+              "selection_id": 38881612,
+              "character_id": 1846,
+              "character_name": "Kazuya"
+            },
+            {
+              "user_id": null,
+              "selection_id": 38881613,
+              "character_id": 1292,
+              "character_name": "Inkling"
+            }
+          ]
+        },
+        {
+          "game_id": 26675501,
+          "order_num": 3,
+          "winner_id": 2852564,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2852564,
+              "selection_id": 38881614,
+              "character_id": 1846,
+              "character_name": "Kazuya"
+            },
+            {
+              "user_id": null,
+              "selection_id": 38881615,
+              "character_id": 1292,
+              "character_name": "Inkling"
+            }
+          ]
+        }
+      ]
     },
     {
       "winner_id": 2851300,
@@ -246,11 +976,61 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
       "state": 3,
-      "details": []
+      "details": [
+        {
+          "game_id": 26675513,
+          "order_num": 1,
+          "winner_id": 2851300,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2851300,
+              "selection_id": 38881628,
+              "character_id": 1320,
+              "character_name": "Pit"
+            }
+          ]
+        },
+        {
+          "game_id": 26675514,
+          "order_num": 2,
+          "winner_id": 2851300,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2851300,
+              "selection_id": 38881629,
+              "character_id": 1320,
+              "character_name": "Pit"
+            }
+          ]
+        },
+        {
+          "game_id": 26675515,
+          "order_num": 3,
+          "winner_id": 2851300,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2851300,
+              "selection_id": 38881630,
+              "character_id": 1320,
+              "character_name": "Pit"
+            }
+          ]
+        }
+      ]
     }
   ],
   "version": "1.0"
