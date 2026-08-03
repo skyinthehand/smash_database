@@ -9,6 +9,10 @@ on:
         description: "Maximum number of events to re-download in this run."
         required: false
         default: "200"
+      batch_size:
+        description: "Number of events to process per commit."
+        required: false
+        default: "20"
 
 concurrency:
   group: chore-update-branch
@@ -50,60 +54,86 @@ jobs:
           set -euxo pipefail
           python -m pip install --upgrade pip requests
 
-      - name: Backfill outdated event schema versions
-        env:
-          STARTGG_TOKEN: ${{ secrets.STARTGG_TOKEN }}
-        run: |
-          set -euxo pipefail
-          MAX_EVENTS="${{ inputs.max_events }}"
-          if [ -z "$MAX_EVENTS" ]; then
-            MAX_EVENTS="200"
-          fi
-          python scripts/fetch/backfill_schema_version.py \
-            --token "$STARTGG_TOKEN" \
-            --max_events "$MAX_EVENTS"
-
       - name: Run tests
         run: |
           set -euxo pipefail
           python -m unittest scripts.test.test_validate_data
           python -m unittest scripts.test.test_backfill_schema_version
 
-      - name: Detect changes
-        id: detect_changes
+      - name: Backfill outdated event schema versions in batches
+        id: backfill
+        env:
+          STARTGG_TOKEN: ${{ secrets.STARTGG_TOKEN }}
         run: |
-          set -euxo pipefail
-          if git diff --quiet; then
-            echo "has_changes=false" >> "$GITHUB_OUTPUT"
-            echo "changed_files_count=0" >> "$GITHUB_OUTPUT"
-            echo "No changes to create PR."
-          else
-            echo "has_changes=true" >> "$GITHUB_OUTPUT"
-            echo "changed_files_count=$(git diff --name-only | wc -l | tr -d ' ')" >> "$GITHUB_OUTPUT"
-            git status --short
+          set -uxo pipefail
+          MAX_EVENTS="${{ inputs.max_events }}"
+          if [ -z "$MAX_EVENTS" ]; then
+            MAX_EVENTS="200"
+          fi
+          BATCH_SIZE="${{ inputs.batch_size }}"
+          if [ -z "$BATCH_SIZE" ]; then
+            BATCH_SIZE="20"
           fi
 
-      - name: Commit changes
-        if: steps.detect_changes.outputs.has_changes == 'true'
-        run: |
-          set -euxo pipefail
-          git add -A
-          git commit -m "chore(data): backfill event schema version"
+          ANY_CHANGES="false"
+          TOTAL_PROCESSED=0
+          SCRIPT_FAILED=0
 
-      - name: Push chore-update branch
-        if: steps.detect_changes.outputs.has_changes == 'true'
-        run: |
-          set -euxo pipefail
-          for attempt in 1 2 3; do
-            if git push --set-upstream origin chore-update; then
-              exit 0
+          while [ "$TOTAL_PROCESSED" -lt "$MAX_EVENTS" ]; do
+            REMAINING=$((MAX_EVENTS - TOTAL_PROCESSED))
+            THIS_BATCH=$((REMAINING < BATCH_SIZE ? REMAINING : BATCH_SIZE))
+
+            echo "=== batch start: processed_so_far=$TOTAL_PROCESSED max_events=$THIS_BATCH ==="
+            OUTPUT="$(python scripts/fetch/backfill_schema_version.py \
+              --token "$STARTGG_TOKEN" \
+              --max_events "$THIS_BATCH" 2>&1)"
+            SCRIPT_EXIT=$?
+            echo "$OUTPUT"
+
+            # 途中で失敗しても、そのバッチ内で正常に取得できた分は commit & push して残す。
+            if ! git diff --quiet; then
+              ANY_CHANGES="true"
+              git add -A
+              git commit -m "chore(data): backfill event schema version (batch)"
+              PUSHED=0
+              for attempt in 1 2 3; do
+                if git push --set-upstream origin chore-update; then
+                  PUSHED=1
+                  break
+                fi
+                git pull --rebase origin chore-update
+              done
+              if [ "$PUSHED" -ne 1 ]; then
+                echo "push failed after retries" >&2
+                echo "any_changes=$ANY_CHANGES" >> "$GITHUB_OUTPUT"
+                exit 1
+              fi
             fi
-            git pull --rebase origin chore-update
+
+            if [ "$SCRIPT_EXIT" -ne 0 ]; then
+              echo "Batch failed (exit=$SCRIPT_EXIT); stopping further batches this run."
+              SCRIPT_FAILED=1
+              break
+            fi
+
+            BATCH_PROCESSED="$(echo "$OUTPUT" | grep -oE 'processed=[0-9]+' | tail -1 | cut -d= -f2)"
+            BATCH_PROCESSED="${BATCH_PROCESSED:-0}"
+            TOTAL_PROCESSED=$((TOTAL_PROCESSED + BATCH_PROCESSED))
+
+            if [ "$BATCH_PROCESSED" -eq 0 ]; then
+              echo "No more eligible events; stopping."
+              break
+            fi
           done
-          exit 1
+
+          echo "any_changes=$ANY_CHANGES" >> "$GITHUB_OUTPUT"
+
+          if [ "$SCRIPT_FAILED" -ne 0 ]; then
+            exit 1
+          fi
 
       - name: Ensure main PR exists without auto-merge
-        if: steps.detect_changes.outputs.has_changes == 'true'
+        if: always() && steps.backfill.outputs.any_changes == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
