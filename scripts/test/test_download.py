@@ -12,8 +12,10 @@ from scripts.fetch.download import (
     count_guest_entrants,
     dedupe_set_nodes,
     download_all_tournaments,
+    fetch_all_phase_groups,
     fetch_all_sets,
     get_event_directory,
+    load_excluded_phase_ids,
     should_skip_tournament,
     write_event_attributes,
     write_matches,
@@ -50,8 +52,11 @@ class DownloadTests(unittest.TestCase):
         mock_set_retry_parameters.assert_called_once_with(12, 3)
         mock_set_page_delay.assert_called_once_with(1)
 
+    @patch("scripts.fetch.download.load_excluded_phase_ids", return_value={})
     @patch("scripts.fetch.download.fetch_all_nodes")
-    def test_fetch_all_sets_retries_with_smaller_page_size_when_duplicate_ids_found(self, mock_fetch_all_nodes):
+    def test_fetch_all_sets_retries_with_smaller_page_size_when_duplicate_ids_found(
+        self, mock_fetch_all_nodes, _mock_load_excluded
+    ):
         mock_fetch_all_nodes.side_effect = [
             [{"id": 1}, {"id": 1}, {"id": 2}],
             [{"id": 1}, {"id": 2}, {"id": 3}],
@@ -70,8 +75,11 @@ class DownloadTests(unittest.TestCase):
             [{"id": 10}, {"id": 20}, {"name": "no-id"}],
         )
 
+    @patch("scripts.fetch.download.load_excluded_phase_ids", return_value={})
     @patch("scripts.fetch.download.fetch_all_nodes")
-    def test_fetch_all_sets_retries_with_smaller_page_size_when_query_too_complex(self, mock_fetch_all_nodes):
+    def test_fetch_all_sets_retries_with_smaller_page_size_when_query_too_complex(
+        self, mock_fetch_all_nodes, _mock_load_excluded
+    ):
         mock_fetch_all_nodes.side_effect = [
             FetchError("query complexity is too high"),
             [{"id": 1}, {"id": 2}],
@@ -83,6 +91,140 @@ class DownloadTests(unittest.TestCase):
         self.assertEqual(mock_fetch_all_nodes.call_count, 2)
         self.assertEqual(mock_fetch_all_nodes.call_args_list[0].kwargs["per_page"], 50)
         self.assertEqual(mock_fetch_all_nodes.call_args_list[1].kwargs["per_page"], 25)
+
+    @patch("scripts.fetch.download.load_excluded_phase_ids", return_value={})
+    @patch("scripts.fetch.download._fetch_all_sets_by_phase_group")
+    @patch("scripts.fetch.download.fetch_all_nodes")
+    def test_fetch_all_sets_skips_event_level_when_excluded_phase_configured(
+        self, mock_fetch_all_nodes, mock_by_phase_group, mock_load_excluded
+    ):
+        mock_load_excluded.return_value = {436192: {731718}}
+        mock_by_phase_group.return_value = [{"id": 1}]
+
+        sets_data = fetch_all_sets(436192)
+
+        self.assertEqual(sets_data, [{"id": 1}])
+        mock_fetch_all_nodes.assert_not_called()
+        mock_by_phase_group.assert_called_once_with(436192, {731718}, lightweight=False, max_pages=None)
+
+    @patch("scripts.fetch.download.load_excluded_phase_ids", return_value={})
+    @patch("scripts.fetch.download._fetch_all_sets_by_phase_group")
+    @patch("scripts.fetch.download.fetch_all_nodes")
+    def test_fetch_all_sets_falls_back_to_phase_group_when_event_level_unresolvable(
+        self, mock_fetch_all_nodes, mock_by_phase_group, _mock_load_excluded
+    ):
+        # per_page を全通り試しても重複が解消せず、total とも一致しないケース。
+        mock_fetch_all_nodes.side_effect = [
+            [{"id": 1}, {"id": 1}] for _ in range(len(("50", "25", "10", "5", "3", "1")))
+        ]
+        mock_by_phase_group.return_value = [{"id": 1}, {"id": 2}]
+
+        sets_data = fetch_all_sets(436192)
+
+        self.assertEqual(sets_data, [{"id": 1}, {"id": 2}])
+        mock_by_phase_group.assert_called_once_with(436192, set(), lightweight=False, max_pages=None)
+
+    @patch("scripts.fetch.download.fetch_all_phase_groups")
+    @patch("scripts.fetch.download.fetch_all_nodes")
+    def test_fetch_all_sets_by_phase_group_excludes_configured_phase_groups(
+        self, mock_fetch_all_nodes, mock_fetch_all_phase_groups
+    ):
+        from scripts.fetch.download import _fetch_all_sets_by_phase_group
+
+        mock_fetch_all_phase_groups.return_value = [
+            (731718, 111, "Bad Pool"),
+            (999999, 222, "Good Pool"),
+        ]
+        mock_fetch_all_nodes.return_value = [{"id": 5}]
+
+        sets_data = _fetch_all_sets_by_phase_group(436192, {731718})
+
+        self.assertEqual(sets_data, [{"id": 5}])
+        mock_fetch_all_nodes.assert_called_once()
+        self.assertEqual(mock_fetch_all_nodes.call_args.args[1], {"phaseGroupId": 222})
+
+    @patch("scripts.fetch.download.fetch_all_phase_groups")
+    def test_fetch_all_sets_by_phase_group_raises_when_all_groups_excluded(self, mock_fetch_all_phase_groups):
+        from scripts.fetch.download import _fetch_all_sets_by_phase_group
+
+        mock_fetch_all_phase_groups.return_value = [(731718, 111, "Bad Pool")]
+
+        with self.assertRaises(FetchError):
+            _fetch_all_sets_by_phase_group(436192, {731718})
+
+    @patch("scripts.fetch.download.time.sleep")
+    @patch("scripts.fetch.download.fetch_data_with_retries")
+    def test_fetch_all_phase_groups_paginates_until_all_phases_exhausted(self, mock_fetch, _mock_sleep):
+        mock_fetch.side_effect = [
+            {
+                "data": {
+                    "event": {
+                        "phases": [
+                            {
+                                "id": 1,
+                                "phaseGroups": {
+                                    "pageInfo": {"total": 2},
+                                    "nodes": [{"id": 10, "displayIdentifier": "A"}],
+                                },
+                            },
+                            {
+                                "id": 2,
+                                "phaseGroups": {
+                                    "pageInfo": {"total": 1},
+                                    "nodes": [{"id": 20, "displayIdentifier": "B"}],
+                                },
+                            },
+                        ]
+                    }
+                }
+            },
+            {
+                "data": {
+                    "event": {
+                        "phases": [
+                            {
+                                "id": 1,
+                                "phaseGroups": {
+                                    "pageInfo": {"total": 2},
+                                    "nodes": [{"id": 11, "displayIdentifier": "A2"}],
+                                },
+                            },
+                            {
+                                "id": 2,
+                                "phaseGroups": {
+                                    "pageInfo": {"total": 1},
+                                    "nodes": [],
+                                },
+                            },
+                        ]
+                    }
+                }
+            },
+        ]
+
+        result = fetch_all_phase_groups(436192)
+
+        self.assertEqual(
+            sorted(result),
+            sorted([(1, 10, "A"), (1, 11, "A2"), (2, 20, "B")]),
+        )
+        self.assertEqual(mock_fetch.call_count, 2)
+
+    def test_load_excluded_phase_ids_reads_json_file(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            path = os.path.join(tmpdir, "excluded_phases.json")
+            with open(path, "w", encoding="utf-8") as f:
+                json.dump({"436192": [{"phase_id": 731718, "reason": "test"}]}, f)
+
+            result = load_excluded_phase_ids(path)
+
+            self.assertEqual(result, {436192: {731718}})
+
+    def test_load_excluded_phase_ids_missing_file_returns_empty(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            path = os.path.join(tmpdir, "does_not_exist.json")
+
+            self.assertEqual(load_excluded_phase_ids(path), {})
 
     def test_build_match_dedupe_key_ignores_details(self):
         base = {
