@@ -11,6 +11,7 @@ def get_event_sets_query():
           sortType: STANDARD
         ) {
           pageInfo {
+            total
             totalPages
           }
           nodes {
@@ -91,6 +92,7 @@ def get_event_sets_light_query():
           sortType: STANDARD
         ) {
           pageInfo {
+            total
             totalPages
           }
           nodes {

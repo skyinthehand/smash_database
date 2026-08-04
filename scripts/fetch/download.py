@@ -429,8 +429,11 @@ def fetch_all_sets(event_id, lightweight=False, max_pages=None):
     for per_page in fallback_values:
         tried.append(per_page)
         effective_max = max_pages if (max_pages is not None and per_page == min_per_page) else None
+        page_info = {}
         try:
-            all_sets = fetch_all_nodes(query, variables, keys, per_page=per_page, max_pages=effective_max)
+            all_sets = fetch_all_nodes(
+                query, variables, keys, per_page=per_page, max_pages=effective_max, page_info_out=page_info
+            )
         except MaxPagesExceededError:
             raise
         except FetchError as exc:
@@ -449,6 +452,17 @@ def fetch_all_sets(event_id, lightweight=False, max_pages=None):
                     f"Event {event_id}: duplicate set ids disappeared after retrying with per_page={per_page}."
                 )
             return dedupe_set_nodes(all_sets, event_id=event_id)
+
+        deduped_sets = dedupe_set_nodes(all_sets, event_id=event_id)
+        total = page_info.get("total")
+        if total is not None and len(deduped_sets) >= total:
+            print(
+                f"Event {event_id}: {len(duplicate_ids)} duplicate set ids found with per_page={per_page}, "
+                f"but deduplicated count ({len(deduped_sets)}) matches the API total ({total}). "
+                "Treating as a pagination artifact and accepting the deduplicated result."
+            )
+            return deduped_sets
+
         print(
             f"Event {event_id}: detected {len(duplicate_ids)} duplicate set ids with per_page={per_page}. Retrying with a smaller page size."
         )
