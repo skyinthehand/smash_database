@@ -265,7 +265,7 @@ def fetch_data_with_retries(query, variables):
     status_message = f"Max retries exceeded for query. Last status code: {status_code}. Last error: {last_error_message}"
     raise FetchError(status_message)
 
-def fetch_all_nodes(query, variables, keys, per_page=10, max_pages=None):
+def fetch_all_nodes(query, variables, keys, per_page=10, max_pages=None, page_info_out=None):
     all_nodes = []
     variables = variables.copy()
     variables["page"] = 1
@@ -283,6 +283,8 @@ def fetch_all_nodes(query, variables, keys, per_page=10, max_pages=None):
         nodes = data["nodes"]
         all_nodes.extend(nodes)
         page_info = data.get("pageInfo") if isinstance(data, dict) else None
+        if page_info_out is not None and isinstance(page_info, dict):
+            page_info_out.update(page_info)
         total_pages = page_info.get("totalPages") if isinstance(page_info, dict) else None
         current_page = variables["page"]
 
