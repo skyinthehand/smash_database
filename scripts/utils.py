@@ -210,6 +210,9 @@ def set_page_delay(delay):
     global __page_delay
     __page_delay = delay
 
+def get_page_delay():
+    return __page_delay
+
 def set_retry_parameters(max_retries, retry_delay):
     global __max_retries, __retry_delay
     __max_retries = max_retries

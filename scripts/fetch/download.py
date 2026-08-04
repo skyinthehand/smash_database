@@ -2,6 +2,7 @@ import os
 import argparse
 import json
 import sys
+import time
 from datetime import datetime
 from collections import Counter
 
@@ -14,12 +15,13 @@ from scripts.queries import (
     get_event_entrants_query,
     get_tournament_events_query, get_phase_groups_query, get_tournaments_by_game_query,
     get_tournament_by_id_query,
+    get_phase_group_sets_query, get_phase_group_sets_light_query,
 )
 from scripts.utils import (
     country_code2region, get_date_parts, get_event_directory,
     read_users_jsonl, read_set, read_tournaments_jsonl,
-    write_json, extend_jsonl, write_jsonl,
-    set_indent_num, set_page_delay,
+    write_json, extend_jsonl, write_jsonl, read_json,
+    set_indent_num, set_page_delay, get_page_delay,
     fetch_data_with_retries, fetch_all_nodes,
     set_retry_parameters, set_api_parameters,
     FetchError, NoPhaseError, AllFallbacksExhaustedError, MaxPagesExceededError,
@@ -44,6 +46,9 @@ SEEDS_PER_PAGE_FALLBACKS = (200, 100, 50, 25, 10)
 SETS_PER_PAGE_FALLBACKS = (50, 25, 10, 5, 3, 1)
 LIGHTWEIGHT_SETS_PER_PAGE_FALLBACKS = (25, 10, 5, 2)
 ENTRANTS_PER_PAGE_FALLBACKS = (200, 100, 50, 25, 10)
+PHASE_GROUPS_PER_PAGE = 100
+MAX_PHASE_GROUPS_FETCH_ITERATIONS = 50
+EXCLUDED_PHASES_PATH = "data/startgg/excluded_phases.json"
 
 def parse_date_or_datetime(value):
     for fmt in ("%Y-%m-%d", "%Y-%m-%dT%H:%M:%S"):
@@ -418,13 +423,77 @@ def dedupe_set_nodes(all_sets, event_id=None):
         )
     return unique_sets
 
-def fetch_all_sets(event_id, lightweight=False, max_pages=None):
-    query = get_event_sets_light_query() if lightweight else get_event_sets_query()
-    variables = {"eventId": event_id}
-    keys = ["event", "sets"]
+def load_excluded_phase_ids(path=EXCLUDED_PHASES_PATH):
+    """data/startgg/excluded_phases.json を読み込み、event_id -> {phase_id, ...} を返す。
+    ファイルが存在しない場合は空辞書を返す(通常運用ではこのファイルは無くても動く)。"""
+    try:
+        raw = read_json(path)
+    except (FileNotFoundError, ValueError):
+        return {}
+    result = {}
+    for event_id_str, entries in (raw or {}).items():
+        phase_ids = {entry["phase_id"] for entry in entries if "phase_id" in entry}
+        if phase_ids:
+            result[int(event_id_str)] = phase_ids
+    return result
+
+
+def fetch_all_phase_groups(event_id):
+    """イベント配下の全 phase / phaseGroup を列挙する。
+    event.phases[].phaseGroups[] は phase ごとに個別にページングされるため、
+    単一の nodes リストを前提とする fetch_all_nodes は使えず専用実装にしている。
+    戻り値: (phase_id, phase_group_id, display_identifier) のタプルのリスト。"""
+    collected = {}
+    page = 1
+    for _ in range(MAX_PHASE_GROUPS_FETCH_ITERATIONS):
+        response_data = fetch_data_with_retries(
+            get_phase_groups_query(),
+            {"eventId": event_id, "page": page, "perPage": PHASE_GROUPS_PER_PAGE},
+        )
+        if "data" not in response_data or response_data["data"] is None or "event" not in response_data["data"]:
+            raise FetchError(
+                f"Error: 'data' or 'event' key not found in response for event {event_id}. "
+                f"Response data: {response_data}\n in fetch_all_phase_groups"
+            )
+        event_data = response_data["data"]["event"]
+        if event_data is None or event_data.get("phases") is None:
+            raise FetchError(
+                f"Error: no phases found for event {event_id} in fetch_all_phase_groups. "
+                f"Response data: {response_data}"
+            )
+
+        any_more = False
+        for phase in event_data["phases"]:
+            phase_id = phase["id"]
+            phase_groups = phase.get("phaseGroups") or {}
+            for node in phase_groups.get("nodes") or []:
+                phase_group_id = node.get("id")
+                if phase_group_id is not None and phase_group_id not in collected:
+                    collected[phase_group_id] = (phase_id, node.get("displayIdentifier"))
+            total = (phase_groups.get("pageInfo") or {}).get("total")
+            collected_for_phase = sum(1 for pid, _ in collected.values() if pid == phase_id)
+            if total is not None and collected_for_phase < total:
+                any_more = True
+
+        if not any_more:
+            return [
+                (phase_id, phase_group_id, display_identifier)
+                for phase_group_id, (phase_id, display_identifier) in collected.items()
+            ]
+        page += 1
+        time.sleep(get_page_delay())
+
+    raise FetchError(
+        f"Event {event_id}: phase groups pagination did not converge after "
+        f"{MAX_PHASE_GROUPS_FETCH_ITERATIONS} iterations in fetch_all_phase_groups."
+    )
+
+
+def _fetch_sets_with_fallback(query, variables, keys, fallback_values, default_page_size, event_id, max_pages=None):
+    """per_page を縮めながら sets を取得し、重複set idが解消しない場合は API の
+    pageInfo.total と重複除去後の件数を照合して、ページネーションの副作用による
+    見かけ上の重複か本当のデータ欠落かを判定する。本当に欠落がある場合のみ FetchError。"""
     tried = []
-    fallback_values = LIGHTWEIGHT_SETS_PER_PAGE_FALLBACKS if lightweight else SETS_PER_PAGE_FALLBACKS
-    default_page_size = LIGHTWEIGHT_SETS_PER_PAGE if lightweight else SETS_PER_PAGE
     min_per_page = min(fallback_values)
     for per_page in fallback_values:
         tried.append(per_page)
@@ -470,6 +539,72 @@ def fetch_all_sets(event_id, lightweight=False, max_pages=None):
     raise FetchError(
         f"Duplicate set ids remained for event {event_id} after retries with per_page values {tried}."
     )
+
+
+def _fetch_all_sets_by_phase_group(event_id, excluded_phase_ids, lightweight=False, max_pages=None):
+    """event.sets の一括ページングでは解決できない(または既知に問題がある)イベントについて、
+    phaseGroup ごとに sets を取得して集約する。excluded_phase_ids に含まれる phase 配下の
+    phaseGroup は取得対象から除外する。"""
+    phase_groups = fetch_all_phase_groups(event_id)
+
+    included = [pg for pg in phase_groups if pg[0] not in excluded_phase_ids]
+    excluded = [pg for pg in phase_groups if pg[0] in excluded_phase_ids]
+
+    if excluded:
+        excluded_desc = ", ".join(
+            f"phase={phase_id} phaseGroup={phase_group_id}({display_identifier})"
+            for phase_id, phase_group_id, display_identifier in excluded
+        )
+        print(f"Event {event_id}: excluding known-problematic phase groups from sets fetch: {excluded_desc}")
+
+    if not included:
+        raise FetchError(
+            f"Event {event_id}: no phase groups remain after excluding {excluded_phase_ids}."
+        )
+
+    query = get_phase_group_sets_light_query() if lightweight else get_phase_group_sets_query()
+    fallback_values = LIGHTWEIGHT_SETS_PER_PAGE_FALLBACKS if lightweight else SETS_PER_PAGE_FALLBACKS
+    default_page_size = LIGHTWEIGHT_SETS_PER_PAGE if lightweight else SETS_PER_PAGE
+
+    all_sets = []
+    for phase_id, phase_group_id, display_identifier in included:
+        group_sets = _fetch_sets_with_fallback(
+            query,
+            {"phaseGroupId": phase_group_id},
+            ["phaseGroup", "sets"],
+            fallback_values,
+            default_page_size,
+            event_id,
+            max_pages=max_pages,
+        )
+        all_sets.extend(group_sets)
+
+    return dedupe_set_nodes(all_sets, event_id=event_id)
+
+
+def fetch_all_sets(event_id, lightweight=False, max_pages=None):
+    excluded_phase_ids = load_excluded_phase_ids().get(event_id)
+    if excluded_phase_ids:
+        # 既知の問題イベントは event 単位の無駄な試行をせず直接 phaseGroup 単位で取得する。
+        return _fetch_all_sets_by_phase_group(event_id, excluded_phase_ids, lightweight=lightweight, max_pages=max_pages)
+
+    query = get_event_sets_light_query() if lightweight else get_event_sets_query()
+    fallback_values = LIGHTWEIGHT_SETS_PER_PAGE_FALLBACKS if lightweight else SETS_PER_PAGE_FALLBACKS
+    default_page_size = LIGHTWEIGHT_SETS_PER_PAGE if lightweight else SETS_PER_PAGE
+
+    try:
+        return _fetch_sets_with_fallback(
+            query, {"eventId": event_id}, ["event", "sets"], fallback_values, default_page_size, event_id,
+            max_pages=max_pages,
+        )
+    except FetchError as exc:
+        if "duplicate set ids remained" not in str(exc).lower():
+            raise
+        print(
+            f"Event {event_id}: event-level set pagination could not be reconciled; "
+            "falling back to phaseGroup-scoped fetching."
+        )
+        return _fetch_all_sets_by_phase_group(event_id, set(), lightweight=lightweight, max_pages=max_pages)
 
 
 def fetch_entrant_user_map(event_id):
