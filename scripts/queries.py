@@ -1,21 +1,8 @@
 from datetime import datetime
 
-def get_event_sets_query():
-    return """query EventSets($eventId: ID!, $page: Int!, $perPage: Int!) {
-      event(id: $eventId) {
-        id
-        name
-        sets(
-          page: $page
-          perPage: $perPage
-          sortType: STANDARD
-        ) {
-          pageInfo {
-            total
-            totalPages
-          }
-          nodes {
-            id
+# event.sets / phaseGroup.sets のどちらからでも同じノード形状で取得できるよう、
+# フィールド選択を共有定数として切り出したもの(通常版)。
+_SET_NODE_FIELDS = """id
             state
             winnerId
             round
@@ -75,28 +62,10 @@ def get_event_sets_query():
                   name
                 }
               }
-            }
-          }
-        }
-      }
-    }"""
+            }"""
 
-def get_event_sets_light_query():
-    return """query EventSetsLight($eventId: ID!, $page: Int!, $perPage: Int!) {
-      event(id: $eventId) {
-        id
-        name
-        sets(
-          page: $page
-          perPage: $perPage
-          sortType: STANDARD
-        ) {
-          pageInfo {
-            total
-            totalPages
-          }
-          nodes {
-            id
+# 軽量版(matches_only 用): slots.entrant.participants と games.selections を省いたもの。
+_SET_NODE_FIELDS_LIGHT = """id
             state
             winnerId
             round
@@ -136,11 +105,89 @@ def get_event_sets_light_query():
                 id
                 name
               }
-            }
-          }
-        }
-      }
-    }"""
+            }"""
+
+def get_event_sets_query():
+    return f"""query EventSets($eventId: ID!, $page: Int!, $perPage: Int!) {{
+      event(id: $eventId) {{
+        id
+        name
+        sets(
+          page: $page
+          perPage: $perPage
+          sortType: STANDARD
+        ) {{
+          pageInfo {{
+            total
+            totalPages
+          }}
+          nodes {{
+            {_SET_NODE_FIELDS}
+          }}
+        }}
+      }}
+    }}"""
+
+def get_event_sets_light_query():
+    return f"""query EventSetsLight($eventId: ID!, $page: Int!, $perPage: Int!) {{
+      event(id: $eventId) {{
+        id
+        name
+        sets(
+          page: $page
+          perPage: $perPage
+          sortType: STANDARD
+        ) {{
+          pageInfo {{
+            total
+            totalPages
+          }}
+          nodes {{
+            {_SET_NODE_FIELDS_LIGHT}
+          }}
+        }}
+      }}
+    }}"""
+
+def get_phase_group_sets_query():
+    return f"""query PhaseGroupSets($phaseGroupId: ID!, $page: Int!, $perPage: Int!) {{
+      phaseGroup(id: $phaseGroupId) {{
+        id
+        sets(
+          page: $page
+          perPage: $perPage
+          sortType: STANDARD
+        ) {{
+          pageInfo {{
+            total
+            totalPages
+          }}
+          nodes {{
+            {_SET_NODE_FIELDS}
+          }}
+        }}
+      }}
+    }}"""
+
+def get_phase_group_sets_light_query():
+    return f"""query PhaseGroupSetsLight($phaseGroupId: ID!, $page: Int!, $perPage: Int!) {{
+      phaseGroup(id: $phaseGroupId) {{
+        id
+        sets(
+          page: $page
+          perPage: $perPage
+          sortType: STANDARD
+        ) {{
+          pageInfo {{
+            total
+            totalPages
+          }}
+          nodes {{
+            {_SET_NODE_FIELDS_LIGHT}
+          }}
+        }}
+      }}
+    }}"""
 
 def get_standings_query():
     return """query EventStandings($eventId: ID!, $page: Int!, $perPage: Int!) {
