@@ -8,6 +8,7 @@
       "round_text": "Grand Final",
       "round": 5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -22,6 +23,7 @@
       "round_text": "Winners Final",
       "round": 4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -36,6 +38,7 @@
       "round_text": "Losers Final",
       "round": -8,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -50,6 +53,7 @@
       "round_text": "Losers Semi-Final",
       "round": -7,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -64,6 +68,7 @@
       "round_text": "Winners Semi-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -76,7 +81,20 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
-          "selections": []
+          "selections": [
+            {
+              "user_id": 1875566,
+              "selection_id": 34471803,
+              "character_id": 1319,
+              "character_name": "Pikachu"
+            },
+            {
+              "user_id": 2617790,
+              "selection_id": 34471804,
+              "character_id": 1406,
+              "character_name": "Incineroar"
+            }
+          ]
         },
         {
           "game_id": 23764494,
@@ -85,7 +103,20 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
-          "selections": []
+          "selections": [
+            {
+              "user_id": 1875566,
+              "selection_id": 34471805,
+              "character_id": 1319,
+              "character_name": "Pikachu"
+            },
+            {
+              "user_id": 2617790,
+              "selection_id": 34471806,
+              "character_id": 1406,
+              "character_name": "Incineroar"
+            }
+          ]
         }
       ]
     },
@@ -97,6 +128,7 @@
       "round_text": "Winners Semi-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -111,6 +143,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -125,6 +158,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -139,6 +173,7 @@
       "round_text": "Losers Round 3",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -151,7 +186,20 @@
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
-          "selections": []
+          "selections": [
+            {
+              "user_id": 1926652,
+              "selection_id": 34471845,
+              "character_id": 1300,
+              "character_name": "Lucina"
+            },
+            {
+              "user_id": 2079123,
+              "selection_id": 34471846,
+              "character_id": 1411,
+              "character_name": "Simon Belmont"
+            }
+          ]
         },
         {
           "game_id": 23764515,
@@ -160,7 +208,20 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
-          "selections": []
+          "selections": [
+            {
+              "user_id": 1926652,
+              "selection_id": 34471847,
+              "character_id": 1300,
+              "character_name": "Lucina"
+            },
+            {
+              "user_id": 2079123,
+              "selection_id": 34471848,
+              "character_id": 1411,
+              "character_name": "Simon Belmont"
+            }
+          ]
         },
         {
           "game_id": 23764516,
@@ -169,7 +230,20 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
-          "selections": []
+          "selections": [
+            {
+              "user_id": 1926652,
+              "selection_id": 34471849,
+              "character_id": 1300,
+              "character_name": "Lucina"
+            },
+            {
+              "user_id": 2079123,
+              "selection_id": 34471850,
+              "character_id": 1411,
+              "character_name": "Simon Belmont"
+            }
+          ]
         }
       ]
     },
@@ -181,6 +255,7 @@
       "round_text": "Losers Round 3",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -195,6 +270,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -209,6 +285,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -223,6 +300,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -237,6 +315,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -251,6 +330,7 @@
       "round_text": "Losers Round 2",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -265,6 +345,7 @@
       "round_text": "Losers Round 2",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -279,6 +360,7 @@
       "round_text": "Losers Round 2",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -291,7 +373,20 @@
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
-          "selections": []
+          "selections": [
+            {
+              "user_id": 1926652,
+              "selection_id": 34471809,
+              "character_id": 1300,
+              "character_name": "Lucina"
+            },
+            {
+              "user_id": 2607850,
+              "selection_id": 34471810,
+              "character_id": 1326,
+              "character_name": "Roy"
+            }
+          ]
         },
         {
           "game_id": 23764497,
@@ -300,7 +395,20 @@
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
-          "selections": []
+          "selections": [
+            {
+              "user_id": 1926652,
+              "selection_id": 34471811,
+              "character_id": 1300,
+              "character_name": "Lucina"
+            },
+            {
+              "user_id": 2607850,
+              "selection_id": 34471812,
+              "character_id": 1326,
+              "character_name": "Roy"
+            }
+          ]
         }
       ]
     },
@@ -312,6 +420,7 @@
       "round_text": "Losers Round 2",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -326,6 +435,7 @@
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -340,6 +450,7 @@
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -354,6 +465,7 @@
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -368,6 +480,7 @@
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -382,6 +495,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -396,6 +510,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -410,6 +525,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -424,6 +540,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -436,7 +553,20 @@
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
-          "selections": []
+          "selections": [
+            {
+              "user_id": 1827278,
+              "selection_id": 34471717,
+              "character_id": 1323,
+              "character_name": "R.O.B."
+            },
+            {
+              "user_id": 2617790,
+              "selection_id": 34471718,
+              "character_id": 1406,
+              "character_name": "Incineroar"
+            }
+          ]
         },
         {
           "game_id": 23764451,
@@ -445,7 +575,20 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
-          "selections": []
+          "selections": [
+            {
+              "user_id": 1827278,
+              "selection_id": 34471719,
+              "character_id": 1323,
+              "character_name": "R.O.B."
+            },
+            {
+              "user_id": 2617790,
+              "selection_id": 34471720,
+              "character_id": 1406,
+              "character_name": "Incineroar"
+            }
+          ]
         },
         {
           "game_id": 23764452,
@@ -454,7 +597,20 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
-          "selections": []
+          "selections": [
+            {
+              "user_id": 1827278,
+              "selection_id": 34471721,
+              "character_id": 1323,
+              "character_name": "R.O.B."
+            },
+            {
+              "user_id": 2617790,
+              "selection_id": 34471722,
+              "character_id": 1406,
+              "character_name": "Incineroar"
+            }
+          ]
         }
       ]
     },
@@ -466,6 +622,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -480,6 +637,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -492,7 +650,20 @@
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
-          "selections": []
+          "selections": [
+            {
+              "user_id": 1926652,
+              "selection_id": 34471685,
+              "character_id": 1300,
+              "character_name": "Lucina"
+            },
+            {
+              "user_id": 2223828,
+              "selection_id": 34471686,
+              "character_id": 1331,
+              "character_name": "Snake"
+            }
+          ]
         },
         {
           "game_id": 23764432,
@@ -501,7 +672,20 @@
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
-          "selections": []
+          "selections": [
+            {
+              "user_id": 1926652,
+              "selection_id": 34471687,
+              "character_id": 1300,
+              "character_name": "Lucina"
+            },
+            {
+              "user_id": 2223828,
+              "selection_id": 34471688,
+              "character_id": 1331,
+              "character_name": "Snake"
+            }
+          ]
         }
       ]
     },
@@ -513,6 +697,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -525,7 +710,20 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
-          "selections": []
+          "selections": [
+            {
+              "user_id": 2420938,
+              "selection_id": 34471695,
+              "character_id": 1297,
+              "character_name": "Little Mac"
+            },
+            {
+              "user_id": 2103292,
+              "selection_id": 34471696,
+              "character_id": 1897,
+              "character_name": "Sora"
+            }
+          ]
         },
         {
           "game_id": 23764437,
@@ -534,7 +732,20 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
-          "selections": []
+          "selections": [
+            {
+              "user_id": 2420938,
+              "selection_id": 34471697,
+              "character_id": 1297,
+              "character_name": "Little Mac"
+            },
+            {
+              "user_id": 2103292,
+              "selection_id": 34471698,
+              "character_id": 1897,
+              "character_name": "Sora"
+            }
+          ]
         }
       ]
     },
@@ -546,6 +757,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
