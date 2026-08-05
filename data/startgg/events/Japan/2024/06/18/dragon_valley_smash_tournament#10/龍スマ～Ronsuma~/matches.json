@@ -8,6 +8,7 @@
       "round_text": "Grand Final",
       "round": 6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -22,6 +23,7 @@
       "round_text": "Grand Final Reset",
       "round": 6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -36,6 +38,7 @@
       "round_text": "Winners Final",
       "round": 5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -50,6 +53,7 @@
       "round_text": "Losers Final",
       "round": -10,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -64,6 +68,7 @@
       "round_text": "Losers Semi-Final",
       "round": -9,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -76,7 +81,20 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Final Destination",
-          "selections": []
+          "selections": [
+            {
+              "user_id": 2614460,
+              "selection_id": 33647085,
+              "character_id": 1299,
+              "character_name": "Lucas"
+            },
+            {
+              "user_id": 2617790,
+              "selection_id": 33647086,
+              "character_id": 1406,
+              "character_name": "Incineroar"
+            }
+          ]
         },
         {
           "game_id": 23215641,
@@ -85,7 +103,20 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Final Destination",
-          "selections": []
+          "selections": [
+            {
+              "user_id": 2614460,
+              "selection_id": 33647087,
+              "character_id": 1299,
+              "character_name": "Lucas"
+            },
+            {
+              "user_id": 2617790,
+              "selection_id": 33647088,
+              "character_id": 1406,
+              "character_name": "Incineroar"
+            }
+          ]
         }
       ]
     },
@@ -97,6 +128,7 @@
       "round_text": "Winners Semi-Final",
       "round": 4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -109,7 +141,20 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Small Battlefield",
-          "selections": []
+          "selections": [
+            {
+              "user_id": 2607814,
+              "selection_id": 33646999,
+              "character_id": 1313,
+              "character_name": "Ness"
+            },
+            {
+              "user_id": 2103292,
+              "selection_id": 33647000,
+              "character_id": 1897,
+              "character_name": "Sora"
+            }
+          ]
         },
         {
           "game_id": 23215598,
@@ -118,7 +163,20 @@
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": "Small Battlefield",
-          "selections": []
+          "selections": [
+            {
+              "user_id": 2607814,
+              "selection_id": 33647001,
+              "character_id": 1313,
+              "character_name": "Ness"
+            },
+            {
+              "user_id": 2103292,
+              "selection_id": 33647002,
+              "character_id": 1897,
+              "character_name": "Sora"
+            }
+          ]
         },
         {
           "game_id": 23215599,
@@ -127,7 +185,20 @@
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": "Smashville",
-          "selections": []
+          "selections": [
+            {
+              "user_id": 2607814,
+              "selection_id": 33647003,
+              "character_id": 1313,
+              "character_name": "Ness"
+            },
+            {
+              "user_id": 2103292,
+              "selection_id": 33647004,
+              "character_id": 1897,
+              "character_name": "Sora"
+            }
+          ]
         }
       ]
     },
@@ -139,6 +210,7 @@
       "round_text": "Winners Semi-Final",
       "round": 4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -151,7 +223,14 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
-          "selections": []
+          "selections": [
+            {
+              "user_id": 2614460,
+              "selection_id": 33646933,
+              "character_id": 1299,
+              "character_name": "Lucas"
+            }
+          ]
         },
         {
           "game_id": 23215566,
@@ -160,7 +239,14 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
-          "selections": []
+          "selections": [
+            {
+              "user_id": 2614460,
+              "selection_id": 33646934,
+              "character_id": 1323,
+              "character_name": "R.O.B."
+            }
+          ]
         }
       ]
     },
@@ -172,6 +258,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -8,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -186,6 +273,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -8,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -200,6 +288,7 @@
       "round_text": "Losers Round 4",
       "round": -7,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -212,7 +301,20 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Smashville",
-          "selections": []
+          "selections": [
+            {
+              "user_id": 2223828,
+              "selection_id": 33647031,
+              "character_id": 1331,
+              "character_name": "Snake"
+            },
+            {
+              "user_id": 2044084,
+              "selection_id": 33647032,
+              "character_id": 1313,
+              "character_name": "Ness"
+            }
+          ]
         },
         {
           "game_id": 23215614,
@@ -221,7 +323,20 @@
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
-          "selections": []
+          "selections": [
+            {
+              "user_id": 2223828,
+              "selection_id": 33647033,
+              "character_id": 1331,
+              "character_name": "Snake"
+            },
+            {
+              "user_id": 2044084,
+              "selection_id": 33647034,
+              "character_id": 1406,
+              "character_name": "Incineroar"
+            }
+          ]
         },
         {
           "game_id": 23215615,
@@ -230,7 +345,20 @@
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": "Pokémon Stadium 2",
-          "selections": []
+          "selections": [
+            {
+              "user_id": 2223828,
+              "selection_id": 33647035,
+              "character_id": 1285,
+              "character_name": "Falco"
+            },
+            {
+              "user_id": 2044084,
+              "selection_id": 33647036,
+              "character_id": 1406,
+              "character_name": "Incineroar"
+            }
+          ]
         }
       ]
     },
@@ -242,6 +370,7 @@
       "round_text": "Losers Round 4",
       "round": -7,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -256,6 +385,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -268,7 +398,20 @@
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": "Small Battlefield",
-          "selections": []
+          "selections": [
+            {
+              "user_id": 2607814,
+              "selection_id": 33646831,
+              "character_id": 1313,
+              "character_name": "Ness"
+            },
+            {
+              "user_id": 2325220,
+              "selection_id": 33646832,
+              "character_id": 1296,
+              "character_name": "Link"
+            }
+          ]
         },
         {
           "game_id": 23215512,
@@ -277,7 +420,20 @@
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": "Pokémon Stadium 2",
-          "selections": []
+          "selections": [
+            {
+              "user_id": 2607814,
+              "selection_id": 33646833,
+              "character_id": 1313,
+              "character_name": "Ness"
+            },
+            {
+              "user_id": 2325220,
+              "selection_id": 33646834,
+              "character_id": 1296,
+              "character_name": "Link"
+            }
+          ]
         }
       ]
     },
@@ -289,6 +445,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -301,7 +458,20 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Small Battlefield",
-          "selections": []
+          "selections": [
+            {
+              "user_id": 2369150,
+              "selection_id": 33646883,
+              "character_id": 1331,
+              "character_name": "Snake"
+            },
+            {
+              "user_id": 2103292,
+              "selection_id": 33646884,
+              "character_id": 1897,
+              "character_name": "Sora"
+            }
+          ]
         },
         {
           "game_id": 23215539,
@@ -310,7 +480,20 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Small Battlefield",
-          "selections": []
+          "selections": [
+            {
+              "user_id": 2369150,
+              "selection_id": 33646885,
+              "character_id": 1331,
+              "character_name": "Snake"
+            },
+            {
+              "user_id": 2103292,
+              "selection_id": 33646886,
+              "character_id": 1897,
+              "character_name": "Sora"
+            }
+          ]
         }
       ]
     },
@@ -322,6 +505,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -334,7 +518,14 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Small Battlefield",
-          "selections": []
+          "selections": [
+            {
+              "user_id": 2617790,
+              "selection_id": 33646869,
+              "character_id": 1406,
+              "character_name": "Incineroar"
+            }
+          ]
         },
         {
           "game_id": 23215531,
@@ -343,7 +534,14 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Final Destination",
-          "selections": []
+          "selections": [
+            {
+              "user_id": 2617790,
+              "selection_id": 33646870,
+              "character_id": 1406,
+              "character_name": "Incineroar"
+            }
+          ]
         }
       ]
     },
@@ -355,6 +553,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -367,7 +566,20 @@
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": "Pokémon Stadium 2",
-          "selections": []
+          "selections": [
+            {
+              "user_id": 2607850,
+              "selection_id": 33646825,
+              "character_id": 1326,
+              "character_name": "Roy"
+            },
+            {
+              "user_id": 2614460,
+              "selection_id": 33646826,
+              "character_id": 1299,
+              "character_name": "Lucas"
+            }
+          ]
         },
         {
           "game_id": 23215509,
@@ -376,7 +588,20 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Pokémon Stadium 2",
-          "selections": []
+          "selections": [
+            {
+              "user_id": 2607850,
+              "selection_id": 33646827,
+              "character_id": 1326,
+              "character_name": "Roy"
+            },
+            {
+              "user_id": 2614460,
+              "selection_id": 33646828,
+              "character_id": 1299,
+              "character_name": "Lucas"
+            }
+          ]
         },
         {
           "game_id": 23215510,
@@ -385,7 +610,20 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Pokémon Stadium 2",
-          "selections": []
+          "selections": [
+            {
+              "user_id": 2607850,
+              "selection_id": 33646829,
+              "character_id": 1326,
+              "character_name": "Roy"
+            },
+            {
+              "user_id": 2614460,
+              "selection_id": 33646830,
+              "character_id": 1299,
+              "character_name": "Lucas"
+            }
+          ]
         }
       ]
     },
@@ -397,6 +635,7 @@
       "round_text": "Losers Round 3",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -409,7 +648,20 @@
           "entrant1_score": 0,
           "entrant2_score": 0,
           "stage": null,
-          "selections": []
+          "selections": [
+            {
+              "user_id": 2369150,
+              "selection_id": 33647037,
+              "character_id": 1331,
+              "character_name": "Snake"
+            },
+            {
+              "user_id": 2223828,
+              "selection_id": 33647038,
+              "character_id": 1331,
+              "character_name": "Snake"
+            }
+          ]
         },
         {
           "game_id": 23215617,
@@ -418,7 +670,20 @@
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
-          "selections": []
+          "selections": [
+            {
+              "user_id": 2369150,
+              "selection_id": 33647039,
+              "character_id": 1331,
+              "character_name": "Snake"
+            },
+            {
+              "user_id": 2223828,
+              "selection_id": 33647040,
+              "character_id": 1285,
+              "character_name": "Falco"
+            }
+          ]
         },
         {
           "game_id": 23215618,
@@ -427,7 +692,20 @@
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
-          "selections": []
+          "selections": [
+            {
+              "user_id": 2369150,
+              "selection_id": 33647041,
+              "character_id": 1331,
+              "character_name": "Snake"
+            },
+            {
+              "user_id": 2223828,
+              "selection_id": 33647042,
+              "character_id": 1285,
+              "character_name": "Falco"
+            }
+          ]
         }
       ]
     },
@@ -439,6 +717,7 @@
       "round_text": "Losers Round 3",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -451,7 +730,14 @@
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": "Final Destination",
-          "selections": []
+          "selections": [
+            {
+              "user_id": 2325220,
+              "selection_id": 33646987,
+              "character_id": 1296,
+              "character_name": "Link"
+            }
+          ]
         },
         {
           "game_id": 23215591,
@@ -460,7 +746,14 @@
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": "Small Battlefield",
-          "selections": []
+          "selections": [
+            {
+              "user_id": 2325220,
+              "selection_id": 33646988,
+              "character_id": 1296,
+              "character_name": "Link"
+            }
+          ]
         }
       ]
     },
@@ -472,6 +765,7 @@
       "round_text": "Losers Round 3",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -486,6 +780,7 @@
       "round_text": "Losers Round 3",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -498,7 +793,20 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Town and City",
-          "selections": []
+          "selections": [
+            {
+              "user_id": 1866759,
+              "selection_id": 33647009,
+              "character_id": 1341,
+              "character_name": "Zero Suit Samus"
+            },
+            {
+              "user_id": 2617790,
+              "selection_id": 33647010,
+              "character_id": 1406,
+              "character_name": "Incineroar"
+            }
+          ]
         },
         {
           "game_id": 23215603,
@@ -507,7 +815,20 @@
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": "Town and City",
-          "selections": []
+          "selections": [
+            {
+              "user_id": 1866759,
+              "selection_id": 33647011,
+              "character_id": 1285,
+              "character_name": "Falco"
+            },
+            {
+              "user_id": 2617790,
+              "selection_id": 33647012,
+              "character_id": 1406,
+              "character_name": "Incineroar"
+            }
+          ]
         },
         {
           "game_id": 23215604,
@@ -516,7 +837,20 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Small Battlefield",
-          "selections": []
+          "selections": [
+            {
+              "user_id": 1866759,
+              "selection_id": 33647013,
+              "character_id": 1274,
+              "character_name": "Captain Falcon"
+            },
+            {
+              "user_id": 2617790,
+              "selection_id": 33647014,
+              "character_id": 1406,
+              "character_name": "Incineroar"
+            }
+          ]
         }
       ]
     },
@@ -528,6 +862,7 @@
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -540,7 +875,20 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
-          "selections": []
+          "selections": [
+            {
+              "user_id": 2223828,
+              "selection_id": 33646921,
+              "character_id": 1331,
+              "character_name": "Snake"
+            },
+            {
+              "user_id": 1934676,
+              "selection_id": 33646922,
+              "character_id": 1276,
+              "character_name": "Corrin"
+            }
+          ]
         },
         {
           "game_id": 23215557,
@@ -549,7 +897,20 @@
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
-          "selections": []
+          "selections": [
+            {
+              "user_id": 2223828,
+              "selection_id": 33646923,
+              "character_id": 1331,
+              "character_name": "Snake"
+            },
+            {
+              "user_id": 1934676,
+              "selection_id": 33646924,
+              "character_id": 1276,
+              "character_name": "Corrin"
+            }
+          ]
         },
         {
           "game_id": 23215558,
@@ -558,7 +919,20 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
-          "selections": []
+          "selections": [
+            {
+              "user_id": 2223828,
+              "selection_id": 33646925,
+              "character_id": 1331,
+              "character_name": "Snake"
+            },
+            {
+              "user_id": 1934676,
+              "selection_id": 33646926,
+              "character_id": 1276,
+              "character_name": "Corrin"
+            }
+          ]
         }
       ]
     },
@@ -570,6 +944,7 @@
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -582,7 +957,20 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Town and City",
-          "selections": []
+          "selections": [
+            {
+              "user_id": 1947768,
+              "selection_id": 33646943,
+              "character_id": 1322,
+              "character_name": "Ridley"
+            },
+            {
+              "user_id": 2044084,
+              "selection_id": 33646944,
+              "character_id": 1413,
+              "character_name": "Isabelle"
+            }
+          ]
         },
         {
           "game_id": 23215572,
@@ -591,7 +979,20 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Town and City",
-          "selections": []
+          "selections": [
+            {
+              "user_id": 1947768,
+              "selection_id": 33646945,
+              "character_id": 1526,
+              "character_name": "Hero"
+            },
+            {
+              "user_id": 2044084,
+              "selection_id": 33646946,
+              "character_id": 1413,
+              "character_name": "Isabelle"
+            }
+          ]
         }
       ]
     },
@@ -603,6 +1004,7 @@
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -615,7 +1017,20 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Small Battlefield",
-          "selections": []
+          "selections": [
+            {
+              "user_id": 1827278,
+              "selection_id": 33646953,
+              "character_id": 1323,
+              "character_name": "R.O.B."
+            },
+            {
+              "user_id": 2614299,
+              "selection_id": 33646954,
+              "character_id": 1289,
+              "character_name": "Greninja"
+            }
+          ]
         },
         {
           "game_id": 23215577,
@@ -624,7 +1039,20 @@
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": "Town and City",
-          "selections": []
+          "selections": [
+            {
+              "user_id": 1827278,
+              "selection_id": 33646955,
+              "character_id": 1323,
+              "character_name": "R.O.B."
+            },
+            {
+              "user_id": 2614299,
+              "selection_id": 33646956,
+              "character_id": 1289,
+              "character_name": "Greninja"
+            }
+          ]
         },
         {
           "game_id": 23215578,
@@ -633,7 +1061,20 @@
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": "Final Destination",
-          "selections": []
+          "selections": [
+            {
+              "user_id": 1827278,
+              "selection_id": 33646957,
+              "character_id": 1323,
+              "character_name": "R.O.B."
+            },
+            {
+              "user_id": 2614299,
+              "selection_id": 33646958,
+              "character_id": 1289,
+              "character_name": "Greninja"
+            }
+          ]
         }
       ]
     },
@@ -645,6 +1086,7 @@
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -659,6 +1101,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -673,6 +1116,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -685,7 +1129,20 @@
           "entrant1_score": 0,
           "entrant2_score": 0,
           "stage": "Small Battlefield",
-          "selections": []
+          "selections": [
+            {
+              "user_id": 2607814,
+              "selection_id": 33646719,
+              "character_id": 1313,
+              "character_name": "Ness"
+            },
+            {
+              "user_id": 1866759,
+              "selection_id": 33646720,
+              "character_id": 1304,
+              "character_name": "Marth"
+            }
+          ]
         },
         {
           "game_id": 23215455,
@@ -694,7 +1151,20 @@
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": "Pokémon Stadium 2",
-          "selections": []
+          "selections": [
+            {
+              "user_id": 2607814,
+              "selection_id": 33646721,
+              "character_id": 1313,
+              "character_name": "Ness"
+            },
+            {
+              "user_id": 1866759,
+              "selection_id": 33646722,
+              "character_id": 1325,
+              "character_name": "Rosalina"
+            }
+          ]
         }
       ]
     },
@@ -706,6 +1176,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -718,7 +1189,20 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Pokémon Stadium 2",
-          "selections": []
+          "selections": [
+            {
+              "user_id": 1827278,
+              "selection_id": 33646669,
+              "character_id": 1323,
+              "character_name": "R.O.B."
+            },
+            {
+              "user_id": 2103292,
+              "selection_id": 33646670,
+              "character_id": 1795,
+              "character_name": "Pyra & Mythra"
+            }
+          ]
         },
         {
           "game_id": 23215430,
@@ -727,7 +1211,20 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Pokémon Stadium 2",
-          "selections": []
+          "selections": [
+            {
+              "user_id": 1827278,
+              "selection_id": 33646671,
+              "character_id": 1323,
+              "character_name": "R.O.B."
+            },
+            {
+              "user_id": 2103292,
+              "selection_id": 33646672,
+              "character_id": 1795,
+              "character_name": "Pyra & Mythra"
+            }
+          ]
         }
       ]
     },
@@ -739,6 +1236,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -751,7 +1249,20 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Small Battlefield",
-          "selections": []
+          "selections": [
+            {
+              "user_id": 2369150,
+              "selection_id": 33646673,
+              "character_id": 1331,
+              "character_name": "Snake"
+            },
+            {
+              "user_id": 2614299,
+              "selection_id": 33646674,
+              "character_id": 1289,
+              "character_name": "Greninja"
+            }
+          ]
         },
         {
           "game_id": 23215432,
@@ -760,7 +1271,20 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Town and City",
-          "selections": []
+          "selections": [
+            {
+              "user_id": 2369150,
+              "selection_id": 33646675,
+              "character_id": 1331,
+              "character_name": "Snake"
+            },
+            {
+              "user_id": 2614299,
+              "selection_id": 33646676,
+              "character_id": 1289,
+              "character_name": "Greninja"
+            }
+          ]
         }
       ]
     },
@@ -772,6 +1296,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -784,7 +1309,14 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Pokémon Stadium 2",
-          "selections": []
+          "selections": [
+            {
+              "user_id": 1947768,
+              "selection_id": 33646807,
+              "character_id": 1322,
+              "character_name": "Ridley"
+            }
+          ]
         },
         {
           "game_id": 23215499,
@@ -793,7 +1325,14 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Pokémon Stadium 2",
-          "selections": []
+          "selections": [
+            {
+              "user_id": 1947768,
+              "selection_id": 33646808,
+              "character_id": 1322,
+              "character_name": "Ridley"
+            }
+          ]
         }
       ]
     },
@@ -805,6 +1344,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -817,7 +1357,20 @@
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": "Small Battlefield",
-          "selections": []
+          "selections": [
+            {
+              "user_id": 2617790,
+              "selection_id": 33646651,
+              "character_id": 1406,
+              "character_name": "Incineroar"
+            },
+            {
+              "user_id": 2044084,
+              "selection_id": 33646652,
+              "character_id": 1406,
+              "character_name": "Incineroar"
+            }
+          ]
         },
         {
           "game_id": 23215421,
@@ -826,7 +1379,20 @@
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": "Small Battlefield",
-          "selections": []
+          "selections": [
+            {
+              "user_id": 2617790,
+              "selection_id": 33646653,
+              "character_id": 1406,
+              "character_name": "Incineroar"
+            },
+            {
+              "user_id": 2044084,
+              "selection_id": 33646654,
+              "character_id": 1406,
+              "character_name": "Incineroar"
+            }
+          ]
         }
       ]
     },
@@ -838,6 +1404,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -850,7 +1417,20 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Pokémon Stadium 2",
-          "selections": []
+          "selections": [
+            {
+              "user_id": 2614460,
+              "selection_id": 33646655,
+              "character_id": 1299,
+              "character_name": "Lucas"
+            },
+            {
+              "user_id": 2420938,
+              "selection_id": 33646656,
+              "character_id": 1297,
+              "character_name": "Little Mac"
+            }
+          ]
         },
         {
           "game_id": 23215423,
@@ -859,7 +1439,20 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Pokémon Stadium 2",
-          "selections": []
+          "selections": [
+            {
+              "user_id": 2614460,
+              "selection_id": 33646657,
+              "character_id": 1299,
+              "character_name": "Lucas"
+            },
+            {
+              "user_id": 2420938,
+              "selection_id": 33646658,
+              "character_id": 1297,
+              "character_name": "Little Mac"
+            }
+          ]
         }
       ]
     },
@@ -871,6 +1464,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -883,7 +1477,20 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
-          "selections": []
+          "selections": [
+            {
+              "user_id": 2607850,
+              "selection_id": 33646677,
+              "character_id": 1326,
+              "character_name": "Roy"
+            },
+            {
+              "user_id": 2223828,
+              "selection_id": 33646678,
+              "character_id": 1331,
+              "character_name": "Snake"
+            }
+          ]
         },
         {
           "game_id": 23215434,
@@ -892,7 +1499,20 @@
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
-          "selections": []
+          "selections": [
+            {
+              "user_id": 2607850,
+              "selection_id": 33646679,
+              "character_id": 1326,
+              "character_name": "Roy"
+            },
+            {
+              "user_id": 2223828,
+              "selection_id": 33646680,
+              "character_id": 1331,
+              "character_name": "Snake"
+            }
+          ]
         },
         {
           "game_id": 23215435,
@@ -901,7 +1521,20 @@
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
-          "selections": []
+          "selections": [
+            {
+              "user_id": 2607850,
+              "selection_id": 33646681,
+              "character_id": 1326,
+              "character_name": "Roy"
+            },
+            {
+              "user_id": 2223828,
+              "selection_id": 33646682,
+              "character_id": 1331,
+              "character_name": "Snake"
+            }
+          ]
         }
       ]
     },
@@ -913,6 +1546,7 @@
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -925,7 +1559,20 @@
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
-          "selections": []
+          "selections": [
+            {
+              "user_id": 2420938,
+              "selection_id": 33646819,
+              "character_id": 1297,
+              "character_name": "Little Mac"
+            },
+            {
+              "user_id": 1934676,
+              "selection_id": 33646820,
+              "character_id": 1321,
+              "character_name": "Pokemon Trainer"
+            }
+          ]
         },
         {
           "game_id": 23215506,
@@ -934,7 +1581,20 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
-          "selections": []
+          "selections": [
+            {
+              "user_id": 2420938,
+              "selection_id": 33646821,
+              "character_id": 1297,
+              "character_name": "Little Mac"
+            },
+            {
+              "user_id": 1934676,
+              "selection_id": 33646822,
+              "character_id": 1321,
+              "character_name": "Pokemon Trainer"
+            }
+          ]
         },
         {
           "game_id": 23215507,
@@ -943,7 +1603,20 @@
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
-          "selections": []
+          "selections": [
+            {
+              "user_id": 2420938,
+              "selection_id": 33646823,
+              "character_id": 1297,
+              "character_name": "Little Mac"
+            },
+            {
+              "user_id": 1934676,
+              "selection_id": 33646824,
+              "character_id": 1276,
+              "character_name": "Corrin"
+            }
+          ]
         }
       ]
     },
@@ -955,6 +1628,7 @@
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -967,7 +1641,20 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Small Battlefield",
-          "selections": []
+          "selections": [
+            {
+              "user_id": 2079123,
+              "selection_id": 33646801,
+              "character_id": 1411,
+              "character_name": "Simon Belmont"
+            },
+            {
+              "user_id": 2044084,
+              "selection_id": 33646802,
+              "character_id": 1413,
+              "character_name": "Isabelle"
+            }
+          ]
         },
         {
           "game_id": 23215496,
@@ -976,7 +1663,20 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Small Battlefield",
-          "selections": []
+          "selections": [
+            {
+              "user_id": 2079123,
+              "selection_id": 33646803,
+              "character_id": 1411,
+              "character_name": "Simon Belmont"
+            },
+            {
+              "user_id": 2044084,
+              "selection_id": 33646804,
+              "character_id": 1413,
+              "character_name": "Isabelle"
+            }
+          ]
         },
         {
           "game_id": 23215497,
@@ -985,7 +1685,20 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
-          "selections": []
+          "selections": [
+            {
+              "user_id": 2079123,
+              "selection_id": 33646805,
+              "character_id": 1411,
+              "character_name": "Simon Belmont"
+            },
+            {
+              "user_id": 2044084,
+              "selection_id": 33646806,
+              "character_id": 1413,
+              "character_name": "Isabelle"
+            }
+          ]
         }
       ]
     },
@@ -997,6 +1710,7 @@
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1009,7 +1723,20 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Town and City",
-          "selections": []
+          "selections": [
+            {
+              "user_id": 1947768,
+              "selection_id": 33646907,
+              "character_id": 1322,
+              "character_name": "Ridley"
+            },
+            {
+              "user_id": 2617761,
+              "selection_id": 33646908,
+              "character_id": 1337,
+              "character_name": "Wolf"
+            }
+          ]
         },
         {
           "game_id": 23215550,
@@ -1018,7 +1745,20 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Final Destination",
-          "selections": []
+          "selections": [
+            {
+              "user_id": 1947768,
+              "selection_id": 33646909,
+              "character_id": 1322,
+              "character_name": "Ridley"
+            },
+            {
+              "user_id": 2617761,
+              "selection_id": 33646910,
+              "character_id": 1298,
+              "character_name": "Lucario"
+            }
+          ]
         }
       ]
     },
@@ -1030,6 +1770,7 @@
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1042,7 +1783,20 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Small Battlefield",
-          "selections": []
+          "selections": [
+            {
+              "user_id": 2614299,
+              "selection_id": 33646879,
+              "character_id": 1289,
+              "character_name": "Greninja"
+            },
+            {
+              "user_id": 2622585,
+              "selection_id": 33646880,
+              "character_id": 1278,
+              "character_name": "Dark Pit"
+            }
+          ]
         },
         {
           "game_id": 23215537,
@@ -1051,7 +1805,20 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Pokémon Stadium 2",
-          "selections": []
+          "selections": [
+            {
+              "user_id": 2614299,
+              "selection_id": 33646881,
+              "character_id": 1289,
+              "character_name": "Greninja"
+            },
+            {
+              "user_id": 2622585,
+              "selection_id": 33646882,
+              "character_id": 1278,
+              "character_name": "Dark Pit"
+            }
+          ]
         }
       ]
     },
@@ -1063,6 +1830,7 @@
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1075,7 +1843,20 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Pokémon Stadium 2",
-          "selections": []
+          "selections": [
+            {
+              "user_id": 1827278,
+              "selection_id": 33646779,
+              "character_id": 1323,
+              "character_name": "R.O.B."
+            },
+            {
+              "user_id": 2615265,
+              "selection_id": 33646780,
+              "character_id": 1275,
+              "character_name": "Cloud"
+            }
+          ]
         },
         {
           "game_id": 23215485,
@@ -1084,7 +1865,20 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Final Destination",
-          "selections": []
+          "selections": [
+            {
+              "user_id": 1827278,
+              "selection_id": 33646781,
+              "character_id": 1323,
+              "character_name": "R.O.B."
+            },
+            {
+              "user_id": 2615265,
+              "selection_id": 33646782,
+              "character_id": 1275,
+              "character_name": "Cloud"
+            }
+          ]
         }
       ]
     },
@@ -1096,6 +1890,7 @@
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1108,7 +1903,20 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Pokémon Stadium 2",
-          "selections": []
+          "selections": [
+            {
+              "user_id": 2302248,
+              "selection_id": 33646855,
+              "character_id": 1453,
+              "character_name": "Joker"
+            },
+            {
+              "user_id": 1866759,
+              "selection_id": 33646856,
+              "character_id": 1414,
+              "character_name": "Mii Swordfighter"
+            }
+          ]
         },
         {
           "game_id": 23215524,
@@ -1117,7 +1925,20 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Small Battlefield",
-          "selections": []
+          "selections": [
+            {
+              "user_id": 2302248,
+              "selection_id": 33646857,
+              "character_id": 1410,
+              "character_name": "Ken"
+            },
+            {
+              "user_id": 1866759,
+              "selection_id": 33646858,
+              "character_id": 1414,
+              "character_name": "Mii Swordfighter"
+            }
+          ]
         }
       ]
     },
@@ -1129,6 +1950,7 @@
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1143,6 +1965,7 @@
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1155,7 +1978,20 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
-          "selections": []
+          "selections": [
+            {
+              "user_id": 2615380,
+              "selection_id": 33646871,
+              "character_id": 1453,
+              "character_name": "Joker"
+            },
+            {
+              "user_id": 2223828,
+              "selection_id": 33646872,
+              "character_id": 1285,
+              "character_name": "Falco"
+            }
+          ]
         },
         {
           "game_id": 23215533,
@@ -1164,7 +2000,20 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
-          "selections": []
+          "selections": [
+            {
+              "user_id": 2615380,
+              "selection_id": 33646873,
+              "character_id": 1453,
+              "character_name": "Joker"
+            },
+            {
+              "user_id": 2223828,
+              "selection_id": 33646874,
+              "character_id": 1285,
+              "character_name": "Falco"
+            }
+          ]
         }
       ]
     },
@@ -1176,6 +2025,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -1190,6 +2040,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1202,7 +2053,20 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Small Battlefield",
-          "selections": []
+          "selections": [
+            {
+              "user_id": 2607814,
+              "selection_id": 33646633,
+              "character_id": 1313,
+              "character_name": "Ness"
+            },
+            {
+              "user_id": 1934676,
+              "selection_id": 33646634,
+              "character_id": 1276,
+              "character_name": "Corrin"
+            }
+          ]
         },
         {
           "game_id": 23215412,
@@ -1211,7 +2075,20 @@
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": "Hollow Bastion",
-          "selections": []
+          "selections": [
+            {
+              "user_id": 2607814,
+              "selection_id": 33646635,
+              "character_id": 1313,
+              "character_name": "Ness"
+            },
+            {
+              "user_id": 1934676,
+              "selection_id": 33646636,
+              "character_id": 1276,
+              "character_name": "Corrin"
+            }
+          ]
         },
         {
           "game_id": 23215413,
@@ -1220,7 +2097,20 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Small Battlefield",
-          "selections": []
+          "selections": [
+            {
+              "user_id": 2607814,
+              "selection_id": 33646637,
+              "character_id": 1313,
+              "character_name": "Ness"
+            },
+            {
+              "user_id": 1934676,
+              "selection_id": 33646638,
+              "character_id": 1276,
+              "character_name": "Corrin"
+            }
+          ]
         }
       ]
     },
@@ -1232,6 +2122,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1244,7 +2135,20 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Small Battlefield",
-          "selections": []
+          "selections": [
+            {
+              "user_id": 1827278,
+              "selection_id": 33646613,
+              "character_id": 1323,
+              "character_name": "R.O.B."
+            },
+            {
+              "user_id": 2079123,
+              "selection_id": 33646614,
+              "character_id": 1411,
+              "character_name": "Simon Belmont"
+            }
+          ]
         },
         {
           "game_id": 23215403,
@@ -1253,7 +2157,20 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Final Destination",
-          "selections": []
+          "selections": [
+            {
+              "user_id": 1827278,
+              "selection_id": 33646615,
+              "character_id": 1323,
+              "character_name": "R.O.B."
+            },
+            {
+              "user_id": 2079123,
+              "selection_id": 33646616,
+              "character_id": 1411,
+              "character_name": "Simon Belmont"
+            }
+          ]
         }
       ]
     },
@@ -1265,6 +2182,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1277,7 +2195,20 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Small Battlefield",
-          "selections": []
+          "selections": [
+            {
+              "user_id": 2614299,
+              "selection_id": 33646597,
+              "character_id": 1289,
+              "character_name": "Greninja"
+            },
+            {
+              "user_id": 2617761,
+              "selection_id": 33646598,
+              "character_id": 1337,
+              "character_name": "Wolf"
+            }
+          ]
         },
         {
           "game_id": 23215395,
@@ -1286,7 +2217,20 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Pokémon Stadium 2",
-          "selections": []
+          "selections": [
+            {
+              "user_id": 2614299,
+              "selection_id": 33646599,
+              "character_id": 1289,
+              "character_name": "Greninja"
+            },
+            {
+              "user_id": 2617761,
+              "selection_id": 33646600,
+              "character_id": 1337,
+              "character_name": "Wolf"
+            }
+          ]
         }
       ]
     },
@@ -1298,6 +2242,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1310,7 +2255,20 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Hollow Bastion",
-          "selections": []
+          "selections": [
+            {
+              "user_id": 1947768,
+              "selection_id": 33646749,
+              "character_id": 1322,
+              "character_name": "Ridley"
+            },
+            {
+              "user_id": 2622585,
+              "selection_id": 33646750,
+              "character_id": 1278,
+              "character_name": "Dark Pit"
+            }
+          ]
         },
         {
           "game_id": 23215470,
@@ -1319,7 +2277,20 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Small Battlefield",
-          "selections": []
+          "selections": [
+            {
+              "user_id": 1947768,
+              "selection_id": 33646751,
+              "character_id": 1322,
+              "character_name": "Ridley"
+            },
+            {
+              "user_id": 2622585,
+              "selection_id": 33646752,
+              "character_id": 1278,
+              "character_name": "Dark Pit"
+            }
+          ]
         }
       ]
     },
@@ -1331,6 +2302,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1343,7 +2315,20 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Small Battlefield",
-          "selections": []
+          "selections": [
+            {
+              "user_id": 2615265,
+              "selection_id": 33646561,
+              "character_id": 1275,
+              "character_name": "Cloud"
+            },
+            {
+              "user_id": 2617790,
+              "selection_id": 33646562,
+              "character_id": 1406,
+              "character_name": "Incineroar"
+            }
+          ]
         },
         {
           "game_id": 23215377,
@@ -1352,7 +2337,20 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Hollow Bastion",
-          "selections": []
+          "selections": [
+            {
+              "user_id": 2615265,
+              "selection_id": 33646563,
+              "character_id": 1275,
+              "character_name": "Cloud"
+            },
+            {
+              "user_id": 2617790,
+              "selection_id": 33646564,
+              "character_id": 1406,
+              "character_name": "Incineroar"
+            }
+          ]
         }
       ]
     },
@@ -1364,6 +2362,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1376,7 +2375,20 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Small Battlefield",
-          "selections": []
+          "selections": [
+            {
+              "user_id": 2302248,
+              "selection_id": 33646589,
+              "character_id": 1453,
+              "character_name": "Joker"
+            },
+            {
+              "user_id": 2420938,
+              "selection_id": 33646590,
+              "character_id": 1297,
+              "character_name": "Little Mac"
+            }
+          ]
         },
         {
           "game_id": 23215391,
@@ -1385,7 +2397,20 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Small Battlefield",
-          "selections": []
+          "selections": [
+            {
+              "user_id": 2302248,
+              "selection_id": 33646591,
+              "character_id": 1453,
+              "character_name": "Joker"
+            },
+            {
+              "user_id": 2420938,
+              "selection_id": 33646592,
+              "character_id": 1297,
+              "character_name": "Little Mac"
+            }
+          ]
         }
       ]
     },
@@ -1397,6 +2422,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1409,7 +2435,20 @@
           "entrant1_score": 0,
           "entrant2_score": 0,
           "stage": null,
-          "selections": []
+          "selections": [
+            {
+              "user_id": 2607850,
+              "selection_id": 33646573,
+              "character_id": 1326,
+              "character_name": "Roy"
+            },
+            {
+              "user_id": 2614500,
+              "selection_id": 33646574,
+              "character_id": 1405,
+              "character_name": "Mr. Game & Watch"
+            }
+          ]
         },
         {
           "game_id": 23215383,
@@ -1418,7 +2457,20 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
-          "selections": []
+          "selections": [
+            {
+              "user_id": 2607850,
+              "selection_id": 33646575,
+              "character_id": 1326,
+              "character_name": "Roy"
+            },
+            {
+              "user_id": 2614500,
+              "selection_id": 33646576,
+              "character_id": 1405,
+              "character_name": "Mr. Game & Watch"
+            }
+          ]
         }
       ]
     }
