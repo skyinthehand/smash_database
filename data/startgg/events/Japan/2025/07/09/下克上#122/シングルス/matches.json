@@ -8,6 +8,7 @@
       "round_text": "Grand Final",
       "round": 4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -22,6 +23,7 @@
       "round_text": "Winners Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -36,6 +38,7 @@
       "round_text": "Losers Final",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -48,7 +51,20 @@
           "entrant1_score": 0,
           "entrant2_score": 0,
           "stage": null,
-          "selections": []
+          "selections": [
+            {
+              "user_id": 1637767,
+              "selection_id": 45838050,
+              "character_id": 1341,
+              "character_name": "Zero Suit Samus"
+            },
+            {
+              "user_id": 2760756,
+              "selection_id": 45838051,
+              "character_id": 1337,
+              "character_name": "Wolf"
+            }
+          ]
         },
         {
           "game_id": 31158254,
@@ -57,7 +73,20 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
-          "selections": []
+          "selections": [
+            {
+              "user_id": 1637767,
+              "selection_id": 45838052,
+              "character_id": 1341,
+              "character_name": "Zero Suit Samus"
+            },
+            {
+              "user_id": 2760756,
+              "selection_id": 45838053,
+              "character_id": 1314,
+              "character_name": "Olimar"
+            }
+          ]
         },
         {
           "game_id": 31158255,
@@ -66,7 +95,20 @@
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
-          "selections": []
+          "selections": [
+            {
+              "user_id": 1637767,
+              "selection_id": 45838054,
+              "character_id": 1341,
+              "character_name": "Zero Suit Samus"
+            },
+            {
+              "user_id": 2760756,
+              "selection_id": 45838055,
+              "character_id": 1280,
+              "character_name": "Donkey Kong"
+            }
+          ]
         },
         {
           "game_id": 31158256,
@@ -75,7 +117,20 @@
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
-          "selections": []
+          "selections": [
+            {
+              "user_id": 1637767,
+              "selection_id": 45838056,
+              "character_id": 1341,
+              "character_name": "Zero Suit Samus"
+            },
+            {
+              "user_id": 2760756,
+              "selection_id": 45838057,
+              "character_id": 1280,
+              "character_name": "Donkey Kong"
+            }
+          ]
         }
       ]
     },
@@ -87,6 +142,7 @@
       "round_text": "Losers Semi-Final",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -101,6 +157,7 @@
       "round_text": "Winners Semi-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -113,7 +170,20 @@
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
-          "selections": []
+          "selections": [
+            {
+              "user_id": 837605,
+              "selection_id": 45837942,
+              "character_id": 1300,
+              "character_name": "Lucina"
+            },
+            {
+              "user_id": 1637767,
+              "selection_id": 45837943,
+              "character_id": 1280,
+              "character_name": "Donkey Kong"
+            }
+          ]
         },
         {
           "game_id": 31158200,
@@ -122,7 +192,20 @@
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
-          "selections": []
+          "selections": [
+            {
+              "user_id": 837605,
+              "selection_id": 45837944,
+              "character_id": 1300,
+              "character_name": "Lucina"
+            },
+            {
+              "user_id": 1637767,
+              "selection_id": 45837945,
+              "character_id": 1280,
+              "character_name": "Donkey Kong"
+            }
+          ]
         },
         {
           "game_id": 31158201,
@@ -131,7 +214,20 @@
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
-          "selections": []
+          "selections": [
+            {
+              "user_id": 837605,
+              "selection_id": 45837946,
+              "character_id": 1300,
+              "character_name": "Lucina"
+            },
+            {
+              "user_id": 1637767,
+              "selection_id": 45837947,
+              "character_id": 1280,
+              "character_name": "Donkey Kong"
+            }
+          ]
         }
       ]
     },
@@ -143,6 +239,7 @@
       "round_text": "Winners Semi-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -157,6 +254,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -171,6 +269,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -185,6 +284,7 @@
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -197,7 +297,20 @@
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
-          "selections": []
+          "selections": [
+            {
+              "user_id": 2760756,
+              "selection_id": 45837964,
+              "character_id": 1278,
+              "character_name": "Dark Pit"
+            },
+            {
+              "user_id": 2016900,
+              "selection_id": 45837965,
+              "character_id": 1310,
+              "character_name": "Mewtwo"
+            }
+          ]
         },
         {
           "game_id": 31158211,
@@ -206,7 +319,20 @@
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
-          "selections": []
+          "selections": [
+            {
+              "user_id": 2760756,
+              "selection_id": 45837966,
+              "character_id": 1405,
+              "character_name": "Mr. Game & Watch"
+            },
+            {
+              "user_id": 2016900,
+              "selection_id": 45837967,
+              "character_id": 1310,
+              "character_name": "Mewtwo"
+            }
+          ]
         },
         {
           "game_id": 31158212,
@@ -215,7 +341,20 @@
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
-          "selections": []
+          "selections": [
+            {
+              "user_id": 2760756,
+              "selection_id": 45837968,
+              "character_id": 1302,
+              "character_name": "Mario"
+            },
+            {
+              "user_id": 2016900,
+              "selection_id": 45837969,
+              "character_id": 1310,
+              "character_name": "Mewtwo"
+            }
+          ]
         }
       ]
     },
@@ -227,6 +366,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -239,7 +379,20 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
-          "selections": []
+          "selections": [
+            {
+              "user_id": 1637767,
+              "selection_id": 45837892,
+              "character_id": 1341,
+              "character_name": "Zero Suit Samus"
+            },
+            {
+              "user_id": 2035350,
+              "selection_id": 45837893,
+              "character_id": 1747,
+              "character_name": "Min Min"
+            }
+          ]
         },
         {
           "game_id": 31158175,
@@ -248,7 +401,20 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
-          "selections": []
+          "selections": [
+            {
+              "user_id": 1637767,
+              "selection_id": 45837894,
+              "character_id": 1341,
+              "character_name": "Zero Suit Samus"
+            },
+            {
+              "user_id": 2035350,
+              "selection_id": 45837895,
+              "character_id": 1747,
+              "character_name": "Min Min"
+            }
+          ]
         },
         {
           "game_id": 31158176,
@@ -257,7 +423,20 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
-          "selections": []
+          "selections": [
+            {
+              "user_id": 1637767,
+              "selection_id": 45837896,
+              "character_id": 1341,
+              "character_name": "Zero Suit Samus"
+            },
+            {
+              "user_id": 2035350,
+              "selection_id": 45837897,
+              "character_id": 1747,
+              "character_name": "Min Min"
+            }
+          ]
         }
       ]
     },
@@ -269,6 +448,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -283,6 +463,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -295,7 +476,20 @@
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
-          "selections": []
+          "selections": [
+            {
+              "user_id": 2166961,
+              "selection_id": 45837886,
+              "character_id": 1300,
+              "character_name": "Lucina"
+            },
+            {
+              "user_id": 2760756,
+              "selection_id": 45837887,
+              "character_id": 1323,
+              "character_name": "R.O.B."
+            }
+          ]
         },
         {
           "game_id": 31158172,
@@ -304,7 +498,20 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
-          "selections": []
+          "selections": [
+            {
+              "user_id": 2166961,
+              "selection_id": 45837888,
+              "character_id": 1300,
+              "character_name": "Lucina"
+            },
+            {
+              "user_id": 2760756,
+              "selection_id": 45837889,
+              "character_id": 1320,
+              "character_name": "Pit"
+            }
+          ]
         },
         {
           "game_id": 31158173,
@@ -313,7 +520,20 @@
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
-          "selections": []
+          "selections": [
+            {
+              "user_id": 2166961,
+              "selection_id": 45837890,
+              "character_id": 1300,
+              "character_name": "Lucina"
+            },
+            {
+              "user_id": 2760756,
+              "selection_id": 45837891,
+              "character_id": 1329,
+              "character_name": "Sheik"
+            }
+          ]
         },
         {
           "game_id": 31158187,
@@ -322,7 +542,20 @@
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
-          "selections": []
+          "selections": [
+            {
+              "user_id": 2166961,
+              "selection_id": 45837918,
+              "character_id": 1300,
+              "character_name": "Lucina"
+            },
+            {
+              "user_id": 2760756,
+              "selection_id": 45837919,
+              "character_id": 1285,
+              "character_name": "Falco"
+            }
+          ]
         }
       ]
     }
