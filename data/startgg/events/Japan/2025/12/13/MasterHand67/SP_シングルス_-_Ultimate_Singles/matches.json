@@ -8,6 +8,7 @@
       "round_text": "Round 5",
       "round": 5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -22,6 +23,7 @@
       "round_text": "Round 5",
       "round": 5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -36,6 +38,7 @@
       "round_text": "Grand Final",
       "round": 4,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -48,7 +51,20 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Pokémon Stadium 2",
-          "selections": []
+          "selections": [
+            {
+              "user_id": 443426,
+              "selection_id": 51259904,
+              "character_id": 1795,
+              "character_name": "Pyra & Mythra"
+            },
+            {
+              "user_id": 1328472,
+              "selection_id": 51259905,
+              "character_id": 1539,
+              "character_name": "Byleth"
+            }
+          ]
         },
         {
           "game_id": 34591024,
@@ -57,7 +73,20 @@
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": "Pokémon Stadium 2",
-          "selections": []
+          "selections": [
+            {
+              "user_id": 443426,
+              "selection_id": 51259906,
+              "character_id": 1795,
+              "character_name": "Pyra & Mythra"
+            },
+            {
+              "user_id": 1328472,
+              "selection_id": 51259907,
+              "character_id": 1539,
+              "character_name": "Byleth"
+            }
+          ]
         },
         {
           "game_id": 34591025,
@@ -66,7 +95,20 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Pokémon Stadium 2",
-          "selections": []
+          "selections": [
+            {
+              "user_id": 443426,
+              "selection_id": 51259908,
+              "character_id": 1453,
+              "character_name": "Joker"
+            },
+            {
+              "user_id": 1328472,
+              "selection_id": 51259909,
+              "character_id": 1275,
+              "character_name": "Cloud"
+            }
+          ]
         },
         {
           "game_id": 34591026,
@@ -75,7 +117,20 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Pokémon Stadium 2",
-          "selections": []
+          "selections": [
+            {
+              "user_id": 443426,
+              "selection_id": 51259910,
+              "character_id": 1453,
+              "character_name": "Joker"
+            },
+            {
+              "user_id": 1328472,
+              "selection_id": 51259911,
+              "character_id": 1275,
+              "character_name": "Cloud"
+            }
+          ]
         }
       ]
     },
@@ -87,6 +142,7 @@
       "round_text": "Round 4",
       "round": 4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -101,6 +157,7 @@
       "round_text": "Round 4",
       "round": 4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -115,6 +172,7 @@
       "round_text": "Winners Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -127,7 +185,20 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Pokémon Stadium 2",
-          "selections": []
+          "selections": [
+            {
+              "user_id": 443426,
+              "selection_id": 51259714,
+              "character_id": 1795,
+              "character_name": "Pyra & Mythra"
+            },
+            {
+              "user_id": 1328472,
+              "selection_id": 51259715,
+              "character_id": 1777,
+              "character_name": "Sephiroth"
+            }
+          ]
         },
         {
           "game_id": 34590911,
@@ -136,7 +207,20 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Pokémon Stadium 2",
-          "selections": []
+          "selections": [
+            {
+              "user_id": 443426,
+              "selection_id": 51259716,
+              "character_id": 1795,
+              "character_name": "Pyra & Mythra"
+            },
+            {
+              "user_id": 1328472,
+              "selection_id": 51259717,
+              "character_id": 1777,
+              "character_name": "Sephiroth"
+            }
+          ]
         },
         {
           "game_id": 34590912,
@@ -145,7 +229,20 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Pokémon Stadium 2",
-          "selections": []
+          "selections": [
+            {
+              "user_id": 443426,
+              "selection_id": 51259718,
+              "character_id": 1795,
+              "character_name": "Pyra & Mythra"
+            },
+            {
+              "user_id": 1328472,
+              "selection_id": 51259719,
+              "character_id": 1777,
+              "character_name": "Sephiroth"
+            }
+          ]
         }
       ]
     },
@@ -157,6 +254,7 @@
       "round_text": "Round 3",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -171,6 +269,7 @@
       "round_text": "Round 3",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -185,6 +284,7 @@
       "round_text": "Losers Final",
       "round": -6,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -197,7 +297,20 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Pokémon Stadium 2",
-          "selections": []
+          "selections": [
+            {
+              "user_id": 443426,
+              "selection_id": 51259848,
+              "character_id": 1453,
+              "character_name": "Joker"
+            },
+            {
+              "user_id": 2747565,
+              "selection_id": 51259849,
+              "character_id": 1275,
+              "character_name": "Cloud"
+            }
+          ]
         },
         {
           "game_id": 34590994,
@@ -206,7 +319,20 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Hollow Bastion",
-          "selections": []
+          "selections": [
+            {
+              "user_id": 443426,
+              "selection_id": 51259850,
+              "character_id": 1453,
+              "character_name": "Joker"
+            },
+            {
+              "user_id": 2747565,
+              "selection_id": 51259851,
+              "character_id": 1275,
+              "character_name": "Cloud"
+            }
+          ]
         },
         {
           "game_id": 34590995,
@@ -215,7 +341,20 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Smashville",
-          "selections": []
+          "selections": [
+            {
+              "user_id": 443426,
+              "selection_id": 51259852,
+              "character_id": 1453,
+              "character_name": "Joker"
+            },
+            {
+              "user_id": 2747565,
+              "selection_id": 51259853,
+              "character_id": 1275,
+              "character_name": "Cloud"
+            }
+          ]
         }
       ]
     },
@@ -227,6 +366,7 @@
       "round_text": "Losers Semi-Final",
       "round": -5,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -239,7 +379,20 @@
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": "Pokémon Stadium 2",
-          "selections": []
+          "selections": [
+            {
+              "user_id": null,
+              "selection_id": 51259794,
+              "character_id": 1339,
+              "character_name": "Young Link"
+            },
+            {
+              "user_id": 2747565,
+              "selection_id": 51259795,
+              "character_id": 1777,
+              "character_name": "Sephiroth"
+            }
+          ]
         },
         {
           "game_id": 34590960,
@@ -248,7 +401,20 @@
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": "Pokémon Stadium 2",
-          "selections": []
+          "selections": [
+            {
+              "user_id": null,
+              "selection_id": 51259796,
+              "character_id": 1339,
+              "character_name": "Young Link"
+            },
+            {
+              "user_id": 2747565,
+              "selection_id": 51259797,
+              "character_id": 1777,
+              "character_name": "Sephiroth"
+            }
+          ]
         },
         {
           "game_id": 34590961,
@@ -257,7 +423,20 @@
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": "Pokémon Stadium 2",
-          "selections": []
+          "selections": [
+            {
+              "user_id": null,
+              "selection_id": 51259798,
+              "character_id": 1339,
+              "character_name": "Young Link"
+            },
+            {
+              "user_id": 2747565,
+              "selection_id": 51259799,
+              "character_id": 1275,
+              "character_name": "Cloud"
+            }
+          ]
         }
       ]
     },
@@ -269,6 +448,7 @@
       "round_text": "Winners Semi-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -281,7 +461,20 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Pokémon Stadium 2",
-          "selections": []
+          "selections": [
+            {
+              "user_id": 1328472,
+              "selection_id": 51259558,
+              "character_id": 1325,
+              "character_name": "Rosalina"
+            },
+            {
+              "user_id": 2747565,
+              "selection_id": 51259559,
+              "character_id": 1330,
+              "character_name": "Shulk"
+            }
+          ]
         },
         {
           "game_id": 34590829,
@@ -290,7 +483,20 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Smashville",
-          "selections": []
+          "selections": [
+            {
+              "user_id": 1328472,
+              "selection_id": 51259560,
+              "character_id": 1325,
+              "character_name": "Rosalina"
+            },
+            {
+              "user_id": 2747565,
+              "selection_id": 51259561,
+              "character_id": 1777,
+              "character_name": "Sephiroth"
+            }
+          ]
         },
         {
           "game_id": 34590830,
@@ -299,7 +505,20 @@
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Town and City",
-          "selections": []
+          "selections": [
+            {
+              "user_id": 1328472,
+              "selection_id": 51259562,
+              "character_id": 1324,
+              "character_name": "Robin"
+            },
+            {
+              "user_id": 2747565,
+              "selection_id": 51259563,
+              "character_id": 1777,
+              "character_name": "Sephiroth"
+            }
+          ]
         }
       ]
     },
@@ -311,6 +530,7 @@
       "round_text": "Winners Semi-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -325,6 +545,7 @@
       "round_text": "Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -339,6 +560,7 @@
       "round_text": "Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -353,6 +575,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -4,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -367,6 +590,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 1,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -381,6 +605,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -395,6 +620,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
