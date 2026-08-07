@@ -18,6 +18,21 @@
     {
       "winner_id": 1904837,
       "loser_id": 448541,
+      "winner_score": 3,
+      "loser_score": 0,
+      "round_text": "Grand Final Reset",
+      "round": 5,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "winner_id": 1904837,
+      "loser_id": 448541,
       "winner_score": 2,
       "loser_score": 1,
       "round_text": "Winners Final",
@@ -388,21 +403,6 @@
       "dq": false,
       "cancel": false,
       "state": 3,
-      "details": []
-    },
-    {
-      "winner_id": 1904837,
-      "loser_id": 448541,
-      "winner_score": 0,
-      "loser_score": 0,
-      "round_text": "Grand Final Reset",
-      "round": 5,
-      "phase": "1",
-      "phase_order": 1,
-      "wave": null,
-      "dq": false,
-      "cancel": true,
-      "state": 1,
       "details": []
     }
   ],
