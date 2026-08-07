@@ -1,6 +1,21 @@
 {
   "data": [
     {
+      "winner_id": 1052011,
+      "loser_id": 1983618,
+      "winner_score": 0,
+      "loser_score": 0,
+      "round_text": "Final",
+      "round": 3,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": true,
+      "state": 3,
+      "details": []
+    },
+    {
       "winner_id": 1983618,
       "loser_id": 1962859,
       "winner_score": 0,
@@ -8,6 +23,7 @@
       "round_text": "Semi-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -22,6 +38,7 @@
       "round_text": "Semi-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -36,24 +53,11 @@
       "round_text": "Quarter-Final",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": true,
       "cancel": false,
       "state": 3,
-      "details": []
-    },
-    {
-      "winner_id": 1052011,
-      "loser_id": 1983618,
-      "winner_score": 0,
-      "loser_score": 0,
-      "round_text": "Final",
-      "round": 3,
-      "phase": "1",
-      "wave": null,
-      "dq": false,
-      "cancel": true,
-      "state": 1,
       "details": []
     }
   ],
