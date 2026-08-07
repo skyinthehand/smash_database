@@ -70,6 +70,44 @@ class ValidateDataTests(unittest.TestCase):
             self.assertEqual(errors, [])
             self.assertEqual(warnings, [])
 
+    def test_missing_end_at_is_not_an_error(self):
+        """end_at は ATTR_REQUIRED_FIELDS に含まれず、後方互換を保つ。"""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            event_dir = Path(tmpdir)
+            write_json(
+                event_dir / "attr.json",
+                {
+                    "event_id": 1,
+                    "tournament_name": "T",
+                    "event_name": "E",
+                    "timestamp": 0,
+                    "region": "Japan",
+                    "num_entrants": 0,
+                    "offline": True,
+                    "url": "u",
+                    "place": {
+                        "country_code": "JP",
+                        "city": "c",
+                        "lat": 0,
+                        "lng": 0,
+                        "venue_name": "v",
+                        "timezone": "t",
+                        "postal_code": "p",
+                        "venue_address": "a",
+                        "maps_place_id": "m",
+                    },
+                    "labels": {},
+                    "status": "completed",
+                    # end_at はあえて含めない(移行前の既存データを想定)
+                },
+            )
+            write_json(event_dir / "standings.json", {"data": []})
+            write_json(event_dir / "seeds.json", {"data": []})
+            write_json(event_dir / "matches.json", {"data": []})
+            errors, warnings = validate_event_dir(event_dir)
+            self.assertEqual(errors, [])
+            self.assertEqual(warnings, [])
+
     def test_match_ids_not_in_standings_warn(self):
         with tempfile.TemporaryDirectory() as tmpdir:
             event_dir = Path(tmpdir)

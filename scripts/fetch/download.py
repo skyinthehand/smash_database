@@ -347,7 +347,7 @@ def download_all_tournaments(
                             continue
                         labels = {}
                         guest_entrant_count = count_guest_entrants(user_data)
-                        write_event_attributes(num_entrants, event_id, event_name, tournament_name, timestamp, place, url, labels, is_online, event_dir, guest_entrant_count=guest_entrant_count)
+                        write_event_attributes(num_entrants, event_id, event_name, tournament_name, timestamp, place, url, labels, is_online, event_dir, guest_entrant_count=guest_entrant_count, end_at=end_timestamp)
                     print(
                         f"Tournament {tournament_id}: finished event {event_id} ({event_name})."
                     )
@@ -768,7 +768,7 @@ def count_guest_entrants(user_data):
     return sum(1 for user in user_data if user is None)
 
 
-def write_event_attributes(num_entrants, event_id, event_name, tournament_name, timestamp, place, url, labels, is_online, event_dir, guest_entrant_count=None):
+def write_event_attributes(num_entrants, event_id, event_name, tournament_name, timestamp, place, url, labels, is_online, event_dir, guest_entrant_count=None, end_at=None):
     json_data = {
         "event_id": event_id,
         "tournament_name": tournament_name,
@@ -781,6 +781,7 @@ def write_event_attributes(num_entrants, event_id, event_name, tournament_name, 
         "labels": labels,
         "status": "completed",
         "timestamp": timestamp,
+        "end_at": end_at,
         "fetched_at": int(datetime.now().timestamp()),
         "event_data_version": EVENT_DATA_VERSION,
         "guest_entrant_count": guest_entrant_count,
@@ -1061,7 +1062,7 @@ def download_by_ids(
 
             labels = {}
             guest_entrant_count = count_guest_entrants(user_data)
-            write_event_attributes(num_entrants, event_id, event_name, tournament_name, timestamp, place, url, labels, is_online, event_dir, guest_entrant_count=guest_entrant_count)
+            write_event_attributes(num_entrants, event_id, event_name, tournament_name, timestamp, place, url, labels, is_online, event_dir, guest_entrant_count=guest_entrant_count, end_at=end_timestamp)
             print(f"Tournament {tournament_id}: finished event {event_id} ({event_name}).")
 
             existing_events = tournaments[tournament_id]["events"]

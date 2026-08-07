@@ -31,7 +31,7 @@ description: "Task list for 003-attr-end-at"
 
 **Purpose**: 変更前の基準状態を確認する
 
-- [ ] T001 `python -m unittest scripts.test.test_download scripts.test.test_backfill_schema_version scripts.test.test_validate_data` を実行し、変更前の時点で全てパスすることを確認する(以降のタスクの差分検証の基準にする)
+- [X] T001 `python -m unittest scripts.test.test_download scripts.test.test_backfill_schema_version scripts.test.test_validate_data` を実行し、変更前の時点で全てパスすることを確認する(以降のタスクの差分検証の基準にする)(32 tests, OK)
 
 **Note**: 本機能は既存ファイルの局所的な変更のみで完結し、複数ユーザーストーリーが
 共有する新規インフラ(DBスキーマ・認証基盤等)を必要としないため、独立した
@@ -51,46 +51,46 @@ Foundational フェーズは設けない。US2 は US1 の実装(特に T013)を
 
 ### Tests for User Story 1
 
-- [ ] T002 [P] [US1] `scripts/test/test_download.py` に、`write_event_attributes()` へ
+- [X] T002 [P] [US1] `scripts/test/test_download.py` に、`write_event_attributes()` へ
       `end_at` を渡すと `attr.json` の `end_at` フィールドにその値がそのまま書き込まれる
       ことを確認するテストを追加する(既存の
       `test_write_event_attributes_includes_version_and_guest_count` に倣う)
-- [ ] T003 [P] [US1] 同ファイルに、`end_at` を渡さない(または `None` を渡す)場合、
+- [X] T003 [P] [US1] 同ファイルに、`end_at` を渡さない(または `None` を渡す)場合、
       `attr.json` の `end_at` が `null` になり例外が発生しないことを確認するテストを
       追加する(FR-003 の後方互換確認)
-- [ ] T004 [P] [US1] `scripts/test/test_backfill_schema_version.py` に、
+- [X] T004 [P] [US1] `scripts/test/test_backfill_schema_version.py` に、
       `fetch_event_details()` のレスポンスに含まれる `tournament.endAt` が
       `backfill_one_event()` を通じて `write_event_attributes()` に渡され、結果として
       `attr.json` の `end_at` に反映されることを確認するテストを追加する
-- [ ] T005 [P] [US1] `scripts/test/test_validate_data.py` に、`end_at` を含まない
+- [X] T005 [P] [US1] `scripts/test/test_validate_data.py` に、`end_at` を含まない
       (移行前形式の)`attr.json` でも `validate_event_dir()` が必須フィールドエラーを
       出さないことを確認する回帰テストを追加する(`end_at` を `ATTR_REQUIRED_FIELDS` に
       追加していないことの保証)
 
 ### Implementation for User Story 1
 
-- [ ] T006 [P] [US1] `scripts/fetch/download.py` の `write_event_attributes()` に
+- [X] T006 [P] [US1] `scripts/fetch/download.py` の `write_event_attributes()` に
       `end_at=None` 引数を追加し、`json_data["end_at"]` として書き込むようにする
-- [ ] T007 [P] [US1] `scripts/fetch/download_specific_event.py` の独立定義された
+- [X] T007 [P] [US1] `scripts/fetch/download_specific_event.py` の独立定義された
       `write_event_attributes()` にも同様の変更を行う(T006 と同一内容、別実装への反映)
-- [ ] T008 [US1] `scripts/fetch/download.py` の `download_all_tournaments()` 内の
+- [X] T008 [US1] `scripts/fetch/download.py` の `download_all_tournaments()` 内の
       `write_event_attributes(...)` 呼び出しに、既存の `end_timestamp` 変数を
       `end_at=end_timestamp` として渡す(T006 に依存)
-- [ ] T009 [US1] 同ファイルの `download_by_ids()` 内の `write_event_attributes(...)`
+- [X] T009 [US1] 同ファイルの `download_by_ids()` 内の `write_event_attributes(...)`
       呼び出しにも、既存の `end_timestamp` 変数を `end_at=end_timestamp` として渡す
       (T006 に依存)
-- [ ] T010 [P] [US1] `scripts/queries.py` の `get_event_details_by_tournament_query()` の
+- [X] T010 [P] [US1] `scripts/queries.py` の `get_event_details_by_tournament_query()` の
       `tournament` ブロックに `endAt` フィールドを追加する
-- [ ] T011 [US1] `scripts/fetch/download_specific_event.py` の
+- [X] T011 [US1] `scripts/fetch/download_specific_event.py` の
       `fetch_event_details_by_slug()` が返す統合辞書の `tournament` に
       `"endAt": tournament_data.get("endAt")` を追加する(T010 に依存)
-- [ ] T012 [US1] 同ファイルの `download_specific_event()` に、
+- [X] T012 [US1] 同ファイルの `download_specific_event()` に、
       `tournament_info.get("endAt")` を取り出して `write_event_attributes(...)` 呼び出しへ
       `end_at=` として渡す処理を追加する(T007, T011 に依存)
-- [ ] T013 [US1] `scripts/fetch/backfill_schema_version.py` の `backfill_one_event()` に、
+- [X] T013 [US1] `scripts/fetch/backfill_schema_version.py` の `backfill_one_event()` に、
       `tournament.get("endAt")` を取り出して `write_event_attributes(...)` 呼び出しへ
       `end_at=` として渡す処理を追加する(T006 に依存)
-- [ ] T014 [P] [US1] `docs/data_model.md` の `attr.json` スキーマ例に `end_at`
+- [X] T014 [P] [US1] `docs/data_model.md` の `attr.json` スキーマ例に `end_at`
       フィールド(型・意味・`timestamp` との関係)を追記する
 
 **Checkpoint**: 新規取得・スラッグ指定取得・バックフィルによる再取得のいずれの経路でも、
@@ -111,7 +111,7 @@ Foundational フェーズは設けない。US2 は US1 の実装(特に T013)を
 
 ### Tests for User Story 2
 
-- [ ] T015 [P] [US2] `scripts/test/test_backfill_schema_version.py` に、
+- [X] T015 [P] [US2] `scripts/test/test_backfill_schema_version.py` に、
       `event_data_version=2`(`end_at` を持たない)の `attr.json` を用意した状態で
       バックフィルを実行すると、そのイベントが再取得対象として検出され、実行後に
       `attr.json` の `end_at` と `event_data_version=3` が更新されていることを確認する
@@ -120,7 +120,7 @@ Foundational フェーズは設けない。US2 は US1 の実装(特に T013)を
 
 ### Implementation for User Story 2
 
-- [ ] T016 [US2] `scripts/utils.py` の `EVENT_DATA_VERSION` を `2` から `3` に変更する
+- [X] T016 [US2] `scripts/utils.py` の `EVENT_DATA_VERSION` を `2` から `3` に変更する
       (T013 が完了しており、バックフィル実行時に実際に `end_at` が反映されることが
       前提)
 
@@ -132,11 +132,27 @@ Foundational フェーズは設けない。US2 は US1 の実装(特に T013)を
 
 ## Phase 4: Polish & Cross-Cutting Concerns
 
-- [ ] T017 [P] `python -m unittest discover -s scripts/test -p "test_*.py"` を実行し、
+- [X] T017 [P] `python -m unittest discover -s scripts/test -p "test_*.py"` を実行し、
       本機能で追加・変更したテストを含む全テストスイートがパスすることを確認する
+      (41 tests, OK)
 - [ ] T018 `quickstart.md` 手順2(一括スキャン経路の小規模実行)と手順3
       (バックフィル経路の小規模実行)を実際の `STARTGG_TOKEN` で行い、生成された
       `attr.json` に `end_at` が正しく含まれることを目視確認する
+      **未実施**: 本セッションのサンドボックス環境には実際の `STARTGG_TOKEN` /
+      start.gg への実ネットワークアクセスが無いため実行不可。マージ前またはマージ後、
+      実環境(ローカル or GitHub Actions の `workflow_dispatch` 手動実行)で人手による
+      実施が必要。
+- [X] T019 [P] (計画外・実装中に発見) `write_event_attributes()` の全呼び出し箇所を
+      `grep` で洗い出したところ、plan.md のスコープに含めていなかった
+      `scripts/fix/redownload_event.py` と `scripts/fix/backfill_events.py`
+      (いずれも `get_event_details_by_id_query()` 経由で `tournament.endAt` を
+      既に取得済み)も `write_event_attributes()` を呼んでいることが判明。
+      これらを未対応のままにすると、`write_event_attributes()` が常に
+      `event_data_version` を最新値へスタンプする一方で `end_at` は渡されず
+      `null` のまま確定してしまい、その後は「最新バージョン」としてバックフィル
+      スキャンの対象から永久に外れる(=`end_at` を後から獲得する手段が失われる)
+      というデータ欠損を招くため、同様に `end_at=tournament.get("endAt")` を
+      追加して対応した
 
 ---
 

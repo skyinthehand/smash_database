@@ -137,6 +137,52 @@ class BackfillSchemaVersionTests(unittest.TestCase):
         mocked_after.assert_called_once()
         self.assertEqual(summary_after["processed"], 1)
 
+    # -- US1: backfill_one_event が tournament.endAt を end_at として保存する ---
+
+    def test_backfill_one_event_passes_tournament_end_at_to_write_event_attributes(self):
+        event_dir = make_event_dir(self.events_root, "event_with_id", event_data_version=0)
+        attr = json.loads((event_dir / "attr.json").read_text(encoding="utf-8"))
+        event_id = attr["event_id"]
+
+        event = {"name": "Event", "startAt": 1710001000, "isOnline": True}
+        tournament = {"name": "Tournament", "url": "https://example.com", "endAt": 1710086400}
+
+        with patch.object(bsv, "fetch_event_details", return_value=(event, tournament)), \
+             patch.object(bsv, "download_standings", return_value=([], [], {})), \
+             patch.object(bsv, "download_seeds"), \
+             patch.object(bsv, "download_all_set"), \
+             patch.object(bsv, "extend_user_info"), \
+             patch.object(bsv, "write_event_attributes") as mocked_write:
+            result = bsv.backfill_one_event(event_dir, {}, self.users_file_path)
+
+        self.assertTrue(result)
+        mocked_write.assert_called_once()
+        self.assertEqual(mocked_write.call_args.kwargs.get("end_at"), 1710086400)
+
+    # -- US2: event_data_version=2 の既存イベントがバックフィルで end_at を獲得する ---
+
+    def test_outdated_event_gains_end_at_and_reaches_version_3(self):
+        event_dir = make_event_dir(self.events_root, "legacy_event", event_data_version=2)
+        attr_before = json.loads((event_dir / "attr.json").read_text(encoding="utf-8"))
+        event_id = attr_before["event_id"]
+
+        event = {"name": "Event", "startAt": 1710001000, "isOnline": True}
+        tournament = {"name": "Tournament", "url": "https://example.com", "endAt": 1710086400}
+
+        with patch.object(bsv, "fetch_event_details", return_value=(event, tournament)), \
+             patch.object(bsv, "download_standings", return_value=([], [], {})), \
+             patch.object(bsv, "download_seeds"), \
+             patch.object(bsv, "download_all_set"), \
+             patch.object(bsv, "extend_user_info"):
+            summary = bsv.run_backfill(
+                self.events_root, self.users_file_path, self.cursor_path, max_events=0
+            )
+
+        self.assertEqual(summary["processed"], 1)
+        attr_after = json.loads((event_dir / "attr.json").read_text(encoding="utf-8"))
+        self.assertEqual(attr_after["end_at"], 1710086400)
+        self.assertEqual(attr_after["event_data_version"], 3)
+
     # -- US3: 独自のHTTP実装を持たない(既存のリトライ基盤のみ経由) -------------
 
     def test_module_does_not_import_http_libraries_directly(self):
