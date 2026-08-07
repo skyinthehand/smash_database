@@ -8,6 +8,7 @@
       "round_text": "Round 5",
       "round": 5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -67,6 +68,7 @@
       "round_text": "Round 5",
       "round": 5,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -126,6 +128,7 @@
       "round_text": "Round 5",
       "round": 5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -200,13 +203,14 @@
       ]
     },
     {
-      "winner_id": 1111909,
+      "winner_id": 3079090,
       "loser_id": 1773378,
       "winner_score": 0,
       "loser_score": -1,
       "round_text": "Round 5",
       "round": 5,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -221,6 +225,7 @@
       "round_text": "Round 4",
       "round": 4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -280,6 +285,7 @@
       "round_text": "Round 4",
       "round": 4,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -333,12 +339,13 @@
     },
     {
       "winner_id": 671585,
-      "loser_id": 1111909,
+      "loser_id": 3079090,
       "winner_score": 2,
       "loser_score": 1,
       "round_text": "Round 4",
       "round": 4,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -359,7 +366,7 @@
               "character_name": "Captain Falcon"
             },
             {
-              "user_id": 1111909,
+              "user_id": 3079090,
               "selection_id": 34826828,
               "character_id": 1287,
               "character_name": "Ganondorf"
@@ -369,7 +376,7 @@
         {
           "game_id": 24000094,
           "order_num": 2,
-          "winner_id": 1111909,
+          "winner_id": 3079090,
           "entrant1_score": 0,
           "entrant2_score": 0,
           "stage": null,
@@ -381,7 +388,7 @@
               "character_name": "Captain Falcon"
             },
             {
-              "user_id": 1111909,
+              "user_id": 3079090,
               "selection_id": 34826830,
               "character_id": 1287,
               "character_name": "Ganondorf"
@@ -403,7 +410,7 @@
               "character_name": "Captain Falcon"
             },
             {
-              "user_id": 1111909,
+              "user_id": 3079090,
               "selection_id": 34826832,
               "character_id": 1287,
               "character_name": "Ganondorf"
@@ -420,6 +427,7 @@
       "round_text": "Round 4",
       "round": 4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -501,6 +509,7 @@
       "round_text": "Grand Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -604,6 +613,7 @@
       "round_text": "Round 3",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -679,12 +689,13 @@
     },
     {
       "winner_id": 732703,
-      "loser_id": 1111909,
+      "loser_id": 3079090,
       "winner_score": 2,
       "loser_score": 0,
       "round_text": "Round 3",
       "round": 3,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -705,7 +716,7 @@
               "character_name": "King Dedede"
             },
             {
-              "user_id": 1111909,
+              "user_id": 3079090,
               "selection_id": 34826156,
               "character_id": 1287,
               "character_name": "Ganondorf"
@@ -727,7 +738,7 @@
               "character_name": "King Dedede"
             },
             {
-              "user_id": 1111909,
+              "user_id": 3079090,
               "selection_id": 34826158,
               "character_id": 1287,
               "character_name": "Ganondorf"
@@ -744,6 +755,7 @@
       "round_text": "Round 3",
       "round": 3,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -758,6 +770,7 @@
       "round_text": "Round 3",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -839,6 +852,7 @@
       "round_text": "Winners Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -942,6 +956,7 @@
       "round_text": "Round 2",
       "round": 2,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -956,6 +971,7 @@
       "round_text": "Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1015,6 +1031,7 @@
       "round_text": "Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1074,6 +1091,7 @@
       "round_text": "Round 2",
       "round": 2,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1155,6 +1173,7 @@
       "round_text": "Losers Final",
       "round": -6,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1236,6 +1255,7 @@
       "round_text": "Losers Semi-Final",
       "round": -5,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1295,6 +1315,7 @@
       "round_text": "Winners Semi-Final",
       "round": 1,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1376,6 +1397,7 @@
       "round_text": "Winners Semi-Final",
       "round": 1,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1435,6 +1457,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -1449,6 +1472,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1508,6 +1532,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1583,12 +1608,13 @@
     },
     {
       "winner_id": 1770264,
-      "loser_id": 1111909,
+      "loser_id": 3079090,
       "winner_score": 2,
       "loser_score": 1,
       "round_text": "Round 1",
       "round": 1,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1597,7 +1623,7 @@
         {
           "game_id": 24000408,
           "order_num": 1,
-          "winner_id": 1111909,
+          "winner_id": 3079090,
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
@@ -1609,7 +1635,7 @@
               "character_name": "Greninja"
             },
             {
-              "user_id": 1111909,
+              "user_id": 3079090,
               "selection_id": 34827182,
               "character_id": 1287,
               "character_name": "Ganondorf"
@@ -1631,7 +1657,7 @@
               "character_name": "Greninja"
             },
             {
-              "user_id": 1111909,
+              "user_id": 3079090,
               "selection_id": 34827184,
               "character_id": 1287,
               "character_name": "Ganondorf"
@@ -1653,7 +1679,7 @@
               "character_name": "Greninja"
             },
             {
-              "user_id": 1111909,
+              "user_id": 3079090,
               "selection_id": 34827186,
               "character_id": 1287,
               "character_name": "Ganondorf"
@@ -1670,6 +1696,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -4,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1729,6 +1756,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -4,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1782,12 +1810,13 @@
     },
     {
       "winner_id": 572399,
-      "loser_id": 1111909,
+      "loser_id": 3079090,
       "winner_score": 2,
       "loser_score": 0,
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1808,7 +1837,7 @@
               "character_name": "Mii Swordfighter"
             },
             {
-              "user_id": 1111909,
+              "user_id": 3079090,
               "selection_id": 34828614,
               "character_id": 1287,
               "character_name": "Ganondorf"
@@ -1830,7 +1859,7 @@
               "character_name": "Mii Swordfighter"
             },
             {
-              "user_id": 1111909,
+              "user_id": 3079090,
               "selection_id": 34828616,
               "character_id": 1287,
               "character_name": "Ganondorf"
@@ -1847,6 +1876,7 @@
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": true,
       "cancel": false,
