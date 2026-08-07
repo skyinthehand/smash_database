@@ -8,6 +8,7 @@
       "round_text": "Grand Final",
       "round": 5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -133,6 +134,7 @@
       "round_text": "Grand Final Reset",
       "round": 5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -258,6 +260,7 @@
       "round_text": "Winners Final",
       "round": 4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -383,6 +386,7 @@
       "round_text": "Losers Final",
       "round": -8,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -464,6 +468,7 @@
       "round_text": "Losers Semi-Final",
       "round": -7,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -545,6 +550,7 @@
       "round_text": "Winners Semi-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -626,6 +632,7 @@
       "round_text": "Winners Semi-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -707,6 +714,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -832,6 +840,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -913,6 +922,7 @@
       "round_text": "Losers Round 3",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1010,12 +1020,13 @@
     },
     {
       "winner_id": 676968,
-      "loser_id": 771821,
+      "loser_id": null,
       "winner_score": 3,
       "loser_score": 0,
       "round_text": "Losers Round 3",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1036,7 +1047,7 @@
               "character_name": "Ridley"
             },
             {
-              "user_id": 771821,
+              "user_id": null,
               "selection_id": 37271563,
               "character_id": 1323,
               "character_name": "R.O.B."
@@ -1058,7 +1069,7 @@
               "character_name": "Ridley"
             },
             {
-              "user_id": 771821,
+              "user_id": null,
               "selection_id": 37271565,
               "character_id": 1414,
               "character_name": "Mii Swordfighter"
@@ -1080,7 +1091,7 @@
               "character_name": "Ike"
             },
             {
-              "user_id": 771821,
+              "user_id": null,
               "selection_id": 37271804,
               "character_id": 1285,
               "character_name": "Falco"
@@ -1091,12 +1102,13 @@
     },
     {
       "winner_id": 953345,
-      "loser_id": 771821,
+      "loser_id": null,
       "winner_score": 2,
       "loser_score": 0,
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1111,7 +1123,7 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 771821,
+              "user_id": null,
               "selection_id": 37270488,
               "character_id": 1276,
               "character_name": "Corrin"
@@ -1133,7 +1145,7 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 771821,
+              "user_id": null,
               "selection_id": 37270490,
               "character_id": 1341,
               "character_name": "Zero Suit Samus"
@@ -1156,6 +1168,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1215,6 +1228,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1274,6 +1288,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1355,6 +1370,7 @@
       "round_text": "Losers Round 2",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1414,6 +1430,7 @@
       "round_text": "Losers Round 2",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1473,6 +1490,7 @@
       "round_text": "Losers Round 2",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1525,13 +1543,14 @@
       ]
     },
     {
-      "winner_id": 771821,
+      "winner_id": null,
       "loser_id": 2063723,
       "winner_score": 2,
       "loser_score": 1,
       "round_text": "Losers Round 2",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1540,7 +1559,7 @@
         {
           "game_id": 25622264,
           "order_num": 1,
-          "winner_id": 771821,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Hollow Bastion",
@@ -1552,7 +1571,7 @@
               "character_name": "Zelda"
             },
             {
-              "user_id": 771821,
+              "user_id": null,
               "selection_id": 37271112,
               "character_id": 1414,
               "character_name": "Mii Swordfighter"
@@ -1574,7 +1593,7 @@
               "character_name": "Zelda"
             },
             {
-              "user_id": 771821,
+              "user_id": null,
               "selection_id": 37271114,
               "character_id": 1414,
               "character_name": "Mii Swordfighter"
@@ -1584,7 +1603,7 @@
         {
           "game_id": 25622266,
           "order_num": 3,
-          "winner_id": 771821,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Hollow Bastion",
@@ -1596,7 +1615,7 @@
               "character_name": "Zelda"
             },
             {
-              "user_id": 771821,
+              "user_id": null,
               "selection_id": 37271116,
               "character_id": 1282,
               "character_name": "Dr. Mario"
@@ -1613,6 +1632,7 @@
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1687,13 +1707,14 @@
       ]
     },
     {
-      "winner_id": 771821,
+      "winner_id": null,
       "loser_id": 1818154,
       "winner_score": 2,
       "loser_score": 0,
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1702,7 +1723,7 @@
         {
           "game_id": 25621676,
           "order_num": 1,
-          "winner_id": 771821,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
@@ -1714,7 +1735,7 @@
               "character_name": "Little Mac"
             },
             {
-              "user_id": 771821,
+              "user_id": null,
               "selection_id": 37270101,
               "character_id": 1323,
               "character_name": "R.O.B."
@@ -1724,7 +1745,7 @@
         {
           "game_id": 25621677,
           "order_num": 2,
-          "winner_id": 771821,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
@@ -1736,7 +1757,7 @@
               "character_name": "Little Mac"
             },
             {
-              "user_id": 771821,
+              "user_id": null,
               "selection_id": 37270103,
               "character_id": 1323,
               "character_name": "R.O.B."
@@ -1753,6 +1774,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1812,6 +1834,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1871,6 +1894,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1930,6 +1954,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,

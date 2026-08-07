@@ -8,6 +8,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -67,6 +68,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -126,6 +128,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -207,6 +210,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -266,20 +270,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": []
-    },
-    {
-      "winner_id": 2040461,
-      "loser_id": 2056796,
-      "winner_score": 2,
-      "loser_score": 0,
-      "round_text": "Round 1",
-      "round": 1,
-      "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -294,92 +285,12 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
       "state": 3,
       "details": []
-    },
-    {
-      "winner_id": 2804817,
-      "loser_id": 809598,
-      "winner_score": 2,
-      "loser_score": 1,
-      "round_text": "Round 1",
-      "round": 1,
-      "phase": "1",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": [
-        {
-          "game_id": 25926837,
-          "order_num": 1,
-          "winner_id": 809598,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": 809598,
-              "selection_id": 37730440,
-              "character_id": 1331,
-              "character_name": "Snake"
-            },
-            {
-              "user_id": 2804817,
-              "selection_id": 37730441,
-              "character_id": 1300,
-              "character_name": "Lucina"
-            }
-          ]
-        },
-        {
-          "game_id": 25926838,
-          "order_num": 2,
-          "winner_id": 2804817,
-          "entrant1_score": 0,
-          "entrant2_score": null,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": 809598,
-              "selection_id": 37730442,
-              "character_id": 1331,
-              "character_name": "Snake"
-            },
-            {
-              "user_id": 2804817,
-              "selection_id": 37730443,
-              "character_id": 1300,
-              "character_name": "Lucina"
-            }
-          ]
-        },
-        {
-          "game_id": 25926839,
-          "order_num": 3,
-          "winner_id": 2804817,
-          "entrant1_score": 0,
-          "entrant2_score": null,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": 809598,
-              "selection_id": 37730444,
-              "character_id": 1331,
-              "character_name": "Snake"
-            },
-            {
-              "user_id": 2804817,
-              "selection_id": 37730445,
-              "character_id": 1300,
-              "character_name": "Lucina"
-            }
-          ]
-        }
-      ]
     },
     {
       "winner_id": 2040461,
@@ -389,6 +300,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,

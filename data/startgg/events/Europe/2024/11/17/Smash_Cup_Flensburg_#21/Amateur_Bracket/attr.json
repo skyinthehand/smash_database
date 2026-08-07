@@ -1,7 +1,7 @@
 {
   "event_id": 1241789,
   "tournament_name": "Smash Cup Flensburg #21",
-  "event_name": "Amateur Bracket",
+  "event_name": "Amateur Bracket Side Event",
   "region": "Europe",
   "place": {
     "country_code": "DE",
@@ -17,12 +17,11 @@
   "num_entrants": 19,
   "offline": true,
   "url": "/tournament/smash-cup-flensburg-21",
-  "labels": {
-    "registration_type": "full-open",
-    "event_type": "main",
-    "game_rule": "1on1"
-  },
+  "labels": {},
   "status": "completed",
   "timestamp": 1731834000,
+  "fetched_at": 1785680723,
+  "event_data_version": 2,
+  "guest_entrant_count": 0,
   "version": "1.0"
 }
