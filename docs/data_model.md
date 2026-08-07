@@ -44,6 +44,7 @@
   "tournament_name": "Example Tournament",
   "event_name": "Ultimate Singles",
   "timestamp": 1710001000,
+  "end_at": 1710086400,
   "region": "Japan",
   "num_entrants": 128,
   "offline": true,
@@ -150,3 +151,7 @@
   `participants[0].user` が `null` だったエントラント数をそのまま数えており、
   追加のAPI呼び出しは発生しない。本機能導入前に取得された既存イベントには
   存在しない(`null`)。
+- `end_at` は大会(トーナメント)全体の終了日時(UNIXタイムスタンプ、`timestamp` と
+  同じ形式)。イベント(種目)ごとの個別の終了日時ではない。start.gg 側で終了日時が
+  未確定の場合は `null`。`event_data_version` が `3` 未満の既存イベントには
+  フィールド自体が存在しない(段階的バックフィルにより順次追加される)。

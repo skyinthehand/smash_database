@@ -414,6 +414,7 @@ def get_event_details_by_tournament_query():
         venueAddress
         mapsPlaceId
         url
+        endAt
         events(filter: {slug: $eventSlug}) {
           id
           name

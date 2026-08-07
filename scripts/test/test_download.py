@@ -267,6 +267,49 @@ class DownloadTests(unittest.TestCase):
             self.assertEqual(attr["event_data_version"], EVENT_DATA_VERSION)
             self.assertEqual(attr["guest_entrant_count"], 3)
 
+    def test_write_event_attributes_includes_end_at(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            place = {
+                "country_code": "JP",
+                "city": "Tokyo",
+                "lat": 0,
+                "lng": 0,
+                "venue_name": "v",
+                "timezone": "Asia/Tokyo",
+                "postal_code": "p",
+                "venue_address": "a",
+                "maps_place_id": "m",
+            }
+            write_event_attributes(
+                10, 999, "Event", "Tournament", 1710001000, place,
+                "https://example.com", {}, True, tmpdir,
+                guest_entrant_count=3,
+                end_at=1710086400,
+            )
+            attr = read_json(os.path.join(tmpdir, "attr.json"))
+            self.assertEqual(attr["end_at"], 1710086400)
+
+    def test_write_event_attributes_end_at_defaults_to_none(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            place = {
+                "country_code": "JP",
+                "city": "Tokyo",
+                "lat": 0,
+                "lng": 0,
+                "venue_name": "v",
+                "timezone": "Asia/Tokyo",
+                "postal_code": "p",
+                "venue_address": "a",
+                "maps_place_id": "m",
+            }
+            write_event_attributes(
+                10, 999, "Event", "Tournament", 1710001000, place,
+                "https://example.com", {}, True, tmpdir,
+                guest_entrant_count=3,
+            )
+            attr = read_json(os.path.join(tmpdir, "attr.json"))
+            self.assertIsNone(attr["end_at"])
+
     def test_count_guest_entrants_counts_none_users(self):
         user_data = [{"id": 1}, None, {"id": 2}, None, None]
         self.assertEqual(count_guest_entrants(user_data), 3)

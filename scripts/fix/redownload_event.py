@@ -175,6 +175,7 @@ def redownload_event(
         event.get("isOnline"),
         str(event_dir),
         guest_entrant_count=count_guest_entrants(user_data),
+        end_at=tournament.get("endAt"),
     )
     print(f"[{event_id}] re-downloaded to {event_dir}")
 
