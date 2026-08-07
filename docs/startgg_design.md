@@ -22,8 +22,39 @@
 ## 取得クエリと主なレスポンス例
 
 ### 大会一覧
-- クエリ: `get_tournaments_by_game_query`
-- 目的: 最新順で大会一覧を取得
+- クエリ: `get_tournaments_by_game_query`（`scripts/queries.py`）
+- 呼び出し元: `fetch_latest_tournaments_by_game()` → `download_all_tournaments()`（`scripts/fetch/download.py`）
+- 目的: 指定ゲームIDの大会を`startAt desc`（開始日時の新しい順）でページング取得
+- 引数によって`filter`部分が変化する動的クエリ（`country_code`指定時は`countryCode`条件を、`before_now=True`（デフォルト）時は現在時刻までの`beforeDate`条件を追加）
+- クエリ本体（デフォルト引数: `country_code=""`, `before_now=True`, `past=False`の場合）
+```graphql
+query TournamentsByGame($gameId: ID!, $perPage: Int!, $page: Int!) {
+tournaments(query: {perPage: $perPage, page: $page, sortBy: "startAt desc", filter: {videogameIds: [$gameId], published: true, ,beforeDate: <実行時のUNIXタイムスタンプ> }}) {
+nodes {
+    id
+    name
+    startAt
+    endAt
+    countryCode
+    isOnline
+    addrState
+    city
+    countryCode
+    lat
+    lng
+    mapsPlaceId
+    postalCode
+    venueAddress
+    venueName
+    timezone
+    url
+  }
+  pageInfo {
+    totalPages
+  }
+}
+}
+```
 - 主なレスポンス（抜粋）
 ```json
 {
