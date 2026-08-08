@@ -8,6 +8,7 @@
       "round_text": "Round 3",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": true,
@@ -15,18 +16,47 @@
       "details": []
     },
     {
-      "winner_id": 283856,
-      "loser_id": 2433054,
-      "winner_score": 0,
+      "winner_id": 2433054,
+      "loser_id": 283856,
+      "winner_score": 3,
       "loser_score": 0,
       "round_text": "Round 3",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
-      "cancel": true,
+      "cancel": false,
       "state": 3,
-      "details": []
+      "details": [
+        {
+          "game_id": 26926383,
+          "order_num": 1,
+          "winner_id": 2433054,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": []
+        },
+        {
+          "game_id": 26926384,
+          "order_num": 2,
+          "winner_id": 2433054,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": []
+        },
+        {
+          "game_id": 26926385,
+          "order_num": 3,
+          "winner_id": 2433054,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": []
+        }
+      ]
     },
     {
       "winner_id": 2433054,
@@ -36,6 +66,7 @@
       "round_text": "Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": true,
@@ -50,6 +81,7 @@
       "round_text": "Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": true,
@@ -64,6 +96,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": true,
@@ -78,6 +111,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
