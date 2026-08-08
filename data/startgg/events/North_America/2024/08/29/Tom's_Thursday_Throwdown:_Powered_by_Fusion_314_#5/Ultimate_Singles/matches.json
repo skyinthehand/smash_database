@@ -8,6 +8,7 @@
       "round_text": "Grand Final",
       "round": 5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -89,6 +90,7 @@
       "round_text": "Winners Final",
       "round": 4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -103,6 +105,7 @@
       "round_text": "Losers Final",
       "round": -8,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -228,6 +231,7 @@
       "round_text": "Losers Semi-Final",
       "round": -7,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -309,6 +313,7 @@
       "round_text": "Winners Semi-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -390,6 +395,7 @@
       "round_text": "Winners Semi-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -404,6 +410,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -412,12 +419,13 @@
     },
     {
       "winner_id": 1053893,
-      "loser_id": 2764738,
+      "loser_id": null,
       "winner_score": 3,
       "loser_score": 2,
       "round_text": "Losers Quarter-Final",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -426,7 +434,7 @@
         {
           "game_id": 24550001,
           "order_num": 1,
-          "winner_id": 2764738,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
@@ -438,7 +446,7 @@
               "character_name": "Bayonetta"
             },
             {
-              "user_id": 2764738,
+              "user_id": null,
               "selection_id": 35637331,
               "character_id": 1337,
               "character_name": "Wolf"
@@ -460,7 +468,7 @@
               "character_name": "Kazuya"
             },
             {
-              "user_id": 2764738,
+              "user_id": null,
               "selection_id": 35637333,
               "character_id": 1337,
               "character_name": "Wolf"
@@ -482,7 +490,7 @@
               "character_name": "Kazuya"
             },
             {
-              "user_id": 2764738,
+              "user_id": null,
               "selection_id": 35637335,
               "character_id": 1302,
               "character_name": "Mario"
@@ -492,7 +500,7 @@
         {
           "game_id": 24550004,
           "order_num": 4,
-          "winner_id": 2764738,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
@@ -504,7 +512,7 @@
               "character_name": "Kazuya"
             },
             {
-              "user_id": 2764738,
+              "user_id": null,
               "selection_id": 35637337,
               "character_id": 1406,
               "character_name": "Incineroar"
@@ -526,7 +534,7 @@
               "character_name": "Bayonetta"
             },
             {
-              "user_id": 2764738,
+              "user_id": null,
               "selection_id": 35637339,
               "character_id": 1406,
               "character_name": "Incineroar"
@@ -543,6 +551,7 @@
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -617,13 +626,14 @@
       ]
     },
     {
-      "winner_id": 2764738,
+      "winner_id": null,
       "loser_id": 1113742,
       "winner_score": 3,
       "loser_score": 0,
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -632,13 +642,13 @@
         {
           "game_id": 24548476,
           "order_num": 1,
-          "winner_id": 2764738,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": 0,
           "stage": null,
           "selections": [
             {
-              "user_id": 2764738,
+              "user_id": null,
               "selection_id": 35635069,
               "character_id": 1337,
               "character_name": "Wolf"
@@ -654,13 +664,13 @@
         {
           "game_id": 24548477,
           "order_num": 2,
-          "winner_id": 2764738,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": 0,
           "stage": null,
           "selections": [
             {
-              "user_id": 2764738,
+              "user_id": null,
               "selection_id": 35635071,
               "character_id": 1337,
               "character_name": "Wolf"
@@ -676,13 +686,13 @@
         {
           "game_id": 24548478,
           "order_num": 3,
-          "winner_id": 2764738,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": 0,
           "stage": null,
           "selections": [
             {
-              "user_id": 2764738,
+              "user_id": null,
               "selection_id": 35635073,
               "character_id": 1337,
               "character_name": "Wolf"
@@ -699,12 +709,13 @@
     },
     {
       "winner_id": 455243,
-      "loser_id": 2764738,
+      "loser_id": null,
       "winner_score": 3,
       "loser_score": 0,
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -719,7 +730,7 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 2764738,
+              "user_id": null,
               "selection_id": 35632951,
               "character_id": 1337,
               "character_name": "Wolf"
@@ -741,7 +752,7 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 2764738,
+              "user_id": null,
               "selection_id": 35632953,
               "character_id": 1337,
               "character_name": "Wolf"
@@ -763,7 +774,7 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 2764738,
+              "user_id": null,
               "selection_id": 35632955,
               "character_id": 1337,
               "character_name": "Wolf"
@@ -786,6 +797,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -911,6 +923,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1036,6 +1049,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1117,6 +1131,7 @@
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1198,6 +1213,7 @@
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1259,13 +1275,14 @@
       ]
     },
     {
-      "winner_id": 2764738,
+      "winner_id": null,
       "loser_id": null,
       "winner_score": 3,
       "loser_score": 0,
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1273,13 +1290,14 @@
       "details": []
     },
     {
-      "winner_id": 2764738,
+      "winner_id": null,
       "loser_id": 1933947,
       "winner_score": 3,
       "loser_score": 0,
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1288,7 +1306,7 @@
         {
           "game_id": 24545923,
           "order_num": 1,
-          "winner_id": 2764738,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
@@ -1300,7 +1318,7 @@
               "character_name": "Falco"
             },
             {
-              "user_id": 2764738,
+              "user_id": null,
               "selection_id": 35631894,
               "character_id": 1337,
               "character_name": "Wolf"
@@ -1310,7 +1328,7 @@
         {
           "game_id": 24545924,
           "order_num": 2,
-          "winner_id": 2764738,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
@@ -1322,7 +1340,7 @@
               "character_name": "Falco"
             },
             {
-              "user_id": 2764738,
+              "user_id": null,
               "selection_id": 35631896,
               "character_id": 1337,
               "character_name": "Wolf"
@@ -1332,7 +1350,7 @@
         {
           "game_id": 24545925,
           "order_num": 3,
-          "winner_id": 2764738,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
@@ -1344,7 +1362,7 @@
               "character_name": "Shulk"
             },
             {
-              "user_id": 2764738,
+              "user_id": null,
               "selection_id": 35631898,
               "character_id": 1337,
               "character_name": "Wolf"
@@ -1361,6 +1379,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1429,6 +1448,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
