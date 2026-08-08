@@ -8,6 +8,7 @@
       "round_text": "Grand Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -111,6 +112,7 @@
       "round_text": "Grand Final Reset",
       "round": 3,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -229,6 +231,66 @@
       ]
     },
     {
+      "winner_id": 1037554,
+      "loser_id": null,
+      "winner_score": 2,
+      "loser_score": 0,
+      "round_text": "Winners Quarter-Final",
+      "round": 2,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": [
+        {
+          "game_id": 24949640,
+          "order_num": 1,
+          "winner_id": 1037554,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 1037554,
+              "selection_id": 36224582,
+              "character_id": 1316,
+              "character_name": "Palutena"
+            },
+            {
+              "user_id": null,
+              "selection_id": 36224583,
+              "character_id": 1532,
+              "character_name": "Terry"
+            }
+          ]
+        },
+        {
+          "game_id": 24949641,
+          "order_num": 2,
+          "winner_id": 1037554,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 1037554,
+              "selection_id": 36224584,
+              "character_id": 1316,
+              "character_name": "Palutena"
+            },
+            {
+              "user_id": null,
+              "selection_id": 36224585,
+              "character_id": 1532,
+              "character_name": "Terry"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "winner_id": 1737986,
       "loser_id": 1037554,
       "winner_score": 3,
@@ -236,6 +298,7 @@
       "round_text": "Winners Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -354,65 +417,6 @@
       ]
     },
     {
-      "winner_id": 1037554,
-      "loser_id": null,
-      "winner_score": 2,
-      "loser_score": 0,
-      "round_text": "Winners Quarter-Final",
-      "round": 2,
-      "phase": "1",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": [
-        {
-          "game_id": 24949640,
-          "order_num": 1,
-          "winner_id": 1037554,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": 1037554,
-              "selection_id": 36224582,
-              "character_id": 1316,
-              "character_name": "Palutena"
-            },
-            {
-              "user_id": null,
-              "selection_id": 36224583,
-              "character_id": 1532,
-              "character_name": "Terry"
-            }
-          ]
-        },
-        {
-          "game_id": 24949641,
-          "order_num": 2,
-          "winner_id": 1037554,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": 1037554,
-              "selection_id": 36224584,
-              "character_id": 1316,
-              "character_name": "Palutena"
-            },
-            {
-              "user_id": null,
-              "selection_id": 36224585,
-              "character_id": 1532,
-              "character_name": "Terry"
-            }
-          ]
-        }
-      ]
-    },
-    {
       "winner_id": null,
       "loser_id": 1047360,
       "winner_score": 2,
@@ -420,6 +424,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -479,6 +484,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -538,6 +544,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -619,6 +626,7 @@
       "round_text": "Losers Final",
       "round": -6,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -700,6 +708,7 @@
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -759,6 +768,7 @@
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -818,6 +828,7 @@
       "round_text": "Losers Semi-Final",
       "round": -5,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -936,87 +947,6 @@
       ]
     },
     {
-      "winner_id": 1037554,
-      "loser_id": null,
-      "winner_score": 3,
-      "loser_score": 0,
-      "round_text": "Winners Semi-Final",
-      "round": 1,
-      "phase": "1",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": [
-        {
-          "game_id": 24951693,
-          "order_num": 1,
-          "winner_id": 1037554,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": 1037554,
-              "selection_id": 36226580,
-              "character_id": 1316,
-              "character_name": "Palutena"
-            },
-            {
-              "user_id": null,
-              "selection_id": 36226581,
-              "character_id": 1313,
-              "character_name": "Ness"
-            }
-          ]
-        },
-        {
-          "game_id": 24951694,
-          "order_num": 2,
-          "winner_id": 1037554,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": 1037554,
-              "selection_id": 36226582,
-              "character_id": 1316,
-              "character_name": "Palutena"
-            },
-            {
-              "user_id": null,
-              "selection_id": 36226583,
-              "character_id": 1313,
-              "character_name": "Ness"
-            }
-          ]
-        },
-        {
-          "game_id": 24951695,
-          "order_num": 3,
-          "winner_id": 1037554,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": 1037554,
-              "selection_id": 36226584,
-              "character_id": 1316,
-              "character_name": "Palutena"
-            },
-            {
-              "user_id": null,
-              "selection_id": 36226585,
-              "character_id": 1313,
-              "character_name": "Ness"
-            }
-          ]
-        }
-      ]
-    },
-    {
       "winner_id": null,
       "loser_id": null,
       "winner_score": 2,
@@ -1024,6 +954,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1098,6 +1029,88 @@
       ]
     },
     {
+      "winner_id": 1037554,
+      "loser_id": null,
+      "winner_score": 3,
+      "loser_score": 0,
+      "round_text": "Winners Semi-Final",
+      "round": 1,
+      "phase": "1",
+      "phase_order": 2,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": [
+        {
+          "game_id": 24951693,
+          "order_num": 1,
+          "winner_id": 1037554,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 1037554,
+              "selection_id": 36226580,
+              "character_id": 1316,
+              "character_name": "Palutena"
+            },
+            {
+              "user_id": null,
+              "selection_id": 36226581,
+              "character_id": 1313,
+              "character_name": "Ness"
+            }
+          ]
+        },
+        {
+          "game_id": 24951694,
+          "order_num": 2,
+          "winner_id": 1037554,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 1037554,
+              "selection_id": 36226582,
+              "character_id": 1316,
+              "character_name": "Palutena"
+            },
+            {
+              "user_id": null,
+              "selection_id": 36226583,
+              "character_id": 1313,
+              "character_name": "Ness"
+            }
+          ]
+        },
+        {
+          "game_id": 24951695,
+          "order_num": 3,
+          "winner_id": 1037554,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 1037554,
+              "selection_id": 36226584,
+              "character_id": 1316,
+              "character_name": "Palutena"
+            },
+            {
+              "user_id": null,
+              "selection_id": 36226585,
+              "character_id": 1313,
+              "character_name": "Ness"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "winner_id": 1737986,
       "loser_id": 1960587,
       "winner_score": 3,
@@ -1105,6 +1118,7 @@
       "round_text": "Winners Semi-Final",
       "round": 1,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1208,6 +1222,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1267,6 +1282,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -4,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1370,6 +1386,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -4,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1473,6 +1490,7 @@
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1554,6 +1572,7 @@
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
