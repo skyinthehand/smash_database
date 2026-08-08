@@ -8,6 +8,7 @@
       "round_text": "Grand Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -89,6 +90,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -192,6 +194,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -273,6 +276,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -398,6 +402,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -501,6 +506,7 @@
       "round_text": "Losers Round 3",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -576,12 +582,13 @@
     },
     {
       "winner_id": 2222042,
-      "loser_id": 2473442,
+      "loser_id": null,
       "winner_score": 3,
       "loser_score": 0,
       "round_text": "Losers Round 3",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -602,7 +609,7 @@
               "character_name": "Little Mac"
             },
             {
-              "user_id": 2473442,
+              "user_id": null,
               "selection_id": 36155457,
               "character_id": 1766,
               "character_name": "Steve"
@@ -624,7 +631,7 @@
               "character_name": "Little Mac"
             },
             {
-              "user_id": 2473442,
+              "user_id": null,
               "selection_id": 36155459,
               "character_id": 1766,
               "character_name": "Steve"
@@ -646,7 +653,7 @@
               "character_name": "Little Mac"
             },
             {
-              "user_id": 2473442,
+              "user_id": null,
               "selection_id": 36155461,
               "character_id": 1766,
               "character_name": "Steve"
@@ -663,6 +670,7 @@
       "round_text": "Losers Round 3",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -744,6 +752,7 @@
       "round_text": "Losers Round 3",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -825,6 +834,7 @@
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -921,13 +931,14 @@
       ]
     },
     {
-      "winner_id": 2473442,
+      "winner_id": null,
       "loser_id": 2781575,
       "winner_score": 3,
       "loser_score": 0,
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -936,13 +947,13 @@
         {
           "game_id": 24904962,
           "order_num": 1,
-          "winner_id": 2473442,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Battlefield",
           "selections": [
             {
-              "user_id": 2473442,
+              "user_id": null,
               "selection_id": 36153933,
               "character_id": 1766,
               "character_name": "Steve"
@@ -958,13 +969,13 @@
         {
           "game_id": 24904963,
           "order_num": 2,
-          "winner_id": 2473442,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Battlefield",
           "selections": [
             {
-              "user_id": 2473442,
+              "user_id": null,
               "selection_id": 36153935,
               "character_id": 1766,
               "character_name": "Steve"
@@ -980,13 +991,13 @@
         {
           "game_id": 24904964,
           "order_num": 3,
-          "winner_id": 2473442,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Final Destination",
           "selections": [
             {
-              "user_id": 2473442,
+              "user_id": null,
               "selection_id": 36153937,
               "character_id": 1766,
               "character_name": "Steve"
@@ -1009,6 +1020,7 @@
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1112,6 +1124,7 @@
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1215,6 +1228,7 @@
       "round_text": "Winners Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1296,6 +1310,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1377,6 +1392,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1458,6 +1474,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1539,6 +1556,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1620,6 +1638,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1695,12 +1714,13 @@
     },
     {
       "winner_id": 1256171,
-      "loser_id": 2473442,
+      "loser_id": null,
       "winner_score": 3,
       "loser_score": 1,
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1715,7 +1735,7 @@
           "stage": "Battlefield",
           "selections": [
             {
-              "user_id": 2473442,
+              "user_id": null,
               "selection_id": 36151784,
               "character_id": 1766,
               "character_name": "Steve"
@@ -1731,13 +1751,13 @@
         {
           "game_id": 24903698,
           "order_num": 2,
-          "winner_id": 2473442,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": "Battlefield",
           "selections": [
             {
-              "user_id": 2473442,
+              "user_id": null,
               "selection_id": 36151786,
               "character_id": 1766,
               "character_name": "Steve"
@@ -1759,7 +1779,7 @@
           "stage": "Kalos Pokémon League",
           "selections": [
             {
-              "user_id": 2473442,
+              "user_id": null,
               "selection_id": 36151788,
               "character_id": 1766,
               "character_name": "Steve"
@@ -1781,7 +1801,7 @@
           "stage": "Battlefield",
           "selections": [
             {
-              "user_id": 2473442,
+              "user_id": null,
               "selection_id": 36152052,
               "character_id": 1766,
               "character_name": "Steve"
@@ -1804,6 +1824,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1885,6 +1906,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1966,6 +1988,7 @@
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2069,6 +2092,7 @@
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2150,6 +2174,7 @@
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2231,6 +2256,7 @@
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2356,6 +2382,7 @@
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2437,6 +2464,7 @@
       "round_text": "Losers Final",
       "round": -6,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2540,6 +2568,7 @@
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -2547,13 +2576,14 @@
       "details": []
     },
     {
-      "winner_id": 2473442,
+      "winner_id": null,
       "loser_id": null,
       "winner_score": 0,
       "loser_score": -1,
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -2568,6 +2598,7 @@
       "round_text": "Losers Semi-Final",
       "round": -5,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2693,6 +2724,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2774,6 +2806,7 @@
       "round_text": "Winners Semi-Final",
       "round": 1,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2855,6 +2888,7 @@
       "round_text": "Winners Semi-Final",
       "round": 1,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2980,6 +3014,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3061,6 +3096,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3142,6 +3178,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3216,13 +3253,14 @@
       ]
     },
     {
-      "winner_id": 2473442,
+      "winner_id": null,
       "loser_id": 2758810,
       "winner_score": 3,
       "loser_score": 0,
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3231,13 +3269,13 @@
         {
           "game_id": 24902390,
           "order_num": 1,
-          "winner_id": 2473442,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Final Destination",
           "selections": [
             {
-              "user_id": 2473442,
+              "user_id": null,
               "selection_id": 36149497,
               "character_id": 1766,
               "character_name": "Steve"
@@ -3253,13 +3291,13 @@
         {
           "game_id": 24902391,
           "order_num": 2,
-          "winner_id": 2473442,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Battlefield",
           "selections": [
             {
-              "user_id": 2473442,
+              "user_id": null,
               "selection_id": 36149499,
               "character_id": 1766,
               "character_name": "Steve"
@@ -3275,13 +3313,13 @@
         {
           "game_id": 24902392,
           "order_num": 3,
-          "winner_id": 2473442,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Battlefield",
           "selections": [
             {
-              "user_id": 2473442,
+              "user_id": null,
               "selection_id": 36149501,
               "character_id": 1766,
               "character_name": "Steve"
@@ -3304,6 +3342,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3429,6 +3468,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3510,6 +3550,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -4,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3613,6 +3654,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -4,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3738,6 +3780,7 @@
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3841,6 +3884,7 @@
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
