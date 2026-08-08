@@ -8,6 +8,7 @@
       "round_text": "Round 3",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -111,6 +112,7 @@
       "round_text": "Round 3",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -125,6 +127,7 @@
       "round_text": "Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -250,6 +253,7 @@
       "round_text": "Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -353,6 +357,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -427,20 +432,21 @@
       ]
     },
     {
-      "winner_id": 1732817,
-      "loser_id": 2433054,
+      "winner_id": 2433054,
+      "loser_id": 1732817,
       "winner_score": 3,
       "loser_score": 2,
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
       "state": 3,
       "details": [
         {
-          "game_id": 24694601,
+          "game_id": 26926375,
           "order_num": 1,
           "winner_id": 2433054,
           "entrant1_score": 0,
@@ -462,7 +468,7 @@
           ]
         },
         {
-          "game_id": 24694602,
+          "game_id": 26926376,
           "order_num": 2,
           "winner_id": 2433054,
           "entrant1_score": 0,
@@ -484,7 +490,7 @@
           ]
         },
         {
-          "game_id": 24694603,
+          "game_id": 26926377,
           "order_num": 3,
           "winner_id": 1732817,
           "entrant1_score": null,
@@ -506,7 +512,7 @@
           ]
         },
         {
-          "game_id": 24694604,
+          "game_id": 26926378,
           "order_num": 4,
           "winner_id": 1732817,
           "entrant1_score": null,
@@ -528,10 +534,10 @@
           ]
         },
         {
-          "game_id": 24694605,
+          "game_id": 26926379,
           "order_num": 5,
-          "winner_id": 1732817,
-          "entrant1_score": null,
+          "winner_id": 2433054,
+          "entrant1_score": 0,
           "entrant2_score": 0,
           "stage": null,
           "selections": [
