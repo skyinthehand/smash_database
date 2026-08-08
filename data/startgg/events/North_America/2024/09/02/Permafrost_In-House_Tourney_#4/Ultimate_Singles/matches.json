@@ -8,6 +8,7 @@
       "round_text": "Round 5",
       "round": 5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -89,6 +90,7 @@
       "round_text": "Round 5",
       "round": 5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -163,13 +165,14 @@
       ]
     },
     {
-      "winner_id": 2058553,
+      "winner_id": null,
       "loser_id": 2186502,
       "winner_score": 0,
       "loser_score": -1,
       "round_text": "Round 5",
       "round": 5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -184,6 +187,7 @@
       "round_text": "Round 4",
       "round": 4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -303,12 +307,13 @@
     },
     {
       "winner_id": 1878872,
-      "loser_id": 2058553,
+      "loser_id": null,
       "winner_score": 3,
       "loser_score": 2,
       "round_text": "Round 4",
       "round": 4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -323,7 +328,7 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 2058553,
+              "user_id": null,
               "selection_id": 35770776,
               "character_id": 1282,
               "character_name": "Dr. Mario"
@@ -339,13 +344,13 @@
         {
           "game_id": 24647105,
           "order_num": 2,
-          "winner_id": 2058553,
+          "winner_id": null,
           "entrant1_score": 2,
           "entrant2_score": 0,
           "stage": "Town and City",
           "selections": [
             {
-              "user_id": 2058553,
+              "user_id": null,
               "selection_id": 35770832,
               "character_id": 1282,
               "character_name": "Dr. Mario"
@@ -367,7 +372,7 @@
           "stage": "Kalos Pokémon League",
           "selections": [
             {
-              "user_id": 2058553,
+              "user_id": null,
               "selection_id": 35770914,
               "character_id": 1282,
               "character_name": "Dr. Mario"
@@ -383,13 +388,13 @@
         {
           "game_id": 24647222,
           "order_num": 4,
-          "winner_id": 2058553,
+          "winner_id": null,
           "entrant1_score": 1,
           "entrant2_score": 0,
           "stage": "Town and City",
           "selections": [
             {
-              "user_id": 2058553,
+              "user_id": null,
               "selection_id": 35770968,
               "character_id": 1282,
               "character_name": "Dr. Mario"
@@ -411,7 +416,7 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 2058553,
+              "user_id": null,
               "selection_id": 35771054,
               "character_id": 1282,
               "character_name": "Dr. Mario"
@@ -434,6 +439,7 @@
       "round_text": "Round 4",
       "round": 4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -442,12 +448,13 @@
     },
     {
       "winner_id": 1723698,
-      "loser_id": 2058553,
+      "loser_id": null,
       "winner_score": 3,
       "loser_score": 1,
       "round_text": "Round 3",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -462,7 +469,7 @@
           "stage": "Small Battlefield",
           "selections": [
             {
-              "user_id": 2058553,
+              "user_id": null,
               "selection_id": 35770208,
               "character_id": 1539,
               "character_name": "Byleth"
@@ -478,13 +485,13 @@
         {
           "game_id": 24646668,
           "order_num": 2,
-          "winner_id": 2058553,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": 1,
           "stage": "Kalos Pokémon League",
           "selections": [
             {
-              "user_id": 2058553,
+              "user_id": null,
               "selection_id": 35770230,
               "character_id": 1539,
               "character_name": "Byleth"
@@ -506,7 +513,7 @@
           "stage": "Small Battlefield",
           "selections": [
             {
-              "user_id": 2058553,
+              "user_id": null,
               "selection_id": 35770284,
               "character_id": 1539,
               "character_name": "Byleth"
@@ -528,7 +535,7 @@
           "stage": "Smashville",
           "selections": [
             {
-              "user_id": 2058553,
+              "user_id": null,
               "selection_id": 35770386,
               "character_id": 1539,
               "character_name": "Byleth"
@@ -551,6 +558,7 @@
       "round_text": "Round 3",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -565,6 +573,7 @@
       "round_text": "Round 3",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -646,6 +655,7 @@
       "round_text": "Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -653,13 +663,14 @@
       "details": []
     },
     {
-      "winner_id": 2058553,
+      "winner_id": null,
       "loser_id": null,
       "winner_score": 3,
       "loser_score": 0,
       "round_text": "Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -668,13 +679,13 @@
         {
           "game_id": 24646568,
           "order_num": 1,
-          "winner_id": 2058553,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": 3,
           "stage": "Pokémon Stadium 2",
           "selections": [
             {
-              "user_id": 2058553,
+              "user_id": null,
               "selection_id": 35770044,
               "character_id": 1539,
               "character_name": "Byleth"
@@ -690,13 +701,13 @@
         {
           "game_id": 24646596,
           "order_num": 2,
-          "winner_id": 2058553,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": 3,
           "stage": "Pokémon Stadium 2",
           "selections": [
             {
-              "user_id": 2058553,
+              "user_id": null,
               "selection_id": 35770096,
               "character_id": 1539,
               "character_name": "Byleth"
@@ -712,13 +723,13 @@
         {
           "game_id": 24646609,
           "order_num": 3,
-          "winner_id": 2058553,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": 2,
           "stage": "Pokémon Stadium 2",
           "selections": [
             {
-              "user_id": 2058553,
+              "user_id": null,
               "selection_id": 35770124,
               "character_id": 1539,
               "character_name": "Byleth"
@@ -741,6 +752,7 @@
       "round_text": "Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -866,6 +878,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -947,6 +960,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -955,12 +969,13 @@
     },
     {
       "winner_id": 2608624,
-      "loser_id": 2058553,
+      "loser_id": null,
       "winner_score": 3,
       "loser_score": 1,
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -969,13 +984,13 @@
         {
           "game_id": 24646463,
           "order_num": 1,
-          "winner_id": 2058553,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": 1,
           "stage": "Pokémon Stadium 2",
           "selections": [
             {
-              "user_id": 2058553,
+              "user_id": null,
               "selection_id": 35769848,
               "character_id": 1539,
               "character_name": "Byleth"
@@ -997,7 +1012,7 @@
           "stage": "Small Battlefield",
           "selections": [
             {
-              "user_id": 2058553,
+              "user_id": null,
               "selection_id": 35769850,
               "character_id": 1539,
               "character_name": "Byleth"
@@ -1019,7 +1034,7 @@
           "stage": "Hollow Bastion",
           "selections": [
             {
-              "user_id": 2058553,
+              "user_id": null,
               "selection_id": 35769904,
               "character_id": 1539,
               "character_name": "Byleth"
@@ -1041,7 +1056,7 @@
           "stage": "Town and City",
           "selections": [
             {
-              "user_id": 2058553,
+              "user_id": null,
               "selection_id": 35769946,
               "character_id": 1539,
               "character_name": "Byleth"
