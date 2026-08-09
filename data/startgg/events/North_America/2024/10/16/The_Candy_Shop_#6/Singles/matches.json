@@ -8,6 +8,7 @@
       "round_text": "Grand Final",
       "round": 5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -133,6 +134,7 @@
       "round_text": "Winners Final",
       "round": 4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -236,6 +238,7 @@
       "round_text": "Losers Final",
       "round": -8,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -339,6 +342,7 @@
       "round_text": "Losers Semi-Final",
       "round": -7,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -420,6 +424,7 @@
       "round_text": "Winners Semi-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -501,6 +506,7 @@
       "round_text": "Winners Semi-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -626,6 +632,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -707,6 +714,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -826,12 +834,13 @@
     },
     {
       "winner_id": 1849821,
-      "loser_id": 2391238,
+      "loser_id": null,
       "winner_score": 3,
       "loser_score": 1,
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -846,7 +855,7 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 2391238,
+              "user_id": null,
               "selection_id": 37202012,
               "character_id": 1407,
               "character_name": "King K. Rool"
@@ -862,13 +871,13 @@
         {
           "game_id": 25576553,
           "order_num": 2,
-          "winner_id": 2391238,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": 0,
           "stage": null,
           "selections": [
             {
-              "user_id": 2391238,
+              "user_id": null,
               "selection_id": 37202014,
               "character_id": 1407,
               "character_name": "King K. Rool"
@@ -890,7 +899,7 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 2391238,
+              "user_id": null,
               "selection_id": 37202016,
               "character_id": 1407,
               "character_name": "King K. Rool"
@@ -912,7 +921,7 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 2391238,
+              "user_id": null,
               "selection_id": 37202018,
               "character_id": 1338,
               "character_name": "Yoshi"
@@ -935,6 +944,7 @@
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1060,6 +1070,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1141,6 +1152,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1238,12 +1250,13 @@
     },
     {
       "winner_id": 1806224,
-      "loser_id": 2391238,
+      "loser_id": null,
       "winner_score": 3,
       "loser_score": 0,
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1264,7 +1277,7 @@
               "character_name": "Little Mac"
             },
             {
-              "user_id": 2391238,
+              "user_id": null,
               "selection_id": 37198520,
               "character_id": 1280,
               "character_name": "Donkey Kong"
@@ -1286,7 +1299,7 @@
               "character_name": "Little Mac"
             },
             {
-              "user_id": 2391238,
+              "user_id": null,
               "selection_id": 37198522,
               "character_id": 1407,
               "character_name": "King K. Rool"
@@ -1308,7 +1321,7 @@
               "character_name": "Little Mac"
             },
             {
-              "user_id": 2391238,
+              "user_id": null,
               "selection_id": 37198524,
               "character_id": 1407,
               "character_name": "King K. Rool"
@@ -1325,6 +1338,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1406,6 +1420,7 @@
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1487,6 +1502,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
