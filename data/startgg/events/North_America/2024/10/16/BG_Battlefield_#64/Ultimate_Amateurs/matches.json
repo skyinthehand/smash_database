@@ -8,6 +8,7 @@
       "round_text": "Grand Final",
       "round": 4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -89,6 +90,7 @@
       "round_text": "Grand Final Reset",
       "round": 4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -148,6 +150,7 @@
       "round_text": "Winners Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -207,6 +210,7 @@
       "round_text": "Losers Final",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -288,6 +292,7 @@
       "round_text": "Losers Semi-Final",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -347,6 +352,7 @@
       "round_text": "Winners Semi-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -406,6 +412,7 @@
       "round_text": "Winners Semi-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -465,6 +472,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -518,12 +526,13 @@
     },
     {
       "winner_id": 2000721,
-      "loser_id": 128736,
+      "loser_id": null,
       "winner_score": 2,
       "loser_score": 1,
       "round_text": "Losers Quarter-Final",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -532,13 +541,13 @@
         {
           "game_id": 25577581,
           "order_num": 1,
-          "winner_id": 128736,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
           "selections": [
             {
-              "user_id": 128736,
+              "user_id": null,
               "selection_id": 37203751,
               "character_id": 1746,
               "character_name": "Random Character"
@@ -560,7 +569,7 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 128736,
+              "user_id": null,
               "selection_id": 37203753,
               "character_id": 1746,
               "character_name": "Random Character"
@@ -582,7 +591,7 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 128736,
+              "user_id": null,
               "selection_id": 37203755,
               "character_id": 1746,
               "character_name": "Random Character"
@@ -605,6 +614,7 @@
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -679,13 +689,14 @@
       ]
     },
     {
-      "winner_id": 128736,
+      "winner_id": null,
       "loser_id": 2050326,
       "winner_score": 2,
       "loser_score": 0,
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -700,6 +711,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -759,6 +771,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -818,6 +831,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -854,12 +868,13 @@
     },
     {
       "winner_id": 2165191,
-      "loser_id": 128736,
+      "loser_id": null,
       "winner_score": 2,
       "loser_score": 0,
       "round_text": "Winners Quarter-Final",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -880,7 +895,7 @@
               "character_name": "Pokemon Trainer"
             },
             {
-              "user_id": 128736,
+              "user_id": null,
               "selection_id": 37201907,
               "character_id": 1777,
               "character_name": "Sephiroth"
@@ -902,7 +917,7 @@
               "character_name": "Pokemon Trainer"
             },
             {
-              "user_id": 128736,
+              "user_id": null,
               "selection_id": 37201909,
               "character_id": 1777,
               "character_name": "Sephiroth"
