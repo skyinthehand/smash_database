@@ -8,6 +8,7 @@
       "round_text": "Grand Final",
       "round": 7,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -89,6 +90,7 @@
       "round_text": "Winners Final",
       "round": 6,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -192,6 +194,7 @@
       "round_text": "Losers Final",
       "round": -12,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -295,6 +298,7 @@
       "round_text": "Losers Semi-Final",
       "round": -11,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -354,6 +358,7 @@
       "round_text": "Winners Semi-Final",
       "round": 5,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -413,6 +418,7 @@
       "round_text": "Winners Semi-Final",
       "round": 5,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -494,6 +500,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -10,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -575,6 +582,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -10,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -656,6 +664,7 @@
       "round_text": "Losers Round 7",
       "round": -9,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -737,6 +746,7 @@
       "round_text": "Losers Round 7",
       "round": -9,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -796,6 +806,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 4,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -855,6 +866,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 4,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -914,6 +926,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 4,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -973,6 +986,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 4,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -1032,6 +1046,7 @@
       "round_text": "Losers Round 6",
       "round": -8,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -1091,6 +1106,7 @@
       "round_text": "Losers Round 6",
       "round": -8,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -1150,6 +1166,7 @@
       "round_text": "Losers Round 6",
       "round": -8,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -1209,6 +1226,7 @@
       "round_text": "Losers Round 6",
       "round": -8,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -1290,6 +1308,7 @@
       "round_text": "Losers Round 5",
       "round": -7,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -1304,16 +1323,16 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 901233,
-              "selection_id": 38167129,
-              "character_id": 1290,
-              "character_name": "Ice Climbers"
-            },
-            {
               "user_id": 1534224,
               "selection_id": 38167130,
               "character_id": 1532,
               "character_name": "Terry"
+            },
+            {
+              "user_id": 901233,
+              "selection_id": 40368901,
+              "character_id": 1320,
+              "character_name": "Pit"
             }
           ]
         },
@@ -1326,16 +1345,16 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 901233,
-              "selection_id": 38167131,
-              "character_id": 1290,
-              "character_name": "Ice Climbers"
-            },
-            {
               "user_id": 1534224,
               "selection_id": 38167132,
               "character_id": 1532,
               "character_name": "Terry"
+            },
+            {
+              "user_id": 901233,
+              "selection_id": 40368902,
+              "character_id": 1278,
+              "character_name": "Dark Pit"
             }
           ]
         },
@@ -1348,16 +1367,16 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 901233,
-              "selection_id": 38167133,
-              "character_id": 1290,
-              "character_name": "Ice Climbers"
-            },
-            {
               "user_id": 1534224,
               "selection_id": 38167134,
               "character_id": 1532,
               "character_name": "Terry"
+            },
+            {
+              "user_id": 901233,
+              "selection_id": 40368903,
+              "character_id": 1278,
+              "character_name": "Dark Pit"
             }
           ]
         }
@@ -1371,6 +1390,7 @@
       "round_text": "Losers Round 5",
       "round": -7,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -1452,6 +1472,7 @@
       "round_text": "Losers Round 5",
       "round": -7,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -1511,6 +1532,7 @@
       "round_text": "Losers Round 5",
       "round": -7,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -1570,6 +1592,7 @@
       "round_text": "Winners Round 3",
       "round": 3,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -1629,6 +1652,7 @@
       "round_text": "Winners Round 3",
       "round": 3,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -1688,6 +1712,7 @@
       "round_text": "Winners Round 3",
       "round": 3,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -1747,6 +1772,7 @@
       "round_text": "Winners Round 3",
       "round": 3,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -1806,6 +1832,7 @@
       "round_text": "Winners Round 3",
       "round": 3,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -1865,6 +1892,7 @@
       "round_text": "Winners Round 3",
       "round": 3,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -1946,6 +1974,7 @@
       "round_text": "Winners Round 3",
       "round": 3,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -2005,6 +2034,7 @@
       "round_text": "Winners Round 3",
       "round": 3,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -2086,6 +2116,7 @@
       "round_text": "Losers Round 4",
       "round": -6,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -2107,9 +2138,9 @@
             },
             {
               "user_id": 901233,
-              "selection_id": 38166101,
-              "character_id": 1290,
-              "character_name": "Ice Climbers"
+              "selection_id": 40368831,
+              "character_id": 1320,
+              "character_name": "Pit"
             }
           ]
         },
@@ -2129,9 +2160,9 @@
             },
             {
               "user_id": 901233,
-              "selection_id": 38166103,
-              "character_id": 1290,
-              "character_name": "Ice Climbers"
+              "selection_id": 40368832,
+              "character_id": 1278,
+              "character_name": "Dark Pit"
             }
           ]
         }
@@ -2145,6 +2176,7 @@
       "round_text": "Losers Round 4",
       "round": -6,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -2226,6 +2258,7 @@
       "round_text": "Losers Round 4",
       "round": -6,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -2285,6 +2318,7 @@
       "round_text": "Losers Round 4",
       "round": -6,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -2344,6 +2378,7 @@
       "round_text": "Losers Round 4",
       "round": -6,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -2425,6 +2460,7 @@
       "round_text": "Losers Round 4",
       "round": -6,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -2484,6 +2520,7 @@
       "round_text": "Losers Round 4",
       "round": -6,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -2543,6 +2580,7 @@
       "round_text": "Losers Round 4",
       "round": -6,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -2624,6 +2662,7 @@
       "round_text": "Losers Round 3",
       "round": -5,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -2638,16 +2677,16 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 901233,
-              "selection_id": 38165917,
-              "character_id": 1290,
-              "character_name": "Ice Climbers"
-            },
-            {
               "user_id": 2780939,
               "selection_id": 38165918,
               "character_id": 1407,
               "character_name": "King K. Rool"
+            },
+            {
+              "user_id": 901233,
+              "selection_id": 40368783,
+              "character_id": 1320,
+              "character_name": "Pit"
             }
           ]
         },
@@ -2660,16 +2699,16 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 901233,
-              "selection_id": 38165919,
-              "character_id": 1290,
-              "character_name": "Ice Climbers"
-            },
-            {
               "user_id": 2780939,
               "selection_id": 38165920,
               "character_id": 1407,
               "character_name": "King K. Rool"
+            },
+            {
+              "user_id": 901233,
+              "selection_id": 40368784,
+              "character_id": 1278,
+              "character_name": "Dark Pit"
             }
           ]
         }
@@ -2683,6 +2722,7 @@
       "round_text": "Losers Round 3",
       "round": -5,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -2764,6 +2804,7 @@
       "round_text": "Losers Round 3",
       "round": -5,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -2823,6 +2864,7 @@
       "round_text": "Losers Round 3",
       "round": -5,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -2882,6 +2924,7 @@
       "round_text": "Losers Round 3",
       "round": -5,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -2963,6 +3006,7 @@
       "round_text": "Losers Round 3",
       "round": -5,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -3044,6 +3088,7 @@
       "round_text": "Losers Round 3",
       "round": -5,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -3125,6 +3170,7 @@
       "round_text": "Losers Round 3",
       "round": -5,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -3206,6 +3252,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -3265,6 +3312,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -3346,6 +3394,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -3405,6 +3454,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -3464,6 +3514,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -3523,6 +3574,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -3582,6 +3634,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -3641,6 +3694,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -3700,6 +3754,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -3781,6 +3836,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -3840,6 +3896,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -3899,6 +3956,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -3958,6 +4016,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -4039,6 +4098,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -4120,6 +4180,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -4134,16 +4195,16 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 901233,
-              "selection_id": 38165131,
-              "character_id": 1290,
-              "character_name": "Ice Climbers"
-            },
-            {
               "user_id": 1514135,
               "selection_id": 38165132,
               "character_id": 1311,
               "character_name": "Mii Brawler"
+            },
+            {
+              "user_id": 901233,
+              "selection_id": 40368548,
+              "character_id": 1320,
+              "character_name": "Pit"
             }
           ]
         },
@@ -4156,16 +4217,16 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 901233,
-              "selection_id": 38165133,
-              "character_id": 1290,
-              "character_name": "Ice Climbers"
-            },
-            {
               "user_id": 1514135,
               "selection_id": 38165134,
               "character_id": 1311,
               "character_name": "Mii Brawler"
+            },
+            {
+              "user_id": 901233,
+              "selection_id": 40368549,
+              "character_id": 1278,
+              "character_name": "Dark Pit"
             }
           ]
         },
@@ -4178,16 +4239,16 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 901233,
-              "selection_id": 38165135,
-              "character_id": 1290,
-              "character_name": "Ice Climbers"
-            },
-            {
               "user_id": 1514135,
               "selection_id": 38165136,
               "character_id": 1311,
               "character_name": "Mii Brawler"
+            },
+            {
+              "user_id": 901233,
+              "selection_id": 40368550,
+              "character_id": 1278,
+              "character_name": "Dark Pit"
             }
           ]
         }
@@ -4201,6 +4262,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -4260,6 +4322,7 @@
       "round_text": "Losers Round 2",
       "round": -4,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -4319,6 +4382,7 @@
       "round_text": "Losers Round 2",
       "round": -4,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -4333,16 +4397,16 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 901233,
-              "selection_id": 38218896,
-              "character_id": 1290,
-              "character_name": "Ice Climbers"
-            },
-            {
               "user_id": 1329658,
               "selection_id": 38218897,
               "character_id": 1280,
               "character_name": "Donkey Kong"
+            },
+            {
+              "user_id": 901233,
+              "selection_id": 40368662,
+              "character_id": 1320,
+              "character_name": "Pit"
             }
           ]
         },
@@ -4355,16 +4419,16 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 901233,
-              "selection_id": 38218898,
-              "character_id": 1290,
-              "character_name": "Ice Climbers"
-            },
-            {
               "user_id": 1329658,
               "selection_id": 38218899,
               "character_id": 1280,
               "character_name": "Donkey Kong"
+            },
+            {
+              "user_id": 901233,
+              "selection_id": 40368663,
+              "character_id": 1320,
+              "character_name": "Pit"
             }
           ]
         },
@@ -4377,16 +4441,16 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 901233,
-              "selection_id": 38218900,
-              "character_id": 1290,
-              "character_name": "Ice Climbers"
-            },
-            {
               "user_id": 1329658,
               "selection_id": 38218901,
               "character_id": 1280,
               "character_name": "Donkey Kong"
+            },
+            {
+              "user_id": 901233,
+              "selection_id": 40368664,
+              "character_id": 1278,
+              "character_name": "Dark Pit"
             }
           ]
         }
@@ -4400,6 +4464,7 @@
       "round_text": "Losers Round 2",
       "round": -4,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -4459,6 +4524,7 @@
       "round_text": "Losers Round 2",
       "round": -4,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -4518,6 +4584,7 @@
       "round_text": "Losers Round 2",
       "round": -4,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -4532,6 +4599,7 @@
       "round_text": "Losers Round 2",
       "round": -4,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -4591,6 +4659,7 @@
       "round_text": "Losers Round 2",
       "round": -4,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -4650,6 +4719,7 @@
       "round_text": "Losers Round 2",
       "round": -4,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -4709,6 +4779,7 @@
       "round_text": "Losers Round 2",
       "round": -4,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -4790,6 +4861,7 @@
       "round_text": "Losers Round 2",
       "round": -4,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -4849,6 +4921,7 @@
       "round_text": "Losers Round 2",
       "round": -4,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -4908,6 +4981,7 @@
       "round_text": "Losers Round 2",
       "round": -4,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -4967,6 +5041,7 @@
       "round_text": "Losers Round 2",
       "round": -4,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -4981,6 +5056,7 @@
       "round_text": "Losers Round 2",
       "round": -4,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -5062,6 +5138,7 @@
       "round_text": "Losers Round 2",
       "round": -4,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -5121,6 +5198,7 @@
       "round_text": "Losers Round 2",
       "round": -4,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -5180,6 +5258,7 @@
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -5239,6 +5318,7 @@
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -5298,6 +5378,7 @@
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -5312,6 +5393,7 @@
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -5393,6 +5475,7 @@
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -5452,6 +5535,7 @@
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -5511,6 +5595,7 @@
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": true,
       "cancel": false,
@@ -5525,6 +5610,7 @@
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -5584,6 +5670,7 @@
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -5643,6 +5730,7 @@
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -5724,6 +5812,7 @@
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": true,
       "cancel": false,
@@ -5738,6 +5827,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -5797,6 +5887,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": true,
       "cancel": false,
@@ -5811,6 +5902,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -5870,6 +5962,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -5929,6 +6022,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -5988,6 +6082,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -6047,6 +6142,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -6061,6 +6157,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -6120,6 +6217,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -6179,6 +6277,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -6238,6 +6337,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -6319,6 +6419,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -6400,6 +6501,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -6459,6 +6561,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -6518,6 +6621,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -6577,6 +6681,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -6591,6 +6696,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -6650,6 +6756,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -6709,6 +6816,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": true,
       "cancel": false,
@@ -6723,6 +6831,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -6782,6 +6891,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -6841,6 +6951,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -6855,6 +6966,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -6914,6 +7026,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -6973,6 +7086,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -6987,16 +7101,16 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 901233,
-              "selection_id": 38246600,
-              "character_id": 1290,
-              "character_name": "Ice Climbers"
-            },
-            {
               "user_id": 372190,
               "selection_id": 38246601,
               "character_id": 1315,
               "character_name": "Pac-Man"
+            },
+            {
+              "user_id": 901233,
+              "selection_id": 40368504,
+              "character_id": 1320,
+              "character_name": "Pit"
             }
           ]
         },
@@ -7009,16 +7123,16 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 901233,
-              "selection_id": 38246602,
-              "character_id": 1290,
-              "character_name": "Ice Climbers"
-            },
-            {
               "user_id": 372190,
               "selection_id": 38246603,
               "character_id": 1315,
               "character_name": "Pac-Man"
+            },
+            {
+              "user_id": 901233,
+              "selection_id": 40368505,
+              "character_id": 1320,
+              "character_name": "Pit"
             }
           ]
         },
@@ -7031,16 +7145,16 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 901233,
-              "selection_id": 38246604,
-              "character_id": 1290,
-              "character_name": "Ice Climbers"
-            },
-            {
               "user_id": 372190,
               "selection_id": 38246605,
               "character_id": 1315,
               "character_name": "Pac-Man"
+            },
+            {
+              "user_id": 901233,
+              "selection_id": 40368506,
+              "character_id": 1278,
+              "character_name": "Dark Pit"
             }
           ]
         }
@@ -7054,6 +7168,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
@@ -7113,6 +7228,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "SIN1",
+      "phase_order": 1,
       "wave": "SIN",
       "dq": false,
       "cancel": false,
