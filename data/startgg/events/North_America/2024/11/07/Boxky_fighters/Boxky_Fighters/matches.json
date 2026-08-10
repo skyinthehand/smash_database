@@ -8,6 +8,7 @@
       "round_text": "Grand Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -111,6 +112,7 @@
       "round_text": "Grand Final Reset",
       "round": 3,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -125,6 +127,7 @@
       "round_text": "Winners Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -206,6 +209,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -265,6 +269,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -346,6 +351,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -405,6 +411,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -464,6 +471,7 @@
       "round_text": "Losers Final",
       "round": -6,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -589,6 +597,7 @@
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -648,6 +657,7 @@
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -707,6 +717,7 @@
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -740,6 +751,7 @@
       "round_text": "Losers Semi-Final",
       "round": -5,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -821,6 +833,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -902,6 +915,7 @@
       "round_text": "Winners Semi-Final",
       "round": 1,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1020,6 +1034,66 @@
       ]
     },
     {
+      "winner_id": 2763470,
+      "loser_id": 2556017,
+      "winner_score": 2,
+      "loser_score": 0,
+      "round_text": "Winners Round 1",
+      "round": 1,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": [
+        {
+          "game_id": 26116122,
+          "order_num": 1,
+          "winner_id": 2763470,
+          "entrant1_score": 0,
+          "entrant2_score": null,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2763470,
+              "selection_id": 38022894,
+              "character_id": 1322,
+              "character_name": "Ridley"
+            },
+            {
+              "user_id": 2556017,
+              "selection_id": 38022895,
+              "character_id": 1413,
+              "character_name": "Isabelle"
+            }
+          ]
+        },
+        {
+          "game_id": 26116123,
+          "order_num": 2,
+          "winner_id": 2763470,
+          "entrant1_score": 0,
+          "entrant2_score": null,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2763470,
+              "selection_id": 38022896,
+              "character_id": 1322,
+              "character_name": "Ridley"
+            },
+            {
+              "user_id": 2556017,
+              "selection_id": 38022897,
+              "character_id": 1413,
+              "character_name": "Isabelle"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "winner_id": 1842635,
       "loser_id": 138907,
       "winner_score": 3,
@@ -1027,6 +1101,7 @@
       "round_text": "Winners Semi-Final",
       "round": 1,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1145,65 +1220,6 @@
       ]
     },
     {
-      "winner_id": 2763470,
-      "loser_id": 2556017,
-      "winner_score": 2,
-      "loser_score": 0,
-      "round_text": "Winners Round 1",
-      "round": 1,
-      "phase": "1",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": [
-        {
-          "game_id": 26116122,
-          "order_num": 1,
-          "winner_id": 2763470,
-          "entrant1_score": 0,
-          "entrant2_score": null,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": 2763470,
-              "selection_id": 38022894,
-              "character_id": 1322,
-              "character_name": "Ridley"
-            },
-            {
-              "user_id": 2556017,
-              "selection_id": 38022895,
-              "character_id": 1413,
-              "character_name": "Isabelle"
-            }
-          ]
-        },
-        {
-          "game_id": 26116123,
-          "order_num": 2,
-          "winner_id": 2763470,
-          "entrant1_score": 0,
-          "entrant2_score": null,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": 2763470,
-              "selection_id": 38022896,
-              "character_id": 1322,
-              "character_name": "Ridley"
-            },
-            {
-              "user_id": 2556017,
-              "selection_id": 38022897,
-              "character_id": 1413,
-              "character_name": "Isabelle"
-            }
-          ]
-        }
-      ]
-    },
-    {
       "winner_id": 2287506,
       "loser_id": 874631,
       "winner_score": 2,
@@ -1211,6 +1227,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1270,6 +1287,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -4,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1395,6 +1413,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -4,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1409,6 +1428,7 @@
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1469,6 +1489,7 @@
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
