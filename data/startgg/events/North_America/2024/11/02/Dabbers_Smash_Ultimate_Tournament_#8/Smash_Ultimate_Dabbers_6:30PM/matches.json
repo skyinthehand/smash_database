@@ -8,6 +8,7 @@
       "round_text": "Grand Final",
       "round": 5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -83,12 +84,13 @@
     },
     {
       "winner_id": 396084,
-      "loser_id": 981794,
+      "loser_id": 576147,
       "winner_score": 3,
       "loser_score": 2,
       "round_text": "Winners Final",
       "round": 4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -97,13 +99,13 @@
         {
           "game_id": 25967243,
           "order_num": 1,
-          "winner_id": 981794,
+          "winner_id": 576147,
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
           "selections": [
             {
-              "user_id": 981794,
+              "user_id": 576147,
               "selection_id": 37796360,
               "character_id": 1302,
               "character_name": "Mario"
@@ -119,13 +121,13 @@
         {
           "game_id": 25967244,
           "order_num": 2,
-          "winner_id": 981794,
+          "winner_id": 576147,
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
           "selections": [
             {
-              "user_id": 981794,
+              "user_id": 576147,
               "selection_id": 37796362,
               "character_id": 1302,
               "character_name": "Mario"
@@ -147,7 +149,7 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 981794,
+              "user_id": 576147,
               "selection_id": 37796364,
               "character_id": 1302,
               "character_name": "Mario"
@@ -169,7 +171,7 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 981794,
+              "user_id": 576147,
               "selection_id": 37796366,
               "character_id": 1302,
               "character_name": "Mario"
@@ -191,7 +193,7 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 981794,
+              "user_id": 576147,
               "selection_id": 37796368,
               "character_id": 1302,
               "character_name": "Mario"
@@ -208,12 +210,13 @@
     },
     {
       "winner_id": 482223,
-      "loser_id": 981794,
+      "loser_id": 576147,
       "winner_score": 3,
       "loser_score": 0,
       "round_text": "Losers Final",
       "round": -8,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -234,7 +237,7 @@
               "character_name": "Inkling"
             },
             {
-              "user_id": 981794,
+              "user_id": 576147,
               "selection_id": 37797690,
               "character_id": 1302,
               "character_name": "Mario"
@@ -256,7 +259,7 @@
               "character_name": "Inkling"
             },
             {
-              "user_id": 981794,
+              "user_id": 576147,
               "selection_id": 37797692,
               "character_id": 1302,
               "character_name": "Mario"
@@ -278,7 +281,7 @@
               "character_name": "Inkling"
             },
             {
-              "user_id": 981794,
+              "user_id": 576147,
               "selection_id": 37797694,
               "character_id": 1302,
               "character_name": "Mario"
@@ -295,6 +298,7 @@
       "round_text": "Losers Semi-Final",
       "round": -7,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -398,6 +402,7 @@
       "round_text": "Winners Semi-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -450,13 +455,14 @@
       ]
     },
     {
-      "winner_id": 981794,
+      "winner_id": 576147,
       "loser_id": 482223,
       "winner_score": 2,
       "loser_score": 1,
       "round_text": "Winners Semi-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -465,7 +471,7 @@
         {
           "game_id": 25964777,
           "order_num": 1,
-          "winner_id": 981794,
+          "winner_id": 576147,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
@@ -477,7 +483,7 @@
               "character_name": "Inkling"
             },
             {
-              "user_id": 981794,
+              "user_id": 576147,
               "selection_id": 37792774,
               "character_id": 1302,
               "character_name": "Mario"
@@ -499,7 +505,7 @@
               "character_name": "Inkling"
             },
             {
-              "user_id": 981794,
+              "user_id": 576147,
               "selection_id": 37792776,
               "character_id": 1302,
               "character_name": "Mario"
@@ -509,7 +515,7 @@
         {
           "game_id": 25964779,
           "order_num": 3,
-          "winner_id": 981794,
+          "winner_id": 576147,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
@@ -521,7 +527,7 @@
               "character_name": "Inkling"
             },
             {
-              "user_id": 981794,
+              "user_id": 576147,
               "selection_id": 37792778,
               "character_id": 1302,
               "character_name": "Mario"
@@ -538,6 +544,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -619,6 +626,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -700,6 +708,7 @@
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -759,6 +768,7 @@
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -840,6 +850,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -899,6 +910,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -951,13 +963,14 @@
       ]
     },
     {
-      "winner_id": 981794,
+      "winner_id": 576147,
       "loser_id": 1791639,
       "winner_score": 2,
       "loser_score": 1,
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -966,7 +979,7 @@
         {
           "game_id": 25961393,
           "order_num": 1,
-          "winner_id": 981794,
+          "winner_id": 576147,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
@@ -978,7 +991,7 @@
               "character_name": "Inkling"
             },
             {
-              "user_id": 981794,
+              "user_id": 576147,
               "selection_id": 37788143,
               "character_id": 1453,
               "character_name": "Joker"
@@ -1000,7 +1013,7 @@
               "character_name": "Roy"
             },
             {
-              "user_id": 981794,
+              "user_id": 576147,
               "selection_id": 37788145,
               "character_id": 1453,
               "character_name": "Joker"
@@ -1010,7 +1023,7 @@
         {
           "game_id": 25961395,
           "order_num": 3,
-          "winner_id": 981794,
+          "winner_id": 576147,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
@@ -1022,7 +1035,7 @@
               "character_name": "Roy"
             },
             {
-              "user_id": 981794,
+              "user_id": 576147,
               "selection_id": 37788147,
               "character_id": 1302,
               "character_name": "Mario"
@@ -1039,6 +1052,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1120,6 +1134,7 @@
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1179,6 +1194,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
