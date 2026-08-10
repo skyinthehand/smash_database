@@ -8,6 +8,7 @@
       "round_text": "Grand Final",
       "round": 4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -22,6 +23,7 @@
       "round_text": "Winners Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -147,6 +149,7 @@
       "round_text": "Losers Final",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -161,6 +164,7 @@
       "round_text": "Losers Semi-Final",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -175,6 +179,7 @@
       "round_text": "Winners Semi-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -300,6 +305,7 @@
       "round_text": "Winners Semi-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -314,6 +320,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -395,6 +402,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -520,6 +528,7 @@
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -595,12 +604,13 @@
     },
     {
       "winner_id": 655938,
-      "loser_id": 275678,
+      "loser_id": null,
       "winner_score": 3,
       "loser_score": 1,
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -621,7 +631,7 @@
               "character_name": "Lucina"
             },
             {
-              "user_id": 275678,
+              "user_id": null,
               "selection_id": 38048960,
               "character_id": 1274,
               "character_name": "Captain Falcon"
@@ -631,7 +641,7 @@
         {
           "game_id": 26133724,
           "order_num": 2,
-          "winner_id": 275678,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": 0,
           "stage": null,
@@ -643,7 +653,7 @@
               "character_name": "Lucina"
             },
             {
-              "user_id": 275678,
+              "user_id": null,
               "selection_id": 38048962,
               "character_id": 1274,
               "character_name": "Captain Falcon"
@@ -665,7 +675,7 @@
               "character_name": "Lucina"
             },
             {
-              "user_id": 275678,
+              "user_id": null,
               "selection_id": 38048964,
               "character_id": 1274,
               "character_name": "Captain Falcon"
@@ -687,7 +697,7 @@
               "character_name": "Lucina"
             },
             {
-              "user_id": 275678,
+              "user_id": null,
               "selection_id": 38048966,
               "character_id": 1274,
               "character_name": "Captain Falcon"
@@ -704,6 +714,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -785,6 +796,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -904,12 +916,13 @@
     },
     {
       "winner_id": 1117050,
-      "loser_id": 275678,
+      "loser_id": null,
       "winner_score": 3,
       "loser_score": 0,
       "round_text": "Winners Quarter-Final",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -930,7 +943,7 @@
               "character_name": "Dark Pit"
             },
             {
-              "user_id": 275678,
+              "user_id": null,
               "selection_id": 38047961,
               "character_id": 1274,
               "character_name": "Captain Falcon"
@@ -952,7 +965,7 @@
               "character_name": "Dark Pit"
             },
             {
-              "user_id": 275678,
+              "user_id": null,
               "selection_id": 38047963,
               "character_id": 1274,
               "character_name": "Captain Falcon"
@@ -974,7 +987,7 @@
               "character_name": "Dark Pit"
             },
             {
-              "user_id": 275678,
+              "user_id": null,
               "selection_id": 38047965,
               "character_id": 1274,
               "character_name": "Captain Falcon"
@@ -991,6 +1004,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
