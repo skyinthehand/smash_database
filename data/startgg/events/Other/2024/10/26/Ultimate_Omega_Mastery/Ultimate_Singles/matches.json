@@ -8,11 +8,79 @@
       "round_text": "Grand Final",
       "round": 6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
       "state": 3,
-      "details": []
+      "details": [
+        {
+          "game_id": 30526741,
+          "order_num": 1,
+          "winner_id": 1860526,
+          "entrant1_score": 2,
+          "entrant2_score": 0,
+          "stage": "Town and City",
+          "selections": [
+            {
+              "user_id": 1860526,
+              "selection_id": 44862444,
+              "character_id": 1328,
+              "character_name": "Samus"
+            },
+            {
+              "user_id": null,
+              "selection_id": 44862445,
+              "character_id": 1897,
+              "character_name": "Sora"
+            }
+          ]
+        },
+        {
+          "game_id": 30526742,
+          "order_num": 2,
+          "winner_id": 1860526,
+          "entrant1_score": 2,
+          "entrant2_score": 0,
+          "stage": "Battlefield",
+          "selections": [
+            {
+              "user_id": 1860526,
+              "selection_id": 44862446,
+              "character_id": 1328,
+              "character_name": "Samus"
+            },
+            {
+              "user_id": null,
+              "selection_id": 44862447,
+              "character_id": 1897,
+              "character_name": "Sora"
+            }
+          ]
+        },
+        {
+          "game_id": 30526743,
+          "order_num": 3,
+          "winner_id": 1860526,
+          "entrant1_score": 1,
+          "entrant2_score": 0,
+          "stage": "Hollow Bastion",
+          "selections": [
+            {
+              "user_id": 1860526,
+              "selection_id": 44862448,
+              "character_id": 1328,
+              "character_name": "Samus"
+            },
+            {
+              "user_id": null,
+              "selection_id": 44862449,
+              "character_id": 1897,
+              "character_name": "Sora"
+            }
+          ]
+        }
+      ]
     },
     {
       "winner_id": 1860526,
@@ -22,11 +90,57 @@
       "round_text": "Winners Final",
       "round": 5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
       "state": 3,
-      "details": []
+      "details": [
+        {
+          "game_id": 30526474,
+          "order_num": 1,
+          "winner_id": 1860526,
+          "entrant1_score": 3,
+          "entrant2_score": 0,
+          "stage": "Battlefield",
+          "selections": [
+            {
+              "user_id": 1860526,
+              "selection_id": 44861910,
+              "character_id": 1328,
+              "character_name": "Samus"
+            },
+            {
+              "user_id": null,
+              "selection_id": 44861911,
+              "character_id": 1897,
+              "character_name": "Sora"
+            }
+          ]
+        },
+        {
+          "game_id": 30526475,
+          "order_num": 2,
+          "winner_id": 1860526,
+          "entrant1_score": 1,
+          "entrant2_score": 0,
+          "stage": "Battlefield",
+          "selections": [
+            {
+              "user_id": 1860526,
+              "selection_id": 44861912,
+              "character_id": 1328,
+              "character_name": "Samus"
+            },
+            {
+              "user_id": null,
+              "selection_id": 44861913,
+              "character_id": 1897,
+              "character_name": "Sora"
+            }
+          ]
+        }
+      ]
     },
     {
       "winner_id": null,
@@ -36,11 +150,57 @@
       "round_text": "Losers Final",
       "round": -10,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
       "state": 3,
-      "details": []
+      "details": [
+        {
+          "game_id": 30526624,
+          "order_num": 1,
+          "winner_id": null,
+          "entrant1_score": 1,
+          "entrant2_score": 0,
+          "stage": "Battlefield",
+          "selections": [
+            {
+              "user_id": null,
+              "selection_id": 44862190,
+              "character_id": 1897,
+              "character_name": "Sora"
+            },
+            {
+              "user_id": null,
+              "selection_id": 44862191,
+              "character_id": 1332,
+              "character_name": "Sonic"
+            }
+          ]
+        },
+        {
+          "game_id": 30526625,
+          "order_num": 2,
+          "winner_id": null,
+          "entrant1_score": 2,
+          "entrant2_score": 0,
+          "stage": "Battlefield",
+          "selections": [
+            {
+              "user_id": null,
+              "selection_id": 44862192,
+              "character_id": 1897,
+              "character_name": "Sora"
+            },
+            {
+              "user_id": null,
+              "selection_id": 44862193,
+              "character_id": 1332,
+              "character_name": "Sonic"
+            }
+          ]
+        }
+      ]
     },
     {
       "winner_id": null,
@@ -50,11 +210,79 @@
       "round_text": "Losers Semi-Final",
       "round": -9,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
       "state": 3,
-      "details": []
+      "details": [
+        {
+          "game_id": 30526600,
+          "order_num": 1,
+          "winner_id": null,
+          "entrant1_score": 1,
+          "entrant2_score": 0,
+          "stage": "Battlefield",
+          "selections": [
+            {
+              "user_id": null,
+              "selection_id": 44862150,
+              "character_id": 1332,
+              "character_name": "Sonic"
+            },
+            {
+              "user_id": null,
+              "selection_id": 44862151,
+              "character_id": 1332,
+              "character_name": "Sonic"
+            }
+          ]
+        },
+        {
+          "game_id": 30526601,
+          "order_num": 2,
+          "winner_id": null,
+          "entrant1_score": 0,
+          "entrant2_score": 2,
+          "stage": "Final Destination",
+          "selections": [
+            {
+              "user_id": null,
+              "selection_id": 44862152,
+              "character_id": 1332,
+              "character_name": "Sonic"
+            },
+            {
+              "user_id": null,
+              "selection_id": 44862153,
+              "character_id": 1332,
+              "character_name": "Sonic"
+            }
+          ]
+        },
+        {
+          "game_id": 30526602,
+          "order_num": 3,
+          "winner_id": null,
+          "entrant1_score": 0,
+          "entrant2_score": 1,
+          "stage": "Final Destination",
+          "selections": [
+            {
+              "user_id": null,
+              "selection_id": 44862154,
+              "character_id": 1332,
+              "character_name": "Sonic"
+            },
+            {
+              "user_id": null,
+              "selection_id": 44862155,
+              "character_id": 1332,
+              "character_name": "Sonic"
+            }
+          ]
+        }
+      ]
     },
     {
       "winner_id": 1860526,
@@ -64,11 +292,57 @@
       "round_text": "Winners Semi-Final",
       "round": 4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
       "state": 3,
-      "details": []
+      "details": [
+        {
+          "game_id": 30526402,
+          "order_num": 1,
+          "winner_id": 1860526,
+          "entrant1_score": 3,
+          "entrant2_score": 0,
+          "stage": "Final Destination",
+          "selections": [
+            {
+              "user_id": 1860526,
+              "selection_id": 44861774,
+              "character_id": 1532,
+              "character_name": "Terry"
+            },
+            {
+              "user_id": null,
+              "selection_id": 44861775,
+              "character_id": 1766,
+              "character_name": "Steve"
+            }
+          ]
+        },
+        {
+          "game_id": 30526403,
+          "order_num": 2,
+          "winner_id": 1860526,
+          "entrant1_score": 3,
+          "entrant2_score": 0,
+          "stage": "Final Destination",
+          "selections": [
+            {
+              "user_id": 1860526,
+              "selection_id": 44861776,
+              "character_id": 1532,
+              "character_name": "Terry"
+            },
+            {
+              "user_id": null,
+              "selection_id": 44861777,
+              "character_id": 1846,
+              "character_name": "Kazuya"
+            }
+          ]
+        }
+      ]
     },
     {
       "winner_id": null,
@@ -78,11 +352,57 @@
       "round_text": "Winners Semi-Final",
       "round": 4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
       "state": 3,
-      "details": []
+      "details": [
+        {
+          "game_id": 30526435,
+          "order_num": 1,
+          "winner_id": null,
+          "entrant1_score": 2,
+          "entrant2_score": 0,
+          "stage": "Battlefield",
+          "selections": [
+            {
+              "user_id": null,
+              "selection_id": 44861834,
+              "character_id": 1302,
+              "character_name": "Mario"
+            },
+            {
+              "user_id": null,
+              "selection_id": 44861835,
+              "character_id": 1897,
+              "character_name": "Sora"
+            }
+          ]
+        },
+        {
+          "game_id": 30526436,
+          "order_num": 2,
+          "winner_id": null,
+          "entrant1_score": 1,
+          "entrant2_score": 0,
+          "stage": "Battlefield",
+          "selections": [
+            {
+              "user_id": null,
+              "selection_id": 44861836,
+              "character_id": 1302,
+              "character_name": "Mario"
+            },
+            {
+              "user_id": null,
+              "selection_id": 44861837,
+              "character_id": 1897,
+              "character_name": "Sora"
+            }
+          ]
+        }
+      ]
     },
     {
       "winner_id": null,
@@ -92,11 +412,79 @@
       "round_text": "Losers Quarter-Final",
       "round": -8,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
       "state": 3,
-      "details": []
+      "details": [
+        {
+          "game_id": 30526511,
+          "order_num": 1,
+          "winner_id": null,
+          "entrant1_score": 0,
+          "entrant2_score": 1,
+          "stage": "Battlefield",
+          "selections": [
+            {
+              "user_id": null,
+              "selection_id": 44861982,
+              "character_id": 1302,
+              "character_name": "Mario"
+            },
+            {
+              "user_id": null,
+              "selection_id": 44861983,
+              "character_id": 1332,
+              "character_name": "Sonic"
+            }
+          ]
+        },
+        {
+          "game_id": 30526512,
+          "order_num": 2,
+          "winner_id": null,
+          "entrant1_score": 1,
+          "entrant2_score": 0,
+          "stage": "Battlefield",
+          "selections": [
+            {
+              "user_id": null,
+              "selection_id": 44861984,
+              "character_id": 1302,
+              "character_name": "Mario"
+            },
+            {
+              "user_id": null,
+              "selection_id": 44861985,
+              "character_id": 1332,
+              "character_name": "Sonic"
+            }
+          ]
+        },
+        {
+          "game_id": 30526513,
+          "order_num": 3,
+          "winner_id": null,
+          "entrant1_score": 0,
+          "entrant2_score": 1,
+          "stage": "Final Destination",
+          "selections": [
+            {
+              "user_id": null,
+              "selection_id": 44861986,
+              "character_id": 1302,
+              "character_name": "Mario"
+            },
+            {
+              "user_id": null,
+              "selection_id": 44861987,
+              "character_id": 1332,
+              "character_name": "Sonic"
+            }
+          ]
+        }
+      ]
     },
     {
       "winner_id": null,
@@ -106,11 +494,57 @@
       "round_text": "Losers Quarter-Final",
       "round": -8,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
       "state": 3,
-      "details": []
+      "details": [
+        {
+          "game_id": 30526542,
+          "order_num": 1,
+          "winner_id": null,
+          "entrant1_score": 0,
+          "entrant2_score": 2,
+          "stage": "Final Destination",
+          "selections": [
+            {
+              "user_id": null,
+              "selection_id": 44862042,
+              "character_id": 1532,
+              "character_name": "Terry"
+            },
+            {
+              "user_id": null,
+              "selection_id": 44862043,
+              "character_id": 1332,
+              "character_name": "Sonic"
+            }
+          ]
+        },
+        {
+          "game_id": 30526543,
+          "order_num": 2,
+          "winner_id": null,
+          "entrant1_score": 0,
+          "entrant2_score": 2,
+          "stage": "Final Destination",
+          "selections": [
+            {
+              "user_id": null,
+              "selection_id": 44862044,
+              "character_id": 1766,
+              "character_name": "Steve"
+            },
+            {
+              "user_id": null,
+              "selection_id": 44862045,
+              "character_id": 1332,
+              "character_name": "Sonic"
+            }
+          ]
+        }
+      ]
     },
     {
       "winner_id": null,
@@ -120,11 +554,57 @@
       "round_text": "Losers Round 4",
       "round": -7,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
       "state": 3,
-      "details": []
+      "details": [
+        {
+          "game_id": 30526439,
+          "order_num": 1,
+          "winner_id": null,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": "Battlefield",
+          "selections": [
+            {
+              "user_id": null,
+              "selection_id": 44861842,
+              "character_id": 1295,
+              "character_name": "Kirby"
+            },
+            {
+              "user_id": null,
+              "selection_id": 44861843,
+              "character_id": 1332,
+              "character_name": "Sonic"
+            }
+          ]
+        },
+        {
+          "game_id": 30526440,
+          "order_num": 2,
+          "winner_id": null,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": "Battlefield",
+          "selections": [
+            {
+              "user_id": null,
+              "selection_id": 44861844,
+              "character_id": 1295,
+              "character_name": "Kirby"
+            },
+            {
+              "user_id": null,
+              "selection_id": 44861845,
+              "character_id": 1332,
+              "character_name": "Sonic"
+            }
+          ]
+        }
+      ]
     },
     {
       "winner_id": null,
@@ -134,11 +614,57 @@
       "round_text": "Losers Round 4",
       "round": -7,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
       "state": 3,
-      "details": []
+      "details": [
+        {
+          "game_id": 30526453,
+          "order_num": 1,
+          "winner_id": null,
+          "entrant1_score": 0,
+          "entrant2_score": 1,
+          "stage": "Final Destination",
+          "selections": [
+            {
+              "user_id": 2810722,
+              "selection_id": 44861870,
+              "character_id": 1290,
+              "character_name": "Ice Climbers"
+            },
+            {
+              "user_id": null,
+              "selection_id": 44861871,
+              "character_id": 1332,
+              "character_name": "Sonic"
+            }
+          ]
+        },
+        {
+          "game_id": 30526454,
+          "order_num": 2,
+          "winner_id": null,
+          "entrant1_score": 0,
+          "entrant2_score": 2,
+          "stage": "Final Destination",
+          "selections": [
+            {
+              "user_id": 2810722,
+              "selection_id": 44861872,
+              "character_id": 1290,
+              "character_name": "Ice Climbers"
+            },
+            {
+              "user_id": null,
+              "selection_id": 44861873,
+              "character_id": 1332,
+              "character_name": "Sonic"
+            }
+          ]
+        }
+      ]
     },
     {
       "winner_id": 1860526,
@@ -148,11 +674,57 @@
       "round_text": "Winners Quarter-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
       "state": 3,
-      "details": []
+      "details": [
+        {
+          "game_id": 30523278,
+          "order_num": 1,
+          "winner_id": 1860526,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": "Battlefield",
+          "selections": [
+            {
+              "user_id": 1860526,
+              "selection_id": 44855598,
+              "character_id": 1328,
+              "character_name": "Samus"
+            },
+            {
+              "user_id": null,
+              "selection_id": 44855599,
+              "character_id": 1295,
+              "character_name": "Kirby"
+            }
+          ]
+        },
+        {
+          "game_id": 30523279,
+          "order_num": 2,
+          "winner_id": 1860526,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": "Battlefield",
+          "selections": [
+            {
+              "user_id": 1860526,
+              "selection_id": 44855600,
+              "character_id": 1328,
+              "character_name": "Samus"
+            },
+            {
+              "user_id": null,
+              "selection_id": 44855601,
+              "character_id": 1295,
+              "character_name": "Kirby"
+            }
+          ]
+        }
+      ]
     },
     {
       "winner_id": null,
@@ -162,11 +734,57 @@
       "round_text": "Winners Quarter-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
       "state": 3,
-      "details": []
+      "details": [
+        {
+          "game_id": 30523313,
+          "order_num": 1,
+          "winner_id": null,
+          "entrant1_score": 2,
+          "entrant2_score": 0,
+          "stage": "Battlefield",
+          "selections": [
+            {
+              "user_id": null,
+              "selection_id": 44855668,
+              "character_id": 1766,
+              "character_name": "Steve"
+            },
+            {
+              "user_id": null,
+              "selection_id": 44855669,
+              "character_id": 1287,
+              "character_name": "Ganondorf"
+            }
+          ]
+        },
+        {
+          "game_id": 30523314,
+          "order_num": 2,
+          "winner_id": null,
+          "entrant1_score": 3,
+          "entrant2_score": 0,
+          "stage": "Battlefield",
+          "selections": [
+            {
+              "user_id": null,
+              "selection_id": 44855670,
+              "character_id": 1846,
+              "character_name": "Kazuya"
+            },
+            {
+              "user_id": null,
+              "selection_id": 44855671,
+              "character_id": 1272,
+              "character_name": "Bowser Jr."
+            }
+          ]
+        }
+      ]
     },
     {
       "winner_id": null,
@@ -176,11 +794,79 @@
       "round_text": "Winners Quarter-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
       "state": 3,
-      "details": []
+      "details": [
+        {
+          "game_id": 30526260,
+          "order_num": 1,
+          "winner_id": null,
+          "entrant1_score": 0,
+          "entrant2_score": null,
+          "stage": "Battlefield",
+          "selections": [
+            {
+              "user_id": 2756340,
+              "selection_id": 44861506,
+              "character_id": 1290,
+              "character_name": "Ice Climbers"
+            },
+            {
+              "user_id": null,
+              "selection_id": 44861507,
+              "character_id": 1897,
+              "character_name": "Sora"
+            }
+          ]
+        },
+        {
+          "game_id": 30526261,
+          "order_num": 2,
+          "winner_id": 2756340,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": "Battlefield",
+          "selections": [
+            {
+              "user_id": 2756340,
+              "selection_id": 44861508,
+              "character_id": 1290,
+              "character_name": "Ice Climbers"
+            },
+            {
+              "user_id": null,
+              "selection_id": 44861509,
+              "character_id": 1897,
+              "character_name": "Sora"
+            }
+          ]
+        },
+        {
+          "game_id": 30526262,
+          "order_num": 3,
+          "winner_id": null,
+          "entrant1_score": 0,
+          "entrant2_score": null,
+          "stage": "Battlefield",
+          "selections": [
+            {
+              "user_id": 2756340,
+              "selection_id": 44861510,
+              "character_id": 1290,
+              "character_name": "Ice Climbers"
+            },
+            {
+              "user_id": null,
+              "selection_id": 44861511,
+              "character_id": 1897,
+              "character_name": "Sora"
+            }
+          ]
+        }
+      ]
     },
     {
       "winner_id": null,
@@ -190,11 +876,57 @@
       "round_text": "Winners Quarter-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
       "state": 3,
-      "details": []
+      "details": [
+        {
+          "game_id": 30526279,
+          "order_num": 1,
+          "winner_id": null,
+          "entrant1_score": 0,
+          "entrant2_score": 3,
+          "stage": "Battlefield",
+          "selections": [
+            {
+              "user_id": null,
+              "selection_id": 44861544,
+              "character_id": 1302,
+              "character_name": "Mario"
+            },
+            {
+              "user_id": 2810722,
+              "selection_id": 44861545,
+              "character_id": 1290,
+              "character_name": "Ice Climbers"
+            }
+          ]
+        },
+        {
+          "game_id": 30526280,
+          "order_num": 2,
+          "winner_id": null,
+          "entrant1_score": 0,
+          "entrant2_score": 3,
+          "stage": "Battlefield",
+          "selections": [
+            {
+              "user_id": null,
+              "selection_id": 44861546,
+              "character_id": 1302,
+              "character_name": "Mario"
+            },
+            {
+              "user_id": 2810722,
+              "selection_id": 44861547,
+              "character_id": 1290,
+              "character_name": "Ice Climbers"
+            }
+          ]
+        }
+      ]
     },
     {
       "winner_id": null,
@@ -204,11 +936,57 @@
       "round_text": "Losers Round 3",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
       "state": 3,
-      "details": []
+      "details": [
+        {
+          "game_id": 30526306,
+          "order_num": 1,
+          "winner_id": null,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": "Battlefield",
+          "selections": [
+            {
+              "user_id": null,
+              "selection_id": 44861596,
+              "character_id": 1295,
+              "character_name": "Kirby"
+            },
+            {
+              "user_id": null,
+              "selection_id": 44861597,
+              "character_id": 1453,
+              "character_name": "Joker"
+            }
+          ]
+        },
+        {
+          "game_id": 30526307,
+          "order_num": 2,
+          "winner_id": null,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": "Battlefield",
+          "selections": [
+            {
+              "user_id": null,
+              "selection_id": 44861598,
+              "character_id": 1295,
+              "character_name": "Kirby"
+            },
+            {
+              "user_id": null,
+              "selection_id": 44861599,
+              "character_id": 1453,
+              "character_name": "Joker"
+            }
+          ]
+        }
+      ]
     },
     {
       "winner_id": 2810722,
@@ -218,6 +996,7 @@
       "round_text": "Losers Round 3",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -228,29 +1007,61 @@
       "winner_id": null,
       "loser_id": 2756340,
       "winner_score": 2,
-      "loser_score": 1,
-      "round_text": "Losers Round 3",
-      "round": -6,
-      "phase": "1",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": []
-    },
-    {
-      "winner_id": null,
-      "loser_id": null,
-      "winner_score": 2,
       "loser_score": 0,
       "round_text": "Losers Round 3",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
       "state": 3,
-      "details": []
+      "details": [
+        {
+          "game_id": 30526346,
+          "order_num": 1,
+          "winner_id": null,
+          "entrant1_score": 0,
+          "entrant2_score": 1,
+          "stage": "Final Destination",
+          "selections": [
+            {
+              "user_id": 2756340,
+              "selection_id": 44861666,
+              "character_id": 1290,
+              "character_name": "Ice Climbers"
+            },
+            {
+              "user_id": null,
+              "selection_id": 44861667,
+              "character_id": 1332,
+              "character_name": "Sonic"
+            }
+          ]
+        },
+        {
+          "game_id": 30526347,
+          "order_num": 2,
+          "winner_id": null,
+          "entrant1_score": 0,
+          "entrant2_score": 2,
+          "stage": "Final Destination",
+          "selections": [
+            {
+              "user_id": 2756340,
+              "selection_id": 44861668,
+              "character_id": 1290,
+              "character_name": "Ice Climbers"
+            },
+            {
+              "user_id": null,
+              "selection_id": 44861669,
+              "character_id": 1332,
+              "character_name": "Sonic"
+            }
+          ]
+        }
+      ]
     },
     {
       "winner_id": null,
@@ -260,11 +1071,57 @@
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
       "state": 3,
-      "details": []
+      "details": [
+        {
+          "game_id": 30522751,
+          "order_num": 1,
+          "winner_id": null,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": "Battlefield",
+          "selections": [
+            {
+              "user_id": null,
+              "selection_id": 44854677,
+              "character_id": 1318,
+              "character_name": "Pichu"
+            },
+            {
+              "user_id": null,
+              "selection_id": 44854678,
+              "character_id": 1332,
+              "character_name": "Sonic"
+            }
+          ]
+        },
+        {
+          "game_id": 30522752,
+          "order_num": 2,
+          "winner_id": null,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": "Battlefield",
+          "selections": [
+            {
+              "user_id": null,
+              "selection_id": 44854679,
+              "character_id": 1318,
+              "character_name": "Pichu"
+            },
+            {
+              "user_id": null,
+              "selection_id": 44854680,
+              "character_id": 1332,
+              "character_name": "Sonic"
+            }
+          ]
+        }
+      ]
     },
     {
       "winner_id": null,
@@ -274,6 +1131,7 @@
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -288,20 +1146,7 @@
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "1",
-      "wave": null,
-      "dq": true,
-      "cancel": false,
-      "state": 3,
-      "details": []
-    },
-    {
-      "winner_id": null,
-      "loser_id": null,
-      "winner_score": 0,
-      "loser_score": -1,
-      "round_text": "Losers Round 2",
-      "round": -5,
-      "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -316,11 +1161,57 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
       "state": 3,
-      "details": []
+      "details": [
+        {
+          "game_id": 30521948,
+          "order_num": 1,
+          "winner_id": 1860526,
+          "entrant1_score": 2,
+          "entrant2_score": 0,
+          "stage": "Battlefield",
+          "selections": [
+            {
+              "user_id": 1860526,
+              "selection_id": 44853217,
+              "character_id": 1408,
+              "character_name": "Dark Samus"
+            },
+            {
+              "user_id": null,
+              "selection_id": 44853218,
+              "character_id": 1332,
+              "character_name": "Sonic"
+            }
+          ]
+        },
+        {
+          "game_id": 30521949,
+          "order_num": 2,
+          "winner_id": 1860526,
+          "entrant1_score": 2,
+          "entrant2_score": 0,
+          "stage": "Battlefield",
+          "selections": [
+            {
+              "user_id": 1860526,
+              "selection_id": 44853219,
+              "character_id": 1408,
+              "character_name": "Dark Samus"
+            },
+            {
+              "user_id": null,
+              "selection_id": 44853220,
+              "character_id": 1273,
+              "character_name": "Bowser"
+            }
+          ]
+        }
+      ]
     },
     {
       "winner_id": null,
@@ -330,6 +1221,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -344,6 +1236,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -358,6 +1251,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -372,25 +1266,57 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
       "state": 3,
-      "details": []
-    },
-    {
-      "winner_id": null,
-      "loser_id": null,
-      "winner_score": 0,
-      "loser_score": -1,
-      "round_text": "Winners Round 2",
-      "round": 2,
-      "phase": "1",
-      "wave": null,
-      "dq": true,
-      "cancel": false,
-      "state": 3,
-      "details": []
+      "details": [
+        {
+          "game_id": 30522024,
+          "order_num": 1,
+          "winner_id": 2756340,
+          "entrant1_score": 1,
+          "entrant2_score": 0,
+          "stage": "Battlefield",
+          "selections": [
+            {
+              "user_id": 2756340,
+              "selection_id": 44853362,
+              "character_id": 1299,
+              "character_name": "Lucas"
+            },
+            {
+              "user_id": null,
+              "selection_id": 44853363,
+              "character_id": 1453,
+              "character_name": "Joker"
+            }
+          ]
+        },
+        {
+          "game_id": 30522025,
+          "order_num": 2,
+          "winner_id": 2756340,
+          "entrant1_score": 1,
+          "entrant2_score": 0,
+          "stage": "Battlefield",
+          "selections": [
+            {
+              "user_id": 2756340,
+              "selection_id": 44853364,
+              "character_id": 1290,
+              "character_name": "Ice Climbers"
+            },
+            {
+              "user_id": null,
+              "selection_id": 44853365,
+              "character_id": 1453,
+              "character_name": "Joker"
+            }
+          ]
+        }
+      ]
     },
     {
       "winner_id": 2810722,
@@ -400,6 +1326,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -411,8 +1338,21 @@
           "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
-          "stage": null,
-          "selections": []
+          "stage": "Battlefield",
+          "selections": [
+            {
+              "user_id": null,
+              "selection_id": 44854569,
+              "character_id": 1318,
+              "character_name": "Pichu"
+            },
+            {
+              "user_id": 2810722,
+              "selection_id": 44854570,
+              "character_id": 1290,
+              "character_name": "Ice Climbers"
+            }
+          ]
         },
         {
           "game_id": 25831396,
@@ -420,8 +1360,21 @@
           "winner_id": 2810722,
           "entrant1_score": 0,
           "entrant2_score": null,
-          "stage": null,
-          "selections": []
+          "stage": "Battlefield",
+          "selections": [
+            {
+              "user_id": null,
+              "selection_id": 44854571,
+              "character_id": 1318,
+              "character_name": "Pichu"
+            },
+            {
+              "user_id": 2810722,
+              "selection_id": 44854572,
+              "character_id": 1290,
+              "character_name": "Ice Climbers"
+            }
+          ]
         },
         {
           "game_id": 25831397,
@@ -429,8 +1382,21 @@
           "winner_id": 2810722,
           "entrant1_score": 0,
           "entrant2_score": null,
-          "stage": null,
-          "selections": []
+          "stage": "Battlefield",
+          "selections": [
+            {
+              "user_id": null,
+              "selection_id": 44854573,
+              "character_id": 1318,
+              "character_name": "Pichu"
+            },
+            {
+              "user_id": 2810722,
+              "selection_id": 44854574,
+              "character_id": 1290,
+              "character_name": "Ice Climbers"
+            }
+          ]
         }
       ]
     },
@@ -442,25 +1408,139 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
       "state": 3,
-      "details": []
+      "details": [
+        {
+          "game_id": 30522720,
+          "order_num": 1,
+          "winner_id": null,
+          "entrant1_score": 3,
+          "entrant2_score": 0,
+          "stage": "Battlefield",
+          "selections": [
+            {
+              "user_id": null,
+              "selection_id": 44854629,
+              "character_id": 1302,
+              "character_name": "Mario"
+            },
+            {
+              "user_id": 283415,
+              "selection_id": 44854630,
+              "character_id": 1332,
+              "character_name": "Sonic"
+            }
+          ]
+        },
+        {
+          "game_id": 30522721,
+          "order_num": 2,
+          "winner_id": null,
+          "entrant1_score": 3,
+          "entrant2_score": 0,
+          "stage": "Battlefield",
+          "selections": [
+            {
+              "user_id": null,
+              "selection_id": 44854631,
+              "character_id": 1302,
+              "character_name": "Mario"
+            },
+            {
+              "user_id": 283415,
+              "selection_id": 44854632,
+              "character_id": 1332,
+              "character_name": "Sonic"
+            }
+          ]
+        }
+      ]
     },
     {
       "winner_id": null,
       "loser_id": 283415,
       "winner_score": 2,
-      "loser_score": 0,
+      "loser_score": 1,
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
       "state": 3,
-      "details": []
+      "details": [
+        {
+          "game_id": 30522731,
+          "order_num": 1,
+          "winner_id": null,
+          "entrant1_score": 0,
+          "entrant2_score": null,
+          "stage": "Battlefield",
+          "selections": [
+            {
+              "user_id": 283415,
+              "selection_id": 44854647,
+              "character_id": 1332,
+              "character_name": "Sonic"
+            },
+            {
+              "user_id": null,
+              "selection_id": 44854648,
+              "character_id": 1332,
+              "character_name": "Sonic"
+            }
+          ]
+        },
+        {
+          "game_id": 30522732,
+          "order_num": 2,
+          "winner_id": 283415,
+          "entrant1_score": 0,
+          "entrant2_score": 0,
+          "stage": "Battlefield",
+          "selections": [
+            {
+              "user_id": 283415,
+              "selection_id": 44854649,
+              "character_id": 1332,
+              "character_name": "Sonic"
+            },
+            {
+              "user_id": null,
+              "selection_id": 44854650,
+              "character_id": 1332,
+              "character_name": "Sonic"
+            }
+          ]
+        },
+        {
+          "game_id": 30522740,
+          "order_num": 3,
+          "winner_id": null,
+          "entrant1_score": 0,
+          "entrant2_score": null,
+          "stage": "Battlefield",
+          "selections": [
+            {
+              "user_id": 283415,
+              "selection_id": 44854661,
+              "character_id": 1332,
+              "character_name": "Sonic"
+            },
+            {
+              "user_id": null,
+              "selection_id": 44854662,
+              "character_id": 1332,
+              "character_name": "Sonic"
+            }
+          ]
+        }
+      ]
     },
     {
       "winner_id": 2766516,
@@ -470,6 +1550,7 @@
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -484,11 +1565,57 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
       "state": 3,
-      "details": []
+      "details": [
+        {
+          "game_id": 30520259,
+          "order_num": 1,
+          "winner_id": null,
+          "entrant1_score": 1,
+          "entrant2_score": 0,
+          "stage": "Final Destination",
+          "selections": [
+            {
+              "user_id": null,
+              "selection_id": 44850086,
+              "character_id": 1332,
+              "character_name": "Sonic"
+            },
+            {
+              "user_id": null,
+              "selection_id": 44850087,
+              "character_id": 1332,
+              "character_name": "Sonic"
+            }
+          ]
+        },
+        {
+          "game_id": 30520260,
+          "order_num": 2,
+          "winner_id": null,
+          "entrant1_score": 1,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": null,
+              "selection_id": 44850088,
+              "character_id": 1332,
+              "character_name": "Sonic"
+            },
+            {
+              "user_id": null,
+              "selection_id": 44850089,
+              "character_id": 1332,
+              "character_name": "Sonic"
+            }
+          ]
+        }
+      ]
     },
     {
       "winner_id": null,
@@ -498,6 +1625,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": true,
       "cancel": false,
