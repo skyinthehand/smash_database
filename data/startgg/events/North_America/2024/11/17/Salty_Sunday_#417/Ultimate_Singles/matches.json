@@ -8,6 +8,7 @@
       "round_text": "Grand Final",
       "round": 5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -89,6 +90,7 @@
       "round_text": "Grand Final Reset",
       "round": 5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -170,6 +172,7 @@
       "round_text": "Winners Final",
       "round": 4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -295,6 +298,7 @@
       "round_text": "Losers Final",
       "round": -8,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -398,6 +402,7 @@
       "round_text": "Losers Semi-Final",
       "round": -7,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -501,6 +506,7 @@
       "round_text": "Winners Semi-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -582,6 +588,7 @@
       "round_text": "Winners Semi-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -707,6 +714,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -782,12 +790,13 @@
     },
     {
       "winner_id": 957806,
-      "loser_id": 2195001,
+      "loser_id": null,
       "winner_score": 3,
       "loser_score": 0,
       "round_text": "Losers Quarter-Final",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -808,7 +817,7 @@
               "character_name": "Palutena"
             },
             {
-              "user_id": 2195001,
+              "user_id": null,
               "selection_id": 38273517,
               "character_id": 1897,
               "character_name": "Sora"
@@ -830,7 +839,7 @@
               "character_name": "Palutena"
             },
             {
-              "user_id": 2195001,
+              "user_id": null,
               "selection_id": 38273519,
               "character_id": 1453,
               "character_name": "Joker"
@@ -852,7 +861,7 @@
               "character_name": "King Dedede"
             },
             {
-              "user_id": 2195001,
+              "user_id": null,
               "selection_id": 38273521,
               "character_id": 1453,
               "character_name": "Joker"
@@ -869,6 +878,7 @@
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -965,13 +975,14 @@
       ]
     },
     {
-      "winner_id": 2195001,
+      "winner_id": null,
       "loser_id": 971293,
       "winner_score": 3,
       "loser_score": 0,
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -980,7 +991,7 @@
         {
           "game_id": 26280158,
           "order_num": 1,
-          "winner_id": 2195001,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
@@ -992,7 +1003,7 @@
               "character_name": "Lucina"
             },
             {
-              "user_id": 2195001,
+              "user_id": null,
               "selection_id": 38273125,
               "character_id": 1897,
               "character_name": "Sora"
@@ -1002,7 +1013,7 @@
         {
           "game_id": 26280159,
           "order_num": 2,
-          "winner_id": 2195001,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
@@ -1014,7 +1025,7 @@
               "character_name": "Lucina"
             },
             {
-              "user_id": 2195001,
+              "user_id": null,
               "selection_id": 38273127,
               "character_id": 1897,
               "character_name": "Sora"
@@ -1024,7 +1035,7 @@
         {
           "game_id": 26280160,
           "order_num": 3,
-          "winner_id": 2195001,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
@@ -1036,7 +1047,7 @@
               "character_name": "Lucina"
             },
             {
-              "user_id": 2195001,
+              "user_id": null,
               "selection_id": 38273129,
               "character_id": 1897,
               "character_name": "Sora"
@@ -1047,12 +1058,13 @@
     },
     {
       "winner_id": null,
-      "loser_id": 2195001,
+      "loser_id": null,
       "winner_score": 3,
       "loser_score": 0,
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1073,7 +1085,7 @@
               "character_name": "Piranha Plant"
             },
             {
-              "user_id": 2195001,
+              "user_id": null,
               "selection_id": 38271859,
               "character_id": 1897,
               "character_name": "Sora"
@@ -1095,7 +1107,7 @@
               "character_name": "Piranha Plant"
             },
             {
-              "user_id": 2195001,
+              "user_id": null,
               "selection_id": 38271861,
               "character_id": 1897,
               "character_name": "Sora"
@@ -1117,7 +1129,7 @@
               "character_name": "Piranha Plant"
             },
             {
-              "user_id": 2195001,
+              "user_id": null,
               "selection_id": 38271863,
               "character_id": 1897,
               "character_name": "Sora"
@@ -1134,6 +1146,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1237,6 +1250,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1340,6 +1354,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1443,6 +1458,7 @@
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1546,6 +1562,7 @@
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1627,6 +1644,7 @@
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1745,13 +1763,14 @@
       ]
     },
     {
-      "winner_id": 2195001,
+      "winner_id": null,
       "loser_id": 2448727,
       "winner_score": 3,
       "loser_score": 0,
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1760,7 +1779,7 @@
         {
           "game_id": 26279478,
           "order_num": 1,
-          "winner_id": 2195001,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
@@ -1772,7 +1791,7 @@
               "character_name": "Piranha Plant"
             },
             {
-              "user_id": 2195001,
+              "user_id": null,
               "selection_id": 38272215,
               "character_id": 1897,
               "character_name": "Sora"
@@ -1782,7 +1801,7 @@
         {
           "game_id": 26279479,
           "order_num": 2,
-          "winner_id": 2195001,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
@@ -1794,7 +1813,7 @@
               "character_name": "Piranha Plant"
             },
             {
-              "user_id": 2195001,
+              "user_id": null,
               "selection_id": 38272217,
               "character_id": 1897,
               "character_name": "Sora"
@@ -1804,7 +1823,7 @@
         {
           "game_id": 26279480,
           "order_num": 3,
-          "winner_id": 2195001,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
@@ -1816,7 +1835,7 @@
               "character_name": "Ganondorf"
             },
             {
-              "user_id": 2195001,
+              "user_id": null,
               "selection_id": 38272219,
               "character_id": 1897,
               "character_name": "Sora"
@@ -1826,13 +1845,14 @@
       ]
     },
     {
-      "winner_id": 2195001,
+      "winner_id": null,
       "loser_id": 2338128,
       "winner_score": 3,
       "loser_score": 1,
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1841,7 +1861,7 @@
         {
           "game_id": 26278846,
           "order_num": 1,
-          "winner_id": 2195001,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": 0,
           "stage": null,
@@ -1853,7 +1873,7 @@
               "character_name": "Pit"
             },
             {
-              "user_id": 2195001,
+              "user_id": null,
               "selection_id": 38271391,
               "character_id": 1453,
               "character_name": "Joker"
@@ -1875,7 +1895,7 @@
               "character_name": "Pit"
             },
             {
-              "user_id": 2195001,
+              "user_id": null,
               "selection_id": 38271393,
               "character_id": 1453,
               "character_name": "Joker"
@@ -1885,7 +1905,7 @@
         {
           "game_id": 26278848,
           "order_num": 3,
-          "winner_id": 2195001,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
@@ -1897,7 +1917,7 @@
               "character_name": "Pit"
             },
             {
-              "user_id": 2195001,
+              "user_id": null,
               "selection_id": 38271395,
               "character_id": 1897,
               "character_name": "Sora"
@@ -1907,7 +1927,7 @@
         {
           "game_id": 26278894,
           "order_num": 4,
-          "winner_id": 2195001,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
@@ -1919,7 +1939,7 @@
               "character_name": "Pit"
             },
             {
-              "user_id": 2195001,
+              "user_id": null,
               "selection_id": 38271470,
               "character_id": 1897,
               "character_name": "Sora"
@@ -1936,6 +1956,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2017,6 +2038,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2120,6 +2142,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,

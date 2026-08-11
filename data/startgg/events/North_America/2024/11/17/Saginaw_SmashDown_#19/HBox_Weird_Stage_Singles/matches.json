@@ -8,6 +8,7 @@
       "round_text": "Grand Final",
       "round": 4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -111,6 +112,7 @@
       "round_text": "Winners Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -214,6 +216,7 @@
       "round_text": "Losers Final",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -317,6 +320,7 @@
       "round_text": "Losers Semi-Final",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -442,6 +446,7 @@
       "round_text": "Winners Semi-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -523,6 +528,7 @@
       "round_text": "Winners Semi-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -604,6 +610,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -657,12 +664,13 @@
     },
     {
       "winner_id": 1742066,
-      "loser_id": 2540789,
+      "loser_id": null,
       "winner_score": 2,
       "loser_score": 1,
       "round_text": "Losers Quarter-Final",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -683,7 +691,7 @@
               "character_name": "Bowser"
             },
             {
-              "user_id": 2540789,
+              "user_id": null,
               "selection_id": 38280088,
               "character_id": 1330,
               "character_name": "Shulk"
@@ -693,7 +701,7 @@
         {
           "game_id": 26285576,
           "order_num": 2,
-          "winner_id": 2540789,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
@@ -705,7 +713,7 @@
               "character_name": "Bowser"
             },
             {
-              "user_id": 2540789,
+              "user_id": null,
               "selection_id": 38280090,
               "character_id": 1330,
               "character_name": "Shulk"
@@ -727,7 +735,7 @@
               "character_name": "King K. Rool"
             },
             {
-              "user_id": 2540789,
+              "user_id": null,
               "selection_id": 38280092,
               "character_id": 1330,
               "character_name": "Shulk"
@@ -737,13 +745,14 @@
       ]
     },
     {
-      "winner_id": 2540789,
+      "winner_id": null,
       "loser_id": 1447414,
       "winner_score": 0,
       "loser_score": -1,
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -758,6 +767,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -861,6 +871,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -869,12 +880,13 @@
     },
     {
       "winner_id": 1742251,
-      "loser_id": 2540789,
+      "loser_id": null,
       "winner_score": 2,
       "loser_score": 0,
       "round_text": "Winners Quarter-Final",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -895,7 +907,7 @@
               "character_name": "Kazuya"
             },
             {
-              "user_id": 2540789,
+              "user_id": null,
               "selection_id": 38277157,
               "character_id": 1330,
               "character_name": "Shulk"
@@ -917,7 +929,7 @@
               "character_name": "Kazuya"
             },
             {
-              "user_id": 2540789,
+              "user_id": null,
               "selection_id": 38277159,
               "character_id": 1330,
               "character_name": "Shulk"
