@@ -8,6 +8,7 @@
       "round_text": "Grand Final",
       "round": 6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -133,6 +134,7 @@
       "round_text": "Grand Final Reset",
       "round": 6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -236,6 +238,7 @@
       "round_text": "Winners Final",
       "round": 5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -333,12 +336,13 @@
     },
     {
       "winner_id": 154352,
-      "loser_id": 1050261,
+      "loser_id": 3450051,
       "winner_score": 3,
       "loser_score": 2,
       "round_text": "Losers Final",
       "round": -10,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -347,7 +351,7 @@
         {
           "game_id": 26025919,
           "order_num": 1,
-          "winner_id": 1050261,
+          "winner_id": 3450051,
           "entrant1_score": null,
           "entrant2_score": null,
           "stage": "Smashville",
@@ -359,7 +363,7 @@
               "character_name": "Hero"
             },
             {
-              "user_id": 1050261,
+              "user_id": 3450051,
               "selection_id": 37882700,
               "character_id": 1777,
               "character_name": "Sephiroth"
@@ -375,7 +379,7 @@
           "stage": "Smashville",
           "selections": [
             {
-              "user_id": 1050261,
+              "user_id": 3450051,
               "selection_id": 37882745,
               "character_id": 1777,
               "character_name": "Sephiroth"
@@ -403,7 +407,7 @@
               "character_name": "Hero"
             },
             {
-              "user_id": 1050261,
+              "user_id": 3450051,
               "selection_id": 37882756,
               "character_id": 1777,
               "character_name": "Sephiroth"
@@ -413,7 +417,7 @@
         {
           "game_id": 26025972,
           "order_num": 4,
-          "winner_id": 1050261,
+          "winner_id": 3450051,
           "entrant1_score": null,
           "entrant2_score": null,
           "stage": "Small Battlefield",
@@ -425,7 +429,7 @@
               "character_name": "Hero"
             },
             {
-              "user_id": 1050261,
+              "user_id": 3450051,
               "selection_id": 37882806,
               "character_id": 1777,
               "character_name": "Sephiroth"
@@ -441,7 +445,7 @@
           "stage": "Smashville",
           "selections": [
             {
-              "user_id": 1050261,
+              "user_id": 3450051,
               "selection_id": 37882945,
               "character_id": 1777,
               "character_name": "Sephiroth"
@@ -457,13 +461,14 @@
       ]
     },
     {
-      "winner_id": 1050261,
+      "winner_id": 3450051,
       "loser_id": 1450219,
       "winner_score": 3,
       "loser_score": 1,
       "round_text": "Losers Semi-Final",
       "round": -9,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -472,7 +477,7 @@
         {
           "game_id": 26025869,
           "order_num": 1,
-          "winner_id": 1050261,
+          "winner_id": 3450051,
           "entrant1_score": null,
           "entrant2_score": null,
           "stage": "Small Battlefield",
@@ -484,7 +489,7 @@
               "character_name": "Mii Brawler"
             },
             {
-              "user_id": 1050261,
+              "user_id": 3450051,
               "selection_id": 37882600,
               "character_id": 1777,
               "character_name": "Sephiroth"
@@ -500,7 +505,7 @@
           "stage": "Small Battlefield",
           "selections": [
             {
-              "user_id": 1050261,
+              "user_id": 3450051,
               "selection_id": 37882617,
               "character_id": 1777,
               "character_name": "Sephiroth"
@@ -516,7 +521,7 @@
         {
           "game_id": 26025886,
           "order_num": 3,
-          "winner_id": 1050261,
+          "winner_id": 3450051,
           "entrant1_score": null,
           "entrant2_score": null,
           "stage": "Small Battlefield",
@@ -528,7 +533,7 @@
               "character_name": "Mii Brawler"
             },
             {
-              "user_id": 1050261,
+              "user_id": 3450051,
               "selection_id": 37882634,
               "character_id": 1777,
               "character_name": "Sephiroth"
@@ -538,13 +543,13 @@
         {
           "game_id": 26025903,
           "order_num": 4,
-          "winner_id": 1050261,
+          "winner_id": 3450051,
           "entrant1_score": null,
           "entrant2_score": null,
           "stage": "Small Battlefield",
           "selections": [
             {
-              "user_id": 1050261,
+              "user_id": 3450051,
               "selection_id": 37882667,
               "character_id": 1777,
               "character_name": "Sephiroth"
@@ -567,6 +572,7 @@
       "round_text": "Winners Semi-Final",
       "round": 4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -692,6 +698,7 @@
       "round_text": "Winners Semi-Final",
       "round": 4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -795,6 +802,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -8,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -869,13 +877,14 @@
       ]
     },
     {
-      "winner_id": 1050261,
+      "winner_id": 3450051,
       "loser_id": 1870161,
       "winner_score": 3,
       "loser_score": 1,
       "round_text": "Losers Quarter-Final",
       "round": -8,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -884,7 +893,7 @@
         {
           "game_id": 26025781,
           "order_num": 1,
-          "winner_id": 1050261,
+          "winner_id": 3450051,
           "entrant1_score": null,
           "entrant2_score": null,
           "stage": "Small Battlefield",
@@ -896,7 +905,7 @@
               "character_name": "Duck Hunt"
             },
             {
-              "user_id": 1050261,
+              "user_id": 3450051,
               "selection_id": 37882424,
               "character_id": 1777,
               "character_name": "Sephiroth"
@@ -906,13 +915,13 @@
         {
           "game_id": 26025793,
           "order_num": 2,
-          "winner_id": 1050261,
+          "winner_id": 3450051,
           "entrant1_score": null,
           "entrant2_score": null,
           "stage": "Pokémon Stadium 2",
           "selections": [
             {
-              "user_id": 1050261,
+              "user_id": 3450051,
               "selection_id": 37882447,
               "character_id": 1777,
               "character_name": "Sephiroth"
@@ -934,7 +943,7 @@
           "stage": "Pokémon Stadium 2",
           "selections": [
             {
-              "user_id": 1050261,
+              "user_id": 3450051,
               "selection_id": 37882473,
               "character_id": 1777,
               "character_name": "Sephiroth"
@@ -950,7 +959,7 @@
         {
           "game_id": 26025818,
           "order_num": 4,
-          "winner_id": 1050261,
+          "winner_id": 3450051,
           "entrant1_score": null,
           "entrant2_score": null,
           "stage": "Small Battlefield",
@@ -962,7 +971,7 @@
               "character_name": "Duck Hunt"
             },
             {
-              "user_id": 1050261,
+              "user_id": 3450051,
               "selection_id": 37882498,
               "character_id": 1777,
               "character_name": "Sephiroth"
@@ -979,6 +988,7 @@
       "round_text": "Losers Round 5",
       "round": -7,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1097,13 +1107,14 @@
       ]
     },
     {
-      "winner_id": 1050261,
+      "winner_id": 3450051,
       "loser_id": 1324837,
       "winner_score": 3,
       "loser_score": 0,
       "round_text": "Losers Round 5",
       "round": -7,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1112,7 +1123,7 @@
         {
           "game_id": 26025725,
           "order_num": 1,
-          "winner_id": 1050261,
+          "winner_id": 3450051,
           "entrant1_score": null,
           "entrant2_score": null,
           "stage": "Small Battlefield",
@@ -1124,7 +1135,7 @@
               "character_name": "Yoshi"
             },
             {
-              "user_id": 1050261,
+              "user_id": 3450051,
               "selection_id": 37882318,
               "character_id": 1777,
               "character_name": "Sephiroth"
@@ -1134,13 +1145,13 @@
         {
           "game_id": 26025730,
           "order_num": 2,
-          "winner_id": 1050261,
+          "winner_id": 3450051,
           "entrant1_score": null,
           "entrant2_score": null,
           "stage": "Small Battlefield",
           "selections": [
             {
-              "user_id": 1050261,
+              "user_id": 3450051,
               "selection_id": 37882327,
               "character_id": 1777,
               "character_name": "Sephiroth"
@@ -1156,13 +1167,13 @@
         {
           "game_id": 26025751,
           "order_num": 3,
-          "winner_id": 1050261,
+          "winner_id": 3450051,
           "entrant1_score": null,
           "entrant2_score": null,
           "stage": "Pokémon Stadium 2",
           "selections": [
             {
-              "user_id": 1050261,
+              "user_id": 3450051,
               "selection_id": 37882369,
               "character_id": 1777,
               "character_name": "Sephiroth"
@@ -1179,12 +1190,13 @@
     },
     {
       "winner_id": 1450219,
-      "loser_id": 1050261,
+      "loser_id": 3450051,
       "winner_score": 3,
       "loser_score": 0,
       "round_text": "Winners Quarter-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1199,7 +1211,7 @@
           "stage": "Pokémon Stadium 2",
           "selections": [
             {
-              "user_id": 1050261,
+              "user_id": 3450051,
               "selection_id": 37882073,
               "character_id": 1539,
               "character_name": "Byleth"
@@ -1227,7 +1239,7 @@
               "character_name": "Bayonetta"
             },
             {
-              "user_id": 1050261,
+              "user_id": 3450051,
               "selection_id": 37882108,
               "character_id": 1539,
               "character_name": "Byleth"
@@ -1243,7 +1255,7 @@
           "stage": "Pokémon Stadium 2",
           "selections": [
             {
-              "user_id": 1050261,
+              "user_id": 3450051,
               "selection_id": 37882181,
               "character_id": 1777,
               "character_name": "Sephiroth"
@@ -1266,6 +1278,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1347,6 +1360,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1472,6 +1486,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1575,6 +1590,7 @@
       "round_text": "Losers Round 4",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1656,6 +1672,7 @@
       "round_text": "Losers Round 4",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1737,6 +1754,7 @@
       "round_text": "Losers Round 4",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1855,13 +1873,14 @@
       ]
     },
     {
-      "winner_id": 1050261,
+      "winner_id": 3450051,
       "loser_id": 2275504,
       "winner_score": 3,
       "loser_score": 1,
       "round_text": "Losers Round 4",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1870,7 +1889,7 @@
         {
           "game_id": 26025698,
           "order_num": 1,
-          "winner_id": 1050261,
+          "winner_id": 3450051,
           "entrant1_score": null,
           "entrant2_score": null,
           "stage": "Battlefield",
@@ -1882,7 +1901,7 @@
               "character_name": "Jigglypuff"
             },
             {
-              "user_id": 1050261,
+              "user_id": 3450051,
               "selection_id": 37882264,
               "character_id": 1777,
               "character_name": "Sephiroth"
@@ -1898,7 +1917,7 @@
           "stage": "Battlefield",
           "selections": [
             {
-              "user_id": 1050261,
+              "user_id": 3450051,
               "selection_id": 37882269,
               "character_id": 1777,
               "character_name": "Sephiroth"
@@ -1914,7 +1933,7 @@
         {
           "game_id": 26025704,
           "order_num": 3,
-          "winner_id": 1050261,
+          "winner_id": 3450051,
           "entrant1_score": null,
           "entrant2_score": null,
           "stage": "Town and City",
@@ -1926,7 +1945,7 @@
               "character_name": "Jigglypuff"
             },
             {
-              "user_id": 1050261,
+              "user_id": 3450051,
               "selection_id": 37882276,
               "character_id": 1777,
               "character_name": "Sephiroth"
@@ -1936,13 +1955,13 @@
         {
           "game_id": 26025709,
           "order_num": 4,
-          "winner_id": 1050261,
+          "winner_id": 3450051,
           "entrant1_score": null,
           "entrant2_score": null,
           "stage": "Battlefield",
           "selections": [
             {
-              "user_id": 1050261,
+              "user_id": 3450051,
               "selection_id": 37882285,
               "character_id": 1777,
               "character_name": "Sephiroth"
@@ -1965,6 +1984,7 @@
       "round_text": "Losers Round 3",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2046,6 +2066,7 @@
       "round_text": "Losers Round 3",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2127,6 +2148,7 @@
       "round_text": "Losers Round 3",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2208,6 +2230,7 @@
       "round_text": "Losers Round 3",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2289,6 +2312,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2370,6 +2394,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2429,6 +2454,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2488,6 +2514,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2562,13 +2589,14 @@
       ]
     },
     {
-      "winner_id": 1050261,
+      "winner_id": 3450051,
       "loser_id": 1877609,
       "winner_score": 2,
       "loser_score": 1,
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2589,7 +2617,7 @@
               "character_name": "Olimar"
             },
             {
-              "user_id": 1050261,
+              "user_id": 3450051,
               "selection_id": 37881966,
               "character_id": 1777,
               "character_name": "Sephiroth"
@@ -2599,7 +2627,7 @@
         {
           "game_id": 26025555,
           "order_num": 2,
-          "winner_id": 1050261,
+          "winner_id": 3450051,
           "entrant1_score": null,
           "entrant2_score": null,
           "stage": "Small Battlefield",
@@ -2611,7 +2639,7 @@
               "character_name": "Olimar"
             },
             {
-              "user_id": 1050261,
+              "user_id": 3450051,
               "selection_id": 37881988,
               "character_id": 1777,
               "character_name": "Sephiroth"
@@ -2621,13 +2649,13 @@
         {
           "game_id": 26025566,
           "order_num": 3,
-          "winner_id": 1050261,
+          "winner_id": 3450051,
           "entrant1_score": null,
           "entrant2_score": null,
           "stage": "Small Battlefield",
           "selections": [
             {
-              "user_id": 1050261,
+              "user_id": 3450051,
               "selection_id": 37882009,
               "character_id": 1777,
               "character_name": "Sephiroth"
@@ -2650,6 +2678,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2709,6 +2738,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2768,6 +2798,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2827,6 +2858,7 @@
       "round_text": "Losers Round 2",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2886,6 +2918,7 @@
       "round_text": "Losers Round 2",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2945,6 +2978,7 @@
       "round_text": "Losers Round 2",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3004,6 +3038,7 @@
       "round_text": "Losers Round 2",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3063,6 +3098,7 @@
       "round_text": "Losers Round 2",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3122,6 +3158,7 @@
       "round_text": "Losers Round 2",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -3136,6 +3173,7 @@
       "round_text": "Losers Round 2",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3195,6 +3233,7 @@
       "round_text": "Losers Round 2",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3254,6 +3293,7 @@
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3313,6 +3353,7 @@
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3372,6 +3413,7 @@
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3453,6 +3495,7 @@
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3512,6 +3555,7 @@
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3571,6 +3615,7 @@
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -3585,6 +3630,7 @@
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3644,6 +3690,7 @@
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3703,6 +3750,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3762,6 +3810,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3821,6 +3870,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3880,6 +3930,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3961,6 +4012,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -4042,6 +4094,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -4101,6 +4154,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -4160,6 +4214,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -4212,13 +4267,14 @@
       ]
     },
     {
-      "winner_id": 1050261,
+      "winner_id": 3450051,
       "loser_id": 2595329,
       "winner_score": 2,
       "loser_score": 0,
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -4227,7 +4283,7 @@
         {
           "game_id": 26025513,
           "order_num": 1,
-          "winner_id": 1050261,
+          "winner_id": 3450051,
           "entrant1_score": null,
           "entrant2_score": null,
           "stage": "Small Battlefield",
@@ -4239,7 +4295,7 @@
               "character_name": "Byleth"
             },
             {
-              "user_id": 1050261,
+              "user_id": 3450051,
               "selection_id": 37881904,
               "character_id": 1777,
               "character_name": "Sephiroth"
@@ -4249,13 +4305,13 @@
         {
           "game_id": 26025528,
           "order_num": 2,
-          "winner_id": 1050261,
+          "winner_id": 3450051,
           "entrant1_score": null,
           "entrant2_score": null,
           "stage": "Hollow Bastion",
           "selections": [
             {
-              "user_id": 1050261,
+              "user_id": 3450051,
               "selection_id": 37881933,
               "character_id": 1777,
               "character_name": "Sephiroth"
@@ -4278,6 +4334,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -4337,6 +4394,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -4351,6 +4409,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -4365,6 +4424,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -4424,6 +4484,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -4483,6 +4544,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -4542,6 +4604,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
