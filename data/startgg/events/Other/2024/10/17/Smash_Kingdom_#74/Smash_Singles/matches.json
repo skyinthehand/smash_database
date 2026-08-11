@@ -8,6 +8,7 @@
       "round_text": "Grand Final",
       "round": 5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -133,6 +134,7 @@
       "round_text": "Winners Final",
       "round": 4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -258,6 +260,7 @@
       "round_text": "Losers Final",
       "round": -8,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -361,6 +364,7 @@
       "round_text": "Losers Semi-Final",
       "round": -7,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -420,6 +424,7 @@
       "round_text": "Winners Semi-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -501,6 +506,7 @@
       "round_text": "Winners Semi-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -582,6 +588,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -590,12 +597,13 @@
     },
     {
       "winner_id": 941570,
-      "loser_id": 552116,
+      "loser_id": null,
       "winner_score": 2,
       "loser_score": 1,
       "round_text": "Losers Quarter-Final",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -604,7 +612,7 @@
         {
           "game_id": 25612312,
           "order_num": 1,
-          "winner_id": 552116,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
@@ -616,7 +624,7 @@
               "character_name": "Dark Pit"
             },
             {
-              "user_id": 552116,
+              "user_id": null,
               "selection_id": 37255118,
               "character_id": 1271,
               "character_name": "Bayonetta"
@@ -638,7 +646,7 @@
               "character_name": "Dark Pit"
             },
             {
-              "user_id": 552116,
+              "user_id": null,
               "selection_id": 37255120,
               "character_id": 1271,
               "character_name": "Bayonetta"
@@ -660,7 +668,7 @@
               "character_name": "Dark Pit"
             },
             {
-              "user_id": 552116,
+              "user_id": null,
               "selection_id": 37255122,
               "character_id": 1271,
               "character_name": "Bayonetta"
@@ -677,6 +685,7 @@
       "round_text": "Losers Round 3",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -751,13 +760,14 @@
       ]
     },
     {
-      "winner_id": 552116,
+      "winner_id": null,
       "loser_id": 857329,
       "winner_score": 2,
       "loser_score": 0,
       "round_text": "Losers Round 3",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -766,7 +776,7 @@
         {
           "game_id": 25611550,
           "order_num": 1,
-          "winner_id": 552116,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
@@ -778,7 +788,7 @@
               "character_name": "Sephiroth"
             },
             {
-              "user_id": 552116,
+              "user_id": null,
               "selection_id": 37254203,
               "character_id": 1271,
               "character_name": "Bayonetta"
@@ -788,7 +798,7 @@
         {
           "game_id": 25611551,
           "order_num": 2,
-          "winner_id": 552116,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
@@ -800,7 +810,7 @@
               "character_name": "Sephiroth"
             },
             {
-              "user_id": 552116,
+              "user_id": null,
               "selection_id": 37254205,
               "character_id": 1271,
               "character_name": "Bayonetta"
@@ -817,6 +827,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -870,12 +881,13 @@
     },
     {
       "winner_id": 652481,
-      "loser_id": 552116,
+      "loser_id": null,
       "winner_score": 2,
       "loser_score": 1,
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -896,7 +908,7 @@
               "character_name": "Link"
             },
             {
-              "user_id": 552116,
+              "user_id": null,
               "selection_id": 37252751,
               "character_id": 1271,
               "character_name": "Bayonetta"
@@ -906,7 +918,7 @@
         {
           "game_id": 25610409,
           "order_num": 2,
-          "winner_id": 552116,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
@@ -918,7 +930,7 @@
               "character_name": "Link"
             },
             {
-              "user_id": 552116,
+              "user_id": null,
               "selection_id": 37252753,
               "character_id": 1271,
               "character_name": "Bayonetta"
@@ -940,7 +952,7 @@
               "character_name": "Link"
             },
             {
-              "user_id": 552116,
+              "user_id": null,
               "selection_id": 37252755,
               "character_id": 1271,
               "character_name": "Bayonetta"
@@ -957,6 +969,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1038,6 +1051,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1097,6 +1111,7 @@
       "round_text": "Losers Round 2",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1156,6 +1171,7 @@
       "round_text": "Losers Round 2",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1208,13 +1224,14 @@
       ]
     },
     {
-      "winner_id": 552116,
+      "winner_id": null,
       "loser_id": 2525977,
       "winner_score": 2,
       "loser_score": 0,
       "round_text": "Losers Round 2",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1223,7 +1240,7 @@
         {
           "game_id": 25610894,
           "order_num": 1,
-          "winner_id": 552116,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
@@ -1235,7 +1252,7 @@
               "character_name": "Daisy"
             },
             {
-              "user_id": 552116,
+              "user_id": null,
               "selection_id": 37253378,
               "character_id": 1271,
               "character_name": "Bayonetta"
@@ -1245,7 +1262,7 @@
         {
           "game_id": 25610895,
           "order_num": 2,
-          "winner_id": 552116,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
@@ -1257,7 +1274,7 @@
               "character_name": "Daisy"
             },
             {
-              "user_id": 552116,
+              "user_id": null,
               "selection_id": 37253380,
               "character_id": 1271,
               "character_name": "Bayonetta"
@@ -1274,6 +1291,7 @@
       "round_text": "Losers Round 2",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1333,6 +1351,7 @@
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1347,6 +1366,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1399,13 +1419,14 @@
       ]
     },
     {
-      "winner_id": 552116,
+      "winner_id": null,
       "loser_id": null,
       "winner_score": 2,
       "loser_score": 0,
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1420,6 +1441,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1479,6 +1501,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1538,6 +1561,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
