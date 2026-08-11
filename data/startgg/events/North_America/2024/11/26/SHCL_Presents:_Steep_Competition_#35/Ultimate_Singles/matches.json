@@ -8,6 +8,7 @@
       "round_text": "Grand Final",
       "round": 5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -127,12 +128,13 @@
     },
     {
       "winner_id": null,
-      "loser_id": 1204034,
+      "loser_id": null,
       "winner_score": 3,
       "loser_score": 1,
       "round_text": "Winners Final",
       "round": 4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -153,7 +155,7 @@
               "character_name": "King K. Rool"
             },
             {
-              "user_id": 1204034,
+              "user_id": null,
               "selection_id": 38548022,
               "character_id": 1287,
               "character_name": "Ganondorf"
@@ -175,7 +177,7 @@
               "character_name": "King K. Rool"
             },
             {
-              "user_id": 1204034,
+              "user_id": null,
               "selection_id": 38548024,
               "character_id": 1406,
               "character_name": "Incineroar"
@@ -185,7 +187,7 @@
         {
           "game_id": 26462217,
           "order_num": 3,
-          "winner_id": 1204034,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": 0,
           "stage": null,
@@ -197,7 +199,7 @@
               "character_name": "King K. Rool"
             },
             {
-              "user_id": 1204034,
+              "user_id": null,
               "selection_id": 38548026,
               "character_id": 1280,
               "character_name": "Donkey Kong"
@@ -219,7 +221,7 @@
               "character_name": "King K. Rool"
             },
             {
-              "user_id": 1204034,
+              "user_id": null,
               "selection_id": 38548028,
               "character_id": 1280,
               "character_name": "Donkey Kong"
@@ -230,12 +232,13 @@
     },
     {
       "winner_id": 1097152,
-      "loser_id": 1204034,
+      "loser_id": null,
       "winner_score": 3,
       "loser_score": 2,
       "round_text": "Losers Final",
       "round": -8,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -256,7 +259,7 @@
               "character_name": "King K. Rool"
             },
             {
-              "user_id": 1204034,
+              "user_id": null,
               "selection_id": 38551751,
               "character_id": 1287,
               "character_name": "Ganondorf"
@@ -278,7 +281,7 @@
               "character_name": "King K. Rool"
             },
             {
-              "user_id": 1204034,
+              "user_id": null,
               "selection_id": 38551753,
               "character_id": 1273,
               "character_name": "Bowser"
@@ -288,7 +291,7 @@
         {
           "game_id": 26464526,
           "order_num": 3,
-          "winner_id": 1204034,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
@@ -300,7 +303,7 @@
               "character_name": "King K. Rool"
             },
             {
-              "user_id": 1204034,
+              "user_id": null,
               "selection_id": 38551755,
               "character_id": 1328,
               "character_name": "Samus"
@@ -310,7 +313,7 @@
         {
           "game_id": 26464527,
           "order_num": 4,
-          "winner_id": 1204034,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
@@ -322,7 +325,7 @@
               "character_name": "King K. Rool"
             },
             {
-              "user_id": 1204034,
+              "user_id": null,
               "selection_id": 38551757,
               "character_id": 1328,
               "character_name": "Samus"
@@ -344,7 +347,7 @@
               "character_name": "King K. Rool"
             },
             {
-              "user_id": 1204034,
+              "user_id": null,
               "selection_id": 38551759,
               "character_id": 1328,
               "character_name": "Samus"
@@ -361,6 +364,7 @@
       "round_text": "Losers Semi-Final",
       "round": -7,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -479,13 +483,14 @@
       ]
     },
     {
-      "winner_id": 1204034,
+      "winner_id": null,
       "loser_id": 1097152,
       "winner_score": 3,
       "loser_score": 1,
       "round_text": "Winners Semi-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -506,7 +511,7 @@
               "character_name": "King K. Rool"
             },
             {
-              "user_id": 1204034,
+              "user_id": null,
               "selection_id": 38547771,
               "character_id": 1328,
               "character_name": "Samus"
@@ -516,7 +521,7 @@
         {
           "game_id": 26462043,
           "order_num": 2,
-          "winner_id": 1204034,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
@@ -528,7 +533,7 @@
               "character_name": "King K. Rool"
             },
             {
-              "user_id": 1204034,
+              "user_id": null,
               "selection_id": 38547773,
               "character_id": 1328,
               "character_name": "Samus"
@@ -538,7 +543,7 @@
         {
           "game_id": 26462044,
           "order_num": 3,
-          "winner_id": 1204034,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
@@ -550,7 +555,7 @@
               "character_name": "King K. Rool"
             },
             {
-              "user_id": 1204034,
+              "user_id": null,
               "selection_id": 38547775,
               "character_id": 1328,
               "character_name": "Samus"
@@ -560,7 +565,7 @@
         {
           "game_id": 26462045,
           "order_num": 4,
-          "winner_id": 1204034,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
@@ -572,7 +577,7 @@
               "character_name": "King K. Rool"
             },
             {
-              "user_id": 1204034,
+              "user_id": null,
               "selection_id": 38547777,
               "character_id": 1287,
               "character_name": "Ganondorf"
@@ -589,6 +594,7 @@
       "round_text": "Winners Semi-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -714,6 +720,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -817,6 +824,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -942,6 +950,7 @@
       "round_text": "Losers Round 3",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1023,6 +1032,7 @@
       "round_text": "Losers Round 3",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1148,6 +1158,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1200,13 +1211,14 @@
       ]
     },
     {
-      "winner_id": 1204034,
+      "winner_id": null,
       "loser_id": 414903,
       "winner_score": 2,
       "loser_score": 0,
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1215,13 +1227,13 @@
         {
           "game_id": 26460934,
           "order_num": 1,
-          "winner_id": 1204034,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
           "selections": [
             {
-              "user_id": 1204034,
+              "user_id": null,
               "selection_id": 38546184,
               "character_id": 1328,
               "character_name": "Samus"
@@ -1237,13 +1249,13 @@
         {
           "game_id": 26460935,
           "order_num": 2,
-          "winner_id": 1204034,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
           "selections": [
             {
-              "user_id": 1204034,
+              "user_id": null,
               "selection_id": 38546186,
               "character_id": 1328,
               "character_name": "Samus"
@@ -1266,6 +1278,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1347,6 +1360,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1428,6 +1442,7 @@
       "round_text": "Losers Round 2",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1509,6 +1524,7 @@
       "round_text": "Losers Round 2",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1568,6 +1584,7 @@
       "round_text": "Losers Round 2",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1649,6 +1666,7 @@
       "round_text": "Losers Round 2",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1730,6 +1748,7 @@
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1811,6 +1830,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1863,13 +1883,14 @@
       ]
     },
     {
-      "winner_id": 1204034,
+      "winner_id": null,
       "loser_id": 2282917,
       "winner_score": 2,
       "loser_score": 0,
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1878,7 +1899,7 @@
         {
           "game_id": 26459757,
           "order_num": 1,
-          "winner_id": 1204034,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
@@ -1890,7 +1911,7 @@
               "character_name": "Samus"
             },
             {
-              "user_id": 1204034,
+              "user_id": null,
               "selection_id": 38544626,
               "character_id": 1408,
               "character_name": "Dark Samus"
@@ -1900,7 +1921,7 @@
         {
           "game_id": 26459758,
           "order_num": 2,
-          "winner_id": 1204034,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
@@ -1912,7 +1933,7 @@
               "character_name": "Samus"
             },
             {
-              "user_id": 1204034,
+              "user_id": null,
               "selection_id": 38544628,
               "character_id": 1408,
               "character_name": "Dark Samus"
@@ -1929,6 +1950,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1988,6 +2010,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2047,6 +2070,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
