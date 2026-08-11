@@ -8,6 +8,7 @@
       "round_text": "Grand Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -111,6 +112,7 @@
       "round_text": "Grand Final Reset",
       "round": 3,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -236,6 +238,7 @@
       "round_text": "Winners Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -250,6 +253,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -324,13 +328,14 @@
       ]
     },
     {
-      "winner_id": 903415,
+      "winner_id": null,
       "loser_id": 1416219,
       "winner_score": 3,
       "loser_score": 2,
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -345,7 +350,7 @@
           "stage": "Small Battlefield",
           "selections": [
             {
-              "user_id": 903415,
+              "user_id": null,
               "selection_id": 38674251,
               "character_id": 1280,
               "character_name": "Donkey Kong"
@@ -361,13 +366,13 @@
         {
           "game_id": 26544581,
           "order_num": 2,
-          "winner_id": 903415,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Small Battlefield",
           "selections": [
             {
-              "user_id": 903415,
+              "user_id": null,
               "selection_id": 38674253,
               "character_id": 1289,
               "character_name": "Greninja"
@@ -383,13 +388,13 @@
         {
           "game_id": 26544582,
           "order_num": 3,
-          "winner_id": 903415,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Small Battlefield",
           "selections": [
             {
-              "user_id": 903415,
+              "user_id": null,
               "selection_id": 38674255,
               "character_id": 1289,
               "character_name": "Greninja"
@@ -411,7 +416,7 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 903415,
+              "user_id": null,
               "selection_id": 38674257,
               "character_id": 1289,
               "character_name": "Greninja"
@@ -427,7 +432,7 @@
         {
           "game_id": 26544584,
           "order_num": 5,
-          "winner_id": 903415,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
@@ -439,7 +444,7 @@
               "character_name": "Fox"
             },
             {
-              "user_id": 903415,
+              "user_id": null,
               "selection_id": 38674377,
               "character_id": 1316,
               "character_name": "Palutena"
@@ -456,6 +461,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -581,6 +587,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -662,6 +669,7 @@
       "round_text": "Losers Final",
       "round": -6,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -676,6 +684,7 @@
       "round_text": "Losers Round 2",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -757,6 +766,7 @@
       "round_text": "Losers Round 2",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -838,6 +848,7 @@
       "round_text": "Losers Round 2",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -963,6 +974,7 @@
       "round_text": "Losers Round 2",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1060,12 +1072,13 @@
     },
     {
       "winner_id": 1790201,
-      "loser_id": 903415,
+      "loser_id": null,
       "winner_score": 3,
       "loser_score": 1,
       "round_text": "Losers Semi-Final",
       "round": -5,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1080,6 +1093,7 @@
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1170,6 +1184,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1245,12 +1260,13 @@
     },
     {
       "winner_id": 1411032,
-      "loser_id": 903415,
+      "loser_id": null,
       "winner_score": 3,
       "loser_score": 1,
       "round_text": "Winners Semi-Final",
       "round": 1,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1259,7 +1275,7 @@
         {
           "game_id": 26544961,
           "order_num": 1,
-          "winner_id": 903415,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": 0,
           "stage": "Smashville",
@@ -1271,7 +1287,7 @@
               "character_name": "Kazuya"
             },
             {
-              "user_id": 903415,
+              "user_id": null,
               "selection_id": 38674840,
               "character_id": 1316,
               "character_name": "Palutena"
@@ -1293,7 +1309,7 @@
               "character_name": "Kazuya"
             },
             {
-              "user_id": 903415,
+              "user_id": null,
               "selection_id": 38674842,
               "character_id": 1316,
               "character_name": "Palutena"
@@ -1315,7 +1331,7 @@
               "character_name": "Kazuya"
             },
             {
-              "user_id": 903415,
+              "user_id": null,
               "selection_id": 38674844,
               "character_id": 1316,
               "character_name": "Palutena"
@@ -1337,7 +1353,7 @@
               "character_name": "Kazuya"
             },
             {
-              "user_id": 903415,
+              "user_id": null,
               "selection_id": 38674846,
               "character_id": 1316,
               "character_name": "Palutena"
@@ -1354,6 +1370,7 @@
       "round_text": "Winners Semi-Final",
       "round": 1,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1450,13 +1467,14 @@
       ]
     },
     {
-      "winner_id": 903415,
+      "winner_id": null,
       "loser_id": 2180476,
       "winner_score": 3,
       "loser_score": 0,
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1471,6 +1489,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1552,6 +1571,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1677,6 +1697,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1758,6 +1779,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -4,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1765,13 +1787,14 @@
       "details": []
     },
     {
-      "winner_id": 903415,
+      "winner_id": null,
       "loser_id": 2045101,
       "winner_score": 3,
       "loser_score": 2,
       "round_text": "Losers Quarter-Final",
       "round": -4,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1792,7 +1815,7 @@
               "character_name": "Ryu"
             },
             {
-              "user_id": 903415,
+              "user_id": null,
               "selection_id": 38674902,
               "character_id": 1316,
               "character_name": "Palutena"
@@ -1802,7 +1825,7 @@
         {
           "game_id": 26544996,
           "order_num": 2,
-          "winner_id": 903415,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Small Battlefield",
@@ -1814,7 +1837,7 @@
               "character_name": "Ryu"
             },
             {
-              "user_id": 903415,
+              "user_id": null,
               "selection_id": 38674908,
               "character_id": 1316,
               "character_name": "Palutena"
@@ -1836,7 +1859,7 @@
               "character_name": "Ryu"
             },
             {
-              "user_id": 903415,
+              "user_id": null,
               "selection_id": 38674920,
               "character_id": 1316,
               "character_name": "Palutena"
@@ -1846,7 +1869,7 @@
         {
           "game_id": 26545009,
           "order_num": 4,
-          "winner_id": 903415,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Small Battlefield",
@@ -1858,7 +1881,7 @@
               "character_name": "Ryu"
             },
             {
-              "user_id": 903415,
+              "user_id": null,
               "selection_id": 38674934,
               "character_id": 1316,
               "character_name": "Palutena"
@@ -1868,7 +1891,7 @@
         {
           "game_id": 26545026,
           "order_num": 5,
-          "winner_id": 903415,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Small Battlefield",
@@ -1880,7 +1903,7 @@
               "character_name": "Ryu"
             },
             {
-              "user_id": 903415,
+              "user_id": null,
               "selection_id": 38674968,
               "character_id": 1316,
               "character_name": "Palutena"
@@ -1897,6 +1920,7 @@
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2022,6 +2046,7 @@
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
