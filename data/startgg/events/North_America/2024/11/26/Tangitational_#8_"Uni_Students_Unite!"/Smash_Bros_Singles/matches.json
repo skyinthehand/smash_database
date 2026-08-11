@@ -8,6 +8,7 @@
       "round_text": "Round 5",
       "round": 5,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -89,6 +90,7 @@
       "round_text": "Round 5",
       "round": 5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -170,6 +172,7 @@
       "round_text": "Round 5",
       "round": 5,
       "phase": "3",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -251,6 +254,7 @@
       "round_text": "Round 5",
       "round": 5,
       "phase": "3",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -354,6 +358,7 @@
       "round_text": "Round 5",
       "round": 5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -457,6 +462,7 @@
       "round_text": "Round 5",
       "round": 5,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -538,6 +544,7 @@
       "round_text": "Round 5",
       "round": 5,
       "phase": "4",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -663,6 +670,7 @@
       "round_text": "Round 5",
       "round": 5,
       "phase": "4",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -737,87 +745,6 @@
       ]
     },
     {
-      "winner_id": null,
-      "loser_id": null,
-      "winner_score": 3,
-      "loser_score": 0,
-      "round_text": "Round 5",
-      "round": 5,
-      "phase": "4",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": [
-        {
-          "game_id": 26465508,
-          "order_num": 1,
-          "winner_id": null,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 38553504,
-              "character_id": 1287,
-              "character_name": "Ganondorf"
-            },
-            {
-              "user_id": null,
-              "selection_id": 38553505,
-              "character_id": 1897,
-              "character_name": "Sora"
-            }
-          ]
-        },
-        {
-          "game_id": 26465509,
-          "order_num": 2,
-          "winner_id": null,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 38553506,
-              "character_id": 1287,
-              "character_name": "Ganondorf"
-            },
-            {
-              "user_id": null,
-              "selection_id": 38553507,
-              "character_id": 1897,
-              "character_name": "Sora"
-            }
-          ]
-        },
-        {
-          "game_id": 26465510,
-          "order_num": 3,
-          "winner_id": null,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 38553508,
-              "character_id": 1287,
-              "character_name": "Ganondorf"
-            },
-            {
-              "user_id": null,
-              "selection_id": 38553509,
-              "character_id": 1897,
-              "character_name": "Sora"
-            }
-          ]
-        }
-      ]
-    },
-    {
       "winner_id": 1312615,
       "loser_id": null,
       "winner_score": 3,
@@ -825,6 +752,7 @@
       "round_text": "Grand Final",
       "round": 4,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -906,6 +834,7 @@
       "round_text": "Round 4",
       "round": 4,
       "phase": "3",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -987,6 +916,7 @@
       "round_text": "Round 4",
       "round": 4,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1112,6 +1042,7 @@
       "round_text": "Round 4",
       "round": 4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1193,6 +1124,7 @@
       "round_text": "Round 4",
       "round": 4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1274,6 +1206,7 @@
       "round_text": "Round 4",
       "round": 4,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1355,6 +1288,7 @@
       "round_text": "Round 4",
       "round": 4,
       "phase": "3",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1436,6 +1370,7 @@
       "round_text": "Round 4",
       "round": 4,
       "phase": "4",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1510,168 +1445,6 @@
       ]
     },
     {
-      "winner_id": null,
-      "loser_id": null,
-      "winner_score": 3,
-      "loser_score": 0,
-      "round_text": "Round 4",
-      "round": 4,
-      "phase": "4",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": [
-        {
-          "game_id": 26465618,
-          "order_num": 1,
-          "winner_id": null,
-          "entrant1_score": 0,
-          "entrant2_score": null,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 38553726,
-              "character_id": 1275,
-              "character_name": "Cloud"
-            },
-            {
-              "user_id": null,
-              "selection_id": 38553727,
-              "character_id": 1897,
-              "character_name": "Sora"
-            }
-          ]
-        },
-        {
-          "game_id": 26465619,
-          "order_num": 2,
-          "winner_id": null,
-          "entrant1_score": 0,
-          "entrant2_score": null,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 38553728,
-              "character_id": 1275,
-              "character_name": "Cloud"
-            },
-            {
-              "user_id": null,
-              "selection_id": 38553729,
-              "character_id": 1897,
-              "character_name": "Sora"
-            }
-          ]
-        },
-        {
-          "game_id": 26465620,
-          "order_num": 3,
-          "winner_id": null,
-          "entrant1_score": 0,
-          "entrant2_score": null,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 38553730,
-              "character_id": 1275,
-              "character_name": "Cloud"
-            },
-            {
-              "user_id": null,
-              "selection_id": 38553731,
-              "character_id": 1897,
-              "character_name": "Sora"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "winner_id": null,
-      "loser_id": null,
-      "winner_score": 3,
-      "loser_score": 0,
-      "round_text": "Round 4",
-      "round": 4,
-      "phase": "4",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": [
-        {
-          "game_id": 26465479,
-          "order_num": 1,
-          "winner_id": null,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 38553446,
-              "character_id": 1408,
-              "character_name": "Dark Samus"
-            },
-            {
-              "user_id": null,
-              "selection_id": 38553447,
-              "character_id": 1287,
-              "character_name": "Ganondorf"
-            }
-          ]
-        },
-        {
-          "game_id": 26465480,
-          "order_num": 2,
-          "winner_id": null,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 38553448,
-              "character_id": 1408,
-              "character_name": "Dark Samus"
-            },
-            {
-              "user_id": null,
-              "selection_id": 38553449,
-              "character_id": 1287,
-              "character_name": "Ganondorf"
-            }
-          ]
-        },
-        {
-          "game_id": 26465481,
-          "order_num": 3,
-          "winner_id": null,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 38553450,
-              "character_id": 1408,
-              "character_name": "Dark Samus"
-            },
-            {
-              "user_id": null,
-              "selection_id": 38553451,
-              "character_id": 1287,
-              "character_name": "Ganondorf"
-            }
-          ]
-        }
-      ]
-    },
-    {
       "winner_id": 1312615,
       "loser_id": 1910771,
       "winner_score": 3,
@@ -1679,6 +1452,7 @@
       "round_text": "Winners Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1760,6 +1534,7 @@
       "round_text": "Round 3",
       "round": 3,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1841,6 +1616,7 @@
       "round_text": "Round 3",
       "round": 3,
       "phase": "3",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1922,6 +1698,7 @@
       "round_text": "Round 3",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2003,6 +1780,7 @@
       "round_text": "Round 3",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2080,91 +1858,11 @@
       "winner_id": null,
       "loser_id": null,
       "winner_score": 3,
-      "loser_score": 0,
-      "round_text": "Round 3",
-      "round": 3,
-      "phase": "2",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": [
-        {
-          "game_id": 26465520,
-          "order_num": 1,
-          "winner_id": null,
-          "entrant1_score": 0,
-          "entrant2_score": null,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 38553528,
-              "character_id": 1407,
-              "character_name": "King K. Rool"
-            },
-            {
-              "user_id": null,
-              "selection_id": 38553529,
-              "character_id": 1319,
-              "character_name": "Pikachu"
-            }
-          ]
-        },
-        {
-          "game_id": 26465521,
-          "order_num": 2,
-          "winner_id": null,
-          "entrant1_score": 0,
-          "entrant2_score": null,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 38553530,
-              "character_id": 1407,
-              "character_name": "King K. Rool"
-            },
-            {
-              "user_id": null,
-              "selection_id": 38553531,
-              "character_id": 1319,
-              "character_name": "Pikachu"
-            }
-          ]
-        },
-        {
-          "game_id": 26465522,
-          "order_num": 3,
-          "winner_id": null,
-          "entrant1_score": 0,
-          "entrant2_score": null,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 38553532,
-              "character_id": 1407,
-              "character_name": "King K. Rool"
-            },
-            {
-              "user_id": null,
-              "selection_id": 38553533,
-              "character_id": 1319,
-              "character_name": "Pikachu"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "winner_id": null,
-      "loser_id": null,
-      "winner_score": 3,
       "loser_score": 1,
       "round_text": "Round 3",
       "round": 3,
       "phase": "3",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2268,6 +1966,7 @@
       "round_text": "Round 3",
       "round": 3,
       "phase": "4",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2343,174 +2042,13 @@
     },
     {
       "winner_id": null,
-      "loser_id": null,
-      "winner_score": 3,
-      "loser_score": 0,
-      "round_text": "Round 3",
-      "round": 3,
-      "phase": "4",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": [
-        {
-          "game_id": 26465621,
-          "order_num": 1,
-          "winner_id": null,
-          "entrant1_score": 0,
-          "entrant2_score": null,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 38553732,
-              "character_id": 1287,
-              "character_name": "Ganondorf"
-            },
-            {
-              "user_id": null,
-              "selection_id": 38553733,
-              "character_id": 1846,
-              "character_name": "Kazuya"
-            }
-          ]
-        },
-        {
-          "game_id": 26465622,
-          "order_num": 2,
-          "winner_id": null,
-          "entrant1_score": 0,
-          "entrant2_score": null,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 38553734,
-              "character_id": 1287,
-              "character_name": "Ganondorf"
-            },
-            {
-              "user_id": null,
-              "selection_id": 38553735,
-              "character_id": 1846,
-              "character_name": "Kazuya"
-            }
-          ]
-        },
-        {
-          "game_id": 26465623,
-          "order_num": 3,
-          "winner_id": null,
-          "entrant1_score": 0,
-          "entrant2_score": null,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 38553736,
-              "character_id": 1287,
-              "character_name": "Ganondorf"
-            },
-            {
-              "user_id": null,
-              "selection_id": 38553737,
-              "character_id": 1846,
-              "character_name": "Kazuya"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "winner_id": null,
-      "loser_id": null,
-      "winner_score": 3,
-      "loser_score": 0,
-      "round_text": "Round 3",
-      "round": 3,
-      "phase": "4",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": [
-        {
-          "game_id": 26465554,
-          "order_num": 1,
-          "winner_id": null,
-          "entrant1_score": 0,
-          "entrant2_score": null,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 38553598,
-              "character_id": 1408,
-              "character_name": "Dark Samus"
-            },
-            {
-              "user_id": null,
-              "selection_id": 38553599,
-              "character_id": 1275,
-              "character_name": "Cloud"
-            }
-          ]
-        },
-        {
-          "game_id": 26465555,
-          "order_num": 2,
-          "winner_id": null,
-          "entrant1_score": 0,
-          "entrant2_score": null,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 38553600,
-              "character_id": 1408,
-              "character_name": "Dark Samus"
-            },
-            {
-              "user_id": null,
-              "selection_id": 38553601,
-              "character_id": 1275,
-              "character_name": "Cloud"
-            }
-          ]
-        },
-        {
-          "game_id": 26465556,
-          "order_num": 3,
-          "winner_id": null,
-          "entrant1_score": 0,
-          "entrant2_score": null,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 38553602,
-              "character_id": 1408,
-              "character_name": "Dark Samus"
-            },
-            {
-              "user_id": null,
-              "selection_id": 38553603,
-              "character_id": 1275,
-              "character_name": "Cloud"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "winner_id": null,
       "loser_id": 1910771,
       "winner_score": 3,
       "loser_score": 2,
       "round_text": "Losers Final",
       "round": -8,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2636,6 +2174,7 @@
       "round_text": "Losers Semi-Final",
       "round": -7,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2739,6 +2278,7 @@
       "round_text": "Winners Semi-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2820,6 +2360,7 @@
       "round_text": "Winners Semi-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2923,6 +2464,7 @@
       "round_text": "Round 2",
       "round": 2,
       "phase": "3",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3004,6 +2546,7 @@
       "round_text": "Round 2",
       "round": 2,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3085,6 +2628,7 @@
       "round_text": "Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3166,6 +2710,7 @@
       "round_text": "Round 2",
       "round": 2,
       "phase": "3",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3247,6 +2792,7 @@
       "round_text": "Round 2",
       "round": 2,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3350,6 +2896,7 @@
       "round_text": "Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3431,6 +2978,7 @@
       "round_text": "Round 2",
       "round": 2,
       "phase": "4",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3508,91 +3056,11 @@
       "winner_id": null,
       "loser_id": null,
       "winner_score": 3,
-      "loser_score": 0,
-      "round_text": "Round 2",
-      "round": 2,
-      "phase": "4",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": [
-        {
-          "game_id": 26465587,
-          "order_num": 1,
-          "winner_id": null,
-          "entrant1_score": 0,
-          "entrant2_score": null,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 38553664,
-              "character_id": 1408,
-              "character_name": "Dark Samus"
-            },
-            {
-              "user_id": null,
-              "selection_id": 38553665,
-              "character_id": 1897,
-              "character_name": "Sora"
-            }
-          ]
-        },
-        {
-          "game_id": 26465588,
-          "order_num": 2,
-          "winner_id": null,
-          "entrant1_score": 0,
-          "entrant2_score": null,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 38553666,
-              "character_id": 1408,
-              "character_name": "Dark Samus"
-            },
-            {
-              "user_id": null,
-              "selection_id": 38553667,
-              "character_id": 1897,
-              "character_name": "Sora"
-            }
-          ]
-        },
-        {
-          "game_id": 26465589,
-          "order_num": 3,
-          "winner_id": null,
-          "entrant1_score": 0,
-          "entrant2_score": null,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 38553668,
-              "character_id": 1408,
-              "character_name": "Dark Samus"
-            },
-            {
-              "user_id": null,
-              "selection_id": 38553669,
-              "character_id": 1897,
-              "character_name": "Sora"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "winner_id": null,
-      "loser_id": null,
-      "winner_score": 3,
       "loser_score": 2,
       "round_text": "Round 2",
       "round": 2,
       "phase": "4",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3718,6 +3186,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -6,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3796,90 +3265,10 @@
       "loser_id": null,
       "winner_score": 3,
       "loser_score": 0,
-      "round_text": "Losers Quarter-Final",
-      "round": -6,
-      "phase": "1",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": [
-        {
-          "game_id": 26465712,
-          "order_num": 1,
-          "winner_id": null,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 38553914,
-              "character_id": 1313,
-              "character_name": "Ness"
-            },
-            {
-              "user_id": null,
-              "selection_id": 38553915,
-              "character_id": 1407,
-              "character_name": "King K. Rool"
-            }
-          ]
-        },
-        {
-          "game_id": 26465713,
-          "order_num": 2,
-          "winner_id": null,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 38553916,
-              "character_id": 1313,
-              "character_name": "Ness"
-            },
-            {
-              "user_id": null,
-              "selection_id": 38553917,
-              "character_id": 1407,
-              "character_name": "King K. Rool"
-            }
-          ]
-        },
-        {
-          "game_id": 26465714,
-          "order_num": 3,
-          "winner_id": null,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 38553918,
-              "character_id": 1313,
-              "character_name": "Ness"
-            },
-            {
-              "user_id": null,
-              "selection_id": 38553919,
-              "character_id": 1407,
-              "character_name": "King K. Rool"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "winner_id": null,
-      "loser_id": null,
-      "winner_score": 3,
-      "loser_score": 0,
       "round_text": "Losers Round 3",
       "round": -5,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3961,6 +3350,7 @@
       "round_text": "Losers Round 3",
       "round": -5,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -4086,6 +3476,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 1,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -4167,6 +3558,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 1,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -4241,87 +3633,6 @@
       ]
     },
     {
-      "winner_id": null,
-      "loser_id": null,
-      "winner_score": 3,
-      "loser_score": 0,
-      "round_text": "Winners Quarter-Final",
-      "round": 1,
-      "phase": "1",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": [
-        {
-          "game_id": 26465650,
-          "order_num": 1,
-          "winner_id": null,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 38553790,
-              "character_id": 1292,
-              "character_name": "Inkling"
-            },
-            {
-              "user_id": null,
-              "selection_id": 38553791,
-              "character_id": 1313,
-              "character_name": "Ness"
-            }
-          ]
-        },
-        {
-          "game_id": 26465651,
-          "order_num": 2,
-          "winner_id": null,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 38553792,
-              "character_id": 1292,
-              "character_name": "Inkling"
-            },
-            {
-              "user_id": null,
-              "selection_id": 38553793,
-              "character_id": 1313,
-              "character_name": "Ness"
-            }
-          ]
-        },
-        {
-          "game_id": 26465652,
-          "order_num": 3,
-          "winner_id": null,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 38553794,
-              "character_id": 1292,
-              "character_name": "Inkling"
-            },
-            {
-              "user_id": null,
-              "selection_id": 38553795,
-              "character_id": 1313,
-              "character_name": "Ness"
-            }
-          ]
-        }
-      ]
-    },
-    {
       "winner_id": 1910771,
       "loser_id": null,
       "winner_score": 3,
@@ -4329,6 +3640,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 1,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -4432,6 +3744,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "4",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -4513,6 +3826,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "3",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -4594,6 +3908,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -4675,6 +3990,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -4752,91 +4068,11 @@
       "winner_id": null,
       "loser_id": null,
       "winner_score": 3,
-      "loser_score": 0,
-      "round_text": "Round 1",
-      "round": 1,
-      "phase": "4",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": [
-        {
-          "game_id": 26465584,
-          "order_num": 1,
-          "winner_id": null,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 38553658,
-              "character_id": 1287,
-              "character_name": "Ganondorf"
-            },
-            {
-              "user_id": null,
-              "selection_id": 38553659,
-              "character_id": 1275,
-              "character_name": "Cloud"
-            }
-          ]
-        },
-        {
-          "game_id": 26465585,
-          "order_num": 2,
-          "winner_id": null,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 38553660,
-              "character_id": 1287,
-              "character_name": "Ganondorf"
-            },
-            {
-              "user_id": null,
-              "selection_id": 38553661,
-              "character_id": 1275,
-              "character_name": "Cloud"
-            }
-          ]
-        },
-        {
-          "game_id": 26465586,
-          "order_num": 3,
-          "winner_id": null,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 38553662,
-              "character_id": 1287,
-              "character_name": "Ganondorf"
-            },
-            {
-              "user_id": null,
-              "selection_id": 38553663,
-              "character_id": 1275,
-              "character_name": "Cloud"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "winner_id": null,
-      "loser_id": null,
-      "winner_score": 3,
       "loser_score": 1,
       "round_text": "Round 1",
       "round": 1,
       "phase": "3",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -4940,6 +4176,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -5043,6 +4280,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -5124,6 +4362,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "4",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -5227,6 +4466,7 @@
       "round_text": "Losers Round 2",
       "round": -4,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -5308,6 +4548,7 @@
       "round_text": "Losers Round 2",
       "round": -4,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -5411,6 +4652,7 @@
       "round_text": "Losers Round 2",
       "round": -4,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -5485,87 +4727,6 @@
       ]
     },
     {
-      "winner_id": null,
-      "loser_id": null,
-      "winner_score": 3,
-      "loser_score": 0,
-      "round_text": "Losers Round 2",
-      "round": -4,
-      "phase": "1",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": [
-        {
-          "game_id": 26465689,
-          "order_num": 1,
-          "winner_id": null,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 38553868,
-              "character_id": 1407,
-              "character_name": "King K. Rool"
-            },
-            {
-              "user_id": null,
-              "selection_id": 38553869,
-              "character_id": 1846,
-              "character_name": "Kazuya"
-            }
-          ]
-        },
-        {
-          "game_id": 26465690,
-          "order_num": 2,
-          "winner_id": null,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 38553870,
-              "character_id": 1407,
-              "character_name": "King K. Rool"
-            },
-            {
-              "user_id": null,
-              "selection_id": 38553871,
-              "character_id": 1846,
-              "character_name": "Kazuya"
-            }
-          ]
-        },
-        {
-          "game_id": 26465691,
-          "order_num": 3,
-          "winner_id": null,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 38553872,
-              "character_id": 1407,
-              "character_name": "King K. Rool"
-            },
-            {
-              "user_id": null,
-              "selection_id": 38553873,
-              "character_id": 1297,
-              "character_name": "Little Mac"
-            }
-          ]
-        }
-      ]
-    },
-    {
       "winner_id": 2231446,
       "loser_id": null,
       "winner_score": 3,
@@ -5573,6 +4734,7 @@
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -5698,6 +4860,7 @@
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -5779,6 +4942,7 @@
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -5869,87 +5033,6 @@
               "selection_id": 38553827,
               "character_id": 1274,
               "character_name": "Captain Falcon"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "winner_id": null,
-      "loser_id": null,
-      "winner_score": 3,
-      "loser_score": 0,
-      "round_text": "Losers Round 1",
-      "round": -3,
-      "phase": "1",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": [
-        {
-          "game_id": 26465669,
-          "order_num": 1,
-          "winner_id": null,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 38553828,
-              "character_id": 1341,
-              "character_name": "Zero Suit Samus"
-            },
-            {
-              "user_id": null,
-              "selection_id": 38553829,
-              "character_id": 1846,
-              "character_name": "Kazuya"
-            }
-          ]
-        },
-        {
-          "game_id": 26465670,
-          "order_num": 2,
-          "winner_id": null,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 38553830,
-              "character_id": 1341,
-              "character_name": "Zero Suit Samus"
-            },
-            {
-              "user_id": null,
-              "selection_id": 38553831,
-              "character_id": 1846,
-              "character_name": "Kazuya"
-            }
-          ]
-        },
-        {
-          "game_id": 26465671,
-          "order_num": 3,
-          "winner_id": null,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 38553832,
-              "character_id": 1341,
-              "character_name": "Zero Suit Samus"
-            },
-            {
-              "user_id": null,
-              "selection_id": 38553833,
-              "character_id": 1846,
-              "character_name": "Kazuya"
             }
           ]
         }
