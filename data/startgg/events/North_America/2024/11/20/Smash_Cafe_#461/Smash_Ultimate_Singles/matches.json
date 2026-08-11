@@ -8,6 +8,7 @@
       "round_text": "Grand Final",
       "round": 5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -89,6 +90,7 @@
       "round_text": "Grand Final Reset",
       "round": 5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -170,6 +172,7 @@
       "round_text": "Winners Final",
       "round": 4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -295,6 +298,7 @@
       "round_text": "Losers Final",
       "round": -8,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -420,6 +424,7 @@
       "round_text": "Losers Semi-Final",
       "round": -7,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -523,6 +528,7 @@
       "round_text": "Winners Semi-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -604,6 +610,7 @@
       "round_text": "Winners Semi-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -729,6 +736,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -810,6 +818,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -913,6 +922,7 @@
       "round_text": "Losers Round 3",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -994,6 +1004,7 @@
       "round_text": "Losers Round 3",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1097,6 +1108,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1178,6 +1190,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1259,6 +1272,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1340,6 +1354,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1443,6 +1458,7 @@
       "round_text": "Losers Round 2",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1524,6 +1540,7 @@
       "round_text": "Losers Round 2",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1627,6 +1644,7 @@
       "round_text": "Losers Round 2",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1730,6 +1748,7 @@
       "round_text": "Losers Round 2",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1811,6 +1830,7 @@
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1886,12 +1906,13 @@
     },
     {
       "winner_id": 659424,
-      "loser_id": 2327578,
+      "loser_id": null,
       "winner_score": 3,
       "loser_score": 2,
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1900,7 +1921,7 @@
         {
           "game_id": 26337808,
           "order_num": 1,
-          "winner_id": 2327578,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
@@ -1912,7 +1933,7 @@
               "character_name": "Fox"
             },
             {
-              "user_id": 2327578,
+              "user_id": null,
               "selection_id": 38358382,
               "character_id": 1275,
               "character_name": "Cloud"
@@ -1922,7 +1943,7 @@
         {
           "game_id": 26337809,
           "order_num": 2,
-          "winner_id": 2327578,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
@@ -1934,7 +1955,7 @@
               "character_name": "Fox"
             },
             {
-              "user_id": 2327578,
+              "user_id": null,
               "selection_id": 38358384,
               "character_id": 1275,
               "character_name": "Cloud"
@@ -1956,7 +1977,7 @@
               "character_name": "Ness"
             },
             {
-              "user_id": 2327578,
+              "user_id": null,
               "selection_id": 38358386,
               "character_id": 1275,
               "character_name": "Cloud"
@@ -1978,7 +1999,7 @@
               "character_name": "Ness"
             },
             {
-              "user_id": 2327578,
+              "user_id": null,
               "selection_id": 38358388,
               "character_id": 1275,
               "character_name": "Cloud"
@@ -2000,7 +2021,7 @@
               "character_name": "Ness"
             },
             {
-              "user_id": 2327578,
+              "user_id": null,
               "selection_id": 38358390,
               "character_id": 1275,
               "character_name": "Cloud"
@@ -2017,6 +2038,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2098,6 +2120,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -2112,6 +2135,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2193,6 +2217,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2312,12 +2337,13 @@
     },
     {
       "winner_id": 1111043,
-      "loser_id": 2327578,
+      "loser_id": null,
       "winner_score": 3,
       "loser_score": 0,
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2338,7 +2364,7 @@
               "character_name": "Mewtwo"
             },
             {
-              "user_id": 2327578,
+              "user_id": null,
               "selection_id": 38354969,
               "character_id": 1275,
               "character_name": "Cloud"
@@ -2360,7 +2386,7 @@
               "character_name": "Steve"
             },
             {
-              "user_id": 2327578,
+              "user_id": null,
               "selection_id": 38354971,
               "character_id": 1275,
               "character_name": "Cloud"
@@ -2382,7 +2408,7 @@
               "character_name": "Steve"
             },
             {
-              "user_id": 2327578,
+              "user_id": null,
               "selection_id": 38354973,
               "character_id": 1275,
               "character_name": "Cloud"
@@ -2399,6 +2425,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
