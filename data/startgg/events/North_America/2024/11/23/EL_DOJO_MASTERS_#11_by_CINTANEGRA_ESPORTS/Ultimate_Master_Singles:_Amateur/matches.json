@@ -8,6 +8,7 @@
       "round_text": "Winners Round 3",
       "round": 3,
       "phase": "1",
+      "phase_order": 5,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -67,6 +68,7 @@
       "round_text": "Grand Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 3,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -148,6 +150,7 @@
       "round_text": "Winners Round 3",
       "round": 3,
       "phase": "1",
+      "phase_order": 5,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -229,6 +232,7 @@
       "round_text": "Winners Round 3",
       "round": 3,
       "phase": "1",
+      "phase_order": 5,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -310,6 +314,7 @@
       "round_text": "Winners Round 3",
       "round": 3,
       "phase": "1",
+      "phase_order": 5,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -369,6 +374,7 @@
       "round_text": "Winners Round 3",
       "round": 3,
       "phase": "1",
+      "phase_order": 5,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -422,12 +428,13 @@
     },
     {
       "winner_id": 2385782,
-      "loser_id": 2262430,
+      "loser_id": null,
       "winner_score": 2,
       "loser_score": 1,
       "round_text": "Winners Round 3",
       "round": 3,
       "phase": "1",
+      "phase_order": 5,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -448,7 +455,7 @@
               "character_name": "Snake"
             },
             {
-              "user_id": 2262430,
+              "user_id": null,
               "selection_id": 38471771,
               "character_id": 1294,
               "character_name": "King Dedede"
@@ -458,7 +465,7 @@
         {
           "game_id": 26411091,
           "order_num": 2,
-          "winner_id": 2262430,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
@@ -470,7 +477,7 @@
               "character_name": "Snake"
             },
             {
-              "user_id": 2262430,
+              "user_id": null,
               "selection_id": 38471773,
               "character_id": 1294,
               "character_name": "King Dedede"
@@ -492,7 +499,7 @@
               "character_name": "Snake"
             },
             {
-              "user_id": 2262430,
+              "user_id": null,
               "selection_id": 38471775,
               "character_id": 1294,
               "character_name": "King Dedede"
@@ -509,6 +516,7 @@
       "round_text": "Winners Round 3",
       "round": 3,
       "phase": "1",
+      "phase_order": 5,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -523,6 +531,7 @@
       "round_text": "Winners Round 3",
       "round": 3,
       "phase": "1",
+      "phase_order": 5,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -582,6 +591,7 @@
       "round_text": "Losers Round 3",
       "round": -6,
       "phase": "1",
+      "phase_order": 5,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -641,6 +651,7 @@
       "round_text": "Losers Round 3",
       "round": -6,
       "phase": "1",
+      "phase_order": 5,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -700,6 +711,7 @@
       "round_text": "Losers Round 3",
       "round": -6,
       "phase": "1",
+      "phase_order": 5,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -759,6 +771,7 @@
       "round_text": "Losers Round 3",
       "round": -6,
       "phase": "1",
+      "phase_order": 5,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -818,6 +831,7 @@
       "round_text": "Losers Round 3",
       "round": -6,
       "phase": "1",
+      "phase_order": 5,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -877,6 +891,7 @@
       "round_text": "Losers Round 3",
       "round": -6,
       "phase": "1",
+      "phase_order": 5,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -936,6 +951,7 @@
       "round_text": "Losers Round 3",
       "round": -6,
       "phase": "1",
+      "phase_order": 5,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -943,13 +959,14 @@
       "details": []
     },
     {
-      "winner_id": 2262430,
+      "winner_id": null,
       "loser_id": 1939597,
       "winner_score": 2,
       "loser_score": 0,
       "round_text": "Losers Round 3",
       "round": -6,
       "phase": "1",
+      "phase_order": 5,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -958,7 +975,7 @@
         {
           "game_id": 26412741,
           "order_num": 1,
-          "winner_id": 2262430,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": 0,
           "stage": null,
@@ -970,7 +987,7 @@
               "character_name": "Wario"
             },
             {
-              "user_id": 2262430,
+              "user_id": null,
               "selection_id": 38474354,
               "character_id": 1294,
               "character_name": "King Dedede"
@@ -980,7 +997,7 @@
         {
           "game_id": 26412742,
           "order_num": 2,
-          "winner_id": 2262430,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
@@ -992,7 +1009,7 @@
               "character_name": "Corrin"
             },
             {
-              "user_id": 2262430,
+              "user_id": null,
               "selection_id": 38474356,
               "character_id": 1294,
               "character_name": "King Dedede"
@@ -1009,6 +1026,7 @@
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "1",
+      "phase_order": 5,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1068,6 +1086,7 @@
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "1",
+      "phase_order": 5,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1149,6 +1168,7 @@
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "1",
+      "phase_order": 5,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -1163,6 +1183,7 @@
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "1",
+      "phase_order": 5,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1222,6 +1243,7 @@
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "1",
+      "phase_order": 5,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1303,6 +1325,7 @@
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "1",
+      "phase_order": 5,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -1317,6 +1340,7 @@
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "1",
+      "phase_order": 5,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -1331,6 +1355,7 @@
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "1",
+      "phase_order": 5,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1390,6 +1415,7 @@
       "round_text": "Winners Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 3,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1471,6 +1497,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 5,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1552,6 +1579,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 5,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1611,6 +1639,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 5,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -1625,6 +1654,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 5,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1684,6 +1714,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 5,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1743,6 +1774,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 5,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -1757,6 +1789,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 5,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1838,6 +1871,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 5,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -1845,13 +1879,14 @@
       "details": []
     },
     {
-      "winner_id": 2262430,
+      "winner_id": null,
       "loser_id": 1313099,
       "winner_score": 2,
       "loser_score": 0,
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 5,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1860,7 +1895,7 @@
         {
           "game_id": 26409541,
           "order_num": 1,
-          "winner_id": 2262430,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
@@ -1872,7 +1907,7 @@
               "character_name": "Bowser"
             },
             {
-              "user_id": 2262430,
+              "user_id": null,
               "selection_id": 38469253,
               "character_id": 1294,
               "character_name": "King Dedede"
@@ -1882,7 +1917,7 @@
         {
           "game_id": 26409542,
           "order_num": 2,
-          "winner_id": 2262430,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
@@ -1894,7 +1929,7 @@
               "character_name": "Captain Falcon"
             },
             {
-              "user_id": 2262430,
+              "user_id": null,
               "selection_id": 38469255,
               "character_id": 1294,
               "character_name": "King Dedede"
@@ -1911,6 +1946,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 5,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1970,6 +2006,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 5,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -1984,6 +2021,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 5,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2043,6 +2081,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 5,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2124,6 +2163,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 5,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2183,6 +2223,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 5,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2242,6 +2283,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 5,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -2256,6 +2298,7 @@
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 5,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -2270,6 +2313,7 @@
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 5,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -2284,6 +2328,7 @@
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 5,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2365,6 +2410,7 @@
       "round_text": "Losers Final",
       "round": -6,
       "phase": "1",
+      "phase_order": 3,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2446,6 +2492,7 @@
       "round_text": "Losers Semi-Final",
       "round": -5,
       "phase": "1",
+      "phase_order": 3,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2505,6 +2552,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 5,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2564,6 +2612,7 @@
       "round_text": "Winners Semi-Final",
       "round": 1,
       "phase": "1",
+      "phase_order": 3,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2623,6 +2672,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 1,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2682,6 +2732,7 @@
       "round_text": "Winners Semi-Final",
       "round": 1,
       "phase": "1",
+      "phase_order": 3,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2741,6 +2792,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 1,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2793,13 +2845,14 @@
       ]
     },
     {
-      "winner_id": 2262430,
+      "winner_id": null,
       "loser_id": 2845254,
       "winner_score": 2,
       "loser_score": 0,
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 5,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2808,13 +2861,13 @@
         {
           "game_id": 26408711,
           "order_num": 1,
-          "winner_id": 2262430,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
           "selections": [
             {
-              "user_id": 2262430,
+              "user_id": null,
               "selection_id": 38467901,
               "character_id": 1294,
               "character_name": "King Dedede"
@@ -2830,13 +2883,13 @@
         {
           "game_id": 26408712,
           "order_num": 2,
-          "winner_id": 2262430,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
           "selections": [
             {
-              "user_id": 2262430,
+              "user_id": null,
               "selection_id": 38467903,
               "character_id": 1294,
               "character_name": "King Dedede"
@@ -2859,6 +2912,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 5,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2918,6 +2972,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 1,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2977,6 +3032,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 1,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3030,12 +3086,13 @@
     },
     {
       "winner_id": 2385782,
-      "loser_id": 2262430,
+      "loser_id": null,
       "winner_score": 2,
       "loser_score": 1,
       "round_text": "Losers Quarter-Final",
       "round": -4,
       "phase": "1",
+      "phase_order": 3,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3056,7 +3113,7 @@
               "character_name": "Snake"
             },
             {
-              "user_id": 2262430,
+              "user_id": null,
               "selection_id": 38481341,
               "character_id": 1294,
               "character_name": "King Dedede"
@@ -3066,7 +3123,7 @@
         {
           "game_id": 26417449,
           "order_num": 2,
-          "winner_id": 2262430,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
@@ -3078,7 +3135,7 @@
               "character_name": "Snake"
             },
             {
-              "user_id": 2262430,
+              "user_id": null,
               "selection_id": 38481343,
               "character_id": 1337,
               "character_name": "Wolf"
@@ -3100,7 +3157,7 @@
               "character_name": "Snake"
             },
             {
-              "user_id": 2262430,
+              "user_id": null,
               "selection_id": 38481345,
               "character_id": 1337,
               "character_name": "Wolf"
@@ -3117,6 +3174,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -4,
       "phase": "1",
+      "phase_order": 3,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3198,6 +3256,7 @@
       "round_text": "Losers Round 2",
       "round": -4,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3257,6 +3316,7 @@
       "round_text": "Losers Round 2",
       "round": -4,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3309,13 +3369,14 @@
       ]
     },
     {
-      "winner_id": 2262430,
+      "winner_id": null,
       "loser_id": 636927,
       "winner_score": 2,
       "loser_score": 1,
       "round_text": "Losers Round 2",
       "round": -4,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3324,7 +3385,7 @@
         {
           "game_id": 26414258,
           "order_num": 1,
-          "winner_id": 2262430,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
@@ -3336,7 +3397,7 @@
               "character_name": "Roy"
             },
             {
-              "user_id": 2262430,
+              "user_id": null,
               "selection_id": 38476692,
               "character_id": 1294,
               "character_name": "King Dedede"
@@ -3358,7 +3419,7 @@
               "character_name": "Roy"
             },
             {
-              "user_id": 2262430,
+              "user_id": null,
               "selection_id": 38476694,
               "character_id": 1294,
               "character_name": "King Dedede"
@@ -3368,7 +3429,7 @@
         {
           "game_id": 26414260,
           "order_num": 3,
-          "winner_id": 2262430,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
@@ -3380,7 +3441,7 @@
               "character_name": "Roy"
             },
             {
-              "user_id": 2262430,
+              "user_id": null,
               "selection_id": 38476696,
               "character_id": 1294,
               "character_name": "King Dedede"
@@ -3397,6 +3458,7 @@
       "round_text": "Losers Round 2",
       "round": -4,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3471,13 +3533,14 @@
       ]
     },
     {
-      "winner_id": 2262430,
+      "winner_id": null,
       "loser_id": 664627,
       "winner_score": 2,
       "loser_score": 0,
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "1",
+      "phase_order": 3,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3486,7 +3549,7 @@
         {
           "game_id": 26416640,
           "order_num": 1,
-          "winner_id": 2262430,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
@@ -3498,7 +3561,7 @@
               "character_name": "Hero"
             },
             {
-              "user_id": 2262430,
+              "user_id": null,
               "selection_id": 38480125,
               "character_id": 1294,
               "character_name": "King Dedede"
@@ -3508,7 +3571,7 @@
         {
           "game_id": 26416641,
           "order_num": 2,
-          "winner_id": 2262430,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
@@ -3520,7 +3583,7 @@
               "character_name": "Incineroar"
             },
             {
-              "user_id": 2262430,
+              "user_id": null,
               "selection_id": 38480127,
               "character_id": 1294,
               "character_name": "King Dedede"
@@ -3537,6 +3600,7 @@
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "1",
+      "phase_order": 3,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3596,6 +3660,7 @@
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3655,6 +3720,7 @@
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3707,13 +3773,14 @@
       ]
     },
     {
-      "winner_id": 2262430,
+      "winner_id": null,
       "loser_id": 2716020,
       "winner_score": 2,
       "loser_score": 0,
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3722,7 +3789,7 @@
         {
           "game_id": 26413283,
           "order_num": 1,
-          "winner_id": 2262430,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": 0,
           "stage": null,
@@ -3734,7 +3801,7 @@
               "character_name": "Bayonetta"
             },
             {
-              "user_id": 2262430,
+              "user_id": null,
               "selection_id": 38475228,
               "character_id": 1337,
               "character_name": "Wolf"
@@ -3744,7 +3811,7 @@
         {
           "game_id": 26413284,
           "order_num": 2,
-          "winner_id": 2262430,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
@@ -3756,7 +3823,7 @@
               "character_name": "Palutena"
             },
             {
-              "user_id": 2262430,
+              "user_id": null,
               "selection_id": 38475230,
               "character_id": 1337,
               "character_name": "Wolf"
@@ -3773,6 +3840,7 @@
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
