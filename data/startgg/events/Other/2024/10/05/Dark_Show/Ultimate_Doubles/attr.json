@@ -11,18 +11,18 @@
     "venue_name": null,
     "timezone": null,
     "postal_code": null,
-    "venue_address": null,
+    "venue_address": "",
     "maps_place_id": null
   },
-  "num_entrants": 0,
+  "num_entrants": 4,
   "offline": false,
   "url": "/tournament/dark-show",
-  "labels": {
-    "registration_type": "full-open",
-    "event_type": "main",
-    "game_rule": "doubles"
-  },
+  "labels": {},
   "status": "completed",
-  "timestamp": 1728091800,
+  "timestamp": 1728090000,
+  "end_at": 1742450400,
+  "fetched_at": 1786464000,
+  "event_data_version": 3,
+  "guest_entrant_count": 0,
   "version": "1.0"
 }
