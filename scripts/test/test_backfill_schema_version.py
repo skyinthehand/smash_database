@@ -26,6 +26,21 @@ class BackfillSchemaVersionTests(unittest.TestCase):
         self.cursor_path = Path(self.tmpdir.name) / "cursor.txt"
         self.users_file_path = str(Path(self.tmpdir.name) / "users.jsonl")
 
+    # -- 日本の大会を優先してスキャンする ---------------------------------
+
+    def test_japan_region_events_are_scanned_before_other_regions(self):
+        make_event_dir(self.events_root, "Europe/tournament_a/event_a", event_data_version=0)
+        make_event_dir(self.events_root, "Japan/tournament_b/event_b", event_data_version=0)
+        make_event_dir(self.events_root, "North_America/tournament_c/event_c", event_data_version=0)
+
+        order = [str(p) for p in bsv.iter_event_dirs(self.events_root)]
+        japan_index = next(i for i, p in enumerate(order) if "/Japan/" in p)
+        europe_index = next(i for i, p in enumerate(order) if "/Europe/" in p)
+        north_america_index = next(i for i, p in enumerate(order) if "/North_America/" in p)
+
+        self.assertLess(japan_index, europe_index)
+        self.assertLess(japan_index, north_america_index)
+
     # -- US1: 対象検出 -------------------------------------------------
 
     def test_detects_outdated_and_missing_version_events(self):
