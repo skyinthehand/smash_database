@@ -1,109 +1,6 @@
 {
   "data": [
     {
-      "winner_id": 1697658,
-      "loser_id": 2297365,
-      "winner_score": 3,
-      "loser_score": 1,
-      "round_text": "Round 3",
-      "round": 3,
-      "phase": "2",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": [
-        {
-          "game_id": 26056590,
-          "order_num": 1,
-          "winner_id": 1697658,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": 1697658,
-              "selection_id": 37924725,
-              "character_id": 1338,
-              "character_name": "Yoshi"
-            },
-            {
-              "user_id": 2297365,
-              "selection_id": 37924726,
-              "character_id": 1846,
-              "character_name": "Kazuya"
-            }
-          ]
-        },
-        {
-          "game_id": 26056591,
-          "order_num": 2,
-          "winner_id": 2297365,
-          "entrant1_score": 0,
-          "entrant2_score": null,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": 1697658,
-              "selection_id": 37924727,
-              "character_id": 1338,
-              "character_name": "Yoshi"
-            },
-            {
-              "user_id": 2297365,
-              "selection_id": 37924728,
-              "character_id": 1846,
-              "character_name": "Kazuya"
-            }
-          ]
-        },
-        {
-          "game_id": 26056592,
-          "order_num": 3,
-          "winner_id": 1697658,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": 1697658,
-              "selection_id": 37924729,
-              "character_id": 1338,
-              "character_name": "Yoshi"
-            },
-            {
-              "user_id": 2297365,
-              "selection_id": 37924730,
-              "character_id": 1846,
-              "character_name": "Kazuya"
-            }
-          ]
-        },
-        {
-          "game_id": 26056593,
-          "order_num": 4,
-          "winner_id": 1697658,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": 1697658,
-              "selection_id": 37924731,
-              "character_id": 1338,
-              "character_name": "Yoshi"
-            },
-            {
-              "user_id": 2297365,
-              "selection_id": 37924732,
-              "character_id": 1846,
-              "character_name": "Kazuya"
-            }
-          ]
-        }
-      ]
-    },
-    {
       "winner_id": 1389850,
       "loser_id": 2618763,
       "winner_score": 3,
@@ -111,6 +8,7 @@
       "round_text": "Round 3",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -207,6 +105,110 @@
       ]
     },
     {
+      "winner_id": 1697658,
+      "loser_id": 2297365,
+      "winner_score": 3,
+      "loser_score": 1,
+      "round_text": "Round 3",
+      "round": 3,
+      "phase": "2",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": [
+        {
+          "game_id": 26056590,
+          "order_num": 1,
+          "winner_id": 1697658,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 1697658,
+              "selection_id": 37924725,
+              "character_id": 1338,
+              "character_name": "Yoshi"
+            },
+            {
+              "user_id": 2297365,
+              "selection_id": 37924726,
+              "character_id": 1846,
+              "character_name": "Kazuya"
+            }
+          ]
+        },
+        {
+          "game_id": 26056591,
+          "order_num": 2,
+          "winner_id": 2297365,
+          "entrant1_score": 0,
+          "entrant2_score": null,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 1697658,
+              "selection_id": 37924727,
+              "character_id": 1338,
+              "character_name": "Yoshi"
+            },
+            {
+              "user_id": 2297365,
+              "selection_id": 37924728,
+              "character_id": 1846,
+              "character_name": "Kazuya"
+            }
+          ]
+        },
+        {
+          "game_id": 26056592,
+          "order_num": 3,
+          "winner_id": 1697658,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 1697658,
+              "selection_id": 37924729,
+              "character_id": 1338,
+              "character_name": "Yoshi"
+            },
+            {
+              "user_id": 2297365,
+              "selection_id": 37924730,
+              "character_id": 1846,
+              "character_name": "Kazuya"
+            }
+          ]
+        },
+        {
+          "game_id": 26056593,
+          "order_num": 4,
+          "winner_id": 1697658,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 1697658,
+              "selection_id": 37924731,
+              "character_id": 1338,
+              "character_name": "Yoshi"
+            },
+            {
+              "user_id": 2297365,
+              "selection_id": 37924732,
+              "character_id": 1846,
+              "character_name": "Kazuya"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "winner_id": 956100,
       "loser_id": 32775,
       "winner_score": 3,
@@ -214,6 +216,7 @@
       "round_text": "Round 3",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -339,6 +342,7 @@
       "round_text": "Round 3",
       "round": 3,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -353,6 +357,7 @@
       "round_text": "Winners Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -456,6 +461,7 @@
       "round_text": "Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -537,6 +543,7 @@
       "round_text": "Round 2",
       "round": 2,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -655,20 +662,6 @@
       ]
     },
     {
-      "winner_id": 2297365,
-      "loser_id": 2427851,
-      "winner_score": 0,
-      "loser_score": -1,
-      "round_text": "Round 2",
-      "round": 2,
-      "phase": "2",
-      "wave": null,
-      "dq": true,
-      "cancel": false,
-      "state": 3,
-      "details": []
-    },
-    {
       "winner_id": 2618763,
       "loser_id": 32775,
       "winner_score": 3,
@@ -676,6 +669,7 @@
       "round_text": "Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -794,6 +788,21 @@
       ]
     },
     {
+      "winner_id": 2297365,
+      "loser_id": 2427851,
+      "winner_score": 0,
+      "loser_score": -1,
+      "round_text": "Round 2",
+      "round": 2,
+      "phase": "2",
+      "phase_order": 1,
+      "wave": null,
+      "dq": true,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
       "winner_id": 1697658,
       "loser_id": 956100,
       "winner_score": 3,
@@ -801,6 +810,7 @@
       "round_text": "Losers Final",
       "round": -4,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -904,6 +914,7 @@
       "round_text": "Losers Semi-Final",
       "round": -3,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": true,
@@ -918,6 +929,7 @@
       "round_text": "Winners Semi-Final",
       "round": 1,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -999,6 +1011,7 @@
       "round_text": "Winners Semi-Final",
       "round": 1,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1102,6 +1115,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -1116,6 +1130,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1219,6 +1234,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1322,6 +1338,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1425,6 +1442,7 @@
       "round_text": "Grand Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": true,

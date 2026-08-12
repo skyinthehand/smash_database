@@ -8,6 +8,7 @@
       "round_text": "Grand Final",
       "round": 5,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -126,87 +127,6 @@
       ]
     },
     {
-      "winner_id": 256727,
-      "loser_id": 22360,
-      "winner_score": 2,
-      "loser_score": 1,
-      "round_text": "Round 5",
-      "round": 5,
-      "phase": "A1",
-      "wave": "A",
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": [
-        {
-          "game_id": 26408684,
-          "order_num": 1,
-          "winner_id": 256727,
-          "entrant1_score": 0,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": 256727,
-              "selection_id": 38467859,
-              "character_id": 1273,
-              "character_name": "Bowser"
-            },
-            {
-              "user_id": 22360,
-              "selection_id": 38467860,
-              "character_id": 1280,
-              "character_name": "Donkey Kong"
-            }
-          ]
-        },
-        {
-          "game_id": 26408685,
-          "order_num": 2,
-          "winner_id": 22360,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": 256727,
-              "selection_id": 38467861,
-              "character_id": 1273,
-              "character_name": "Bowser"
-            },
-            {
-              "user_id": 22360,
-              "selection_id": 38467862,
-              "character_id": 1406,
-              "character_name": "Incineroar"
-            }
-          ]
-        },
-        {
-          "game_id": 26408686,
-          "order_num": 3,
-          "winner_id": 256727,
-          "entrant1_score": 0,
-          "entrant2_score": null,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": 256727,
-              "selection_id": 38467863,
-              "character_id": 1273,
-              "character_name": "Bowser"
-            },
-            {
-              "user_id": 22360,
-              "selection_id": 38467864,
-              "character_id": 1406,
-              "character_name": "Incineroar"
-            }
-          ]
-        }
-      ]
-    },
-    {
       "winner_id": 117906,
       "loser_id": 1328900,
       "winner_score": 2,
@@ -214,6 +134,7 @@
       "round_text": "Round 5",
       "round": 5,
       "phase": "A2",
+      "phase_order": 1,
       "wave": "A",
       "dq": false,
       "cancel": false,
@@ -288,6 +209,88 @@
       ]
     },
     {
+      "winner_id": 256727,
+      "loser_id": 22360,
+      "winner_score": 2,
+      "loser_score": 1,
+      "round_text": "Round 5",
+      "round": 5,
+      "phase": "A1",
+      "phase_order": 1,
+      "wave": "A",
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": [
+        {
+          "game_id": 26408684,
+          "order_num": 1,
+          "winner_id": 256727,
+          "entrant1_score": 0,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 256727,
+              "selection_id": 38467859,
+              "character_id": 1273,
+              "character_name": "Bowser"
+            },
+            {
+              "user_id": 22360,
+              "selection_id": 38467860,
+              "character_id": 1280,
+              "character_name": "Donkey Kong"
+            }
+          ]
+        },
+        {
+          "game_id": 26408685,
+          "order_num": 2,
+          "winner_id": 22360,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 256727,
+              "selection_id": 38467861,
+              "character_id": 1273,
+              "character_name": "Bowser"
+            },
+            {
+              "user_id": 22360,
+              "selection_id": 38467862,
+              "character_id": 1406,
+              "character_name": "Incineroar"
+            }
+          ]
+        },
+        {
+          "game_id": 26408686,
+          "order_num": 3,
+          "winner_id": 256727,
+          "entrant1_score": 0,
+          "entrant2_score": null,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 256727,
+              "selection_id": 38467863,
+              "character_id": 1273,
+              "character_name": "Bowser"
+            },
+            {
+              "user_id": 22360,
+              "selection_id": 38467864,
+              "character_id": 1406,
+              "character_name": "Incineroar"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "winner_id": 2140217,
       "loser_id": 2786695,
       "winner_score": 2,
@@ -295,6 +298,7 @@
       "round_text": "Round 5",
       "round": 5,
       "phase": "A2",
+      "phase_order": 1,
       "wave": "A",
       "dq": false,
       "cancel": false,
@@ -354,6 +358,7 @@
       "round_text": "Round 5",
       "round": 5,
       "phase": "A1",
+      "phase_order": 1,
       "wave": "A",
       "dq": false,
       "cancel": false,
@@ -413,6 +418,7 @@
       "round_text": "Winners Final",
       "round": 4,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -510,12 +516,13 @@
     },
     {
       "winner_id": 22360,
-      "loser_id": 515653,
+      "loser_id": null,
       "winner_score": 2,
       "loser_score": 0,
       "round_text": "Round 4",
       "round": 4,
       "phase": "A1",
+      "phase_order": 1,
       "wave": "A",
       "dq": false,
       "cancel": false,
@@ -536,7 +543,7 @@
               "character_name": "Donkey Kong"
             },
             {
-              "user_id": 515653,
+              "user_id": null,
               "selection_id": 38466829,
               "character_id": 1321,
               "character_name": "Pokemon Trainer"
@@ -558,7 +565,7 @@
               "character_name": "Incineroar"
             },
             {
-              "user_id": 515653,
+              "user_id": null,
               "selection_id": 38466831,
               "character_id": 1321,
               "character_name": "Pokemon Trainer"
@@ -575,6 +582,7 @@
       "round_text": "Round 4",
       "round": 4,
       "phase": "A2",
+      "phase_order": 1,
       "wave": "A",
       "dq": false,
       "cancel": false,
@@ -634,6 +642,7 @@
       "round_text": "Round 4",
       "round": 4,
       "phase": "A1",
+      "phase_order": 1,
       "wave": "A",
       "dq": false,
       "cancel": false,
@@ -693,6 +702,7 @@
       "round_text": "Round 4",
       "round": 4,
       "phase": "A2",
+      "phase_order": 1,
       "wave": "A",
       "dq": false,
       "cancel": false,
@@ -752,6 +762,7 @@
       "round_text": "Losers Final",
       "round": -8,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -855,6 +866,7 @@
       "round_text": "Losers Semi-Final",
       "round": -7,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -980,6 +992,7 @@
       "round_text": "Winners Semi-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1105,6 +1118,7 @@
       "round_text": "Winners Semi-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1230,6 +1244,7 @@
       "round_text": "Round 3",
       "round": 3,
       "phase": "A1",
+      "phase_order": 1,
       "wave": "A",
       "dq": false,
       "cancel": false,
@@ -1289,6 +1304,7 @@
       "round_text": "Round 3",
       "round": 3,
       "phase": "B2",
+      "phase_order": 1,
       "wave": "B",
       "dq": false,
       "cancel": false,
@@ -1370,6 +1386,7 @@
       "round_text": "Round 3",
       "round": 3,
       "phase": "A2",
+      "phase_order": 1,
       "wave": "A",
       "dq": false,
       "cancel": false,
@@ -1429,6 +1446,7 @@
       "round_text": "Round 3",
       "round": 3,
       "phase": "B1",
+      "phase_order": 1,
       "wave": "B",
       "dq": false,
       "cancel": false,
@@ -1510,6 +1528,7 @@
       "round_text": "Round 3",
       "round": 3,
       "phase": "A2",
+      "phase_order": 1,
       "wave": "A",
       "dq": false,
       "cancel": false,
@@ -1562,13 +1581,14 @@
       ]
     },
     {
-      "winner_id": 515653,
+      "winner_id": null,
       "loser_id": 2505414,
       "winner_score": 2,
       "loser_score": 1,
       "round_text": "Round 3",
       "round": 3,
       "phase": "A1",
+      "phase_order": 1,
       "wave": "A",
       "dq": false,
       "cancel": false,
@@ -1577,13 +1597,13 @@
         {
           "game_id": 26409086,
           "order_num": 1,
-          "winner_id": 515653,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
           "selections": [
             {
-              "user_id": 515653,
+              "user_id": null,
               "selection_id": 38468479,
               "character_id": 1321,
               "character_name": "Pokemon Trainer"
@@ -1605,7 +1625,7 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 515653,
+              "user_id": null,
               "selection_id": 38468481,
               "character_id": 1321,
               "character_name": "Pokemon Trainer"
@@ -1621,13 +1641,13 @@
         {
           "game_id": 26409088,
           "order_num": 3,
-          "winner_id": 515653,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
           "selections": [
             {
-              "user_id": 515653,
+              "user_id": null,
               "selection_id": 38468483,
               "character_id": 1321,
               "character_name": "Pokemon Trainer"
@@ -1650,6 +1670,7 @@
       "round_text": "Round 3",
       "round": 3,
       "phase": "B2",
+      "phase_order": 1,
       "wave": "B",
       "dq": false,
       "cancel": false,
@@ -1731,6 +1752,7 @@
       "round_text": "Round 3",
       "round": 3,
       "phase": "B1",
+      "phase_order": 1,
       "wave": "B",
       "dq": false,
       "cancel": false,
@@ -1790,6 +1812,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -6,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1871,6 +1894,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -6,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1946,12 +1970,13 @@
     },
     {
       "winner_id": 48477,
-      "loser_id": 515653,
+      "loser_id": null,
       "winner_score": 3,
       "loser_score": 0,
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1966,7 +1991,7 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 515653,
+              "user_id": null,
               "selection_id": 38480529,
               "character_id": 1321,
               "character_name": "Pokemon Trainer"
@@ -1988,7 +2013,7 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 515653,
+              "user_id": null,
               "selection_id": 38480531,
               "character_id": 1321,
               "character_name": "Pokemon Trainer"
@@ -2010,7 +2035,7 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 515653,
+              "user_id": null,
               "selection_id": 38480533,
               "character_id": 1321,
               "character_name": "Pokemon Trainer"
@@ -2033,6 +2058,7 @@
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2158,6 +2184,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2217,6 +2244,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2298,6 +2326,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2357,6 +2386,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2438,6 +2468,7 @@
       "round_text": "Round 2",
       "round": 2,
       "phase": "A2",
+      "phase_order": 1,
       "wave": "A",
       "dq": false,
       "cancel": false,
@@ -2497,6 +2528,7 @@
       "round_text": "Round 2",
       "round": 2,
       "phase": "B1",
+      "phase_order": 1,
       "wave": "B",
       "dq": false,
       "cancel": false,
@@ -2556,6 +2588,7 @@
       "round_text": "Round 2",
       "round": 2,
       "phase": "A1",
+      "phase_order": 1,
       "wave": "A",
       "dq": false,
       "cancel": false,
@@ -2615,6 +2648,7 @@
       "round_text": "Round 2",
       "round": 2,
       "phase": "B2",
+      "phase_order": 1,
       "wave": "B",
       "dq": false,
       "cancel": false,
@@ -2696,6 +2730,7 @@
       "round_text": "Round 2",
       "round": 2,
       "phase": "B2",
+      "phase_order": 1,
       "wave": "B",
       "dq": false,
       "cancel": false,
@@ -2749,12 +2784,13 @@
     },
     {
       "winner_id": 256727,
-      "loser_id": 515653,
+      "loser_id": null,
       "winner_score": 2,
       "loser_score": 0,
       "round_text": "Round 2",
       "round": 2,
       "phase": "A1",
+      "phase_order": 1,
       "wave": "A",
       "dq": false,
       "cancel": false,
@@ -2775,7 +2811,7 @@
               "character_name": "Bowser"
             },
             {
-              "user_id": 515653,
+              "user_id": null,
               "selection_id": 38466061,
               "character_id": 1321,
               "character_name": "Pokemon Trainer"
@@ -2797,7 +2833,7 @@
               "character_name": "Ike"
             },
             {
-              "user_id": 515653,
+              "user_id": null,
               "selection_id": 38466063,
               "character_id": 1321,
               "character_name": "Pokemon Trainer"
@@ -2814,6 +2850,7 @@
       "round_text": "Round 2",
       "round": 2,
       "phase": "B1",
+      "phase_order": 1,
       "wave": "B",
       "dq": false,
       "cancel": false,
@@ -2873,6 +2910,7 @@
       "round_text": "Round 2",
       "round": 2,
       "phase": "A2",
+      "phase_order": 1,
       "wave": "A",
       "dq": false,
       "cancel": false,
@@ -2932,6 +2970,7 @@
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3006,13 +3045,14 @@
       ]
     },
     {
-      "winner_id": 515653,
+      "winner_id": null,
       "loser_id": 1288860,
       "winner_score": 2,
       "loser_score": 1,
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3033,7 +3073,7 @@
               "character_name": "Donkey Kong"
             },
             {
-              "user_id": 515653,
+              "user_id": null,
               "selection_id": 38478153,
               "character_id": 1321,
               "character_name": "Pokemon Trainer"
@@ -3043,7 +3083,7 @@
         {
           "game_id": 26415285,
           "order_num": 2,
-          "winner_id": 515653,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
@@ -3055,7 +3095,7 @@
               "character_name": "Wolf"
             },
             {
-              "user_id": 515653,
+              "user_id": null,
               "selection_id": 38478155,
               "character_id": 1321,
               "character_name": "Pokemon Trainer"
@@ -3065,7 +3105,7 @@
         {
           "game_id": 26415286,
           "order_num": 3,
-          "winner_id": 515653,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
@@ -3077,7 +3117,7 @@
               "character_name": "Donkey Kong"
             },
             {
-              "user_id": 515653,
+              "user_id": null,
               "selection_id": 38478157,
               "character_id": 1321,
               "character_name": "Pokemon Trainer"
@@ -3094,6 +3134,7 @@
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3153,6 +3194,7 @@
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3212,6 +3254,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3287,12 +3330,13 @@
     },
     {
       "winner_id": 117906,
-      "loser_id": 515653,
+      "loser_id": null,
       "winner_score": 2,
       "loser_score": 0,
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3313,7 +3357,7 @@
               "character_name": "Pikachu"
             },
             {
-              "user_id": 515653,
+              "user_id": null,
               "selection_id": 38476078,
               "character_id": 1321,
               "character_name": "Pokemon Trainer"
@@ -3335,7 +3379,7 @@
               "character_name": "Pikachu"
             },
             {
-              "user_id": 515653,
+              "user_id": null,
               "selection_id": 38476080,
               "character_id": 1321,
               "character_name": "Pokemon Trainer"
@@ -3352,6 +3396,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3411,6 +3456,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3492,6 +3538,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "A2",
+      "phase_order": 1,
       "wave": "A",
       "dq": false,
       "cancel": false,
@@ -3551,6 +3598,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "B1",
+      "phase_order": 1,
       "wave": "B",
       "dq": false,
       "cancel": false,
@@ -3610,6 +3658,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "A1",
+      "phase_order": 1,
       "wave": "A",
       "dq": false,
       "cancel": false,
@@ -3669,6 +3718,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "B2",
+      "phase_order": 1,
       "wave": "B",
       "dq": false,
       "cancel": false,
@@ -3750,6 +3800,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "A2",
+      "phase_order": 1,
       "wave": "A",
       "dq": false,
       "cancel": false,
@@ -3809,6 +3860,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "B2",
+      "phase_order": 1,
       "wave": "B",
       "dq": false,
       "cancel": false,
@@ -3890,6 +3942,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "B1",
+      "phase_order": 1,
       "wave": "B",
       "dq": false,
       "cancel": false,
@@ -3942,13 +3995,14 @@
       ]
     },
     {
-      "winner_id": 515653,
+      "winner_id": null,
       "loser_id": 1715528,
       "winner_score": 2,
       "loser_score": 0,
       "round_text": "Round 1",
       "round": 1,
       "phase": "A1",
+      "phase_order": 1,
       "wave": "A",
       "dq": false,
       "cancel": false,
@@ -3957,13 +4011,13 @@
         {
           "game_id": 26409823,
           "order_num": 1,
-          "winner_id": 515653,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
           "selections": [
             {
-              "user_id": 515653,
+              "user_id": null,
               "selection_id": 38469698,
               "character_id": 1321,
               "character_name": "Pokemon Trainer"
@@ -3979,13 +4033,13 @@
         {
           "game_id": 26409824,
           "order_num": 2,
-          "winner_id": 515653,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
           "selections": [
             {
-              "user_id": 515653,
+              "user_id": null,
               "selection_id": 38469700,
               "character_id": 1321,
               "character_name": "Pokemon Trainer"

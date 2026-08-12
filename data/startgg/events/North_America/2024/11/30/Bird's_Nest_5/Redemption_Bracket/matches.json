@@ -8,6 +8,7 @@
       "round_text": "Grand Final",
       "round": 4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -133,6 +134,7 @@
       "round_text": "Grand Final Reset",
       "round": 4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -258,6 +260,7 @@
       "round_text": "Winners Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -383,6 +386,7 @@
       "round_text": "Losers Final",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -464,6 +468,7 @@
       "round_text": "Losers Semi-Final",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -545,6 +550,7 @@
       "round_text": "Winners Semi-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -648,6 +654,7 @@
       "round_text": "Winners Semi-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -767,12 +774,13 @@
     },
     {
       "winner_id": 2329764,
-      "loser_id": 1612116,
+      "loser_id": null,
       "winner_score": 3,
       "loser_score": 0,
       "round_text": "Losers Quarter-Final",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -787,7 +795,7 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 1612116,
+              "user_id": null,
               "selection_id": 38666388,
               "character_id": 1318,
               "character_name": "Pichu"
@@ -809,7 +817,7 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 1612116,
+              "user_id": null,
               "selection_id": 38666390,
               "character_id": 1304,
               "character_name": "Marth"
@@ -831,7 +839,7 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 1612116,
+              "user_id": null,
               "selection_id": 38666392,
               "character_id": 1274,
               "character_name": "Captain Falcon"
@@ -854,6 +862,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -957,6 +966,7 @@
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1032,12 +1042,13 @@
     },
     {
       "winner_id": 1097513,
-      "loser_id": 1612116,
+      "loser_id": null,
       "winner_score": 3,
       "loser_score": 1,
       "round_text": "Winners Quarter-Final",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1052,7 +1063,7 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 1612116,
+              "user_id": null,
               "selection_id": 38664493,
               "character_id": 1304,
               "character_name": "Marth"
@@ -1074,7 +1085,7 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 1612116,
+              "user_id": null,
               "selection_id": 38664495,
               "character_id": 1304,
               "character_name": "Marth"
@@ -1090,13 +1101,13 @@
         {
           "game_id": 26538363,
           "order_num": 3,
-          "winner_id": 1612116,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
           "selections": [
             {
-              "user_id": 1612116,
+              "user_id": null,
               "selection_id": 38664497,
               "character_id": 1304,
               "character_name": "Marth"
@@ -1118,7 +1129,7 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 1612116,
+              "user_id": null,
               "selection_id": 38664499,
               "character_id": 1304,
               "character_name": "Marth"
@@ -1141,6 +1152,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1222,6 +1234,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,

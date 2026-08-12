@@ -8,6 +8,7 @@
       "round_text": "Grand Final",
       "round": 5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -133,6 +134,7 @@
       "round_text": "Grand Final Reset",
       "round": 5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -208,12 +210,13 @@
     },
     {
       "winner_id": 1108325,
-      "loser_id": null,
+      "loser_id": 1042777,
       "winner_score": 3,
       "loser_score": 0,
       "round_text": "Winners Final",
       "round": 4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -234,7 +237,7 @@
               "character_name": "Terry"
             },
             {
-              "user_id": null,
+              "user_id": 1042777,
               "selection_id": 38416645,
               "character_id": 1292,
               "character_name": "Inkling"
@@ -256,7 +259,7 @@
               "character_name": "Terry"
             },
             {
-              "user_id": null,
+              "user_id": 1042777,
               "selection_id": 38417055,
               "character_id": 1292,
               "character_name": "Inkling"
@@ -278,7 +281,7 @@
               "character_name": "Terry"
             },
             {
-              "user_id": null,
+              "user_id": 1042777,
               "selection_id": 38417982,
               "character_id": 1292,
               "character_name": "Inkling"
@@ -289,12 +292,13 @@
     },
     {
       "winner_id": null,
-      "loser_id": null,
+      "loser_id": 1042777,
       "winner_score": 3,
       "loser_score": 0,
       "round_text": "Losers Final",
       "round": -8,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -315,7 +319,7 @@
               "character_name": "Pac-Man"
             },
             {
-              "user_id": null,
+              "user_id": 1042777,
               "selection_id": 38421680,
               "character_id": 1275,
               "character_name": "Cloud"
@@ -337,7 +341,7 @@
               "character_name": "Pac-Man"
             },
             {
-              "user_id": null,
+              "user_id": 1042777,
               "selection_id": 38421682,
               "character_id": 1292,
               "character_name": "Inkling"
@@ -359,7 +363,7 @@
               "character_name": "Sheik"
             },
             {
-              "user_id": null,
+              "user_id": 1042777,
               "selection_id": 38421684,
               "character_id": 1329,
               "character_name": "Sheik"
@@ -376,6 +380,7 @@
       "round_text": "Losers Semi-Final",
       "round": -7,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -479,6 +484,7 @@
       "round_text": "Winners Semi-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -597,13 +603,14 @@
       ]
     },
     {
-      "winner_id": null,
+      "winner_id": 1042777,
       "loser_id": null,
       "winner_score": 3,
       "loser_score": 0,
       "round_text": "Winners Semi-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -612,7 +619,7 @@
         {
           "game_id": 26373625,
           "order_num": 1,
-          "winner_id": null,
+          "winner_id": 1042777,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
@@ -624,7 +631,7 @@
               "character_name": "Captain Falcon"
             },
             {
-              "user_id": null,
+              "user_id": 1042777,
               "selection_id": 38413291,
               "character_id": 1292,
               "character_name": "Inkling"
@@ -634,7 +641,7 @@
         {
           "game_id": 26373939,
           "order_num": 2,
-          "winner_id": null,
+          "winner_id": 1042777,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
@@ -646,7 +653,7 @@
               "character_name": "Bowser"
             },
             {
-              "user_id": null,
+              "user_id": 1042777,
               "selection_id": 38413772,
               "character_id": 1292,
               "character_name": "Inkling"
@@ -656,13 +663,13 @@
         {
           "game_id": 26374130,
           "order_num": 3,
-          "winner_id": null,
+          "winner_id": 1042777,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
           "selections": [
             {
-              "user_id": null,
+              "user_id": 1042777,
               "selection_id": 38414061,
               "character_id": 1292,
               "character_name": "Inkling"
@@ -685,6 +692,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -804,12 +812,13 @@
     },
     {
       "winner_id": null,
-      "loser_id": null,
+      "loser_id": 2911457,
       "winner_score": 3,
       "loser_score": 0,
       "round_text": "Losers Quarter-Final",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -830,7 +839,7 @@
               "character_name": "Yoshi"
             },
             {
-              "user_id": null,
+              "user_id": 2911457,
               "selection_id": 38415240,
               "character_id": 1286,
               "character_name": "Fox"
@@ -852,7 +861,7 @@
               "character_name": "Jigglypuff"
             },
             {
-              "user_id": null,
+              "user_id": 2911457,
               "selection_id": 38415608,
               "character_id": 1286,
               "character_name": "Fox"
@@ -874,7 +883,7 @@
               "character_name": "Olimar"
             },
             {
-              "user_id": null,
+              "user_id": 2911457,
               "selection_id": 38415886,
               "character_id": 1286,
               "character_name": "Fox"
@@ -891,6 +900,7 @@
       "round_text": "Losers Round 3",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -943,13 +953,14 @@
       ]
     },
     {
-      "winner_id": null,
-      "loser_id": null,
+      "winner_id": 2911457,
+      "loser_id": 2848172,
       "winner_score": 2,
       "loser_score": 1,
       "round_text": "Losers Round 3",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -958,19 +969,19 @@
         {
           "game_id": 26372198,
           "order_num": 1,
-          "winner_id": null,
+          "winner_id": 2848172,
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
           "selections": [
             {
-              "user_id": null,
+              "user_id": 2911457,
               "selection_id": 38411200,
               "character_id": 1407,
               "character_name": "King K. Rool"
             },
             {
-              "user_id": null,
+              "user_id": 2848172,
               "selection_id": 38411201,
               "character_id": 1407,
               "character_name": "King K. Rool"
@@ -980,19 +991,19 @@
         {
           "game_id": 26372402,
           "order_num": 2,
-          "winner_id": null,
+          "winner_id": 2911457,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
           "selections": [
             {
-              "user_id": null,
+              "user_id": 2848172,
               "selection_id": 38411517,
               "character_id": 1407,
               "character_name": "King K. Rool"
             },
             {
-              "user_id": null,
+              "user_id": 2911457,
               "selection_id": 38411961,
               "character_id": 1286,
               "character_name": "Fox"
@@ -1002,19 +1013,19 @@
         {
           "game_id": 26372713,
           "order_num": 3,
-          "winner_id": null,
+          "winner_id": 2911457,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
           "selections": [
             {
-              "user_id": null,
+              "user_id": 2911457,
               "selection_id": 38411962,
               "character_id": 1286,
               "character_name": "Fox"
             },
             {
-              "user_id": null,
+              "user_id": 2848172,
               "selection_id": 38411963,
               "character_id": 1407,
               "character_name": "King K. Rool"
@@ -1025,12 +1036,13 @@
     },
     {
       "winner_id": 1108325,
-      "loser_id": null,
+      "loser_id": 2848172,
       "winner_score": 2,
       "loser_score": 1,
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1039,7 +1051,7 @@
         {
           "game_id": 26370417,
           "order_num": 1,
-          "winner_id": null,
+          "winner_id": 2848172,
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
@@ -1051,7 +1063,7 @@
               "character_name": "Kazuya"
             },
             {
-              "user_id": null,
+              "user_id": 2848172,
               "selection_id": 38408175,
               "character_id": 1407,
               "character_name": "King K. Rool"
@@ -1073,7 +1085,7 @@
               "character_name": "Kazuya"
             },
             {
-              "user_id": null,
+              "user_id": 2848172,
               "selection_id": 38408177,
               "character_id": 1407,
               "character_name": "King K. Rool"
@@ -1095,7 +1107,7 @@
               "character_name": "Kazuya"
             },
             {
-              "user_id": null,
+              "user_id": 2848172,
               "selection_id": 38408398,
               "character_id": 1407,
               "character_name": "King K. Rool"
@@ -1106,12 +1118,13 @@
     },
     {
       "winner_id": 740186,
-      "loser_id": null,
+      "loser_id": 2911457,
       "winner_score": 2,
       "loser_score": 0,
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1126,7 +1139,7 @@
           "stage": null,
           "selections": [
             {
-              "user_id": null,
+              "user_id": 2911457,
               "selection_id": 38407847,
               "character_id": 1286,
               "character_name": "Fox"
@@ -1148,7 +1161,7 @@
           "stage": null,
           "selections": [
             {
-              "user_id": null,
+              "user_id": 2911457,
               "selection_id": 38408117,
               "character_id": 1286,
               "character_name": "Fox"
@@ -1164,13 +1177,14 @@
       ]
     },
     {
-      "winner_id": null,
+      "winner_id": 1042777,
       "loser_id": 2275395,
       "winner_score": 2,
       "loser_score": 0,
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1179,7 +1193,7 @@
         {
           "game_id": 26369978,
           "order_num": 1,
-          "winner_id": null,
+          "winner_id": 1042777,
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
@@ -1191,7 +1205,7 @@
               "character_name": "Terry"
             },
             {
-              "user_id": null,
+              "user_id": 1042777,
               "selection_id": 38407452,
               "character_id": 1292,
               "character_name": "Inkling"
@@ -1201,13 +1215,13 @@
         {
           "game_id": 26370107,
           "order_num": 2,
-          "winner_id": null,
+          "winner_id": 1042777,
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
           "selections": [
             {
-              "user_id": null,
+              "user_id": 1042777,
               "selection_id": 38407679,
               "character_id": 1292,
               "character_name": "Inkling"
@@ -1230,6 +1244,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1311,6 +1326,7 @@
       "round_text": "Losers Round 2",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1392,6 +1408,7 @@
       "round_text": "Losers Round 2",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1444,13 +1461,14 @@
       ]
     },
     {
-      "winner_id": null,
+      "winner_id": 2911457,
       "loser_id": 45798,
       "winner_score": 3,
       "loser_score": 0,
       "round_text": "Losers Round 2",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1459,13 +1477,13 @@
         {
           "game_id": 26371053,
           "order_num": 1,
-          "winner_id": null,
+          "winner_id": 2911457,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
           "selections": [
             {
-              "user_id": null,
+              "user_id": 2911457,
               "selection_id": 38409241,
               "character_id": 1286,
               "character_name": "Fox"
@@ -1481,13 +1499,13 @@
         {
           "game_id": 26371136,
           "order_num": 2,
-          "winner_id": null,
+          "winner_id": 2911457,
           "entrant1_score": 0,
           "entrant2_score": 0,
           "stage": null,
           "selections": [
             {
-              "user_id": null,
+              "user_id": 2911457,
               "selection_id": 38409375,
               "character_id": 1286,
               "character_name": "Fox"
@@ -1503,13 +1521,13 @@
         {
           "game_id": 26371325,
           "order_num": 3,
-          "winner_id": null,
+          "winner_id": 2911457,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
           "selections": [
             {
-              "user_id": null,
+              "user_id": 2911457,
               "selection_id": 38409725,
               "character_id": 1286,
               "character_name": "Fox"
@@ -1525,13 +1543,14 @@
       ]
     },
     {
-      "winner_id": null,
+      "winner_id": 2848172,
       "loser_id": 1424047,
       "winner_score": 2,
       "loser_score": 0,
       "round_text": "Losers Round 2",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1540,13 +1559,13 @@
         {
           "game_id": 26371740,
           "order_num": 1,
-          "winner_id": null,
+          "winner_id": 2848172,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
           "selections": [
             {
-              "user_id": null,
+              "user_id": 2848172,
               "selection_id": 38410435,
               "character_id": 1407,
               "character_name": "King K. Rool"
@@ -1562,13 +1581,13 @@
         {
           "game_id": 26372071,
           "order_num": 2,
-          "winner_id": null,
+          "winner_id": 2848172,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
           "selections": [
             {
-              "user_id": null,
+              "user_id": 2848172,
               "selection_id": 38410973,
               "character_id": 1407,
               "character_name": "King K. Rool"
@@ -1591,6 +1610,7 @@
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1672,6 +1692,7 @@
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1724,13 +1745,14 @@
       ]
     },
     {
-      "winner_id": null,
+      "winner_id": 2848172,
       "loser_id": null,
       "winner_score": 2,
       "loser_score": 0,
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1739,13 +1761,13 @@
         {
           "game_id": 26369055,
           "order_num": 1,
-          "winner_id": null,
+          "winner_id": 2848172,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
           "selections": [
             {
-              "user_id": null,
+              "user_id": 2848172,
               "selection_id": 38406028,
               "character_id": 1407,
               "character_name": "King K. Rool"
@@ -1761,13 +1783,13 @@
         {
           "game_id": 26369087,
           "order_num": 2,
-          "winner_id": null,
+          "winner_id": 2848172,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
           "selections": [
             {
-              "user_id": null,
+              "user_id": 2848172,
               "selection_id": 38406074,
               "character_id": 1407,
               "character_name": "King K. Rool"
@@ -1783,13 +1805,14 @@
       ]
     },
     {
-      "winner_id": null,
+      "winner_id": 2911457,
       "loser_id": 2533274,
       "winner_score": 2,
       "loser_score": 0,
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1798,13 +1821,13 @@
         {
           "game_id": 26369094,
           "order_num": 1,
-          "winner_id": null,
+          "winner_id": 2911457,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
           "selections": [
             {
-              "user_id": null,
+              "user_id": 2911457,
               "selection_id": 38406077,
               "character_id": 1286,
               "character_name": "Fox"
@@ -1820,13 +1843,13 @@
         {
           "game_id": 26369305,
           "order_num": 2,
-          "winner_id": null,
+          "winner_id": 2911457,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
           "selections": [
             {
-              "user_id": null,
+              "user_id": 2911457,
               "selection_id": 38406408,
               "character_id": 1286,
               "character_name": "Fox"
@@ -1849,6 +1872,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1901,13 +1925,14 @@
       ]
     },
     {
-      "winner_id": null,
+      "winner_id": 1042777,
       "loser_id": 45798,
       "winner_score": 2,
       "loser_score": 0,
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1916,13 +1941,13 @@
         {
           "game_id": 26369103,
           "order_num": 1,
-          "winner_id": null,
+          "winner_id": 1042777,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
           "selections": [
             {
-              "user_id": null,
+              "user_id": 1042777,
               "selection_id": 38406082,
               "character_id": 1292,
               "character_name": "Inkling"
@@ -1938,13 +1963,13 @@
         {
           "game_id": 26369223,
           "order_num": 2,
-          "winner_id": null,
+          "winner_id": 1042777,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
           "selections": [
             {
-              "user_id": null,
+              "user_id": 1042777,
               "selection_id": 38406265,
               "character_id": 1292,
               "character_name": "Inkling"
@@ -1967,6 +1992,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2026,6 +2052,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,

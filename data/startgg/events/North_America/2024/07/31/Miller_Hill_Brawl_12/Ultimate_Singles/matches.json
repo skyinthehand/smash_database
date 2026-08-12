@@ -8,6 +8,7 @@
       "round_text": "Grand Final",
       "round": 5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -133,6 +134,7 @@
       "round_text": "Winners Final",
       "round": 4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -214,6 +216,7 @@
       "round_text": "Losers Final",
       "round": -8,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -295,6 +298,7 @@
       "round_text": "Losers Semi-Final",
       "round": -7,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -420,6 +424,7 @@
       "round_text": "Winners Semi-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -501,6 +506,7 @@
       "round_text": "Winners Semi-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -560,6 +566,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -641,6 +648,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -700,6 +708,7 @@
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -752,65 +761,6 @@
       ]
     },
     {
-      "winner_id": null,
-      "loser_id": null,
-      "winner_score": 2,
-      "loser_score": 0,
-      "round_text": "Losers Round 2",
-      "round": -5,
-      "phase": "1",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": [
-        {
-          "game_id": 24001494,
-          "order_num": 1,
-          "winner_id": null,
-          "entrant1_score": 0,
-          "entrant2_score": null,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 34828426,
-              "character_id": 1338,
-              "character_name": "Yoshi"
-            },
-            {
-              "user_id": null,
-              "selection_id": 34828427,
-              "character_id": 1441,
-              "character_name": "Piranha Plant"
-            }
-          ]
-        },
-        {
-          "game_id": 24001495,
-          "order_num": 2,
-          "winner_id": null,
-          "entrant1_score": 0,
-          "entrant2_score": null,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 34828428,
-              "character_id": 1276,
-              "character_name": "Corrin"
-            },
-            {
-              "user_id": null,
-              "selection_id": 34828429,
-              "character_id": 1441,
-              "character_name": "Piranha Plant"
-            }
-          ]
-        }
-      ]
-    },
-    {
       "winner_id": 1111411,
       "loser_id": null,
       "winner_score": 2,
@@ -818,6 +768,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -877,6 +828,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -936,6 +888,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -995,6 +948,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1054,6 +1008,7 @@
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1113,6 +1068,7 @@
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1172,6 +1128,7 @@
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1231,6 +1188,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1312,6 +1270,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1380,87 +1339,6 @@
               "selection_id": 34826853,
               "character_id": 1407,
               "character_name": "King K. Rool"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "winner_id": null,
-      "loser_id": null,
-      "winner_score": 2,
-      "loser_score": 1,
-      "round_text": "Winners Round 1",
-      "round": 1,
-      "phase": "1",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": [
-        {
-          "game_id": 24000078,
-          "order_num": 1,
-          "winner_id": null,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 34826814,
-              "character_id": 1295,
-              "character_name": "Kirby"
-            },
-            {
-              "user_id": null,
-              "selection_id": 34826815,
-              "character_id": 1406,
-              "character_name": "Incineroar"
-            }
-          ]
-        },
-        {
-          "game_id": 24000079,
-          "order_num": 2,
-          "winner_id": null,
-          "entrant1_score": 0,
-          "entrant2_score": null,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 34826816,
-              "character_id": 1295,
-              "character_name": "Kirby"
-            },
-            {
-              "user_id": null,
-              "selection_id": 34826817,
-              "character_id": 1406,
-              "character_name": "Incineroar"
-            }
-          ]
-        },
-        {
-          "game_id": 24000080,
-          "order_num": 3,
-          "winner_id": null,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 34826818,
-              "character_id": 1295,
-              "character_name": "Kirby"
-            },
-            {
-              "user_id": null,
-              "selection_id": 34826819,
-              "character_id": 1406,
-              "character_name": "Incineroar"
             }
           ]
         }

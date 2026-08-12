@@ -1,13 +1,14 @@
 {
   "data": [
     {
-      "winner_id": 670240,
+      "winner_id": null,
       "loser_id": 967697,
       "winner_score": 2,
       "loser_score": 0,
       "round_text": "Round 7",
       "round": 7,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -16,7 +17,7 @@
         {
           "game_id": 24707047,
           "order_num": 1,
-          "winner_id": 670240,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
@@ -28,7 +29,7 @@
               "character_name": "Marth"
             },
             {
-              "user_id": 670240,
+              "user_id": null,
               "selection_id": 35859369,
               "character_id": 1795,
               "character_name": "Pyra & Mythra"
@@ -38,7 +39,7 @@
         {
           "game_id": 24707048,
           "order_num": 2,
-          "winner_id": 670240,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
@@ -50,7 +51,7 @@
               "character_name": "Marth"
             },
             {
-              "user_id": 670240,
+              "user_id": null,
               "selection_id": 35859371,
               "character_id": 1795,
               "character_name": "Pyra & Mythra"
@@ -67,6 +68,7 @@
       "round_text": "Round 7",
       "round": 7,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -126,6 +128,7 @@
       "round_text": "Round 7",
       "round": 7,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -207,6 +210,7 @@
       "round_text": "Round 7",
       "round": 7,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -266,6 +270,7 @@
       "round_text": "Round 7",
       "round": 7,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -347,6 +352,7 @@
       "round_text": "Round 7",
       "round": 7,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -361,6 +367,7 @@
       "round_text": "Round 7",
       "round": 7,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -420,6 +427,7 @@
       "round_text": "Round 6",
       "round": 6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -479,6 +487,7 @@
       "round_text": "Round 6",
       "round": 6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -538,6 +547,7 @@
       "round_text": "Round 6",
       "round": 6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -597,6 +607,7 @@
       "round_text": "Round 6",
       "round": 6,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -650,12 +661,13 @@
     },
     {
       "winner_id": 501220,
-      "loser_id": 670240,
+      "loser_id": null,
       "winner_score": 2,
       "loser_score": 1,
       "round_text": "Round 6",
       "round": 6,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -664,7 +676,7 @@
         {
           "game_id": 24707992,
           "order_num": 1,
-          "winner_id": 670240,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
@@ -676,7 +688,7 @@
               "character_name": "Mii Swordfighter"
             },
             {
-              "user_id": 670240,
+              "user_id": null,
               "selection_id": 35860544,
               "character_id": 1795,
               "character_name": "Pyra & Mythra"
@@ -698,7 +710,7 @@
               "character_name": "Yoshi"
             },
             {
-              "user_id": 670240,
+              "user_id": null,
               "selection_id": 35860546,
               "character_id": 1795,
               "character_name": "Pyra & Mythra"
@@ -720,7 +732,7 @@
               "character_name": "Yoshi"
             },
             {
-              "user_id": 670240,
+              "user_id": null,
               "selection_id": 35860548,
               "character_id": 1795,
               "character_name": "Pyra & Mythra"
@@ -737,6 +749,7 @@
       "round_text": "Round 6",
       "round": 6,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -796,6 +809,7 @@
       "round_text": "Round 6",
       "round": 6,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -855,6 +869,7 @@
       "round_text": "Round 5",
       "round": 5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -914,6 +929,7 @@
       "round_text": "Round 5",
       "round": 5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -995,6 +1011,7 @@
       "round_text": "Round 5",
       "round": 5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1048,12 +1065,13 @@
     },
     {
       "winner_id": 1032547,
-      "loser_id": 670240,
+      "loser_id": null,
       "winner_score": 2,
       "loser_score": 0,
       "round_text": "Round 5",
       "round": 5,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1068,7 +1086,7 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 670240,
+              "user_id": null,
               "selection_id": 35857757,
               "character_id": 1795,
               "character_name": "Pyra & Mythra"
@@ -1090,7 +1108,7 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 670240,
+              "user_id": null,
               "selection_id": 35857759,
               "character_id": 1795,
               "character_name": "Pyra & Mythra"
@@ -1113,6 +1131,7 @@
       "round_text": "Round 5",
       "round": 5,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1172,6 +1191,7 @@
       "round_text": "Round 5",
       "round": 5,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1231,6 +1251,7 @@
       "round_text": "Round 5",
       "round": 5,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1312,6 +1333,7 @@
       "round_text": "Round 4",
       "round": 4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1371,6 +1393,7 @@
       "round_text": "Round 4",
       "round": 4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1452,6 +1475,7 @@
       "round_text": "Round 4",
       "round": 4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1511,6 +1535,7 @@
       "round_text": "Round 4",
       "round": 4,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1563,13 +1588,14 @@
       ]
     },
     {
-      "winner_id": 670240,
+      "winner_id": null,
       "loser_id": 2353241,
       "winner_score": 2,
       "loser_score": 0,
       "round_text": "Round 4",
       "round": 4,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1578,7 +1604,7 @@
         {
           "game_id": 24707414,
           "order_num": 1,
-          "winner_id": 670240,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
@@ -1590,7 +1616,7 @@
               "character_name": "Wii Fit Trainer"
             },
             {
-              "user_id": 670240,
+              "user_id": null,
               "selection_id": 35859827,
               "character_id": 1795,
               "character_name": "Pyra & Mythra"
@@ -1600,7 +1626,7 @@
         {
           "game_id": 24707415,
           "order_num": 2,
-          "winner_id": 670240,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
@@ -1612,7 +1638,7 @@
               "character_name": "Wii Fit Trainer"
             },
             {
-              "user_id": 670240,
+              "user_id": null,
               "selection_id": 35859829,
               "character_id": 1795,
               "character_name": "Pyra & Mythra"
@@ -1629,6 +1655,7 @@
       "round_text": "Round 4",
       "round": 4,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1688,6 +1715,7 @@
       "round_text": "Round 4",
       "round": 4,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1747,6 +1775,7 @@
       "round_text": "Grand Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1872,6 +1901,7 @@
       "round_text": "Round 3",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1931,6 +1961,7 @@
       "round_text": "Round 3",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2012,6 +2043,7 @@
       "round_text": "Round 3",
       "round": 3,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2071,6 +2103,7 @@
       "round_text": "Round 3",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2152,6 +2185,7 @@
       "round_text": "Round 3",
       "round": 3,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2204,13 +2238,14 @@
       ]
     },
     {
-      "winner_id": 670240,
+      "winner_id": null,
       "loser_id": 1331792,
       "winner_score": 2,
       "loser_score": 0,
       "round_text": "Round 3",
       "round": 3,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2219,13 +2254,13 @@
         {
           "game_id": 24704851,
           "order_num": 1,
-          "winner_id": 670240,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
           "selections": [
             {
-              "user_id": 670240,
+              "user_id": null,
               "selection_id": 35856595,
               "character_id": 1795,
               "character_name": "Pyra & Mythra"
@@ -2241,13 +2276,13 @@
         {
           "game_id": 24704852,
           "order_num": 2,
-          "winner_id": 670240,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
           "selections": [
             {
-              "user_id": 670240,
+              "user_id": null,
               "selection_id": 35856597,
               "character_id": 1795,
               "character_name": "Pyra & Mythra"
@@ -2270,6 +2305,7 @@
       "round_text": "Round 3",
       "round": 3,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2329,6 +2365,7 @@
       "round_text": "Winners Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2410,6 +2447,7 @@
       "round_text": "Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2469,6 +2507,7 @@
       "round_text": "Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2528,6 +2567,7 @@
       "round_text": "Round 2",
       "round": 2,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2587,6 +2627,7 @@
       "round_text": "Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2646,6 +2687,7 @@
       "round_text": "Round 2",
       "round": 2,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2705,6 +2747,7 @@
       "round_text": "Round 2",
       "round": 2,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2764,6 +2807,7 @@
       "round_text": "Losers Final",
       "round": -4,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2839,12 +2883,13 @@
     },
     {
       "winner_id": 1243246,
-      "loser_id": 670240,
+      "loser_id": null,
       "winner_score": 2,
       "loser_score": 0,
       "round_text": "Round 2",
       "round": 2,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2865,7 +2910,7 @@
               "character_name": "Richter"
             },
             {
-              "user_id": 670240,
+              "user_id": null,
               "selection_id": 35855783,
               "character_id": 1795,
               "character_name": "Pyra & Mythra"
@@ -2887,7 +2932,7 @@
               "character_name": "Richter"
             },
             {
-              "user_id": 670240,
+              "user_id": null,
               "selection_id": 35855785,
               "character_id": 1795,
               "character_name": "Pyra & Mythra"
@@ -2904,6 +2949,7 @@
       "round_text": "Losers Semi-Final",
       "round": -3,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3029,6 +3075,7 @@
       "round_text": "Winners Semi-Final",
       "round": 1,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3110,6 +3157,7 @@
       "round_text": "Winners Semi-Final",
       "round": 1,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3191,6 +3239,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3250,6 +3299,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3309,6 +3359,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3368,6 +3419,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3427,6 +3479,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3508,6 +3561,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3560,13 +3614,14 @@
       ]
     },
     {
-      "winner_id": 670240,
+      "winner_id": null,
       "loser_id": 1019988,
       "winner_score": 2,
       "loser_score": 0,
       "round_text": "Round 1",
       "round": 1,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3575,7 +3630,7 @@
         {
           "game_id": 24706215,
           "order_num": 1,
-          "winner_id": 670240,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
@@ -3587,7 +3642,7 @@
               "character_name": "Corrin"
             },
             {
-              "user_id": 670240,
+              "user_id": null,
               "selection_id": 35858365,
               "character_id": 1795,
               "character_name": "Pyra & Mythra"
@@ -3597,7 +3652,7 @@
         {
           "game_id": 24706216,
           "order_num": 2,
-          "winner_id": 670240,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
@@ -3609,7 +3664,7 @@
               "character_name": "Corrin"
             },
             {
-              "user_id": 670240,
+              "user_id": null,
               "selection_id": 35858367,
               "character_id": 1795,
               "character_name": "Pyra & Mythra"

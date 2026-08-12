@@ -8,6 +8,7 @@
       "round_text": "Round 5",
       "round": 5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -67,6 +68,7 @@
       "round_text": "Round 5",
       "round": 5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -142,12 +144,13 @@
     },
     {
       "winner_id": 182929,
-      "loser_id": 658534,
+      "loser_id": null,
       "winner_score": 2,
       "loser_score": 0,
       "round_text": "Round 4",
       "round": 4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -162,7 +165,7 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 658534,
+              "user_id": null,
               "selection_id": 37589073,
               "character_id": 1286,
               "character_name": "Fox"
@@ -184,7 +187,7 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 658534,
+              "user_id": null,
               "selection_id": 37589075,
               "character_id": 1286,
               "character_name": "Fox"
@@ -207,6 +210,7 @@
       "round_text": "Round 4",
       "round": 4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -288,6 +292,7 @@
       "round_text": "Round 3",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -341,12 +346,13 @@
     },
     {
       "winner_id": null,
-      "loser_id": 658534,
+      "loser_id": null,
       "winner_score": 3,
       "loser_score": 0,
       "round_text": "Round 3",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -361,7 +367,7 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 658534,
+              "user_id": null,
               "selection_id": 38037687,
               "character_id": 1286,
               "character_name": "Fox"
@@ -383,7 +389,7 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 658534,
+              "user_id": null,
               "selection_id": 38037689,
               "character_id": 1286,
               "character_name": "Fox"
@@ -405,7 +411,7 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 658534,
+              "user_id": null,
               "selection_id": 38037691,
               "character_id": 1286,
               "character_name": "Fox"
@@ -428,6 +434,7 @@
       "round_text": "Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -481,12 +488,13 @@
     },
     {
       "winner_id": 807125,
-      "loser_id": 658534,
+      "loser_id": null,
       "winner_score": 3,
       "loser_score": 2,
       "round_text": "Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -495,13 +503,13 @@
         {
           "game_id": 26124818,
           "order_num": 1,
-          "winner_id": 658534,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
           "selections": [
             {
-              "user_id": 658534,
+              "user_id": null,
               "selection_id": 38037722,
               "character_id": 1286,
               "character_name": "Fox"
@@ -523,7 +531,7 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 658534,
+              "user_id": null,
               "selection_id": 38037724,
               "character_id": 1286,
               "character_name": "Fox"
@@ -545,7 +553,7 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 658534,
+              "user_id": null,
               "selection_id": 38037726,
               "character_id": 1286,
               "character_name": "Fox"
@@ -561,13 +569,13 @@
         {
           "game_id": 26124821,
           "order_num": 4,
-          "winner_id": 658534,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
           "selections": [
             {
-              "user_id": 658534,
+              "user_id": null,
               "selection_id": 38037728,
               "character_id": 1332,
               "character_name": "Sonic"
@@ -589,7 +597,7 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 658534,
+              "user_id": null,
               "selection_id": 38037730,
               "character_id": 1332,
               "character_name": "Sonic"
@@ -612,6 +620,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -731,12 +740,13 @@
     },
     {
       "winner_id": 2415811,
-      "loser_id": 658534,
+      "loser_id": null,
       "winner_score": 0,
       "loser_score": 0,
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": true,

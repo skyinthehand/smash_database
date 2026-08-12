@@ -8,6 +8,7 @@
       "round_text": "Grand Final",
       "round": 4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -89,6 +90,7 @@
       "round_text": "Winners Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -170,6 +172,7 @@
       "round_text": "Losers Final",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -251,6 +254,7 @@
       "round_text": "Losers Semi-Final",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -354,6 +358,7 @@
       "round_text": "Winners Semi-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -435,6 +440,7 @@
       "round_text": "Winners Semi-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -538,6 +544,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -552,6 +559,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -655,6 +663,7 @@
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -730,12 +739,13 @@
     },
     {
       "winner_id": 1609478,
-      "loser_id": 2310563,
+      "loser_id": null,
       "winner_score": 3,
       "loser_score": 0,
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -756,7 +766,7 @@
               "character_name": "Falco"
             },
             {
-              "user_id": 2310563,
+              "user_id": null,
               "selection_id": 37781938,
               "character_id": 1279,
               "character_name": "Diddy Kong"
@@ -778,7 +788,7 @@
               "character_name": "Falco"
             },
             {
-              "user_id": 2310563,
+              "user_id": null,
               "selection_id": 37782232,
               "character_id": 1279,
               "character_name": "Diddy Kong"
@@ -800,7 +810,7 @@
               "character_name": "Falco"
             },
             {
-              "user_id": 2310563,
+              "user_id": null,
               "selection_id": 37782323,
               "character_id": 1279,
               "character_name": "Diddy Kong"
@@ -817,6 +827,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -898,6 +909,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -995,12 +1007,13 @@
     },
     {
       "winner_id": 830401,
-      "loser_id": 2310563,
+      "loser_id": null,
       "winner_score": 3,
       "loser_score": 0,
       "round_text": "Winners Quarter-Final",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1021,7 +1034,7 @@
               "character_name": "Fox"
             },
             {
-              "user_id": 2310563,
+              "user_id": null,
               "selection_id": 37781054,
               "character_id": 1279,
               "character_name": "Diddy Kong"
@@ -1043,7 +1056,7 @@
               "character_name": "Dr. Mario"
             },
             {
-              "user_id": 2310563,
+              "user_id": null,
               "selection_id": 37781056,
               "character_id": 1279,
               "character_name": "Diddy Kong"
@@ -1065,7 +1078,7 @@
               "character_name": "Joker"
             },
             {
-              "user_id": 2310563,
+              "user_id": null,
               "selection_id": 37781267,
               "character_id": 1279,
               "character_name": "Diddy Kong"
@@ -1082,6 +1095,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,

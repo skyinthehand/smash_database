@@ -8,6 +8,7 @@
       "round_text": "Grand Final",
       "round": 5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -111,6 +112,7 @@
       "round_text": "Winners Final",
       "round": 4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -236,6 +238,7 @@
       "round_text": "Losers Final",
       "round": -8,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -361,6 +364,7 @@
       "round_text": "Losers Semi-Final",
       "round": -7,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -486,6 +490,7 @@
       "round_text": "Winners Semi-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -589,6 +594,7 @@
       "round_text": "Winners Semi-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -692,6 +698,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -795,6 +802,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -892,12 +900,13 @@
     },
     {
       "winner_id": 2705990,
-      "loser_id": 283856,
+      "loser_id": null,
       "winner_score": 3,
       "loser_score": 0,
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -918,7 +927,7 @@
               "character_name": "Piranha Plant"
             },
             {
-              "user_id": 283856,
+              "user_id": null,
               "selection_id": 36696843,
               "character_id": 1336,
               "character_name": "Wii Fit Trainer"
@@ -940,7 +949,7 @@
               "character_name": "Piranha Plant"
             },
             {
-              "user_id": 283856,
+              "user_id": null,
               "selection_id": 36696845,
               "character_id": 1336,
               "character_name": "Wii Fit Trainer"
@@ -962,7 +971,7 @@
               "character_name": "Piranha Plant"
             },
             {
-              "user_id": 283856,
+              "user_id": null,
               "selection_id": 36696847,
               "character_id": 1336,
               "character_name": "Wii Fit Trainer"
@@ -979,6 +988,7 @@
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1060,6 +1070,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1141,6 +1152,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1216,12 +1228,13 @@
     },
     {
       "winner_id": 1309639,
-      "loser_id": 283856,
+      "loser_id": null,
       "winner_score": 3,
       "loser_score": 1,
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1230,13 +1243,13 @@
         {
           "game_id": 25251055,
           "order_num": 1,
-          "winner_id": 283856,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": "Pokémon Stadium 2",
           "selections": [
             {
-              "user_id": 283856,
+              "user_id": null,
               "selection_id": 36692495,
               "character_id": 1336,
               "character_name": "Wii Fit Trainer"
@@ -1258,7 +1271,7 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 283856,
+              "user_id": null,
               "selection_id": 36692497,
               "character_id": 1336,
               "character_name": "Wii Fit Trainer"
@@ -1280,7 +1293,7 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 283856,
+              "user_id": null,
               "selection_id": 36692499,
               "character_id": 1336,
               "character_name": "Wii Fit Trainer"
@@ -1302,7 +1315,7 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 283856,
+              "user_id": null,
               "selection_id": 36692913,
               "character_id": 1336,
               "character_name": "Wii Fit Trainer"
@@ -1325,6 +1338,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1428,6 +1442,7 @@
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1531,6 +1546,7 @@
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1545,6 +1561,7 @@
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1626,6 +1643,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1700,13 +1718,14 @@
       ]
     },
     {
-      "winner_id": 283856,
+      "winner_id": null,
       "loser_id": 2433054,
       "winner_score": 3,
       "loser_score": 1,
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1715,7 +1734,7 @@
         {
           "game_id": 25257651,
           "order_num": 1,
-          "winner_id": 283856,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": 0,
           "stage": null,
@@ -1727,7 +1746,7 @@
               "character_name": "Diddy Kong"
             },
             {
-              "user_id": 283856,
+              "user_id": null,
               "selection_id": 36702274,
               "character_id": 1336,
               "character_name": "Wii Fit Trainer"
@@ -1749,7 +1768,7 @@
               "character_name": "Diddy Kong"
             },
             {
-              "user_id": 283856,
+              "user_id": null,
               "selection_id": 36702276,
               "character_id": 1336,
               "character_name": "Wii Fit Trainer"
@@ -1759,7 +1778,7 @@
         {
           "game_id": 25257653,
           "order_num": 3,
-          "winner_id": 283856,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
@@ -1771,7 +1790,7 @@
               "character_name": "Diddy Kong"
             },
             {
-              "user_id": 283856,
+              "user_id": null,
               "selection_id": 36702278,
               "character_id": 1336,
               "character_name": "Wii Fit Trainer"
@@ -1781,7 +1800,7 @@
         {
           "game_id": 25257654,
           "order_num": 4,
-          "winner_id": 283856,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
@@ -1793,7 +1812,7 @@
               "character_name": "Diddy Kong"
             },
             {
-              "user_id": 283856,
+              "user_id": null,
               "selection_id": 36702280,
               "character_id": 1336,
               "character_name": "Wii Fit Trainer"
@@ -1810,6 +1829,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,

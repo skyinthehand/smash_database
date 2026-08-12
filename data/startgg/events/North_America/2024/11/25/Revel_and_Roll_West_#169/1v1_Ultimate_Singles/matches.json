@@ -8,6 +8,7 @@
       "round_text": "Grand Final",
       "round": 5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -111,6 +112,7 @@
       "round_text": "Winners Final",
       "round": 4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -192,6 +194,7 @@
       "round_text": "Losers Final",
       "round": -8,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -295,6 +298,7 @@
       "round_text": "Losers Semi-Final",
       "round": -7,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -420,6 +424,7 @@
       "round_text": "Winners Semi-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -523,6 +528,7 @@
       "round_text": "Winners Semi-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -604,6 +610,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -729,6 +736,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -854,6 +862,7 @@
       "round_text": "Losers Round 3",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -935,6 +944,7 @@
       "round_text": "Losers Round 3",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1016,6 +1026,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1119,6 +1130,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1244,6 +1256,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1325,6 +1338,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1422,12 +1436,13 @@
     },
     {
       "winner_id": 95320,
-      "loser_id": 2770312,
+      "loser_id": null,
       "winner_score": 3,
       "loser_score": 0,
       "round_text": "Losers Round 2",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1448,7 +1463,7 @@
               "character_name": "Pyra & Mythra"
             },
             {
-              "user_id": 2770312,
+              "user_id": null,
               "selection_id": 38543812,
               "character_id": 1282,
               "character_name": "Dr. Mario"
@@ -1470,7 +1485,7 @@
               "character_name": "Pyra & Mythra"
             },
             {
-              "user_id": 2770312,
+              "user_id": null,
               "selection_id": 38543814,
               "character_id": 1292,
               "character_name": "Inkling"
@@ -1492,7 +1507,7 @@
               "character_name": "Pyra & Mythra"
             },
             {
-              "user_id": 2770312,
+              "user_id": null,
               "selection_id": 38543816,
               "character_id": 1292,
               "character_name": "Inkling"
@@ -1509,6 +1524,7 @@
       "round_text": "Losers Round 2",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1634,6 +1650,7 @@
       "round_text": "Losers Round 2",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1715,6 +1732,7 @@
       "round_text": "Losers Round 2",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1789,13 +1807,14 @@
       ]
     },
     {
-      "winner_id": 2770312,
+      "winner_id": null,
       "loser_id": 2674441,
       "winner_score": 3,
       "loser_score": 2,
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1816,7 +1835,7 @@
               "character_name": "Toon Link"
             },
             {
-              "user_id": 2770312,
+              "user_id": null,
               "selection_id": 38542434,
               "character_id": 1292,
               "character_name": "Inkling"
@@ -1838,7 +1857,7 @@
               "character_name": "Toon Link"
             },
             {
-              "user_id": 2770312,
+              "user_id": null,
               "selection_id": 38542436,
               "character_id": 1292,
               "character_name": "Inkling"
@@ -1848,7 +1867,7 @@
         {
           "game_id": 26457642,
           "order_num": 3,
-          "winner_id": 2770312,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
@@ -1860,7 +1879,7 @@
               "character_name": "Toon Link"
             },
             {
-              "user_id": 2770312,
+              "user_id": null,
               "selection_id": 38542438,
               "character_id": 1282,
               "character_name": "Dr. Mario"
@@ -1870,7 +1889,7 @@
         {
           "game_id": 26457643,
           "order_num": 4,
-          "winner_id": 2770312,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
@@ -1882,7 +1901,7 @@
               "character_name": "Toon Link"
             },
             {
-              "user_id": 2770312,
+              "user_id": null,
               "selection_id": 38542440,
               "character_id": 1282,
               "character_name": "Dr. Mario"
@@ -1892,7 +1911,7 @@
         {
           "game_id": 26457644,
           "order_num": 5,
-          "winner_id": 2770312,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
@@ -1904,7 +1923,7 @@
               "character_name": "Toon Link"
             },
             {
-              "user_id": 2770312,
+              "user_id": null,
               "selection_id": 38542442,
               "character_id": 1282,
               "character_name": "Dr. Mario"
@@ -1921,6 +1940,7 @@
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2002,6 +2022,7 @@
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2105,6 +2126,7 @@
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2224,12 +2246,13 @@
     },
     {
       "winner_id": 95675,
-      "loser_id": 2770312,
+      "loser_id": null,
       "winner_score": 3,
       "loser_score": 0,
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2250,7 +2273,7 @@
               "character_name": "Richter"
             },
             {
-              "user_id": 2770312,
+              "user_id": null,
               "selection_id": 38540762,
               "character_id": 1292,
               "character_name": "Inkling"
@@ -2272,7 +2295,7 @@
               "character_name": "Richter"
             },
             {
-              "user_id": 2770312,
+              "user_id": null,
               "selection_id": 38540764,
               "character_id": 1282,
               "character_name": "Dr. Mario"
@@ -2294,7 +2317,7 @@
               "character_name": "Richter"
             },
             {
-              "user_id": 2770312,
+              "user_id": null,
               "selection_id": 38540766,
               "character_id": 1292,
               "character_name": "Inkling"
@@ -2311,6 +2334,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2392,6 +2416,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2473,6 +2498,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2554,6 +2580,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2635,6 +2662,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2716,6 +2744,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2841,6 +2870,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,

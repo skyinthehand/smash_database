@@ -8,6 +8,7 @@
       "round_text": "Grand Final",
       "round": 4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -22,6 +23,7 @@
       "round_text": "Winners Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -103,6 +105,7 @@
       "round_text": "Losers Final",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -206,6 +209,7 @@
       "round_text": "Losers Semi-Final",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -309,6 +313,7 @@
       "round_text": "Winners Semi-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -390,6 +395,7 @@
       "round_text": "Winners Semi-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -493,6 +499,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -618,6 +625,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -693,12 +701,13 @@
     },
     {
       "winner_id": 1817250,
-      "loser_id": 78392,
+      "loser_id": null,
       "winner_score": 3,
       "loser_score": 0,
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -719,7 +728,7 @@
               "character_name": "Donkey Kong"
             },
             {
-              "user_id": 78392,
+              "user_id": null,
               "selection_id": 34785673,
               "character_id": 1323,
               "character_name": "R.O.B."
@@ -741,7 +750,7 @@
               "character_name": "Random Character"
             },
             {
-              "user_id": 78392,
+              "user_id": null,
               "selection_id": 34785617,
               "character_id": 1746,
               "character_name": "Random Character"
@@ -763,7 +772,7 @@
               "character_name": "Random Character"
             },
             {
-              "user_id": 78392,
+              "user_id": null,
               "selection_id": 34785619,
               "character_id": 1746,
               "character_name": "Random Character"
@@ -780,6 +789,7 @@
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -877,12 +887,13 @@
     },
     {
       "winner_id": 172132,
-      "loser_id": 78392,
+      "loser_id": null,
       "winner_score": 2,
       "loser_score": 0,
       "round_text": "Winners Quarter-Final",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -903,7 +914,7 @@
               "character_name": "Wii Fit Trainer"
             },
             {
-              "user_id": 78392,
+              "user_id": null,
               "selection_id": 34785232,
               "character_id": 1280,
               "character_name": "Donkey Kong"
@@ -925,7 +936,7 @@
               "character_name": "Donkey Kong"
             },
             {
-              "user_id": 78392,
+              "user_id": null,
               "selection_id": 34785234,
               "character_id": 1280,
               "character_name": "Donkey Kong"
@@ -942,6 +953,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1001,6 +1013,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1060,6 +1073,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,

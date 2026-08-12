@@ -8,6 +8,7 @@
       "round_text": "Grand Final",
       "round": 4,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -89,6 +90,7 @@
       "round_text": "Grand Final Reset",
       "round": 4,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -170,6 +172,7 @@
       "round_text": "Winners Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -251,6 +254,7 @@
       "round_text": "Round 3",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": true,
@@ -265,34 +269,7 @@
       "round_text": "Round 3",
       "round": 3,
       "phase": "1",
-      "wave": null,
-      "dq": false,
-      "cancel": true,
-      "state": 3,
-      "details": []
-    },
-    {
-      "winner_id": null,
-      "loser_id": null,
-      "winner_score": 0,
-      "loser_score": 0,
-      "round_text": "Round 3",
-      "round": 3,
-      "phase": "1",
-      "wave": null,
-      "dq": false,
-      "cancel": true,
-      "state": 3,
-      "details": []
-    },
-    {
-      "winner_id": null,
-      "loser_id": null,
-      "winner_score": 0,
-      "loser_score": 0,
-      "round_text": "Round 3",
-      "round": 3,
-      "phase": "1",
+      "phase_order": 3,
       "wave": null,
       "dq": false,
       "cancel": true,
@@ -307,6 +284,7 @@
       "round_text": "Losers Final",
       "round": -6,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -388,6 +366,7 @@
       "round_text": "Losers Semi-Final",
       "round": -5,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -447,6 +426,7 @@
       "round_text": "Winners Semi-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -506,6 +486,7 @@
       "round_text": "Winners Semi-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -587,6 +568,7 @@
       "round_text": "Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": true,
@@ -601,34 +583,7 @@
       "round_text": "Round 2",
       "round": 2,
       "phase": "1",
-      "wave": null,
-      "dq": false,
-      "cancel": true,
-      "state": 3,
-      "details": []
-    },
-    {
-      "winner_id": null,
-      "loser_id": null,
-      "winner_score": 0,
-      "loser_score": 0,
-      "round_text": "Round 2",
-      "round": 2,
-      "phase": "1",
-      "wave": null,
-      "dq": false,
-      "cancel": true,
-      "state": 3,
-      "details": []
-    },
-    {
-      "winner_id": null,
-      "loser_id": null,
-      "winner_score": 0,
-      "loser_score": 0,
-      "round_text": "Round 2",
-      "round": 2,
-      "phase": "1",
+      "phase_order": 3,
       "wave": null,
       "dq": false,
       "cancel": true,
@@ -643,6 +598,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -4,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -699,68 +655,10 @@
       "loser_id": null,
       "winner_score": 2,
       "loser_score": 0,
-      "round_text": "Losers Quarter-Final",
-      "round": -4,
-      "phase": "1",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": [
-        {
-          "game_id": 25638938,
-          "order_num": 1,
-          "winner_id": null,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 37298185,
-              "character_id": 1313,
-              "character_name": "Ness"
-            },
-            {
-              "user_id": null,
-              "selection_id": 37298186,
-              "character_id": 1295,
-              "character_name": "Kirby"
-            }
-          ]
-        },
-        {
-          "game_id": 25638939,
-          "order_num": 2,
-          "winner_id": null,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 37298187,
-              "character_id": 1313,
-              "character_name": "Ness"
-            },
-            {
-              "user_id": null,
-              "selection_id": 37298188,
-              "character_id": 1295,
-              "character_name": "Kirby"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "winner_id": null,
-      "loser_id": null,
-      "winner_score": 2,
-      "loser_score": 0,
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -820,6 +718,7 @@
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -901,6 +800,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 1,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -960,6 +860,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 1,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1036,129 +937,12 @@
     {
       "winner_id": null,
       "loser_id": null,
-      "winner_score": 2,
-      "loser_score": 0,
-      "round_text": "Winners Quarter-Final",
-      "round": 1,
-      "phase": "1",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": [
-        {
-          "game_id": 25636804,
-          "order_num": 1,
-          "winner_id": null,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 37294208,
-              "character_id": 1295,
-              "character_name": "Kirby"
-            },
-            {
-              "user_id": null,
-              "selection_id": 37294209,
-              "character_id": 1274,
-              "character_name": "Captain Falcon"
-            }
-          ]
-        },
-        {
-          "game_id": 25636805,
-          "order_num": 2,
-          "winner_id": null,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 37294210,
-              "character_id": 1295,
-              "character_name": "Kirby"
-            },
-            {
-              "user_id": null,
-              "selection_id": 37294211,
-              "character_id": 1301,
-              "character_name": "Luigi"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "winner_id": null,
-      "loser_id": null,
-      "winner_score": 2,
-      "loser_score": 0,
-      "round_text": "Winners Quarter-Final",
-      "round": 1,
-      "phase": "1",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": [
-        {
-          "game_id": 25636890,
-          "order_num": 1,
-          "winner_id": null,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 37294372,
-              "character_id": 1274,
-              "character_name": "Captain Falcon"
-            },
-            {
-              "user_id": null,
-              "selection_id": 37294373,
-              "character_id": 1295,
-              "character_name": "Kirby"
-            }
-          ]
-        },
-        {
-          "game_id": 25636891,
-          "order_num": 2,
-          "winner_id": null,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 37294374,
-              "character_id": 1274,
-              "character_name": "Captain Falcon"
-            },
-            {
-              "user_id": null,
-              "selection_id": 37294375,
-              "character_id": 1295,
-              "character_name": "Kirby"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "winner_id": null,
-      "loser_id": null,
       "winner_score": 0,
       "loser_score": 0,
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": true,
@@ -1173,34 +957,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
-      "wave": null,
-      "dq": false,
-      "cancel": true,
-      "state": 3,
-      "details": []
-    },
-    {
-      "winner_id": null,
-      "loser_id": null,
-      "winner_score": 0,
-      "loser_score": 0,
-      "round_text": "Round 1",
-      "round": 1,
-      "phase": "1",
-      "wave": null,
-      "dq": false,
-      "cancel": true,
-      "state": 3,
-      "details": []
-    },
-    {
-      "winner_id": null,
-      "loser_id": null,
-      "winner_score": 0,
-      "loser_score": 0,
-      "round_text": "Round 1",
-      "round": 1,
-      "phase": "1",
+      "phase_order": 3,
       "wave": null,
       "dq": false,
       "cancel": true,

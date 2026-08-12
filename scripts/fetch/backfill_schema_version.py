@@ -50,9 +50,18 @@ from scripts.utils import (  # noqa: E402
 # ---------------------------------------------------------------------------
 
 def iter_event_dirs(events_root: Path) -> list[Path]:
-    """events_root 以下の attr.json を持つディレクトリを、パス文字列の
-    昇順(安定ソート)で返す。"""
-    return sorted((p.parent for p in events_root.rglob("attr.json")), key=lambda p: str(p))
+    """events_root 以下の attr.json を持つディレクトリを、Japanリージョンを
+    優先しつつパス文字列の昇順(安定ソート)で返す。"""
+
+    def sort_key(event_dir: Path) -> tuple[int, str]:
+        try:
+            region = event_dir.relative_to(events_root).parts[0]
+        except (ValueError, IndexError):
+            region = ""
+        is_not_japan = 0 if region == "Japan" else 1
+        return (is_not_japan, str(event_dir))
+
+    return sorted((p.parent for p in events_root.rglob("attr.json")), key=sort_key)
 
 
 def read_event_data_version(event_dir: Path) -> int:

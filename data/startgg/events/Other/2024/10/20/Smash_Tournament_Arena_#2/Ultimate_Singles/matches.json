@@ -8,6 +8,7 @@
       "round_text": "Grand Final",
       "round": 6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -67,6 +68,7 @@
       "round_text": "Winners Final",
       "round": 5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -126,6 +128,7 @@
       "round_text": "Losers Final",
       "round": -10,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -185,6 +188,7 @@
       "round_text": "Losers Semi-Final",
       "round": -9,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -244,6 +248,7 @@
       "round_text": "Winners Semi-Final",
       "round": 4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -303,6 +308,7 @@
       "round_text": "Winners Semi-Final",
       "round": 4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -362,6 +368,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -8,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -421,6 +428,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -8,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -480,6 +488,7 @@
       "round_text": "Losers Round 4",
       "round": -7,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -539,6 +548,7 @@
       "round_text": "Losers Round 4",
       "round": -7,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -598,6 +608,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -657,6 +668,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -716,6 +728,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -775,6 +788,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -834,6 +848,7 @@
       "round_text": "Losers Round 3",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -886,65 +901,6 @@
       ]
     },
     {
-      "winner_id": null,
-      "loser_id": null,
-      "winner_score": 2,
-      "loser_score": 0,
-      "round_text": "Losers Round 3",
-      "round": -6,
-      "phase": "1",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": [
-        {
-          "game_id": 25679679,
-          "order_num": 1,
-          "winner_id": null,
-          "entrant1_score": null,
-          "entrant2_score": null,
-          "stage": "Smashville",
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 37365756,
-              "character_id": 1275,
-              "character_name": "Cloud"
-            },
-            {
-              "user_id": null,
-              "selection_id": 37365757,
-              "character_id": 1276,
-              "character_name": "Corrin"
-            }
-          ]
-        },
-        {
-          "game_id": 25679687,
-          "order_num": 2,
-          "winner_id": null,
-          "entrant1_score": null,
-          "entrant2_score": null,
-          "stage": "Final Destination",
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 37365773,
-              "character_id": 1276,
-              "character_name": "Corrin"
-            },
-            {
-              "user_id": null,
-              "selection_id": 37365774,
-              "character_id": 1275,
-              "character_name": "Cloud"
-            }
-          ]
-        }
-      ]
-    },
-    {
       "winner_id": 2024477,
       "loser_id": null,
       "winner_score": 2,
@@ -952,6 +908,7 @@
       "round_text": "Losers Round 3",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1008,68 +965,10 @@
       "loser_id": null,
       "winner_score": 2,
       "loser_score": 0,
-      "round_text": "Losers Round 3",
-      "round": -6,
-      "phase": "1",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": [
-        {
-          "game_id": 25679739,
-          "order_num": 1,
-          "winner_id": null,
-          "entrant1_score": null,
-          "entrant2_score": null,
-          "stage": "Pokémon Stadium 2",
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 37365860,
-              "character_id": 1326,
-              "character_name": "Roy"
-            },
-            {
-              "user_id": null,
-              "selection_id": 37365861,
-              "character_id": 1323,
-              "character_name": "R.O.B."
-            }
-          ]
-        },
-        {
-          "game_id": 25679741,
-          "order_num": 2,
-          "winner_id": null,
-          "entrant1_score": null,
-          "entrant2_score": null,
-          "stage": "Kalos Pokémon League",
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 37365864,
-              "character_id": 1326,
-              "character_name": "Roy"
-            },
-            {
-              "user_id": null,
-              "selection_id": 37365865,
-              "character_id": 1323,
-              "character_name": "R.O.B."
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "winner_id": null,
-      "loser_id": null,
-      "winner_score": 2,
-      "loser_score": 0,
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1126,186 +1025,10 @@
       "loser_id": null,
       "winner_score": 2,
       "loser_score": 0,
-      "round_text": "Losers Round 2",
-      "round": -5,
-      "phase": "1",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": [
-        {
-          "game_id": 25679447,
-          "order_num": 1,
-          "winner_id": null,
-          "entrant1_score": null,
-          "entrant2_score": null,
-          "stage": "Smashville",
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 37365316,
-              "character_id": 1331,
-              "character_name": "Snake"
-            },
-            {
-              "user_id": null,
-              "selection_id": 37365317,
-              "character_id": 1279,
-              "character_name": "Diddy Kong"
-            }
-          ]
-        },
-        {
-          "game_id": 25679453,
-          "order_num": 2,
-          "winner_id": null,
-          "entrant1_score": null,
-          "entrant2_score": null,
-          "stage": "Yoshi's Story",
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 37365328,
-              "character_id": 1279,
-              "character_name": "Diddy Kong"
-            },
-            {
-              "user_id": null,
-              "selection_id": 37365329,
-              "character_id": 1331,
-              "character_name": "Snake"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "winner_id": null,
-      "loser_id": null,
-      "winner_score": 2,
-      "loser_score": 0,
-      "round_text": "Losers Round 2",
-      "round": -5,
-      "phase": "1",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": [
-        {
-          "game_id": 25679478,
-          "order_num": 1,
-          "winner_id": null,
-          "entrant1_score": null,
-          "entrant2_score": null,
-          "stage": "Pokémon Stadium 2",
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 37365375,
-              "character_id": 1526,
-              "character_name": "Hero"
-            },
-            {
-              "user_id": null,
-              "selection_id": 37365376,
-              "character_id": 1323,
-              "character_name": "R.O.B."
-            }
-          ]
-        },
-        {
-          "game_id": 25679480,
-          "order_num": 2,
-          "winner_id": null,
-          "entrant1_score": null,
-          "entrant2_score": null,
-          "stage": "Pokémon Stadium 2",
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 37365379,
-              "character_id": 1323,
-              "character_name": "R.O.B."
-            },
-            {
-              "user_id": null,
-              "selection_id": 37365380,
-              "character_id": 1526,
-              "character_name": "Hero"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "winner_id": null,
-      "loser_id": null,
-      "winner_score": 2,
-      "loser_score": 0,
-      "round_text": "Losers Round 2",
-      "round": -5,
-      "phase": "1",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": [
-        {
-          "game_id": 25679506,
-          "order_num": 1,
-          "winner_id": null,
-          "entrant1_score": null,
-          "entrant2_score": null,
-          "stage": "Smashville",
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 37365430,
-              "character_id": 1766,
-              "character_name": "Steve"
-            },
-            {
-              "user_id": null,
-              "selection_id": 37365431,
-              "character_id": 1405,
-              "character_name": "Mr. Game & Watch"
-            }
-          ]
-        },
-        {
-          "game_id": 25679512,
-          "order_num": 2,
-          "winner_id": null,
-          "entrant1_score": null,
-          "entrant2_score": null,
-          "stage": "Pokémon Stadium 2",
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 37365440,
-              "character_id": 1766,
-              "character_name": "Steve"
-            },
-            {
-              "user_id": null,
-              "selection_id": 37365441,
-              "character_id": 1405,
-              "character_name": "Mr. Game & Watch"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "winner_id": null,
-      "loser_id": null,
-      "winner_score": 2,
-      "loser_score": 0,
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1365,6 +1088,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1417,65 +1141,6 @@
       ]
     },
     {
-      "winner_id": null,
-      "loser_id": null,
-      "winner_score": 2,
-      "loser_score": 0,
-      "round_text": "Winners Round 2",
-      "round": 2,
-      "phase": "1",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": [
-        {
-          "game_id": 25679215,
-          "order_num": 1,
-          "winner_id": null,
-          "entrant1_score": null,
-          "entrant2_score": null,
-          "stage": "Smashville",
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 37364894,
-              "character_id": 1276,
-              "character_name": "Corrin"
-            },
-            {
-              "user_id": null,
-              "selection_id": 37364895,
-              "character_id": 1526,
-              "character_name": "Hero"
-            }
-          ]
-        },
-        {
-          "game_id": 25679217,
-          "order_num": 2,
-          "winner_id": null,
-          "entrant1_score": null,
-          "entrant2_score": null,
-          "stage": "Kalos Pokémon League",
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 37364898,
-              "character_id": 1276,
-              "character_name": "Corrin"
-            },
-            {
-              "user_id": null,
-              "selection_id": 37364899,
-              "character_id": 1526,
-              "character_name": "Hero"
-            }
-          ]
-        }
-      ]
-    },
-    {
       "winner_id": 1853496,
       "loser_id": null,
       "winner_score": 2,
@@ -1483,6 +1148,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1535,65 +1201,6 @@
       ]
     },
     {
-      "winner_id": null,
-      "loser_id": null,
-      "winner_score": 2,
-      "loser_score": 0,
-      "round_text": "Winners Round 2",
-      "round": 2,
-      "phase": "1",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": [
-        {
-          "game_id": 25679256,
-          "order_num": 1,
-          "winner_id": null,
-          "entrant1_score": null,
-          "entrant2_score": null,
-          "stage": "Smashville",
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 37364964,
-              "character_id": 1453,
-              "character_name": "Joker"
-            },
-            {
-              "user_id": null,
-              "selection_id": 37364965,
-              "character_id": 1331,
-              "character_name": "Snake"
-            }
-          ]
-        },
-        {
-          "game_id": 25679258,
-          "order_num": 2,
-          "winner_id": null,
-          "entrant1_score": null,
-          "entrant2_score": null,
-          "stage": "Final Destination",
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 37364968,
-              "character_id": 1453,
-              "character_name": "Joker"
-            },
-            {
-              "user_id": null,
-              "selection_id": 37364969,
-              "character_id": 1331,
-              "character_name": "Snake"
-            }
-          ]
-        }
-      ]
-    },
-    {
       "winner_id": 2809040,
       "loser_id": null,
       "winner_score": 2,
@@ -1601,6 +1208,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1657,127 +1265,10 @@
       "loser_id": null,
       "winner_score": 2,
       "loser_score": 0,
-      "round_text": "Winners Round 2",
-      "round": 2,
-      "phase": "1",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": [
-        {
-          "game_id": 25679308,
-          "order_num": 1,
-          "winner_id": null,
-          "entrant1_score": null,
-          "entrant2_score": null,
-          "stage": "Town and City",
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 37365061,
-              "character_id": 1341,
-              "character_name": "Zero Suit Samus"
-            },
-            {
-              "user_id": null,
-              "selection_id": 37365062,
-              "character_id": 1747,
-              "character_name": "Min Min"
-            }
-          ]
-        },
-        {
-          "game_id": 25679313,
-          "order_num": 2,
-          "winner_id": null,
-          "entrant1_score": null,
-          "entrant2_score": null,
-          "stage": "Pokémon Stadium 2",
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 37365071,
-              "character_id": 1341,
-              "character_name": "Zero Suit Samus"
-            },
-            {
-              "user_id": null,
-              "selection_id": 37365072,
-              "character_id": 1747,
-              "character_name": "Min Min"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "winner_id": null,
-      "loser_id": null,
-      "winner_score": 2,
-      "loser_score": 0,
-      "round_text": "Winners Round 2",
-      "round": 2,
-      "phase": "1",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": [
-        {
-          "game_id": 25679346,
-          "order_num": 1,
-          "winner_id": null,
-          "entrant1_score": null,
-          "entrant2_score": null,
-          "stage": "Smashville",
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 37365135,
-              "character_id": 1795,
-              "character_name": "Pyra & Mythra"
-            },
-            {
-              "user_id": null,
-              "selection_id": 37365136,
-              "character_id": 1326,
-              "character_name": "Roy"
-            }
-          ]
-        },
-        {
-          "game_id": 25679356,
-          "order_num": 2,
-          "winner_id": null,
-          "entrant1_score": null,
-          "entrant2_score": null,
-          "stage": "Kalos Pokémon League",
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 37365153,
-              "character_id": 1326,
-              "character_name": "Roy"
-            },
-            {
-              "user_id": null,
-              "selection_id": 37365154,
-              "character_id": 1795,
-              "character_name": "Pyra & Mythra"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "winner_id": null,
-      "loser_id": null,
-      "winner_score": 2,
-      "loser_score": 0,
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1837,6 +1328,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,

@@ -8,6 +8,7 @@
       "round_text": "Grand Final",
       "round": 5,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -111,6 +112,7 @@
       "round_text": "Winners Final",
       "round": 4,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -192,6 +194,7 @@
       "round_text": "Losers Final",
       "round": -8,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -273,6 +276,7 @@
       "round_text": "Losers Semi-Final",
       "round": -7,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -354,6 +358,7 @@
       "round_text": "Winners Semi-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -435,6 +440,7 @@
       "round_text": "Winners Semi-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -532,12 +538,13 @@
     },
     {
       "winner_id": null,
-      "loser_id": 2313246,
+      "loser_id": null,
       "winner_score": 2,
       "loser_score": 0,
       "round_text": "Round 3",
       "round": 3,
       "phase": "4",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -552,7 +559,7 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 2313246,
+              "user_id": null,
               "selection_id": 34030321,
               "character_id": 1293,
               "character_name": "Jigglypuff"
@@ -574,7 +581,7 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 2313246,
+              "user_id": null,
               "selection_id": 34030323,
               "character_id": 1285,
               "character_name": "Falco"
@@ -597,6 +604,7 @@
       "round_text": "Round 3",
       "round": 3,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -656,6 +664,7 @@
       "round_text": "Round 3",
       "round": 3,
       "phase": "3",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -715,6 +724,7 @@
       "round_text": "Round 3",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -774,6 +784,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -6,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -855,6 +866,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -6,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -958,6 +970,7 @@
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1033,12 +1046,13 @@
     },
     {
       "winner_id": null,
-      "loser_id": 2313246,
+      "loser_id": null,
       "winner_score": 3,
       "loser_score": 0,
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1053,7 +1067,7 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 2313246,
+              "user_id": null,
               "selection_id": 34036882,
               "character_id": 1285,
               "character_name": "Falco"
@@ -1075,7 +1089,7 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 2313246,
+              "user_id": null,
               "selection_id": 34036884,
               "character_id": 1285,
               "character_name": "Falco"
@@ -1097,7 +1111,7 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 2313246,
+              "user_id": null,
               "selection_id": 34036886,
               "character_id": 1311,
               "character_name": "Mii Brawler"
@@ -1114,12 +1128,13 @@
     },
     {
       "winner_id": 1428610,
-      "loser_id": 2313246,
+      "loser_id": null,
       "winner_score": 3,
       "loser_score": 0,
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1140,7 +1155,7 @@
               "character_name": "Pikachu"
             },
             {
-              "user_id": 2313246,
+              "user_id": null,
               "selection_id": 34034624,
               "character_id": 1293,
               "character_name": "Jigglypuff"
@@ -1162,7 +1177,7 @@
               "character_name": "Pyra & Mythra"
             },
             {
-              "user_id": 2313246,
+              "user_id": null,
               "selection_id": 34034626,
               "character_id": 1311,
               "character_name": "Mii Brawler"
@@ -1184,7 +1199,7 @@
               "character_name": "King Dedede"
             },
             {
-              "user_id": 2313246,
+              "user_id": null,
               "selection_id": 34034628,
               "character_id": 1746,
               "character_name": "Random Character"
@@ -1201,6 +1216,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1304,6 +1320,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1385,6 +1402,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1510,6 +1528,7 @@
       "round_text": "Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1569,6 +1588,7 @@
       "round_text": "Round 2",
       "round": 2,
       "phase": "4",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1650,6 +1670,7 @@
       "round_text": "Round 2",
       "round": 2,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1709,6 +1730,7 @@
       "round_text": "Round 2",
       "round": 2,
       "phase": "3",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1768,6 +1790,7 @@
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1849,6 +1872,7 @@
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1930,6 +1954,7 @@
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2004,13 +2029,14 @@
       ]
     },
     {
-      "winner_id": 2313246,
+      "winner_id": null,
       "loser_id": 1834687,
       "winner_score": 3,
       "loser_score": 1,
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2019,7 +2045,7 @@
         {
           "game_id": 23472286,
           "order_num": 1,
-          "winner_id": 2313246,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
@@ -2031,7 +2057,7 @@
               "character_name": "Ike"
             },
             {
-              "user_id": 2313246,
+              "user_id": null,
               "selection_id": 34036783,
               "character_id": 1293,
               "character_name": "Jigglypuff"
@@ -2053,7 +2079,7 @@
               "character_name": "Ike"
             },
             {
-              "user_id": 2313246,
+              "user_id": null,
               "selection_id": 34036785,
               "character_id": 1293,
               "character_name": "Jigglypuff"
@@ -2063,7 +2089,7 @@
         {
           "game_id": 23472288,
           "order_num": 3,
-          "winner_id": 2313246,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": 0,
           "stage": null,
@@ -2075,7 +2101,7 @@
               "character_name": "Ike"
             },
             {
-              "user_id": 2313246,
+              "user_id": null,
               "selection_id": 34036787,
               "character_id": 1311,
               "character_name": "Mii Brawler"
@@ -2085,7 +2111,7 @@
         {
           "game_id": 23472289,
           "order_num": 4,
-          "winner_id": 2313246,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
@@ -2097,7 +2123,7 @@
               "character_name": "Ike"
             },
             {
-              "user_id": 2313246,
+              "user_id": null,
               "selection_id": 34036789,
               "character_id": 1285,
               "character_name": "Falco"
@@ -2107,13 +2133,14 @@
       ]
     },
     {
-      "winner_id": 2313246,
+      "winner_id": null,
       "loser_id": null,
       "winner_score": 3,
       "loser_score": 0,
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2122,13 +2149,13 @@
         {
           "game_id": 23468965,
           "order_num": 1,
-          "winner_id": 2313246,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": 0,
           "stage": null,
           "selections": [
             {
-              "user_id": 2313246,
+              "user_id": null,
               "selection_id": 34032869,
               "character_id": 1293,
               "character_name": "Jigglypuff"
@@ -2144,13 +2171,13 @@
         {
           "game_id": 23468966,
           "order_num": 2,
-          "winner_id": 2313246,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
           "selections": [
             {
-              "user_id": 2313246,
+              "user_id": null,
               "selection_id": 34032871,
               "character_id": 1293,
               "character_name": "Jigglypuff"
@@ -2166,13 +2193,13 @@
         {
           "game_id": 23468967,
           "order_num": 3,
-          "winner_id": 2313246,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
           "selections": [
             {
-              "user_id": 2313246,
+              "user_id": null,
               "selection_id": 34032873,
               "character_id": 1285,
               "character_name": "Falco"
@@ -2195,6 +2222,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2276,6 +2304,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2357,6 +2386,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2431,13 +2461,14 @@
       ]
     },
     {
-      "winner_id": 2313246,
+      "winner_id": null,
       "loser_id": 2449346,
       "winner_score": 2,
       "loser_score": 0,
       "round_text": "Round 1",
       "round": 1,
       "phase": "4",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2446,7 +2477,7 @@
         {
           "game_id": 23467036,
           "order_num": 1,
-          "winner_id": 2313246,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
@@ -2458,7 +2489,7 @@
               "character_name": "Jigglypuff"
             },
             {
-              "user_id": 2313246,
+              "user_id": null,
               "selection_id": 34030362,
               "character_id": 1293,
               "character_name": "Jigglypuff"
@@ -2468,7 +2499,7 @@
         {
           "game_id": 23467037,
           "order_num": 2,
-          "winner_id": 2313246,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
@@ -2480,7 +2511,7 @@
               "character_name": "Ice Climbers"
             },
             {
-              "user_id": 2313246,
+              "user_id": null,
               "selection_id": 34030364,
               "character_id": 1332,
               "character_name": "Sonic"
@@ -2497,6 +2528,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2556,6 +2588,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2615,6 +2648,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "3",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,

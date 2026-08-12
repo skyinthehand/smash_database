@@ -2,12 +2,13 @@
   "data": [
     {
       "winner_id": 558398,
-      "loser_id": 2783051,
+      "loser_id": null,
       "winner_score": 3,
       "loser_score": 0,
       "round_text": "Grand Final",
       "round": 5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -28,7 +29,7 @@
               "character_name": "Pyra & Mythra"
             },
             {
-              "user_id": 2783051,
+              "user_id": null,
               "selection_id": 37544763,
               "character_id": 1407,
               "character_name": "King K. Rool"
@@ -50,7 +51,7 @@
               "character_name": "Pyra & Mythra"
             },
             {
-              "user_id": 2783051,
+              "user_id": null,
               "selection_id": 37544765,
               "character_id": 1407,
               "character_name": "King K. Rool"
@@ -72,7 +73,7 @@
               "character_name": "Pyra & Mythra"
             },
             {
-              "user_id": 2783051,
+              "user_id": null,
               "selection_id": 37544767,
               "character_id": 1405,
               "character_name": "Mr. Game & Watch"
@@ -89,6 +90,7 @@
       "round_text": "Winners Final",
       "round": 4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -163,13 +165,14 @@
       ]
     },
     {
-      "winner_id": 2783051,
+      "winner_id": null,
       "loser_id": 1016456,
       "winner_score": 3,
       "loser_score": 2,
       "round_text": "Losers Final",
       "round": -8,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -178,7 +181,7 @@
         {
           "game_id": 25798911,
           "order_num": 1,
-          "winner_id": 2783051,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
@@ -190,7 +193,7 @@
               "character_name": "Pokemon Trainer"
             },
             {
-              "user_id": 2783051,
+              "user_id": null,
               "selection_id": 37544381,
               "character_id": 1405,
               "character_name": "Mr. Game & Watch"
@@ -200,7 +203,7 @@
         {
           "game_id": 25798912,
           "order_num": 2,
-          "winner_id": 2783051,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
@@ -212,7 +215,7 @@
               "character_name": "Pokemon Trainer"
             },
             {
-              "user_id": 2783051,
+              "user_id": null,
               "selection_id": 37544383,
               "character_id": 1405,
               "character_name": "Mr. Game & Watch"
@@ -234,7 +237,7 @@
               "character_name": "Kirby"
             },
             {
-              "user_id": 2783051,
+              "user_id": null,
               "selection_id": 37544385,
               "character_id": 1405,
               "character_name": "Mr. Game & Watch"
@@ -256,7 +259,7 @@
               "character_name": "Kirby"
             },
             {
-              "user_id": 2783051,
+              "user_id": null,
               "selection_id": 37544387,
               "character_id": 1405,
               "character_name": "Mr. Game & Watch"
@@ -266,7 +269,7 @@
         {
           "game_id": 25798915,
           "order_num": 5,
-          "winner_id": 2783051,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
@@ -278,7 +281,7 @@
               "character_name": "Kirby"
             },
             {
-              "user_id": 2783051,
+              "user_id": null,
               "selection_id": 37544389,
               "character_id": 1405,
               "character_name": "Mr. Game & Watch"
@@ -288,13 +291,14 @@
       ]
     },
     {
-      "winner_id": 2783051,
+      "winner_id": null,
       "loser_id": null,
       "winner_score": 3,
       "loser_score": 1,
       "round_text": "Losers Semi-Final",
       "round": -7,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -303,7 +307,7 @@
         {
           "game_id": 25798440,
           "order_num": 1,
-          "winner_id": 2783051,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
@@ -315,7 +319,7 @@
               "character_name": "Corrin"
             },
             {
-              "user_id": 2783051,
+              "user_id": null,
               "selection_id": 37543433,
               "character_id": 1407,
               "character_name": "King K. Rool"
@@ -325,7 +329,7 @@
         {
           "game_id": 25798441,
           "order_num": 2,
-          "winner_id": 2783051,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
@@ -337,7 +341,7 @@
               "character_name": "Byleth"
             },
             {
-              "user_id": 2783051,
+              "user_id": null,
               "selection_id": 37543435,
               "character_id": 1407,
               "character_name": "King K. Rool"
@@ -359,7 +363,7 @@
               "character_name": "Joker"
             },
             {
-              "user_id": 2783051,
+              "user_id": null,
               "selection_id": 37543437,
               "character_id": 1405,
               "character_name": "Mr. Game & Watch"
@@ -369,7 +373,7 @@
         {
           "game_id": 25798443,
           "order_num": 4,
-          "winner_id": 2783051,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
@@ -381,7 +385,7 @@
               "character_name": "Joker"
             },
             {
-              "user_id": 2783051,
+              "user_id": null,
               "selection_id": 37543439,
               "character_id": 1405,
               "character_name": "Mr. Game & Watch"
@@ -398,6 +402,7 @@
       "round_text": "Winners Semi-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -495,12 +500,13 @@
     },
     {
       "winner_id": 1016456,
-      "loser_id": 2783051,
+      "loser_id": null,
       "winner_score": 3,
       "loser_score": 1,
       "round_text": "Winners Semi-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -521,7 +527,7 @@
               "character_name": "Pokemon Trainer"
             },
             {
-              "user_id": 2783051,
+              "user_id": null,
               "selection_id": 37541429,
               "character_id": 1407,
               "character_name": "King K. Rool"
@@ -531,7 +537,7 @@
         {
           "game_id": 25797438,
           "order_num": 2,
-          "winner_id": 2783051,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
@@ -543,7 +549,7 @@
               "character_name": "Pokemon Trainer"
             },
             {
-              "user_id": 2783051,
+              "user_id": null,
               "selection_id": 37541431,
               "character_id": 1405,
               "character_name": "Mr. Game & Watch"
@@ -565,7 +571,7 @@
               "character_name": "Pokemon Trainer"
             },
             {
-              "user_id": 2783051,
+              "user_id": null,
               "selection_id": 37541433,
               "character_id": 1405,
               "character_name": "Mr. Game & Watch"
@@ -587,7 +593,7 @@
               "character_name": "Pokemon Trainer"
             },
             {
-              "user_id": 2783051,
+              "user_id": null,
               "selection_id": 37541435,
               "character_id": 1405,
               "character_name": "Mr. Game & Watch"
@@ -604,6 +610,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -678,13 +685,14 @@
       ]
     },
     {
-      "winner_id": 2783051,
+      "winner_id": null,
       "loser_id": 2368165,
       "winner_score": 3,
       "loser_score": 0,
       "round_text": "Losers Quarter-Final",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -693,7 +701,7 @@
         {
           "game_id": 25798038,
           "order_num": 1,
-          "winner_id": 2783051,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
@@ -705,7 +713,7 @@
               "character_name": "Banjo-Kazooie"
             },
             {
-              "user_id": 2783051,
+              "user_id": null,
               "selection_id": 37542621,
               "character_id": 1407,
               "character_name": "King K. Rool"
@@ -715,7 +723,7 @@
         {
           "game_id": 25798039,
           "order_num": 2,
-          "winner_id": 2783051,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
@@ -727,7 +735,7 @@
               "character_name": "Banjo-Kazooie"
             },
             {
-              "user_id": 2783051,
+              "user_id": null,
               "selection_id": 37542623,
               "character_id": 1746,
               "character_name": "Random Character"
@@ -737,7 +745,7 @@
         {
           "game_id": 25798040,
           "order_num": 3,
-          "winner_id": 2783051,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
@@ -749,7 +757,7 @@
               "character_name": "Olimar"
             },
             {
-              "user_id": 2783051,
+              "user_id": null,
               "selection_id": 37542625,
               "character_id": 1746,
               "character_name": "Random Character"
@@ -766,6 +774,7 @@
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -847,6 +856,7 @@
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -906,6 +916,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -965,6 +976,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1024,6 +1036,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1076,13 +1089,14 @@
       ]
     },
     {
-      "winner_id": 2783051,
+      "winner_id": null,
       "loser_id": 2556144,
       "winner_score": 2,
       "loser_score": 0,
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1091,7 +1105,7 @@
         {
           "game_id": 25797098,
           "order_num": 1,
-          "winner_id": 2783051,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
@@ -1103,7 +1117,7 @@
               "character_name": "Incineroar"
             },
             {
-              "user_id": 2783051,
+              "user_id": null,
               "selection_id": 37540756,
               "character_id": 1407,
               "character_name": "King K. Rool"
@@ -1113,7 +1127,7 @@
         {
           "game_id": 25797099,
           "order_num": 2,
-          "winner_id": 2783051,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
@@ -1125,7 +1139,7 @@
               "character_name": "Ike"
             },
             {
-              "user_id": 2783051,
+              "user_id": null,
               "selection_id": 37540758,
               "character_id": 1407,
               "character_name": "King K. Rool"
@@ -1142,6 +1156,7 @@
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1201,6 +1216,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,

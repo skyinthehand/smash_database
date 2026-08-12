@@ -1,13 +1,14 @@
 {
   "data": [
     {
-      "winner_id": 2052177,
+      "winner_id": null,
       "loser_id": null,
       "winner_score": 2,
       "loser_score": 0,
       "round_text": "Round 5",
       "round": 5,
       "phase": "3",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -16,13 +17,13 @@
         {
           "game_id": 25464518,
           "order_num": 1,
-          "winner_id": 2052177,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
           "selections": [
             {
-              "user_id": 2052177,
+              "user_id": null,
               "selection_id": 37017858,
               "character_id": 1766,
               "character_name": "Steve"
@@ -38,13 +39,13 @@
         {
           "game_id": 25464519,
           "order_num": 2,
-          "winner_id": 2052177,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
           "selections": [
             {
-              "user_id": 2052177,
+              "user_id": null,
               "selection_id": 37017860,
               "character_id": 1766,
               "character_name": "Steve"
@@ -67,6 +68,7 @@
       "round_text": "Round 5",
       "round": 5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -126,6 +128,7 @@
       "round_text": "Round 5",
       "round": 5,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -185,6 +188,7 @@
       "round_text": "Round 5",
       "round": 5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -244,6 +248,7 @@
       "round_text": "Round 5",
       "round": 5,
       "phase": "3",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -303,6 +308,7 @@
       "round_text": "Round 5",
       "round": 5,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -362,6 +368,7 @@
       "round_text": "Round 4",
       "round": 4,
       "phase": "3",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -421,6 +428,7 @@
       "round_text": "Round 4",
       "round": 4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -480,6 +488,7 @@
       "round_text": "Round 4",
       "round": 4,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -539,6 +548,7 @@
       "round_text": "Round 4",
       "round": 4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -598,6 +608,7 @@
       "round_text": "Round 4",
       "round": 4,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -651,12 +662,13 @@
     },
     {
       "winner_id": null,
-      "loser_id": 2052177,
+      "loser_id": null,
       "winner_score": 2,
       "loser_score": 1,
       "round_text": "Round 4",
       "round": 4,
       "phase": "3",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -665,13 +677,13 @@
         {
           "game_id": 25464855,
           "order_num": 1,
-          "winner_id": 2052177,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
           "selections": [
             {
-              "user_id": 2052177,
+              "user_id": null,
               "selection_id": 37018444,
               "character_id": 1280,
               "character_name": "Donkey Kong"
@@ -693,7 +705,7 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 2052177,
+              "user_id": null,
               "selection_id": 37018446,
               "character_id": 1280,
               "character_name": "Donkey Kong"
@@ -715,7 +727,7 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 2052177,
+              "user_id": null,
               "selection_id": 37018448,
               "character_id": 1407,
               "character_name": "King K. Rool"
@@ -738,6 +750,7 @@
       "round_text": "Grand Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -841,6 +854,7 @@
       "round_text": "Grand Final Reset",
       "round": 3,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -922,6 +936,7 @@
       "round_text": "Round 3",
       "round": 3,
       "phase": "3",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -981,6 +996,7 @@
       "round_text": "Round 3",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1040,6 +1056,7 @@
       "round_text": "Round 3",
       "round": 3,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1099,6 +1116,7 @@
       "round_text": "Round 3",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1158,6 +1176,7 @@
       "round_text": "Round 3",
       "round": 3,
       "phase": "3",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1217,6 +1236,7 @@
       "round_text": "Round 3",
       "round": 3,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1276,6 +1296,7 @@
       "round_text": "Winners Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1357,6 +1378,7 @@
       "round_text": "Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1416,6 +1438,7 @@
       "round_text": "Round 2",
       "round": 2,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1475,6 +1498,7 @@
       "round_text": "Round 2",
       "round": 2,
       "phase": "3",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1527,13 +1551,14 @@
       ]
     },
     {
-      "winner_id": 2052177,
+      "winner_id": null,
       "loser_id": 2770846,
       "winner_score": 2,
       "loser_score": 1,
       "round_text": "Round 2",
       "round": 2,
       "phase": "3",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1542,13 +1567,13 @@
         {
           "game_id": 25465299,
           "order_num": 1,
-          "winner_id": 2052177,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
           "selections": [
             {
-              "user_id": 2052177,
+              "user_id": null,
               "selection_id": 37019234,
               "character_id": 1280,
               "character_name": "Donkey Kong"
@@ -1570,7 +1595,7 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 2052177,
+              "user_id": null,
               "selection_id": 37019236,
               "character_id": 1280,
               "character_name": "Donkey Kong"
@@ -1586,13 +1611,13 @@
         {
           "game_id": 25465301,
           "order_num": 3,
-          "winner_id": 2052177,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
           "selections": [
             {
-              "user_id": 2052177,
+              "user_id": null,
               "selection_id": 37019238,
               "character_id": 1280,
               "character_name": "Donkey Kong"
@@ -1615,6 +1640,7 @@
       "round_text": "Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1674,6 +1700,7 @@
       "round_text": "Round 2",
       "round": 2,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1733,6 +1760,7 @@
       "round_text": "Losers Final",
       "round": -6,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1808,12 +1836,13 @@
     },
     {
       "winner_id": null,
-      "loser_id": 2052177,
+      "loser_id": null,
       "winner_score": 3,
       "loser_score": 1,
       "round_text": "Losers Semi-Final",
       "round": -5,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1828,7 +1857,7 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 2052177,
+              "user_id": null,
               "selection_id": 37019909,
               "character_id": 1280,
               "character_name": "Donkey Kong"
@@ -1850,7 +1879,7 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 2052177,
+              "user_id": null,
               "selection_id": 37019911,
               "character_id": 1766,
               "character_name": "Steve"
@@ -1866,13 +1895,13 @@
         {
           "game_id": 25465680,
           "order_num": 3,
-          "winner_id": 2052177,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
           "selections": [
             {
-              "user_id": 2052177,
+              "user_id": null,
               "selection_id": 37019913,
               "character_id": 1323,
               "character_name": "R.O.B."
@@ -1894,7 +1923,7 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 2052177,
+              "user_id": null,
               "selection_id": 37019915,
               "character_id": 1280,
               "character_name": "Donkey Kong"
@@ -1917,6 +1946,7 @@
       "round_text": "Winners Semi-Final",
       "round": 1,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2042,6 +2072,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2094,13 +2125,14 @@
       ]
     },
     {
-      "winner_id": 2052177,
+      "winner_id": null,
       "loser_id": 2807195,
       "winner_score": 2,
       "loser_score": 0,
       "round_text": "Round 1",
       "round": 1,
       "phase": "3",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2109,13 +2141,13 @@
         {
           "game_id": 25465080,
           "order_num": 1,
-          "winner_id": 2052177,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
           "selections": [
             {
-              "user_id": 2052177,
+              "user_id": null,
               "selection_id": 37018826,
               "character_id": 1273,
               "character_name": "Bowser"
@@ -2131,13 +2163,13 @@
         {
           "game_id": 25465081,
           "order_num": 2,
-          "winner_id": 2052177,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
           "selections": [
             {
-              "user_id": 2052177,
+              "user_id": null,
               "selection_id": 37018828,
               "character_id": 1274,
               "character_name": "Captain Falcon"
@@ -2160,6 +2192,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2219,6 +2252,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "3",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2300,6 +2334,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2381,6 +2416,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2440,6 +2476,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -4,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2514,13 +2551,14 @@
       ]
     },
     {
-      "winner_id": 2052177,
+      "winner_id": null,
       "loser_id": 2533482,
       "winner_score": 3,
       "loser_score": 0,
       "round_text": "Losers Quarter-Final",
       "round": -4,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2529,7 +2567,7 @@
         {
           "game_id": 25465411,
           "order_num": 1,
-          "winner_id": 2052177,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
@@ -2541,7 +2579,7 @@
               "character_name": "Donkey Kong"
             },
             {
-              "user_id": 2052177,
+              "user_id": null,
               "selection_id": 37019435,
               "character_id": 1766,
               "character_name": "Steve"
@@ -2551,7 +2589,7 @@
         {
           "game_id": 25465412,
           "order_num": 2,
-          "winner_id": 2052177,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
@@ -2563,7 +2601,7 @@
               "character_name": "Duck Hunt"
             },
             {
-              "user_id": 2052177,
+              "user_id": null,
               "selection_id": 37019437,
               "character_id": 1766,
               "character_name": "Steve"
@@ -2573,7 +2611,7 @@
         {
           "game_id": 25465413,
           "order_num": 3,
-          "winner_id": 2052177,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
@@ -2585,7 +2623,7 @@
               "character_name": "Steve"
             },
             {
-              "user_id": 2052177,
+              "user_id": null,
               "selection_id": 37019439,
               "character_id": 1294,
               "character_name": "King Dedede"

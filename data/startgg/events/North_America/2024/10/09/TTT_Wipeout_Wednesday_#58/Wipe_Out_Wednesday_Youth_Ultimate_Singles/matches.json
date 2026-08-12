@@ -8,6 +8,7 @@
       "round_text": "Grand Final",
       "round": 6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -22,6 +23,7 @@
       "round_text": "Winners Final",
       "round": 5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -36,6 +38,7 @@
       "round_text": "Losers Final",
       "round": -10,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -87,6 +90,7 @@
       "round_text": "Losers Semi-Final",
       "round": -9,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -190,6 +194,7 @@
       "round_text": "Winners Semi-Final",
       "round": 4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -271,6 +276,7 @@
       "round_text": "Winners Semi-Final",
       "round": 4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -352,6 +358,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -8,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -411,6 +418,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -8,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -470,6 +478,7 @@
       "round_text": "Losers Round 4",
       "round": -7,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -526,68 +535,10 @@
       "loser_id": null,
       "winner_score": 2,
       "loser_score": 0,
-      "round_text": "Losers Round 4",
-      "round": -7,
-      "phase": "1",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": [
-        {
-          "game_id": 25451637,
-          "order_num": 1,
-          "winner_id": null,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 36998788,
-              "character_id": 1407,
-              "character_name": "King K. Rool"
-            },
-            {
-              "user_id": null,
-              "selection_id": 36998789,
-              "character_id": 1453,
-              "character_name": "Joker"
-            }
-          ]
-        },
-        {
-          "game_id": 25451638,
-          "order_num": 2,
-          "winner_id": null,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 36998790,
-              "character_id": 1407,
-              "character_name": "King K. Rool"
-            },
-            {
-              "user_id": null,
-              "selection_id": 36998791,
-              "character_id": 1453,
-              "character_name": "Joker"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "winner_id": null,
-      "loser_id": null,
-      "winner_score": 2,
-      "loser_score": 0,
       "round_text": "Winners Quarter-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -640,65 +591,6 @@
       ]
     },
     {
-      "winner_id": null,
-      "loser_id": null,
-      "winner_score": 2,
-      "loser_score": 0,
-      "round_text": "Winners Quarter-Final",
-      "round": 3,
-      "phase": "1",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": [
-        {
-          "game_id": 25450930,
-          "order_num": 1,
-          "winner_id": null,
-          "entrant1_score": 0,
-          "entrant2_score": null,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 36997584,
-              "character_id": 1407,
-              "character_name": "King K. Rool"
-            },
-            {
-              "user_id": null,
-              "selection_id": 36997585,
-              "character_id": 1297,
-              "character_name": "Little Mac"
-            }
-          ]
-        },
-        {
-          "game_id": 25450931,
-          "order_num": 2,
-          "winner_id": null,
-          "entrant1_score": 0,
-          "entrant2_score": null,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 36997586,
-              "character_id": 1407,
-              "character_name": "King K. Rool"
-            },
-            {
-              "user_id": null,
-              "selection_id": 36997587,
-              "character_id": 1297,
-              "character_name": "Little Mac"
-            }
-          ]
-        }
-      ]
-    },
-    {
       "winner_id": 2039634,
       "loser_id": null,
       "winner_score": 2,
@@ -706,6 +598,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -765,6 +658,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -824,6 +718,7 @@
       "round_text": "Losers Round 3",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -880,186 +775,10 @@
       "loser_id": null,
       "winner_score": 2,
       "loser_score": 0,
-      "round_text": "Losers Round 3",
-      "round": -6,
-      "phase": "1",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": [
-        {
-          "game_id": 25451343,
-          "order_num": 1,
-          "winner_id": null,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 36998275,
-              "character_id": 1275,
-              "character_name": "Cloud"
-            },
-            {
-              "user_id": null,
-              "selection_id": 36998276,
-              "character_id": 1297,
-              "character_name": "Little Mac"
-            }
-          ]
-        },
-        {
-          "game_id": 25451344,
-          "order_num": 2,
-          "winner_id": null,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 36998277,
-              "character_id": 1405,
-              "character_name": "Mr. Game & Watch"
-            },
-            {
-              "user_id": null,
-              "selection_id": 36998278,
-              "character_id": 1297,
-              "character_name": "Little Mac"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "winner_id": null,
-      "loser_id": null,
-      "winner_score": 2,
-      "loser_score": 0,
-      "round_text": "Losers Round 3",
-      "round": -6,
-      "phase": "1",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": [
-        {
-          "game_id": 25451358,
-          "order_num": 1,
-          "winner_id": null,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 36998303,
-              "character_id": 1291,
-              "character_name": "Ike"
-            },
-            {
-              "user_id": null,
-              "selection_id": 36998304,
-              "character_id": 1441,
-              "character_name": "Piranha Plant"
-            }
-          ]
-        },
-        {
-          "game_id": 25451359,
-          "order_num": 2,
-          "winner_id": null,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 36998305,
-              "character_id": 1280,
-              "character_name": "Donkey Kong"
-            },
-            {
-              "user_id": null,
-              "selection_id": 36998306,
-              "character_id": 1441,
-              "character_name": "Piranha Plant"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "winner_id": null,
-      "loser_id": null,
-      "winner_score": 2,
-      "loser_score": 0,
-      "round_text": "Losers Round 3",
-      "round": -6,
-      "phase": "1",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": [
-        {
-          "game_id": 25451219,
-          "order_num": 1,
-          "winner_id": null,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 36998056,
-              "character_id": 1298,
-              "character_name": "Lucario"
-            },
-            {
-              "user_id": null,
-              "selection_id": 36998057,
-              "character_id": 1453,
-              "character_name": "Joker"
-            }
-          ]
-        },
-        {
-          "game_id": 25451220,
-          "order_num": 2,
-          "winner_id": null,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 36998058,
-              "character_id": 1298,
-              "character_name": "Lucario"
-            },
-            {
-              "user_id": null,
-              "selection_id": 36998059,
-              "character_id": 1453,
-              "character_name": "Joker"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "winner_id": null,
-      "loser_id": null,
-      "winner_score": 2,
-      "loser_score": 0,
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1119,6 +838,7 @@
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1194,93 +914,13 @@
     },
     {
       "winner_id": null,
-      "loser_id": null,
-      "winner_score": 2,
-      "loser_score": 1,
-      "round_text": "Losers Round 2",
-      "round": -5,
-      "phase": "1",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": [
-        {
-          "game_id": 25451040,
-          "order_num": 1,
-          "winner_id": null,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 36997760,
-              "character_id": 1298,
-              "character_name": "Lucario"
-            },
-            {
-              "user_id": null,
-              "selection_id": 36997761,
-              "character_id": 1275,
-              "character_name": "Cloud"
-            }
-          ]
-        },
-        {
-          "game_id": 25451041,
-          "order_num": 2,
-          "winner_id": null,
-          "entrant1_score": 0,
-          "entrant2_score": null,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 36997762,
-              "character_id": 1298,
-              "character_name": "Lucario"
-            },
-            {
-              "user_id": null,
-              "selection_id": 36997763,
-              "character_id": 1275,
-              "character_name": "Cloud"
-            }
-          ]
-        },
-        {
-          "game_id": 25451042,
-          "order_num": 3,
-          "winner_id": null,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 36997764,
-              "character_id": 1298,
-              "character_name": "Lucario"
-            },
-            {
-              "user_id": null,
-              "selection_id": 36997765,
-              "character_id": 1275,
-              "character_name": "Cloud"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "winner_id": null,
       "loser_id": 2126433,
       "winner_score": 2,
       "loser_score": 1,
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1362,6 +1002,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1421,6 +1062,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1473,124 +1115,6 @@
       ]
     },
     {
-      "winner_id": null,
-      "loser_id": null,
-      "winner_score": 2,
-      "loser_score": 0,
-      "round_text": "Winners Round 2",
-      "round": 2,
-      "phase": "1",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": [
-        {
-          "game_id": 25450676,
-          "order_num": 1,
-          "winner_id": null,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 36997186,
-              "character_id": 1275,
-              "character_name": "Cloud"
-            },
-            {
-              "user_id": null,
-              "selection_id": 36997187,
-              "character_id": 1297,
-              "character_name": "Little Mac"
-            }
-          ]
-        },
-        {
-          "game_id": 25450677,
-          "order_num": 2,
-          "winner_id": null,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 36997188,
-              "character_id": 1275,
-              "character_name": "Cloud"
-            },
-            {
-              "user_id": null,
-              "selection_id": 36997189,
-              "character_id": 1297,
-              "character_name": "Little Mac"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "winner_id": null,
-      "loser_id": null,
-      "winner_score": 2,
-      "loser_score": 0,
-      "round_text": "Winners Round 2",
-      "round": 2,
-      "phase": "1",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": [
-        {
-          "game_id": 25450679,
-          "order_num": 1,
-          "winner_id": null,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 36997190,
-              "character_id": 1407,
-              "character_name": "King K. Rool"
-            },
-            {
-              "user_id": null,
-              "selection_id": 36997191,
-              "character_id": 1298,
-              "character_name": "Lucario"
-            }
-          ]
-        },
-        {
-          "game_id": 25450680,
-          "order_num": 2,
-          "winner_id": null,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 36997192,
-              "character_id": 1407,
-              "character_name": "King K. Rool"
-            },
-            {
-              "user_id": null,
-              "selection_id": 36997193,
-              "character_id": 1298,
-              "character_name": "Lucario"
-            }
-          ]
-        }
-      ]
-    },
-    {
       "winner_id": 2039634,
       "loser_id": null,
       "winner_score": 2,
@@ -1598,6 +1122,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1657,6 +1182,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1738,6 +1264,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1794,68 +1321,10 @@
       "loser_id": null,
       "winner_score": 2,
       "loser_score": 0,
-      "round_text": "Winners Round 2",
-      "round": 2,
-      "phase": "1",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": [
-        {
-          "game_id": 25450708,
-          "order_num": 1,
-          "winner_id": null,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 36997234,
-              "character_id": 1405,
-              "character_name": "Mr. Game & Watch"
-            },
-            {
-              "user_id": null,
-              "selection_id": 36997235,
-              "character_id": 1453,
-              "character_name": "Joker"
-            }
-          ]
-        },
-        {
-          "game_id": 25450709,
-          "order_num": 2,
-          "winner_id": null,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 36997236,
-              "character_id": 1275,
-              "character_name": "Cloud"
-            },
-            {
-              "user_id": null,
-              "selection_id": 36997237,
-              "character_id": 1453,
-              "character_name": "Joker"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "winner_id": null,
-      "loser_id": null,
-      "winner_score": 2,
-      "loser_score": 0,
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1915,6 +1384,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,

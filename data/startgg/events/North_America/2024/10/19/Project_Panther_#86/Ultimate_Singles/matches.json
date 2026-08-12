@@ -8,6 +8,7 @@
       "round_text": "Grand Final",
       "round": 5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -133,6 +134,7 @@
       "round_text": "Winners Final",
       "round": 4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -236,6 +238,7 @@
       "round_text": "Losers Final",
       "round": -8,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -317,6 +320,7 @@
       "round_text": "Losers Semi-Final",
       "round": -7,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -420,6 +424,7 @@
       "round_text": "Winners Semi-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -501,6 +506,7 @@
       "round_text": "Winners Semi-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -598,12 +604,13 @@
     },
     {
       "winner_id": 1670302,
-      "loser_id": 2310563,
+      "loser_id": null,
       "winner_score": 3,
       "loser_score": 1,
       "round_text": "Losers Quarter-Final",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -612,7 +619,7 @@
         {
           "game_id": 25664292,
           "order_num": 1,
-          "winner_id": 2310563,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": 0,
           "stage": "Small Battlefield",
@@ -624,7 +631,7 @@
               "character_name": "Lucas"
             },
             {
-              "user_id": 2310563,
+              "user_id": null,
               "selection_id": 37340052,
               "character_id": 1279,
               "character_name": "Diddy Kong"
@@ -646,7 +653,7 @@
               "character_name": "Shulk"
             },
             {
-              "user_id": 2310563,
+              "user_id": null,
               "selection_id": 37340762,
               "character_id": 1279,
               "character_name": "Diddy Kong"
@@ -668,7 +675,7 @@
               "character_name": "Dark Pit"
             },
             {
-              "user_id": 2310563,
+              "user_id": null,
               "selection_id": 37340764,
               "character_id": 1279,
               "character_name": "Diddy Kong"
@@ -690,7 +697,7 @@
               "character_name": "Donkey Kong"
             },
             {
-              "user_id": 2310563,
+              "user_id": null,
               "selection_id": 37340945,
               "character_id": 1279,
               "character_name": "Diddy Kong"
@@ -707,6 +714,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -803,13 +811,14 @@
       ]
     },
     {
-      "winner_id": 2310563,
+      "winner_id": null,
       "loser_id": 2366001,
       "winner_score": 3,
       "loser_score": 2,
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -818,7 +827,7 @@
         {
           "game_id": 25663279,
           "order_num": 1,
-          "winner_id": 2310563,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Smashville",
@@ -830,7 +839,7 @@
               "character_name": "Meta Knight"
             },
             {
-              "user_id": 2310563,
+              "user_id": null,
               "selection_id": 37338573,
               "character_id": 1279,
               "character_name": "Diddy Kong"
@@ -852,7 +861,7 @@
               "character_name": "Meta Knight"
             },
             {
-              "user_id": 2310563,
+              "user_id": null,
               "selection_id": 37338878,
               "character_id": 1279,
               "character_name": "Diddy Kong"
@@ -874,7 +883,7 @@
               "character_name": "Meta Knight"
             },
             {
-              "user_id": 2310563,
+              "user_id": null,
               "selection_id": 37339197,
               "character_id": 1279,
               "character_name": "Diddy Kong"
@@ -884,7 +893,7 @@
         {
           "game_id": 25663920,
           "order_num": 4,
-          "winner_id": 2310563,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Pokémon Stadium 2",
@@ -896,7 +905,7 @@
               "character_name": "Meta Knight"
             },
             {
-              "user_id": 2310563,
+              "user_id": null,
               "selection_id": 37339505,
               "character_id": 1279,
               "character_name": "Diddy Kong"
@@ -906,7 +915,7 @@
         {
           "game_id": 25664117,
           "order_num": 5,
-          "winner_id": 2310563,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Hollow Bastion",
@@ -918,7 +927,7 @@
               "character_name": "Meta Knight"
             },
             {
-              "user_id": 2310563,
+              "user_id": null,
               "selection_id": 37339815,
               "character_id": 1279,
               "character_name": "Diddy Kong"
@@ -935,6 +944,7 @@
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1060,6 +1070,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1141,6 +1152,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1266,6 +1278,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1341,12 +1354,13 @@
     },
     {
       "winner_id": 1838129,
-      "loser_id": 2310563,
+      "loser_id": null,
       "winner_score": 3,
       "loser_score": 1,
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1355,7 +1369,7 @@
         {
           "game_id": 25661681,
           "order_num": 1,
-          "winner_id": 2310563,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": 0,
           "stage": "Smashville",
@@ -1367,7 +1381,7 @@
               "character_name": "Ike"
             },
             {
-              "user_id": 2310563,
+              "user_id": null,
               "selection_id": 37336017,
               "character_id": 1279,
               "character_name": "Diddy Kong"
@@ -1389,7 +1403,7 @@
               "character_name": "Ike"
             },
             {
-              "user_id": 2310563,
+              "user_id": null,
               "selection_id": 37336609,
               "character_id": 1279,
               "character_name": "Diddy Kong"
@@ -1411,7 +1425,7 @@
               "character_name": "Ike"
             },
             {
-              "user_id": 2310563,
+              "user_id": null,
               "selection_id": 37336611,
               "character_id": 1279,
               "character_name": "Diddy Kong"
@@ -1433,7 +1447,7 @@
               "character_name": "Ike"
             },
             {
-              "user_id": 2310563,
+              "user_id": null,
               "selection_id": 37336751,
               "character_id": 1279,
               "character_name": "Diddy Kong"
@@ -1443,13 +1457,14 @@
       ]
     },
     {
-      "winner_id": 2310563,
+      "winner_id": null,
       "loser_id": 2815029,
       "winner_score": 3,
       "loser_score": 0,
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1458,13 +1473,13 @@
         {
           "game_id": 25662650,
           "order_num": 1,
-          "winner_id": 2310563,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Kalos Pokémon League",
           "selections": [
             {
-              "user_id": 2310563,
+              "user_id": null,
               "selection_id": 37337609,
               "character_id": 1279,
               "character_name": "Diddy Kong"
@@ -1480,7 +1495,7 @@
         {
           "game_id": 25662984,
           "order_num": 2,
-          "winner_id": 2310563,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": 0,
           "stage": "Kalos Pokémon League",
@@ -1492,7 +1507,7 @@
               "character_name": "Piranha Plant"
             },
             {
-              "user_id": 2310563,
+              "user_id": null,
               "selection_id": 37338177,
               "character_id": 1279,
               "character_name": "Diddy Kong"
@@ -1502,7 +1517,7 @@
         {
           "game_id": 25662985,
           "order_num": 3,
-          "winner_id": 2310563,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Kalos Pokémon League",
@@ -1514,7 +1529,7 @@
               "character_name": "Jigglypuff"
             },
             {
-              "user_id": 2310563,
+              "user_id": null,
               "selection_id": 37338179,
               "character_id": 1279,
               "character_name": "Diddy Kong"
@@ -1531,6 +1546,7 @@
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1634,6 +1650,7 @@
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1715,6 +1732,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1818,6 +1836,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1892,13 +1911,14 @@
       ]
     },
     {
-      "winner_id": 2310563,
+      "winner_id": null,
       "loser_id": 2306286,
       "winner_score": 3,
       "loser_score": 0,
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1907,7 +1927,7 @@
         {
           "game_id": 25661127,
           "order_num": 1,
-          "winner_id": 2310563,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Smashville",
@@ -1919,7 +1939,7 @@
               "character_name": "Byleth"
             },
             {
-              "user_id": 2310563,
+              "user_id": null,
               "selection_id": 37335152,
               "character_id": 1279,
               "character_name": "Diddy Kong"
@@ -1929,7 +1949,7 @@
         {
           "game_id": 25661345,
           "order_num": 2,
-          "winner_id": 2310563,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": 0,
           "stage": "Final Destination",
@@ -1941,7 +1961,7 @@
               "character_name": "Roy"
             },
             {
-              "user_id": 2310563,
+              "user_id": null,
               "selection_id": 37335492,
               "character_id": 1279,
               "character_name": "Diddy Kong"
@@ -1951,7 +1971,7 @@
         {
           "game_id": 25661445,
           "order_num": 3,
-          "winner_id": 2310563,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": "Town and City",
@@ -1963,7 +1983,7 @@
               "character_name": "Byleth"
             },
             {
-              "user_id": 2310563,
+              "user_id": null,
               "selection_id": 37335629,
               "character_id": 1279,
               "character_name": "Diddy Kong"

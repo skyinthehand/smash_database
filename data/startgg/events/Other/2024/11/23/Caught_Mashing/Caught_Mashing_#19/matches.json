@@ -8,6 +8,7 @@
       "round_text": "Grand Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -89,6 +90,7 @@
       "round_text": "Winners Semi-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -170,6 +172,7 @@
       "round_text": "Winners Semi-Final",
       "round": 3,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -251,6 +254,7 @@
       "round_text": "Winners Semi-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -354,6 +358,7 @@
       "round_text": "Winners Semi-Final",
       "round": 3,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -479,6 +484,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -604,6 +610,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -6,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -707,6 +714,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -6,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -788,6 +796,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -884,107 +893,19 @@
       ]
     },
     {
-      "winner_id": 1871620,
-      "loser_id": 2202815,
-      "winner_score": 3,
-      "loser_score": 1,
+      "winner_id": 1454432,
+      "loser_id": 2064174,
+      "winner_score": 0,
+      "loser_score": -1,
       "round_text": "Losers Round 2",
       "round": -5,
-      "phase": "1",
+      "phase": "2",
+      "phase_order": 1,
       "wave": null,
-      "dq": false,
+      "dq": true,
       "cancel": false,
       "state": 3,
-      "details": [
-        {
-          "game_id": 26103545,
-          "order_num": 1,
-          "winner_id": 1871620,
-          "entrant1_score": null,
-          "entrant2_score": null,
-          "stage": "Battlefield",
-          "selections": [
-            {
-              "user_id": 1871620,
-              "selection_id": 38003563,
-              "character_id": 1407,
-              "character_name": "King K. Rool"
-            },
-            {
-              "user_id": 2202815,
-              "selection_id": 38003564,
-              "character_id": 1311,
-              "character_name": "Mii Brawler"
-            }
-          ]
-        },
-        {
-          "game_id": 26103719,
-          "order_num": 2,
-          "winner_id": 1871620,
-          "entrant1_score": null,
-          "entrant2_score": null,
-          "stage": "Battlefield",
-          "selections": [
-            {
-              "user_id": 1871620,
-              "selection_id": 38003849,
-              "character_id": 1407,
-              "character_name": "King K. Rool"
-            },
-            {
-              "user_id": 2202815,
-              "selection_id": 38003850,
-              "character_id": 1311,
-              "character_name": "Mii Brawler"
-            }
-          ]
-        },
-        {
-          "game_id": 26103898,
-          "order_num": 3,
-          "winner_id": 2202815,
-          "entrant1_score": null,
-          "entrant2_score": null,
-          "stage": "Final Destination",
-          "selections": [
-            {
-              "user_id": 1871620,
-              "selection_id": 38004132,
-              "character_id": 1846,
-              "character_name": "Kazuya"
-            },
-            {
-              "user_id": 2202815,
-              "selection_id": 38004133,
-              "character_id": 1766,
-              "character_name": "Steve"
-            }
-          ]
-        },
-        {
-          "game_id": 26104043,
-          "order_num": 4,
-          "winner_id": 1871620,
-          "entrant1_score": null,
-          "entrant2_score": null,
-          "stage": "Pokémon Stadium 2",
-          "selections": [
-            {
-              "user_id": 2202815,
-              "selection_id": 38004380,
-              "character_id": 1766,
-              "character_name": "Steve"
-            },
-            {
-              "user_id": 1871620,
-              "selection_id": 38004381,
-              "character_id": 1407,
-              "character_name": "King K. Rool"
-            }
-          ]
-        }
-      ]
+      "details": []
     },
     {
       "winner_id": 1871620,
@@ -994,6 +915,7 @@
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1097,6 +1019,7 @@
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1222,6 +1145,7 @@
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1303,6 +1227,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1384,6 +1309,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1465,6 +1391,7 @@
       "round_text": "Winners Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1546,6 +1473,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1671,6 +1599,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1774,6 +1703,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -1788,6 +1718,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1862,6 +1793,110 @@
       ]
     },
     {
+      "winner_id": 2651324,
+      "loser_id": 1454432,
+      "winner_score": 3,
+      "loser_score": 1,
+      "round_text": "Winners Quarter-Final",
+      "round": 2,
+      "phase": "2",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": [
+        {
+          "game_id": 26100707,
+          "order_num": 1,
+          "winner_id": 2651324,
+          "entrant1_score": null,
+          "entrant2_score": null,
+          "stage": "Town and City",
+          "selections": [
+            {
+              "user_id": 1454432,
+              "selection_id": 37999022,
+              "character_id": 1294,
+              "character_name": "King Dedede"
+            },
+            {
+              "user_id": 2651324,
+              "selection_id": 37999023,
+              "character_id": 1332,
+              "character_name": "Sonic"
+            }
+          ]
+        },
+        {
+          "game_id": 26100919,
+          "order_num": 2,
+          "winner_id": 1454432,
+          "entrant1_score": null,
+          "entrant2_score": null,
+          "stage": "Small Battlefield",
+          "selections": [
+            {
+              "user_id": 2651324,
+              "selection_id": 37999348,
+              "character_id": 1332,
+              "character_name": "Sonic"
+            },
+            {
+              "user_id": 1454432,
+              "selection_id": 37999349,
+              "character_id": 1294,
+              "character_name": "King Dedede"
+            }
+          ]
+        },
+        {
+          "game_id": 26101138,
+          "order_num": 3,
+          "winner_id": 2651324,
+          "entrant1_score": null,
+          "entrant2_score": null,
+          "stage": "Small Battlefield",
+          "selections": [
+            {
+              "user_id": 1454432,
+              "selection_id": 37999638,
+              "character_id": 1294,
+              "character_name": "King Dedede"
+            },
+            {
+              "user_id": 2651324,
+              "selection_id": 37999639,
+              "character_id": 1332,
+              "character_name": "Sonic"
+            }
+          ]
+        },
+        {
+          "game_id": 26101332,
+          "order_num": 4,
+          "winner_id": 2651324,
+          "entrant1_score": null,
+          "entrant2_score": null,
+          "stage": "Small Battlefield",
+          "selections": [
+            {
+              "user_id": 2651324,
+              "selection_id": 37999950,
+              "character_id": 1332,
+              "character_name": "Sonic"
+            },
+            {
+              "user_id": 1454432,
+              "selection_id": 37999951,
+              "character_id": 1294,
+              "character_name": "King Dedede"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "winner_id": 2561013,
       "loser_id": 1871620,
       "winner_score": 3,
@@ -1869,6 +1904,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1987,109 +2023,6 @@
       ]
     },
     {
-      "winner_id": 2651324,
-      "loser_id": 1454432,
-      "winner_score": 3,
-      "loser_score": 1,
-      "round_text": "Winners Quarter-Final",
-      "round": 2,
-      "phase": "2",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": [
-        {
-          "game_id": 26100707,
-          "order_num": 1,
-          "winner_id": 2651324,
-          "entrant1_score": null,
-          "entrant2_score": null,
-          "stage": "Town and City",
-          "selections": [
-            {
-              "user_id": 1454432,
-              "selection_id": 37999022,
-              "character_id": 1294,
-              "character_name": "King Dedede"
-            },
-            {
-              "user_id": 2651324,
-              "selection_id": 37999023,
-              "character_id": 1332,
-              "character_name": "Sonic"
-            }
-          ]
-        },
-        {
-          "game_id": 26100919,
-          "order_num": 2,
-          "winner_id": 1454432,
-          "entrant1_score": null,
-          "entrant2_score": null,
-          "stage": "Small Battlefield",
-          "selections": [
-            {
-              "user_id": 2651324,
-              "selection_id": 37999348,
-              "character_id": 1332,
-              "character_name": "Sonic"
-            },
-            {
-              "user_id": 1454432,
-              "selection_id": 37999349,
-              "character_id": 1294,
-              "character_name": "King Dedede"
-            }
-          ]
-        },
-        {
-          "game_id": 26101138,
-          "order_num": 3,
-          "winner_id": 2651324,
-          "entrant1_score": null,
-          "entrant2_score": null,
-          "stage": "Small Battlefield",
-          "selections": [
-            {
-              "user_id": 1454432,
-              "selection_id": 37999638,
-              "character_id": 1294,
-              "character_name": "King Dedede"
-            },
-            {
-              "user_id": 2651324,
-              "selection_id": 37999639,
-              "character_id": 1332,
-              "character_name": "Sonic"
-            }
-          ]
-        },
-        {
-          "game_id": 26101332,
-          "order_num": 4,
-          "winner_id": 2651324,
-          "entrant1_score": null,
-          "entrant2_score": null,
-          "stage": "Small Battlefield",
-          "selections": [
-            {
-              "user_id": 2651324,
-              "selection_id": 37999950,
-              "character_id": 1332,
-              "character_name": "Sonic"
-            },
-            {
-              "user_id": 1454432,
-              "selection_id": 37999951,
-              "character_id": 1294,
-              "character_name": "King Dedede"
-            }
-          ]
-        }
-      ]
-    },
-    {
       "winner_id": 2130939,
       "loser_id": 2129249,
       "winner_score": 3,
@@ -2097,6 +2030,7 @@
       "round_text": "Losers Final",
       "round": -6,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2200,6 +2134,7 @@
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2303,6 +2238,7 @@
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2384,6 +2320,7 @@
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2465,6 +2402,7 @@
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2568,6 +2506,7 @@
       "round_text": "Losers Semi-Final",
       "round": -5,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2693,6 +2632,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -2707,6 +2647,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2810,6 +2751,7 @@
       "round_text": "Winners Semi-Final",
       "round": 1,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2891,6 +2833,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2994,6 +2937,7 @@
       "round_text": "Winners Semi-Final",
       "round": 1,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3097,6 +3041,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3178,6 +3123,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -4,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3259,6 +3205,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -4,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3340,6 +3287,7 @@
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3465,6 +3413,7 @@
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,

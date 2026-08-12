@@ -1,4 +1,252 @@
 {
-  "data": [],
+  "data": [
+    {
+      "winner_id": 465210,
+      "loser_id": 2310239,
+      "winner_score": 3,
+      "loser_score": 0,
+      "round_text": "Grand Final",
+      "round": 4,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": [
+        {
+          "game_id": 26547142,
+          "order_num": 1,
+          "winner_id": 465210,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 465210,
+              "selection_id": 38678615,
+              "character_id": 1293,
+              "character_name": "Jigglypuff"
+            },
+            {
+              "user_id": 2310239,
+              "selection_id": 38678616,
+              "character_id": 1335,
+              "character_name": "Wario"
+            }
+          ]
+        },
+        {
+          "game_id": 26547143,
+          "order_num": 2,
+          "winner_id": 465210,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 465210,
+              "selection_id": 38678617,
+              "character_id": 1293,
+              "character_name": "Jigglypuff"
+            },
+            {
+              "user_id": 2310239,
+              "selection_id": 38678618,
+              "character_id": 1335,
+              "character_name": "Wario"
+            }
+          ]
+        },
+        {
+          "game_id": 26547144,
+          "order_num": 3,
+          "winner_id": 465210,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 465210,
+              "selection_id": 38678619,
+              "character_id": 1293,
+              "character_name": "Jigglypuff"
+            },
+            {
+              "user_id": 2310239,
+              "selection_id": 38678620,
+              "character_id": 1335,
+              "character_name": "Wario"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "winner_id": 465210,
+      "loser_id": 2310239,
+      "winner_score": 3,
+      "loser_score": 0,
+      "round_text": "Winners Final",
+      "round": 3,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "winner_id": 2310239,
+      "loser_id": 362455,
+      "winner_score": 3,
+      "loser_score": 0,
+      "round_text": "Losers Final",
+      "round": -6,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "winner_id": 362455,
+      "loser_id": 1999311,
+      "winner_score": 2,
+      "loser_score": 1,
+      "round_text": "Losers Semi-Final",
+      "round": -5,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "winner_id": 465210,
+      "loser_id": 2622617,
+      "winner_score": 2,
+      "loser_score": 0,
+      "round_text": "Winners Semi-Final",
+      "round": 2,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "winner_id": 2310239,
+      "loser_id": 362455,
+      "winner_score": 2,
+      "loser_score": 1,
+      "round_text": "Winners Semi-Final",
+      "round": 2,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "winner_id": 362455,
+      "loser_id": 1820903,
+      "winner_score": 2,
+      "loser_score": 0,
+      "round_text": "Losers Quarter-Final",
+      "round": -4,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "winner_id": 1999311,
+      "loser_id": 2622617,
+      "winner_score": 2,
+      "loser_score": 0,
+      "round_text": "Losers Quarter-Final",
+      "round": -4,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "winner_id": 1999311,
+      "loser_id": 853312,
+      "winner_score": 0,
+      "loser_score": -1,
+      "round_text": "Losers Round 1",
+      "round": -3,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": true,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "winner_id": 2622617,
+      "loser_id": 1820903,
+      "winner_score": 2,
+      "loser_score": 0,
+      "round_text": "Winners Quarter-Final",
+      "round": 1,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "winner_id": 362455,
+      "loser_id": 853312,
+      "winner_score": 0,
+      "loser_score": -1,
+      "round_text": "Winners Quarter-Final",
+      "round": 1,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": true,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "winner_id": 2310239,
+      "loser_id": 1999311,
+      "winner_score": 2,
+      "loser_score": 0,
+      "round_text": "Winners Quarter-Final",
+      "round": 1,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    }
+  ],
   "version": "1.0"
 }

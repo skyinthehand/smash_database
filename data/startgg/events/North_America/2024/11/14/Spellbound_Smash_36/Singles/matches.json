@@ -8,6 +8,7 @@
       "round_text": "Grand Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -111,6 +112,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -192,6 +194,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -295,6 +298,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -398,6 +402,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -479,6 +484,7 @@
       "round_text": "Losers Round 3",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -560,6 +566,7 @@
       "round_text": "Losers Round 3",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -641,6 +648,7 @@
       "round_text": "Losers Round 3",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -722,6 +730,7 @@
       "round_text": "Losers Round 3",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -825,6 +834,7 @@
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -899,87 +909,6 @@
       ]
     },
     {
-      "winner_id": null,
-      "loser_id": null,
-      "winner_score": 3,
-      "loser_score": 0,
-      "round_text": "Losers Round 2",
-      "round": -5,
-      "phase": "1",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": [
-        {
-          "game_id": 26185996,
-          "order_num": 1,
-          "winner_id": null,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 38130119,
-              "character_id": 1295,
-              "character_name": "Kirby"
-            },
-            {
-              "user_id": null,
-              "selection_id": 38130120,
-              "character_id": 1328,
-              "character_name": "Samus"
-            }
-          ]
-        },
-        {
-          "game_id": 26185997,
-          "order_num": 2,
-          "winner_id": null,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 38130121,
-              "character_id": 1295,
-              "character_name": "Kirby"
-            },
-            {
-              "user_id": null,
-              "selection_id": 38130122,
-              "character_id": 1328,
-              "character_name": "Samus"
-            }
-          ]
-        },
-        {
-          "game_id": 26185998,
-          "order_num": 3,
-          "winner_id": null,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 38130123,
-              "character_id": 1295,
-              "character_name": "Kirby"
-            },
-            {
-              "user_id": null,
-              "selection_id": 38130124,
-              "character_id": 1328,
-              "character_name": "Samus"
-            }
-          ]
-        }
-      ]
-    },
-    {
       "winner_id": 2785202,
       "loser_id": 2519051,
       "winner_score": 3,
@@ -987,6 +916,7 @@
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1061,87 +991,6 @@
       ]
     },
     {
-      "winner_id": null,
-      "loser_id": null,
-      "winner_score": 3,
-      "loser_score": 0,
-      "round_text": "Losers Round 2",
-      "round": -5,
-      "phase": "1",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": [
-        {
-          "game_id": 26187260,
-          "order_num": 1,
-          "winner_id": null,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 38131618,
-              "character_id": 1278,
-              "character_name": "Dark Pit"
-            },
-            {
-              "user_id": null,
-              "selection_id": 38131619,
-              "character_id": 1846,
-              "character_name": "Kazuya"
-            }
-          ]
-        },
-        {
-          "game_id": 26187261,
-          "order_num": 2,
-          "winner_id": null,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 38131620,
-              "character_id": 1278,
-              "character_name": "Dark Pit"
-            },
-            {
-              "user_id": null,
-              "selection_id": 38131621,
-              "character_id": 1846,
-              "character_name": "Kazuya"
-            }
-          ]
-        },
-        {
-          "game_id": 26187262,
-          "order_num": 3,
-          "winner_id": null,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 38131622,
-              "character_id": 1278,
-              "character_name": "Dark Pit"
-            },
-            {
-              "user_id": null,
-              "selection_id": 38131623,
-              "character_id": 1846,
-              "character_name": "Kazuya"
-            }
-          ]
-        }
-      ]
-    },
-    {
       "winner_id": 921968,
       "loser_id": null,
       "winner_score": 3,
@@ -1149,6 +998,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1230,6 +1080,7 @@
       "round_text": "Winners Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1333,6 +1184,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1414,6 +1266,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1495,6 +1348,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1576,6 +1430,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1657,6 +1512,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1738,6 +1594,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1819,6 +1676,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1900,6 +1758,7 @@
       "round_text": "Losers Final",
       "round": -6,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2025,6 +1884,7 @@
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2106,6 +1966,7 @@
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2187,6 +2048,7 @@
       "round_text": "Losers Semi-Final",
       "round": -5,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2290,6 +2152,7 @@
       "round_text": "Winners Semi-Final",
       "round": 1,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2371,6 +2234,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2445,87 +2309,6 @@
       ]
     },
     {
-      "winner_id": null,
-      "loser_id": null,
-      "winner_score": 3,
-      "loser_score": 0,
-      "round_text": "Winners Round 1",
-      "round": 1,
-      "phase": "1",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": [
-        {
-          "game_id": 26183551,
-          "order_num": 1,
-          "winner_id": null,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 38127163,
-              "character_id": 1278,
-              "character_name": "Dark Pit"
-            },
-            {
-              "user_id": null,
-              "selection_id": 38127164,
-              "character_id": 1307,
-              "character_name": "Meta Knight"
-            }
-          ]
-        },
-        {
-          "game_id": 26183552,
-          "order_num": 2,
-          "winner_id": null,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 38127165,
-              "character_id": 1278,
-              "character_name": "Dark Pit"
-            },
-            {
-              "user_id": null,
-              "selection_id": 38127166,
-              "character_id": 1307,
-              "character_name": "Meta Knight"
-            }
-          ]
-        },
-        {
-          "game_id": 26183553,
-          "order_num": 3,
-          "winner_id": null,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 38127167,
-              "character_id": 1322,
-              "character_name": "Ridley"
-            },
-            {
-              "user_id": null,
-              "selection_id": 38127168,
-              "character_id": 1307,
-              "character_name": "Meta Knight"
-            }
-          ]
-        }
-      ]
-    },
-    {
       "winner_id": 272146,
       "loser_id": 271295,
       "winner_score": 3,
@@ -2533,6 +2316,7 @@
       "round_text": "Winners Semi-Final",
       "round": 1,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2614,6 +2398,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -4,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2695,6 +2480,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -4,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2776,6 +2562,7 @@
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2901,6 +2688,7 @@
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,

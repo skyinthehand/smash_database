@@ -1,6 +1,88 @@
 {
   "data": [
     {
+      "winner_id": 154328,
+      "loser_id": 1126735,
+      "winner_score": 3,
+      "loser_score": 0,
+      "round_text": "Grand Final",
+      "round": 3,
+      "phase": "1",
+      "phase_order": 2,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": [
+        {
+          "game_id": 26494603,
+          "order_num": 1,
+          "winner_id": 154328,
+          "entrant1_score": 0,
+          "entrant2_score": null,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 1126735,
+              "selection_id": 39142556,
+              "character_id": 1526,
+              "character_name": "Hero"
+            },
+            {
+              "user_id": 154328,
+              "selection_id": 39142557,
+              "character_id": 1795,
+              "character_name": "Pyra & Mythra"
+            }
+          ]
+        },
+        {
+          "game_id": 26494604,
+          "order_num": 2,
+          "winner_id": 154328,
+          "entrant1_score": 0,
+          "entrant2_score": null,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 1126735,
+              "selection_id": 39142558,
+              "character_id": 1526,
+              "character_name": "Hero"
+            },
+            {
+              "user_id": 154328,
+              "selection_id": 39142559,
+              "character_id": 1795,
+              "character_name": "Pyra & Mythra"
+            }
+          ]
+        },
+        {
+          "game_id": 26494605,
+          "order_num": 3,
+          "winner_id": 154328,
+          "entrant1_score": 0,
+          "entrant2_score": null,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 1126735,
+              "selection_id": 39142560,
+              "character_id": 1526,
+              "character_name": "Hero"
+            },
+            {
+              "user_id": 154328,
+              "selection_id": 39142561,
+              "character_id": 1795,
+              "character_name": "Pyra & Mythra"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "winner_id": 1409196,
       "loser_id": 371926,
       "winner_score": 2,
@@ -8,6 +90,7 @@
       "round_text": "Winners Final",
       "round": 3,
       "phase": "3",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -83,100 +166,42 @@
     },
     {
       "winner_id": 1126735,
-      "loser_id": 1317050,
-      "winner_score": 2,
-      "loser_score": 0,
-      "round_text": "Winners Final",
+      "loser_id": 154328,
+      "winner_score": 3,
+      "loser_score": 1,
+      "round_text": "Grand Final Reset",
       "round": 3,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
       "state": 3,
       "details": [
         {
-          "game_id": 26384324,
+          "game_id": 26494606,
           "order_num": 1,
           "winner_id": 1126735,
-          "entrant1_score": null,
-          "entrant2_score": 0,
+          "entrant1_score": 0,
+          "entrant2_score": null,
           "stage": null,
           "selections": [
             {
               "user_id": 1126735,
-              "selection_id": 38431346,
+              "selection_id": 38596919,
               "character_id": 1526,
               "character_name": "Hero"
-            },
-            {
-              "user_id": 1317050,
-              "selection_id": 38431347,
-              "character_id": 1278,
-              "character_name": "Dark Pit"
-            }
-          ]
-        },
-        {
-          "game_id": 26384325,
-          "order_num": 2,
-          "winner_id": 1126735,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": 1126735,
-              "selection_id": 38431348,
-              "character_id": 1526,
-              "character_name": "Hero"
-            },
-            {
-              "user_id": 1317050,
-              "selection_id": 38431349,
-              "character_id": 1278,
-              "character_name": "Dark Pit"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "winner_id": 154328,
-      "loser_id": 457029,
-      "winner_score": 2,
-      "loser_score": 0,
-      "round_text": "Winners Final",
-      "round": 3,
-      "phase": "2",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": [
-        {
-          "game_id": 26383838,
-          "order_num": 1,
-          "winner_id": 154328,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": 457029,
-              "selection_id": 38430499,
-              "character_id": 1539,
-              "character_name": "Byleth"
             },
             {
               "user_id": 154328,
-              "selection_id": 38430500,
+              "selection_id": 38596920,
               "character_id": 1795,
               "character_name": "Pyra & Mythra"
             }
           ]
         },
         {
-          "game_id": 26383839,
+          "game_id": 26494607,
           "order_num": 2,
           "winner_id": 154328,
           "entrant1_score": null,
@@ -184,14 +209,58 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 457029,
-              "selection_id": 38430501,
-              "character_id": 1539,
-              "character_name": "Byleth"
+              "user_id": 1126735,
+              "selection_id": 38596921,
+              "character_id": 1526,
+              "character_name": "Hero"
             },
             {
               "user_id": 154328,
-              "selection_id": 38430502,
+              "selection_id": 38596922,
+              "character_id": 1795,
+              "character_name": "Pyra & Mythra"
+            }
+          ]
+        },
+        {
+          "game_id": 26494608,
+          "order_num": 3,
+          "winner_id": 1126735,
+          "entrant1_score": 0,
+          "entrant2_score": null,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 1126735,
+              "selection_id": 38596923,
+              "character_id": 1526,
+              "character_name": "Hero"
+            },
+            {
+              "user_id": 154328,
+              "selection_id": 38596924,
+              "character_id": 1795,
+              "character_name": "Pyra & Mythra"
+            }
+          ]
+        },
+        {
+          "game_id": 26494609,
+          "order_num": 4,
+          "winner_id": 1126735,
+          "entrant1_score": 0,
+          "entrant2_score": null,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 1126735,
+              "selection_id": 38596925,
+              "character_id": 1526,
+              "character_name": "Hero"
+            },
+            {
+              "user_id": 154328,
+              "selection_id": 38596926,
               "character_id": 1795,
               "character_name": "Pyra & Mythra"
             }
@@ -207,6 +276,7 @@
       "round_text": "Winners Final",
       "round": 3,
       "phase": "4",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -259,6 +329,126 @@
       ]
     },
     {
+      "winner_id": 1126735,
+      "loser_id": null,
+      "winner_score": 2,
+      "loser_score": 0,
+      "round_text": "Winners Final",
+      "round": 3,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": [
+        {
+          "game_id": 26384324,
+          "order_num": 1,
+          "winner_id": 1126735,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 1126735,
+              "selection_id": 38431346,
+              "character_id": 1526,
+              "character_name": "Hero"
+            },
+            {
+              "user_id": null,
+              "selection_id": 38431347,
+              "character_id": 1278,
+              "character_name": "Dark Pit"
+            }
+          ]
+        },
+        {
+          "game_id": 26384325,
+          "order_num": 2,
+          "winner_id": 1126735,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 1126735,
+              "selection_id": 38431348,
+              "character_id": 1526,
+              "character_name": "Hero"
+            },
+            {
+              "user_id": null,
+              "selection_id": 38431349,
+              "character_id": 1278,
+              "character_name": "Dark Pit"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "winner_id": 154328,
+      "loser_id": 457029,
+      "winner_score": 2,
+      "loser_score": 0,
+      "round_text": "Winners Final",
+      "round": 3,
+      "phase": "2",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": [
+        {
+          "game_id": 26383838,
+          "order_num": 1,
+          "winner_id": 154328,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 457029,
+              "selection_id": 38430499,
+              "character_id": 1539,
+              "character_name": "Byleth"
+            },
+            {
+              "user_id": 154328,
+              "selection_id": 38430500,
+              "character_id": 1795,
+              "character_name": "Pyra & Mythra"
+            }
+          ]
+        },
+        {
+          "game_id": 26383839,
+          "order_num": 2,
+          "winner_id": 154328,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 457029,
+              "selection_id": 38430501,
+              "character_id": 1539,
+              "character_name": "Byleth"
+            },
+            {
+              "user_id": 154328,
+              "selection_id": 38430502,
+              "character_id": 1795,
+              "character_name": "Pyra & Mythra"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "winner_id": 774650,
       "loser_id": 1035445,
       "winner_score": 2,
@@ -266,6 +456,7 @@
       "round_text": "Losers Final",
       "round": -6,
       "phase": "4",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -340,13 +531,14 @@
       ]
     },
     {
-      "winner_id": 1317050,
+      "winner_id": null,
       "loser_id": 1483257,
       "winner_score": 2,
       "loser_score": 0,
       "round_text": "Losers Final",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -355,7 +547,7 @@
         {
           "game_id": 26385034,
           "order_num": 1,
-          "winner_id": 1317050,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": 0,
           "stage": null,
@@ -367,7 +559,7 @@
               "character_name": "Joker"
             },
             {
-              "user_id": 1317050,
+              "user_id": null,
               "selection_id": 38432471,
               "character_id": 1278,
               "character_name": "Dark Pit"
@@ -377,7 +569,7 @@
         {
           "game_id": 26385035,
           "order_num": 2,
-          "winner_id": 1317050,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
@@ -389,7 +581,7 @@
               "character_name": "Joker"
             },
             {
-              "user_id": 1317050,
+              "user_id": null,
               "selection_id": 38432473,
               "character_id": 1278,
               "character_name": "Dark Pit"
@@ -406,6 +598,7 @@
       "round_text": "Losers Final",
       "round": -6,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -465,6 +658,7 @@
       "round_text": "Losers Final",
       "round": -6,
       "phase": "3",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -524,6 +718,7 @@
       "round_text": "Losers Semi-Final",
       "round": -5,
       "phase": "3",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -605,6 +800,7 @@
       "round_text": "Losers Semi-Final",
       "round": -5,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -686,6 +882,7 @@
       "round_text": "Losers Semi-Final",
       "round": -5,
       "phase": "4",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -767,6 +964,7 @@
       "round_text": "Losers Semi-Final",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -848,6 +1046,7 @@
       "round_text": "Winners Semi-Final",
       "round": 2,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -929,6 +1128,7 @@
       "round_text": "Winners Semi-Final",
       "round": 2,
       "phase": "3",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -988,6 +1188,7 @@
       "round_text": "Winners Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1113,6 +1314,7 @@
       "round_text": "Winners Semi-Final",
       "round": 2,
       "phase": "4",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1172,6 +1374,7 @@
       "round_text": "Winners Semi-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1231,6 +1434,7 @@
       "round_text": "Winners Semi-Final",
       "round": 2,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1290,6 +1494,7 @@
       "round_text": "Winners Semi-Final",
       "round": 2,
       "phase": "4",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1342,13 +1547,14 @@
       ]
     },
     {
-      "winner_id": 1317050,
+      "winner_id": null,
       "loser_id": 1503314,
       "winner_score": 2,
       "loser_score": 0,
       "round_text": "Winners Semi-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1357,13 +1563,13 @@
         {
           "game_id": 26383620,
           "order_num": 1,
-          "winner_id": 1317050,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
           "selections": [
             {
-              "user_id": 1317050,
+              "user_id": null,
               "selection_id": 38430113,
               "character_id": 1278,
               "character_name": "Dark Pit"
@@ -1379,13 +1585,13 @@
         {
           "game_id": 26383621,
           "order_num": 2,
-          "winner_id": 1317050,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
           "selections": [
             {
-              "user_id": 1317050,
+              "user_id": null,
               "selection_id": 38430115,
               "character_id": 1278,
               "character_name": "Dark Pit"
@@ -1408,6 +1614,7 @@
       "round_text": "Winners Semi-Final",
       "round": 2,
       "phase": "3",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1489,6 +1696,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -4,
       "phase": "4",
+      "phase_order": 1,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -1503,6 +1711,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -4,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1562,6 +1771,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1643,6 +1853,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -4,
       "phase": "3",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1702,6 +1913,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -4,
       "phase": "4",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1761,6 +1973,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -4,
       "phase": "3",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1820,6 +2033,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1834,16 +2048,16 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 786525,
-              "selection_id": 38431242,
-              "character_id": 1453,
-              "character_name": "Joker"
-            },
-            {
               "user_id": 1754517,
               "selection_id": 38431243,
               "character_id": 1285,
               "character_name": "Falco"
+            },
+            {
+              "user_id": 786525,
+              "selection_id": 38596927,
+              "character_id": 1322,
+              "character_name": "Ridley"
             }
           ]
         },
@@ -1856,16 +2070,16 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 786525,
-              "selection_id": 38431244,
-              "character_id": 1453,
-              "character_name": "Joker"
-            },
-            {
               "user_id": 1754517,
               "selection_id": 38431245,
               "character_id": 1285,
               "character_name": "Falco"
+            },
+            {
+              "user_id": 786525,
+              "selection_id": 38596928,
+              "character_id": 1322,
+              "character_name": "Ridley"
             }
           ]
         },
@@ -1878,16 +2092,16 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 786525,
-              "selection_id": 38431246,
-              "character_id": 1453,
-              "character_name": "Joker"
-            },
-            {
               "user_id": 1754517,
               "selection_id": 38431247,
               "character_id": 1285,
               "character_name": "Falco"
+            },
+            {
+              "user_id": 786525,
+              "selection_id": 38596929,
+              "character_id": 1322,
+              "character_name": "Ridley"
             }
           ]
         }
@@ -1901,6 +2115,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -4,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1960,6 +2175,7 @@
       "round_text": "Losers Final",
       "round": -6,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2063,6 +2279,7 @@
       "round_text": "Losers Semi-Final",
       "round": -5,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2188,6 +2405,7 @@
       "round_text": "Winners Semi-Final",
       "round": 1,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2291,6 +2509,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2372,6 +2591,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 1,
       "phase": "4",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2453,6 +2673,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 1,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2512,6 +2733,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 1,
       "phase": "3",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2571,6 +2793,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 1,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2630,6 +2853,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 1,
       "phase": "4",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2689,6 +2913,7 @@
       "round_text": "Winners Semi-Final",
       "round": 1,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2770,6 +2995,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2829,6 +3055,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 1,
       "phase": "3",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2888,6 +3115,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -4,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2991,6 +3219,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -4,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3088,12 +3317,13 @@
     },
     {
       "winner_id": 774650,
-      "loser_id": 1317050,
+      "loser_id": null,
       "winner_score": 3,
       "loser_score": 1,
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3108,7 +3338,7 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 1317050,
+              "user_id": null,
               "selection_id": 38433464,
               "character_id": 1278,
               "character_name": "Dark Pit"
@@ -3130,7 +3360,7 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 1317050,
+              "user_id": null,
               "selection_id": 38433466,
               "character_id": 1278,
               "character_name": "Dark Pit"
@@ -3146,13 +3376,13 @@
         {
           "game_id": 26385611,
           "order_num": 3,
-          "winner_id": 1317050,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": 0,
           "stage": null,
           "selections": [
             {
-              "user_id": 1317050,
+              "user_id": null,
               "selection_id": 38433468,
               "character_id": 1278,
               "character_name": "Dark Pit"
@@ -3174,7 +3404,7 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 1317050,
+              "user_id": null,
               "selection_id": 38433470,
               "character_id": 1278,
               "character_name": "Dark Pit"
@@ -3197,6 +3427,7 @@
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3291,20 +3522,6 @@
           ]
         }
       ]
-    },
-    {
-      "winner_id": 154328,
-      "loser_id": 1126735,
-      "winner_score": 0,
-      "loser_score": 0,
-      "round_text": "Grand Final",
-      "round": 3,
-      "phase": "1",
-      "wave": null,
-      "dq": false,
-      "cancel": true,
-      "state": 2,
-      "details": []
     }
   ],
   "version": "1.0"

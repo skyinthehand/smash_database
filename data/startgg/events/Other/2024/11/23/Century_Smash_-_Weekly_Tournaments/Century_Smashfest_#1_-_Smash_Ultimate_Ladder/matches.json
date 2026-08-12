@@ -8,6 +8,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -89,6 +90,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -148,6 +150,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -207,6 +210,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -266,6 +270,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -347,6 +352,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -421,205 +427,6 @@
       ]
     },
     {
-      "winner_id": 2001705,
-      "loser_id": 2132294,
-      "winner_score": 2,
-      "loser_score": 1,
-      "round_text": "Round 1",
-      "round": 1,
-      "phase": "1",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": [
-        {
-          "game_id": 17284309,
-          "order_num": 1,
-          "winner_id": 2132294,
-          "entrant1_score": null,
-          "entrant2_score": null,
-          "stage": "Small Battlefield",
-          "selections": [
-            {
-              "user_id": 2132294,
-              "selection_id": 24737247,
-              "character_id": 1336,
-              "character_name": "Wii Fit Trainer"
-            },
-            {
-              "user_id": 2001705,
-              "selection_id": 24737248,
-              "character_id": 1408,
-              "character_name": "Dark Samus"
-            }
-          ]
-        },
-        {
-          "game_id": 17284380,
-          "order_num": 2,
-          "winner_id": 2001705,
-          "entrant1_score": null,
-          "entrant2_score": null,
-          "stage": "Smashville",
-          "selections": [
-            {
-              "user_id": 2132294,
-              "selection_id": 24737357,
-              "character_id": 1336,
-              "character_name": "Wii Fit Trainer"
-            },
-            {
-              "user_id": 2001705,
-              "selection_id": 24737358,
-              "character_id": 1408,
-              "character_name": "Dark Samus"
-            }
-          ]
-        },
-        {
-          "game_id": 17284453,
-          "order_num": 3,
-          "winner_id": 2001705,
-          "entrant1_score": null,
-          "entrant2_score": null,
-          "stage": "Battlefield",
-          "selections": [
-            {
-              "user_id": 2001705,
-              "selection_id": 24737460,
-              "character_id": 1408,
-              "character_name": "Dark Samus"
-            },
-            {
-              "user_id": 2132294,
-              "selection_id": 24737461,
-              "character_id": 1271,
-              "character_name": "Bayonetta"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "winner_id": 2132294,
-      "loser_id": 2001705,
-      "winner_score": 2,
-      "loser_score": 0,
-      "round_text": "Round 1",
-      "round": 1,
-      "phase": "1",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": [
-        {
-          "game_id": 17284562,
-          "order_num": 1,
-          "winner_id": 2132294,
-          "entrant1_score": null,
-          "entrant2_score": null,
-          "stage": "Battlefield",
-          "selections": [
-            {
-              "user_id": 2001705,
-              "selection_id": 24737650,
-              "character_id": 1408,
-              "character_name": "Dark Samus"
-            },
-            {
-              "user_id": 2132294,
-              "selection_id": 24737651,
-              "character_id": 1336,
-              "character_name": "Wii Fit Trainer"
-            }
-          ]
-        },
-        {
-          "game_id": 17284599,
-          "order_num": 2,
-          "winner_id": 2132294,
-          "entrant1_score": null,
-          "entrant2_score": null,
-          "stage": "Battlefield",
-          "selections": [
-            {
-              "user_id": 2132294,
-              "selection_id": 24737696,
-              "character_id": 1336,
-              "character_name": "Wii Fit Trainer"
-            },
-            {
-              "user_id": 2001705,
-              "selection_id": 24737697,
-              "character_id": 1408,
-              "character_name": "Dark Samus"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "winner_id": 2132294,
-      "loser_id": 2001705,
-      "winner_score": 2,
-      "loser_score": 0,
-      "round_text": "Round 1",
-      "round": 1,
-      "phase": "1",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": [
-        {
-          "game_id": 17284695,
-          "order_num": 1,
-          "winner_id": 2132294,
-          "entrant1_score": null,
-          "entrant2_score": null,
-          "stage": "Town and City",
-          "selections": [
-            {
-              "user_id": 2001705,
-              "selection_id": 24737859,
-              "character_id": 1408,
-              "character_name": "Dark Samus"
-            },
-            {
-              "user_id": 2132294,
-              "selection_id": 24737860,
-              "character_id": 1271,
-              "character_name": "Bayonetta"
-            }
-          ]
-        },
-        {
-          "game_id": 17284736,
-          "order_num": 2,
-          "winner_id": 2132294,
-          "entrant1_score": null,
-          "entrant2_score": null,
-          "stage": "Hollow Bastion",
-          "selections": [
-            {
-              "user_id": 2132294,
-              "selection_id": 24737917,
-              "character_id": 1271,
-              "character_name": "Bayonetta"
-            },
-            {
-              "user_id": 2001705,
-              "selection_id": 24737918,
-              "character_id": 1408,
-              "character_name": "Dark Samus"
-            }
-          ]
-        }
-      ]
-    },
-    {
       "winner_id": 2240195,
       "loser_id": 2228922,
       "winner_score": 2,
@@ -627,6 +434,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,

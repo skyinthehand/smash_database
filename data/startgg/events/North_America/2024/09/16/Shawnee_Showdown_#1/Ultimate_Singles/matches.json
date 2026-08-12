@@ -8,6 +8,7 @@
       "round_text": "Round 7",
       "round": 7,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -89,6 +90,7 @@
       "round_text": "Round 7",
       "round": 7,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -103,6 +105,7 @@
       "round_text": "Round 7",
       "round": 7,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -156,12 +159,13 @@
     },
     {
       "winner_id": 78229,
-      "loser_id": 821884,
+      "loser_id": null,
       "winner_score": 2,
       "loser_score": 1,
       "round_text": "Round 6",
       "round": 6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -170,7 +174,7 @@
         {
           "game_id": 24953680,
           "order_num": 1,
-          "winner_id": 821884,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": 1,
           "stage": null,
@@ -182,7 +186,7 @@
               "character_name": "Roy"
             },
             {
-              "user_id": 821884,
+              "user_id": null,
               "selection_id": 36229229,
               "character_id": 1337,
               "character_name": "Wolf"
@@ -204,7 +208,7 @@
               "character_name": "Toon Link"
             },
             {
-              "user_id": 821884,
+              "user_id": null,
               "selection_id": 36229231,
               "character_id": 1337,
               "character_name": "Wolf"
@@ -226,7 +230,7 @@
               "character_name": "Toon Link"
             },
             {
-              "user_id": 821884,
+              "user_id": null,
               "selection_id": 36229233,
               "character_id": 1337,
               "character_name": "Wolf"
@@ -243,6 +247,7 @@
       "round_text": "Round 6",
       "round": 6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -302,6 +307,7 @@
       "round_text": "Round 6",
       "round": 6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -361,6 +367,7 @@
       "round_text": "Round 5",
       "round": 5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -368,13 +375,14 @@
       "details": []
     },
     {
-      "winner_id": 821884,
+      "winner_id": null,
       "loser_id": 1973440,
       "winner_score": 2,
       "loser_score": 1,
       "round_text": "Round 5",
       "round": 5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -389,7 +397,7 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 821884,
+              "user_id": null,
               "selection_id": 36222086,
               "character_id": 1337,
               "character_name": "Wolf"
@@ -405,13 +413,13 @@
         {
           "game_id": 24947535,
           "order_num": 2,
-          "winner_id": 821884,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
           "selections": [
             {
-              "user_id": 821884,
+              "user_id": null,
               "selection_id": 36222088,
               "character_id": 1337,
               "character_name": "Wolf"
@@ -427,13 +435,13 @@
         {
           "game_id": 24947536,
           "order_num": 3,
-          "winner_id": 821884,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
           "selections": [
             {
-              "user_id": 821884,
+              "user_id": null,
               "selection_id": 36222090,
               "character_id": 1337,
               "character_name": "Wolf"
@@ -456,6 +464,7 @@
       "round_text": "Round 5",
       "round": 5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -515,6 +524,7 @@
       "round_text": "Round 4",
       "round": 4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -574,6 +584,7 @@
       "round_text": "Round 4",
       "round": 4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -626,13 +637,14 @@
       ]
     },
     {
-      "winner_id": 821884,
+      "winner_id": null,
       "loser_id": 2730257,
       "winner_score": 0,
       "loser_score": -1,
       "round_text": "Round 4",
       "round": 4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -647,6 +659,7 @@
       "round_text": "Round 3",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -706,6 +719,7 @@
       "round_text": "Round 3",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -714,12 +728,13 @@
     },
     {
       "winner_id": 2610133,
-      "loser_id": 821884,
+      "loser_id": null,
       "winner_score": 2,
       "loser_score": 0,
       "round_text": "Round 3",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -740,7 +755,7 @@
               "character_name": "Palutena"
             },
             {
-              "user_id": 821884,
+              "user_id": null,
               "selection_id": 36223032,
               "character_id": 1337,
               "character_name": "Wolf"
@@ -762,7 +777,7 @@
               "character_name": "Palutena"
             },
             {
-              "user_id": 821884,
+              "user_id": null,
               "selection_id": 36223034,
               "character_id": 1337,
               "character_name": "Wolf"
@@ -779,6 +794,7 @@
       "round_text": "Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -793,6 +809,7 @@
       "round_text": "Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -845,13 +862,14 @@
       ]
     },
     {
-      "winner_id": 821884,
+      "winner_id": null,
       "loser_id": 1194392,
       "winner_score": 0,
       "loser_score": -1,
       "round_text": "Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -866,6 +884,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -918,13 +937,14 @@
       ]
     },
     {
-      "winner_id": 821884,
+      "winner_id": null,
       "loser_id": 960321,
       "winner_score": 2,
       "loser_score": 0,
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -933,7 +953,7 @@
         {
           "game_id": 24948271,
           "order_num": 1,
-          "winner_id": 821884,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
@@ -945,7 +965,7 @@
               "character_name": "Little Mac"
             },
             {
-              "user_id": 821884,
+              "user_id": null,
               "selection_id": 36223052,
               "character_id": 1337,
               "character_name": "Wolf"
@@ -955,7 +975,7 @@
         {
           "game_id": 24948272,
           "order_num": 2,
-          "winner_id": 821884,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
@@ -967,7 +987,7 @@
               "character_name": "Little Mac"
             },
             {
-              "user_id": 821884,
+              "user_id": null,
               "selection_id": 36223054,
               "character_id": 1337,
               "character_name": "Wolf"
@@ -984,6 +1004,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,

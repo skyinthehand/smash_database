@@ -8,6 +8,7 @@
       "round_text": "3rd Place Tiebreak",
       "round": 5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -22,6 +23,7 @@
       "round_text": "Final",
       "round": 4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -81,6 +83,7 @@
       "round_text": "Semi-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -140,6 +143,7 @@
       "round_text": "Semi-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -203,6 +207,7 @@
       "round_text": "Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -262,6 +267,7 @@
       "round_text": "Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -343,6 +349,7 @@
       "round_text": "Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -418,12 +425,13 @@
     },
     {
       "winner_id": 1316070,
-      "loser_id": 2473442,
+      "loser_id": null,
       "winner_score": 2,
       "loser_score": 0,
       "round_text": "Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -444,7 +452,7 @@
               "character_name": "Zero Suit Samus"
             },
             {
-              "user_id": 2473442,
+              "user_id": null,
               "selection_id": 38463297,
               "character_id": 1766,
               "character_name": "Steve"
@@ -466,7 +474,7 @@
               "character_name": "Lucario"
             },
             {
-              "user_id": 2473442,
+              "user_id": null,
               "selection_id": 38463300,
               "character_id": 1766,
               "character_name": "Steve"
@@ -483,6 +491,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -542,6 +551,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -601,6 +611,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -675,13 +686,14 @@
       ]
     },
     {
-      "winner_id": 2473442,
+      "winner_id": null,
       "loser_id": 2763064,
       "winner_score": 2,
       "loser_score": 0,
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -690,7 +702,7 @@
         {
           "game_id": 26405378,
           "order_num": 1,
-          "winner_id": 2473442,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
@@ -702,7 +714,7 @@
               "character_name": "Lucina"
             },
             {
-              "user_id": 2473442,
+              "user_id": null,
               "selection_id": 38462416,
               "character_id": 1795,
               "character_name": "Pyra & Mythra"
@@ -712,7 +724,7 @@
         {
           "game_id": 26405379,
           "order_num": 2,
-          "winner_id": 2473442,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
@@ -724,7 +736,7 @@
               "character_name": "Lucina"
             },
             {
-              "user_id": 2473442,
+              "user_id": null,
               "selection_id": 38462418,
               "character_id": 1296,
               "character_name": "Link"

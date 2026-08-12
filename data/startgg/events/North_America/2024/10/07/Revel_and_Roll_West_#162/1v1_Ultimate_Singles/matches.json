@@ -8,6 +8,7 @@
       "round_text": "Grand Final",
       "round": 5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -89,6 +90,7 @@
       "round_text": "Winners Final",
       "round": 4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -192,6 +194,7 @@
       "round_text": "Losers Final",
       "round": -8,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -317,6 +320,7 @@
       "round_text": "Losers Semi-Final",
       "round": -7,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -442,6 +446,7 @@
       "round_text": "Winners Semi-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -523,6 +528,7 @@
       "round_text": "Winners Semi-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -642,12 +648,13 @@
     },
     {
       "winner_id": 755060,
-      "loser_id": 99195,
+      "loser_id": null,
       "winner_score": 3,
       "loser_score": 1,
       "round_text": "Losers Quarter-Final",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -668,7 +675,7 @@
               "character_name": "Greninja"
             },
             {
-              "user_id": 99195,
+              "user_id": null,
               "selection_id": 36953118,
               "character_id": 1338,
               "character_name": "Yoshi"
@@ -690,7 +697,7 @@
               "character_name": "Greninja"
             },
             {
-              "user_id": 99195,
+              "user_id": null,
               "selection_id": 36953120,
               "character_id": 1338,
               "character_name": "Yoshi"
@@ -700,7 +707,7 @@
         {
           "game_id": 25422708,
           "order_num": 3,
-          "winner_id": 99195,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
@@ -712,7 +719,7 @@
               "character_name": "Greninja"
             },
             {
-              "user_id": 99195,
+              "user_id": null,
               "selection_id": 36953122,
               "character_id": 1338,
               "character_name": "Yoshi"
@@ -734,7 +741,7 @@
               "character_name": "Greninja"
             },
             {
-              "user_id": 99195,
+              "user_id": null,
               "selection_id": 36953124,
               "character_id": 1338,
               "character_name": "Yoshi"
@@ -751,6 +758,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -869,13 +877,14 @@
       ]
     },
     {
-      "winner_id": 99195,
+      "winner_id": null,
       "loser_id": 818622,
       "winner_score": 3,
       "loser_score": 2,
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -896,7 +905,7 @@
               "character_name": "Donkey Kong"
             },
             {
-              "user_id": 99195,
+              "user_id": null,
               "selection_id": 36951168,
               "character_id": 1338,
               "character_name": "Yoshi"
@@ -918,7 +927,7 @@
               "character_name": "Donkey Kong"
             },
             {
-              "user_id": 99195,
+              "user_id": null,
               "selection_id": 36951170,
               "character_id": 1338,
               "character_name": "Yoshi"
@@ -928,7 +937,7 @@
         {
           "game_id": 25421320,
           "order_num": 3,
-          "winner_id": 99195,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
@@ -940,7 +949,7 @@
               "character_name": "Donkey Kong"
             },
             {
-              "user_id": 99195,
+              "user_id": null,
               "selection_id": 36951172,
               "character_id": 1338,
               "character_name": "Yoshi"
@@ -950,7 +959,7 @@
         {
           "game_id": 25421321,
           "order_num": 4,
-          "winner_id": 99195,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
@@ -962,7 +971,7 @@
               "character_name": "Donkey Kong"
             },
             {
-              "user_id": 99195,
+              "user_id": null,
               "selection_id": 36951174,
               "character_id": 1338,
               "character_name": "Yoshi"
@@ -972,7 +981,7 @@
         {
           "game_id": 25421322,
           "order_num": 5,
-          "winner_id": 99195,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
@@ -984,7 +993,7 @@
               "character_name": "Donkey Kong"
             },
             {
-              "user_id": 99195,
+              "user_id": null,
               "selection_id": 36951176,
               "character_id": 1338,
               "character_name": "Yoshi"
@@ -1001,6 +1010,7 @@
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1082,6 +1092,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1163,6 +1174,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1288,6 +1300,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1385,12 +1398,13 @@
     },
     {
       "winner_id": 424560,
-      "loser_id": 99195,
+      "loser_id": null,
       "winner_score": 3,
       "loser_score": 1,
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1411,7 +1425,7 @@
               "character_name": "Rosalina"
             },
             {
-              "user_id": 99195,
+              "user_id": null,
               "selection_id": 36948069,
               "character_id": 1338,
               "character_name": "Yoshi"
@@ -1421,7 +1435,7 @@
         {
           "game_id": 25418612,
           "order_num": 2,
-          "winner_id": 99195,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
@@ -1433,7 +1447,7 @@
               "character_name": "Rosalina"
             },
             {
-              "user_id": 99195,
+              "user_id": null,
               "selection_id": 36948071,
               "character_id": 1338,
               "character_name": "Yoshi"
@@ -1455,7 +1469,7 @@
               "character_name": "Rosalina"
             },
             {
-              "user_id": 99195,
+              "user_id": null,
               "selection_id": 36948073,
               "character_id": 1338,
               "character_name": "Yoshi"
@@ -1477,7 +1491,7 @@
               "character_name": "Rosalina"
             },
             {
-              "user_id": 99195,
+              "user_id": null,
               "selection_id": 36948075,
               "character_id": 1338,
               "character_name": "Yoshi"
@@ -1487,13 +1501,14 @@
       ]
     },
     {
-      "winner_id": 99195,
+      "winner_id": null,
       "loser_id": 2674441,
       "winner_score": 3,
       "loser_score": 1,
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1514,7 +1529,7 @@
               "character_name": "Toon Link"
             },
             {
-              "user_id": 99195,
+              "user_id": null,
               "selection_id": 36949550,
               "character_id": 1338,
               "character_name": "Yoshi"
@@ -1524,7 +1539,7 @@
         {
           "game_id": 25419875,
           "order_num": 2,
-          "winner_id": 99195,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
@@ -1536,7 +1551,7 @@
               "character_name": "Toon Link"
             },
             {
-              "user_id": 99195,
+              "user_id": null,
               "selection_id": 36949552,
               "character_id": 1338,
               "character_name": "Yoshi"
@@ -1546,7 +1561,7 @@
         {
           "game_id": 25419876,
           "order_num": 3,
-          "winner_id": 99195,
+          "winner_id": null,
           "entrant1_score": 0,
           "entrant2_score": 0,
           "stage": null,
@@ -1558,7 +1573,7 @@
               "character_name": "Steve"
             },
             {
-              "user_id": 99195,
+              "user_id": null,
               "selection_id": 36949554,
               "character_id": 1338,
               "character_name": "Yoshi"
@@ -1568,7 +1583,7 @@
         {
           "game_id": 25419957,
           "order_num": 4,
-          "winner_id": 99195,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
@@ -1580,7 +1595,7 @@
               "character_name": "Steve"
             },
             {
-              "user_id": 99195,
+              "user_id": null,
               "selection_id": 36949673,
               "character_id": 1338,
               "character_name": "Yoshi"
@@ -1597,6 +1612,7 @@
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1678,6 +1694,7 @@
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1759,6 +1776,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1840,6 +1858,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1914,13 +1933,14 @@
       ]
     },
     {
-      "winner_id": 99195,
+      "winner_id": null,
       "loser_id": null,
       "winner_score": 3,
       "loser_score": 0,
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1929,7 +1949,7 @@
         {
           "game_id": 25417392,
           "order_num": 1,
-          "winner_id": 99195,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
@@ -1941,7 +1961,7 @@
               "character_name": "Captain Falcon"
             },
             {
-              "user_id": 99195,
+              "user_id": null,
               "selection_id": 36946238,
               "character_id": 1338,
               "character_name": "Yoshi"
@@ -1951,7 +1971,7 @@
         {
           "game_id": 25417393,
           "order_num": 2,
-          "winner_id": 99195,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
@@ -1963,7 +1983,7 @@
               "character_name": "Captain Falcon"
             },
             {
-              "user_id": 99195,
+              "user_id": null,
               "selection_id": 36946240,
               "character_id": 1338,
               "character_name": "Yoshi"
@@ -1973,7 +1993,7 @@
         {
           "game_id": 25417394,
           "order_num": 3,
-          "winner_id": 99195,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
@@ -1985,7 +2005,7 @@
               "character_name": "Captain Falcon"
             },
             {
-              "user_id": 99195,
+              "user_id": null,
               "selection_id": 36946242,
               "character_id": 1338,
               "character_name": "Yoshi"

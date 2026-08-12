@@ -8,6 +8,7 @@
       "round_text": "Grand Final",
       "round": 5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -89,6 +90,7 @@
       "round_text": "Winners Final",
       "round": 4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -192,6 +194,7 @@
       "round_text": "Losers Final",
       "round": -8,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -317,6 +320,7 @@
       "round_text": "Losers Semi-Final",
       "round": -7,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -420,6 +424,7 @@
       "round_text": "Winners Semi-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -501,6 +506,7 @@
       "round_text": "Winners Semi-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -604,6 +610,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -685,6 +692,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -699,6 +707,7 @@
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -774,12 +783,13 @@
     },
     {
       "winner_id": 1447414,
-      "loser_id": 2540789,
+      "loser_id": null,
       "winner_score": 3,
       "loser_score": 0,
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -794,7 +804,7 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 2540789,
+              "user_id": null,
               "selection_id": 38276783,
               "character_id": 1330,
               "character_name": "Shulk"
@@ -816,7 +826,7 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 2540789,
+              "user_id": null,
               "selection_id": 38276785,
               "character_id": 1330,
               "character_name": "Shulk"
@@ -838,7 +848,7 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 2540789,
+              "user_id": null,
               "selection_id": 38276787,
               "character_id": 1330,
               "character_name": "Shulk"
@@ -855,12 +865,13 @@
     },
     {
       "winner_id": 907606,
-      "loser_id": 2540789,
+      "loser_id": null,
       "winner_score": 3,
       "loser_score": 0,
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -881,7 +892,7 @@
               "character_name": "Joker"
             },
             {
-              "user_id": 2540789,
+              "user_id": null,
               "selection_id": 38276171,
               "character_id": 1330,
               "character_name": "Shulk"
@@ -903,7 +914,7 @@
               "character_name": "Joker"
             },
             {
-              "user_id": 2540789,
+              "user_id": null,
               "selection_id": 38276173,
               "character_id": 1330,
               "character_name": "Shulk"
@@ -925,7 +936,7 @@
               "character_name": "Joker"
             },
             {
-              "user_id": 2540789,
+              "user_id": null,
               "selection_id": 38276175,
               "character_id": 1297,
               "character_name": "Little Mac"
@@ -942,6 +953,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1023,6 +1035,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1104,6 +1117,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1185,6 +1199,7 @@
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1310,6 +1325,7 @@
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1384,13 +1400,14 @@
       ]
     },
     {
-      "winner_id": 2540789,
+      "winner_id": null,
       "loser_id": 2786513,
       "winner_score": 3,
       "loser_score": 2,
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1399,7 +1416,7 @@
         {
           "game_id": 26281725,
           "order_num": 1,
-          "winner_id": 2540789,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
@@ -1411,7 +1428,7 @@
               "character_name": "Jigglypuff"
             },
             {
-              "user_id": 2540789,
+              "user_id": null,
               "selection_id": 38275178,
               "character_id": 1330,
               "character_name": "Shulk"
@@ -1433,7 +1450,7 @@
               "character_name": "Jigglypuff"
             },
             {
-              "user_id": 2540789,
+              "user_id": null,
               "selection_id": 38275180,
               "character_id": 1330,
               "character_name": "Shulk"
@@ -1455,7 +1472,7 @@
               "character_name": "Jigglypuff"
             },
             {
-              "user_id": 2540789,
+              "user_id": null,
               "selection_id": 38275182,
               "character_id": 1330,
               "character_name": "Shulk"
@@ -1465,7 +1482,7 @@
         {
           "game_id": 26281728,
           "order_num": 4,
-          "winner_id": 2540789,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
@@ -1477,7 +1494,7 @@
               "character_name": "Jigglypuff"
             },
             {
-              "user_id": 2540789,
+              "user_id": null,
               "selection_id": 38275184,
               "character_id": 1330,
               "character_name": "Shulk"
@@ -1487,7 +1504,7 @@
         {
           "game_id": 26281729,
           "order_num": 5,
-          "winner_id": 2540789,
+          "winner_id": null,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
@@ -1499,7 +1516,7 @@
               "character_name": "Jigglypuff"
             },
             {
-              "user_id": 2540789,
+              "user_id": null,
               "selection_id": 38275186,
               "character_id": 1330,
               "character_name": "Shulk"
@@ -1516,6 +1533,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,

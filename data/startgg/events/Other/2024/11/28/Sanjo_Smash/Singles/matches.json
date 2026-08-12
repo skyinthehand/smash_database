@@ -8,6 +8,7 @@
       "round_text": "Grand Final",
       "round": 5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -89,6 +90,7 @@
       "round_text": "Grand Final Reset",
       "round": 5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -148,6 +150,7 @@
       "round_text": "Winners Final",
       "round": 4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -229,6 +232,7 @@
       "round_text": "Losers Final",
       "round": -8,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -288,6 +292,7 @@
       "round_text": "Losers Semi-Final",
       "round": -7,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -347,6 +352,7 @@
       "round_text": "Winners Semi-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -406,6 +412,7 @@
       "round_text": "Winners Semi-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -465,6 +472,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -546,6 +554,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -605,6 +614,7 @@
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -686,6 +696,7 @@
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -745,6 +756,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -804,6 +816,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -885,6 +898,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -940,91 +954,11 @@
       "winner_id": null,
       "loser_id": null,
       "winner_score": 2,
-      "loser_score": 1,
-      "round_text": "Winners Quarter-Final",
-      "round": 2,
-      "phase": "1",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": [
-        {
-          "game_id": 26494639,
-          "order_num": 1,
-          "winner_id": null,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": "Smashville",
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 38596964,
-              "character_id": 1307,
-              "character_name": "Meta Knight"
-            },
-            {
-              "user_id": null,
-              "selection_id": 38596965,
-              "character_id": 1300,
-              "character_name": "Lucina"
-            }
-          ]
-        },
-        {
-          "game_id": 26494640,
-          "order_num": 2,
-          "winner_id": null,
-          "entrant1_score": 0,
-          "entrant2_score": null,
-          "stage": "Final Destination",
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 38596966,
-              "character_id": 1292,
-              "character_name": "Inkling"
-            },
-            {
-              "user_id": null,
-              "selection_id": 38597073,
-              "character_id": 1746,
-              "character_name": "Random Character"
-            }
-          ]
-        },
-        {
-          "game_id": 26494641,
-          "order_num": 3,
-          "winner_id": null,
-          "entrant1_score": 0,
-          "entrant2_score": null,
-          "stage": "Kalos Pokémon League",
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 38596968,
-              "character_id": 1271,
-              "character_name": "Bayonetta"
-            },
-            {
-              "user_id": null,
-              "selection_id": 38597074,
-              "character_id": 1746,
-              "character_name": "Random Character"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "winner_id": null,
-      "loser_id": null,
-      "winner_score": 2,
       "loser_score": 0,
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1084,6 +1018,7 @@
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -1098,6 +1033,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1144,65 +1080,6 @@
               "selection_id": 38596990,
               "character_id": 1319,
               "character_name": "Pikachu"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "winner_id": null,
-      "loser_id": null,
-      "winner_score": 2,
-      "loser_score": 0,
-      "round_text": "Winners Round 1",
-      "round": 1,
-      "phase": "1",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": [
-        {
-          "game_id": 26494656,
-          "order_num": 1,
-          "winner_id": null,
-          "entrant1_score": 0,
-          "entrant2_score": null,
-          "stage": "Pokémon Stadium 2",
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 38596991,
-              "character_id": 1777,
-              "character_name": "Sephiroth"
-            },
-            {
-              "user_id": null,
-              "selection_id": 38596992,
-              "character_id": 1279,
-              "character_name": "Diddy Kong"
-            }
-          ]
-        },
-        {
-          "game_id": 26494657,
-          "order_num": 2,
-          "winner_id": null,
-          "entrant1_score": 0,
-          "entrant2_score": null,
-          "stage": "Final Destination",
-          "selections": [
-            {
-              "user_id": null,
-              "selection_id": 38596993,
-              "character_id": 1411,
-              "character_name": "Simon Belmont"
-            },
-            {
-              "user_id": null,
-              "selection_id": 38596994,
-              "character_id": 1325,
-              "character_name": "Rosalina"
             }
           ]
         }

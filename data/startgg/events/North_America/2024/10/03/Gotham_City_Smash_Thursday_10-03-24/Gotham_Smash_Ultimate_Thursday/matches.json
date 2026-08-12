@@ -8,6 +8,7 @@
       "round_text": "Grand Final",
       "round": 6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -133,6 +134,7 @@
       "round_text": "Winners Final",
       "round": 5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -258,6 +260,7 @@
       "round_text": "Losers Final",
       "round": -10,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -339,6 +342,7 @@
       "round_text": "Losers Semi-Final",
       "round": -9,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -398,6 +402,7 @@
       "round_text": "Winners Semi-Final",
       "round": 4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -479,6 +484,7 @@
       "round_text": "Winners Semi-Final",
       "round": 4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -538,6 +544,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -8,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -619,6 +626,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -8,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -700,6 +708,7 @@
       "round_text": "Losers Round 4",
       "round": -7,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -753,12 +762,13 @@
     },
     {
       "winner_id": 204748,
-      "loser_id": 594023,
+      "loser_id": 2983899,
       "winner_score": 2,
       "loser_score": 0,
       "round_text": "Losers Round 4",
       "round": -7,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -773,7 +783,7 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 594023,
+              "user_id": 2983899,
               "selection_id": 36807723,
               "character_id": 1405,
               "character_name": "Mr. Game & Watch"
@@ -795,7 +805,7 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 594023,
+              "user_id": 2983899,
               "selection_id": 36807725,
               "character_id": 1405,
               "character_name": "Mr. Game & Watch"
@@ -818,6 +828,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -877,6 +888,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -936,6 +948,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -989,12 +1002,13 @@
     },
     {
       "winner_id": 1063965,
-      "loser_id": 594023,
+      "loser_id": 2983899,
       "winner_score": 2,
       "loser_score": 1,
       "round_text": "Winners Quarter-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1015,7 +1029,7 @@
               "character_name": "Captain Falcon"
             },
             {
-              "user_id": 594023,
+              "user_id": 2983899,
               "selection_id": 36805515,
               "character_id": 1405,
               "character_name": "Mr. Game & Watch"
@@ -1025,7 +1039,7 @@
         {
           "game_id": 25324896,
           "order_num": 2,
-          "winner_id": 594023,
+          "winner_id": 2983899,
           "entrant1_score": 0,
           "entrant2_score": 0,
           "stage": null,
@@ -1037,7 +1051,7 @@
               "character_name": "Captain Falcon"
             },
             {
-              "user_id": 594023,
+              "user_id": 2983899,
               "selection_id": 36805517,
               "character_id": 1405,
               "character_name": "Mr. Game & Watch"
@@ -1059,7 +1073,7 @@
               "character_name": "Captain Falcon"
             },
             {
-              "user_id": 594023,
+              "user_id": 2983899,
               "selection_id": 36805519,
               "character_id": 1405,
               "character_name": "Mr. Game & Watch"
@@ -1076,6 +1090,7 @@
       "round_text": "Losers Round 3",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1157,6 +1172,7 @@
       "round_text": "Losers Round 3",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1231,13 +1247,14 @@
       ]
     },
     {
-      "winner_id": 594023,
+      "winner_id": 2983899,
       "loser_id": 983772,
       "winner_score": 2,
       "loser_score": 0,
       "round_text": "Losers Round 3",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1246,13 +1263,13 @@
         {
           "game_id": 25326134,
           "order_num": 1,
-          "winner_id": 594023,
+          "winner_id": 2983899,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
           "selections": [
             {
-              "user_id": 594023,
+              "user_id": 2983899,
               "selection_id": 36807095,
               "character_id": 1405,
               "character_name": "Mr. Game & Watch"
@@ -1268,13 +1285,13 @@
         {
           "game_id": 25326135,
           "order_num": 2,
-          "winner_id": 594023,
+          "winner_id": 2983899,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
           "selections": [
             {
-              "user_id": 594023,
+              "user_id": 2983899,
               "selection_id": 36807097,
               "character_id": 1405,
               "character_name": "Mr. Game & Watch"
@@ -1297,6 +1314,7 @@
       "round_text": "Losers Round 3",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1356,6 +1374,7 @@
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1415,6 +1434,7 @@
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1474,6 +1494,7 @@
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1533,6 +1554,7 @@
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1592,6 +1614,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1651,6 +1674,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1732,6 +1756,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1791,6 +1816,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1850,6 +1876,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1909,6 +1936,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1961,13 +1989,14 @@
       ]
     },
     {
-      "winner_id": 594023,
+      "winner_id": 2983899,
       "loser_id": 459096,
       "winner_score": 2,
       "loser_score": 1,
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1982,7 +2011,7 @@
           "stage": null,
           "selections": [
             {
-              "user_id": 594023,
+              "user_id": 2983899,
               "selection_id": 36804764,
               "character_id": 1405,
               "character_name": "Mr. Game & Watch"
@@ -1998,13 +2027,13 @@
         {
           "game_id": 25324139,
           "order_num": 2,
-          "winner_id": 594023,
+          "winner_id": 2983899,
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
           "selections": [
             {
-              "user_id": 594023,
+              "user_id": 2983899,
               "selection_id": 36804766,
               "character_id": 1405,
               "character_name": "Mr. Game & Watch"
@@ -2020,13 +2049,13 @@
         {
           "game_id": 25324140,
           "order_num": 3,
-          "winner_id": 594023,
+          "winner_id": 2983899,
           "entrant1_score": 0,
           "entrant2_score": null,
           "stage": null,
           "selections": [
             {
-              "user_id": 594023,
+              "user_id": 2983899,
               "selection_id": 36804768,
               "character_id": 1405,
               "character_name": "Mr. Game & Watch"
@@ -2049,6 +2078,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2108,6 +2138,7 @@
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2167,6 +2198,7 @@
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2226,6 +2258,7 @@
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2285,6 +2318,7 @@
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2344,6 +2378,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2403,6 +2438,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2462,6 +2498,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2514,13 +2551,14 @@
       ]
     },
     {
-      "winner_id": 594023,
+      "winner_id": 2983899,
       "loser_id": 1382378,
       "winner_score": 2,
       "loser_score": 0,
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2529,7 +2567,7 @@
         {
           "game_id": 25323198,
           "order_num": 1,
-          "winner_id": 594023,
+          "winner_id": 2983899,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
@@ -2541,7 +2579,7 @@
               "character_name": "Yoshi"
             },
             {
-              "user_id": 594023,
+              "user_id": 2983899,
               "selection_id": 36803651,
               "character_id": 1405,
               "character_name": "Mr. Game & Watch"
@@ -2551,7 +2589,7 @@
         {
           "game_id": 25323199,
           "order_num": 2,
-          "winner_id": 594023,
+          "winner_id": 2983899,
           "entrant1_score": null,
           "entrant2_score": 0,
           "stage": null,
@@ -2563,7 +2601,7 @@
               "character_name": "Yoshi"
             },
             {
-              "user_id": 594023,
+              "user_id": 2983899,
               "selection_id": 36803653,
               "character_id": 1280,
               "character_name": "Donkey Kong"

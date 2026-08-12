@@ -8,6 +8,7 @@
       "round_text": "Grand Final",
       "round": 4,
       "phase": "1",
+      "phase_order": 4,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -89,6 +90,7 @@
       "round_text": "Winners Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 4,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -170,6 +172,7 @@
       "round_text": "Round 3",
       "round": 3,
       "phase": "2",
+      "phase_order": 3,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -229,6 +232,7 @@
       "round_text": "Round 3",
       "round": 3,
       "phase": "1",
+      "phase_order": 3,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -288,6 +292,7 @@
       "round_text": "Losers Final",
       "round": -10,
       "phase": "1",
+      "phase_order": 4,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -413,6 +418,7 @@
       "round_text": "Losers Semi-Final",
       "round": -9,
       "phase": "1",
+      "phase_order": 4,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -538,6 +544,7 @@
       "round_text": "Winners Semi-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 4,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -619,6 +626,7 @@
       "round_text": "Winners Semi-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 4,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -693,65 +701,6 @@
       ]
     },
     {
-      "winner_id": 2003569,
-      "loser_id": 2276995,
-      "winner_score": 2,
-      "loser_score": 0,
-      "round_text": "Round 2",
-      "round": 2,
-      "phase": "2",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": [
-        {
-          "game_id": 26181755,
-          "order_num": 1,
-          "winner_id": 2003569,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": 2003569,
-              "selection_id": 38124259,
-              "character_id": 1526,
-              "character_name": "Hero"
-            },
-            {
-              "user_id": 2276995,
-              "selection_id": 38124260,
-              "character_id": 1301,
-              "character_name": "Luigi"
-            }
-          ]
-        },
-        {
-          "game_id": 26181756,
-          "order_num": 2,
-          "winner_id": 2003569,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": null,
-          "selections": [
-            {
-              "user_id": 2003569,
-              "selection_id": 38124261,
-              "character_id": 1526,
-              "character_name": "Hero"
-            },
-            {
-              "user_id": 2276995,
-              "selection_id": 38124262,
-              "character_id": 1301,
-              "character_name": "Luigi"
-            }
-          ]
-        }
-      ]
-    },
-    {
       "winner_id": 1039736,
       "loser_id": null,
       "winner_score": 2,
@@ -759,6 +708,7 @@
       "round_text": "Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 3,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -811,6 +761,66 @@
       ]
     },
     {
+      "winner_id": 2003569,
+      "loser_id": 2276995,
+      "winner_score": 2,
+      "loser_score": 0,
+      "round_text": "Round 2",
+      "round": 2,
+      "phase": "2",
+      "phase_order": 3,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": [
+        {
+          "game_id": 26181755,
+          "order_num": 1,
+          "winner_id": 2003569,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2003569,
+              "selection_id": 38124259,
+              "character_id": 1526,
+              "character_name": "Hero"
+            },
+            {
+              "user_id": 2276995,
+              "selection_id": 38124260,
+              "character_id": 1301,
+              "character_name": "Luigi"
+            }
+          ]
+        },
+        {
+          "game_id": 26181756,
+          "order_num": 2,
+          "winner_id": 2003569,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2003569,
+              "selection_id": 38124261,
+              "character_id": 1526,
+              "character_name": "Hero"
+            },
+            {
+              "user_id": 2276995,
+              "selection_id": 38124262,
+              "character_id": 1301,
+              "character_name": "Luigi"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "winner_id": 2329485,
       "loser_id": null,
       "winner_score": 0,
@@ -818,6 +828,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -8,
       "phase": "1",
+      "phase_order": 4,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -832,6 +843,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -8,
       "phase": "1",
+      "phase_order": 4,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -913,6 +925,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 1,
       "phase": "1",
+      "phase_order": 4,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -927,6 +940,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 1,
       "phase": "1",
+      "phase_order": 4,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1008,6 +1022,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 3,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1067,6 +1082,7 @@
       "round_text": "Round 1",
       "round": 1,
       "phase": "2",
+      "phase_order": 3,
       "wave": null,
       "dq": false,
       "cancel": false,
