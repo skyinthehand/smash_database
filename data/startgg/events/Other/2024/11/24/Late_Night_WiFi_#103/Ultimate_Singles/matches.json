@@ -8,6 +8,7 @@
       "round_text": "Grand Final",
       "round": 4,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -89,6 +90,7 @@
       "round_text": "Winners Semi-Final",
       "round": 4,
       "phase": "3",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -148,6 +150,7 @@
       "round_text": "Winners Semi-Final",
       "round": 4,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -207,6 +210,7 @@
       "round_text": "Winners Semi-Final",
       "round": 4,
       "phase": "4",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -266,6 +270,7 @@
       "round_text": "Winners Semi-Final",
       "round": 4,
       "phase": "3",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -325,6 +330,7 @@
       "round_text": "Winners Semi-Final",
       "round": 4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -384,6 +390,7 @@
       "round_text": "Winners Semi-Final",
       "round": 4,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -465,6 +472,7 @@
       "round_text": "Winners Semi-Final",
       "round": 4,
       "phase": "4",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -524,6 +532,7 @@
       "round_text": "Winners Semi-Final",
       "round": 4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -605,6 +614,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -8,
       "phase": "3",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -664,6 +674,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -8,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -745,6 +756,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -8,
       "phase": "4",
+      "phase_order": 1,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -759,6 +771,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -8,
       "phase": "3",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -840,6 +853,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -8,
       "phase": "4",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -899,6 +913,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -8,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -958,6 +973,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -8,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1039,6 +1055,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -8,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1120,6 +1137,7 @@
       "round_text": "Losers Round 4",
       "round": -7,
       "phase": "4",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1179,6 +1197,7 @@
       "round_text": "Losers Round 4",
       "round": -7,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1238,6 +1257,7 @@
       "round_text": "Losers Round 4",
       "round": -7,
       "phase": "3",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1312,87 +1332,6 @@
       ]
     },
     {
-      "winner_id": 1471307,
-      "loser_id": 2541115,
-      "winner_score": 2,
-      "loser_score": 1,
-      "round_text": "Losers Round 4",
-      "round": -7,
-      "phase": "2",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": [
-        {
-          "game_id": 26422716,
-          "order_num": 1,
-          "winner_id": 1471307,
-          "entrant1_score": null,
-          "entrant2_score": null,
-          "stage": "Battlefield",
-          "selections": [
-            {
-              "user_id": 1471307,
-              "selection_id": 38490168,
-              "character_id": 1897,
-              "character_name": "Sora"
-            },
-            {
-              "user_id": 2541115,
-              "selection_id": 38490169,
-              "character_id": 1539,
-              "character_name": "Byleth"
-            }
-          ]
-        },
-        {
-          "game_id": 26422798,
-          "order_num": 2,
-          "winner_id": 2541115,
-          "entrant1_score": null,
-          "entrant2_score": null,
-          "stage": "Pokémon Stadium 2",
-          "selections": [
-            {
-              "user_id": 1471307,
-              "selection_id": 38490322,
-              "character_id": 1897,
-              "character_name": "Sora"
-            },
-            {
-              "user_id": 2541115,
-              "selection_id": 38490323,
-              "character_id": 1795,
-              "character_name": "Pyra & Mythra"
-            }
-          ]
-        },
-        {
-          "game_id": 26423000,
-          "order_num": 3,
-          "winner_id": 1471307,
-          "entrant1_score": null,
-          "entrant2_score": null,
-          "stage": "Town and City",
-          "selections": [
-            {
-              "user_id": 2541115,
-              "selection_id": 38490717,
-              "character_id": 1795,
-              "character_name": "Pyra & Mythra"
-            },
-            {
-              "user_id": 1471307,
-              "selection_id": 38490718,
-              "character_id": 1897,
-              "character_name": "Sora"
-            }
-          ]
-        }
-      ]
-    },
-    {
       "winner_id": 2724044,
       "loser_id": 2669480,
       "winner_score": 2,
@@ -1400,6 +1339,7 @@
       "round_text": "Losers Round 4",
       "round": -7,
       "phase": "3",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1474,6 +1414,88 @@
       ]
     },
     {
+      "winner_id": 1471307,
+      "loser_id": 2541115,
+      "winner_score": 2,
+      "loser_score": 1,
+      "round_text": "Losers Round 4",
+      "round": -7,
+      "phase": "2",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": [
+        {
+          "game_id": 26422716,
+          "order_num": 1,
+          "winner_id": 1471307,
+          "entrant1_score": null,
+          "entrant2_score": null,
+          "stage": "Battlefield",
+          "selections": [
+            {
+              "user_id": 1471307,
+              "selection_id": 38490168,
+              "character_id": 1897,
+              "character_name": "Sora"
+            },
+            {
+              "user_id": 2541115,
+              "selection_id": 38490169,
+              "character_id": 1539,
+              "character_name": "Byleth"
+            }
+          ]
+        },
+        {
+          "game_id": 26422798,
+          "order_num": 2,
+          "winner_id": 2541115,
+          "entrant1_score": null,
+          "entrant2_score": null,
+          "stage": "Pokémon Stadium 2",
+          "selections": [
+            {
+              "user_id": 1471307,
+              "selection_id": 38490322,
+              "character_id": 1897,
+              "character_name": "Sora"
+            },
+            {
+              "user_id": 2541115,
+              "selection_id": 38490323,
+              "character_id": 1795,
+              "character_name": "Pyra & Mythra"
+            }
+          ]
+        },
+        {
+          "game_id": 26423000,
+          "order_num": 3,
+          "winner_id": 1471307,
+          "entrant1_score": null,
+          "entrant2_score": null,
+          "stage": "Town and City",
+          "selections": [
+            {
+              "user_id": 2541115,
+              "selection_id": 38490717,
+              "character_id": 1795,
+              "character_name": "Pyra & Mythra"
+            },
+            {
+              "user_id": 1471307,
+              "selection_id": 38490718,
+              "character_id": 1897,
+              "character_name": "Sora"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "winner_id": 2546732,
       "loser_id": 2586753,
       "winner_score": 2,
@@ -1481,6 +1503,7 @@
       "round_text": "Losers Round 4",
       "round": -7,
       "phase": "4",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1540,6 +1563,7 @@
       "round_text": "Losers Round 4",
       "round": -7,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1599,6 +1623,7 @@
       "round_text": "Losers Round 4",
       "round": -7,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1658,6 +1683,7 @@
       "round_text": "Winners Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1739,6 +1765,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 3,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -1753,6 +1780,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 3,
       "phase": "3",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1812,6 +1840,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 3,
       "phase": "4",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1871,6 +1900,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 3,
       "phase": "3",
+      "phase_order": 1,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -1885,6 +1915,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -1944,6 +1975,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 3,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2003,6 +2035,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 3,
       "phase": "4",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2062,6 +2095,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2121,6 +2155,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 3,
       "phase": "4",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2202,6 +2237,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 3,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2283,6 +2319,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 3,
       "phase": "3",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2364,6 +2401,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 3,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2423,6 +2461,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 3,
       "phase": "4",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2482,6 +2521,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2541,6 +2581,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 3,
       "phase": "3",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2600,6 +2641,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 3,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2659,6 +2701,7 @@
       "round_text": "Losers Round 3",
       "round": -6,
       "phase": "4",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2718,6 +2761,7 @@
       "round_text": "Losers Round 3",
       "round": -6,
       "phase": "3",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2799,6 +2843,7 @@
       "round_text": "Losers Round 3",
       "round": -6,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2880,6 +2925,7 @@
       "round_text": "Losers Round 3",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -2961,6 +3007,7 @@
       "round_text": "Losers Round 3",
       "round": -6,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3020,6 +3067,7 @@
       "round_text": "Losers Round 3",
       "round": -6,
       "phase": "3",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3079,6 +3127,7 @@
       "round_text": "Losers Round 3",
       "round": -6,
       "phase": "4",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3160,6 +3209,7 @@
       "round_text": "Losers Round 3",
       "round": -6,
       "phase": "4",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3241,6 +3291,7 @@
       "round_text": "Losers Round 3",
       "round": -6,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3300,6 +3351,7 @@
       "round_text": "Losers Round 3",
       "round": -6,
       "phase": "3",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3359,6 +3411,7 @@
       "round_text": "Losers Round 3",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3440,6 +3493,7 @@
       "round_text": "Losers Round 3",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3499,6 +3553,7 @@
       "round_text": "Losers Round 3",
       "round": -6,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3558,6 +3613,7 @@
       "round_text": "Losers Final",
       "round": -8,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3639,6 +3695,7 @@
       "round_text": "Losers Round 3",
       "round": -6,
       "phase": "3",
+      "phase_order": 1,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -3653,6 +3710,7 @@
       "round_text": "Losers Round 3",
       "round": -6,
       "phase": "4",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3734,6 +3792,7 @@
       "round_text": "Losers Round 3",
       "round": -6,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3793,6 +3852,7 @@
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3852,6 +3912,7 @@
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "3",
+      "phase_order": 1,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -3866,6 +3927,7 @@
       "round_text": "Losers Semi-Final",
       "round": -7,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -3969,6 +4031,7 @@
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "4",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -4028,6 +4091,7 @@
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -4109,6 +4173,7 @@
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -4183,6 +4248,21 @@
       ]
     },
     {
+      "winner_id": 2413095,
+      "loser_id": 1468814,
+      "winner_score": 0,
+      "loser_score": -1,
+      "round_text": "Losers Round 2",
+      "round": -5,
+      "phase": "3",
+      "phase_order": 1,
+      "wave": null,
+      "dq": true,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
       "winner_id": 2292760,
       "loser_id": 2646337,
       "winner_score": 2,
@@ -4190,6 +4270,7 @@
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "4",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -4242,20 +4323,6 @@
       ]
     },
     {
-      "winner_id": 2413095,
-      "loser_id": 1468814,
-      "winner_score": 0,
-      "loser_score": -1,
-      "round_text": "Losers Round 2",
-      "round": -5,
-      "phase": "3",
-      "wave": null,
-      "dq": true,
-      "cancel": false,
-      "state": 3,
-      "details": []
-    },
-    {
       "winner_id": 2507148,
       "loser_id": 2809197,
       "winner_score": 0,
@@ -4263,70 +4330,12 @@
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "4",
+      "phase_order": 1,
       "wave": null,
       "dq": true,
       "cancel": false,
       "state": 3,
       "details": []
-    },
-    {
-      "winner_id": 1218013,
-      "loser_id": 2848652,
-      "winner_score": 2,
-      "loser_score": 0,
-      "round_text": "Losers Round 2",
-      "round": -5,
-      "phase": "3",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": [
-        {
-          "game_id": 26422039,
-          "order_num": 1,
-          "winner_id": 1218013,
-          "entrant1_score": null,
-          "entrant2_score": null,
-          "stage": "Small Battlefield",
-          "selections": [
-            {
-              "user_id": 1218013,
-              "selection_id": 38488873,
-              "character_id": 1318,
-              "character_name": "Pichu"
-            },
-            {
-              "user_id": 2848652,
-              "selection_id": 38488874,
-              "character_id": 1275,
-              "character_name": "Cloud"
-            }
-          ]
-        },
-        {
-          "game_id": 26422156,
-          "order_num": 2,
-          "winner_id": 1218013,
-          "entrant1_score": null,
-          "entrant2_score": null,
-          "stage": "Small Battlefield",
-          "selections": [
-            {
-              "user_id": 1218013,
-              "selection_id": 38489101,
-              "character_id": 1318,
-              "character_name": "Pichu"
-            },
-            {
-              "user_id": 2848652,
-              "selection_id": 38489102,
-              "character_id": 1275,
-              "character_name": "Cloud"
-            }
-          ]
-        }
-      ]
     },
     {
       "winner_id": 2348679,
@@ -4336,6 +4345,7 @@
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -4388,6 +4398,66 @@
       ]
     },
     {
+      "winner_id": 1218013,
+      "loser_id": 2848652,
+      "winner_score": 2,
+      "loser_score": 0,
+      "round_text": "Losers Round 2",
+      "round": -5,
+      "phase": "3",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": [
+        {
+          "game_id": 26422039,
+          "order_num": 1,
+          "winner_id": 1218013,
+          "entrant1_score": null,
+          "entrant2_score": null,
+          "stage": "Small Battlefield",
+          "selections": [
+            {
+              "user_id": 1218013,
+              "selection_id": 38488873,
+              "character_id": 1318,
+              "character_name": "Pichu"
+            },
+            {
+              "user_id": 2848652,
+              "selection_id": 38488874,
+              "character_id": 1275,
+              "character_name": "Cloud"
+            }
+          ]
+        },
+        {
+          "game_id": 26422156,
+          "order_num": 2,
+          "winner_id": 1218013,
+          "entrant1_score": null,
+          "entrant2_score": null,
+          "stage": "Small Battlefield",
+          "selections": [
+            {
+              "user_id": 1218013,
+              "selection_id": 38489101,
+              "character_id": 1318,
+              "character_name": "Pichu"
+            },
+            {
+              "user_id": 2848652,
+              "selection_id": 38489102,
+              "character_id": 1275,
+              "character_name": "Cloud"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "winner_id": 1623672,
       "loser_id": 2777464,
       "winner_score": 2,
@@ -4395,6 +4465,7 @@
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -4476,6 +4547,7 @@
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "3",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -4535,6 +4607,7 @@
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -4616,6 +4689,7 @@
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -4630,6 +4704,7 @@
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "4",
+      "phase_order": 1,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -4644,6 +4719,7 @@
       "round_text": "Losers Round 2",
       "round": -5,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -4658,6 +4734,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "3",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -4717,6 +4794,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -4798,6 +4876,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "4",
+      "phase_order": 1,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -4812,6 +4891,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -4826,6 +4906,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "4",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -4878,65 +4959,6 @@
       ]
     },
     {
-      "winner_id": 1157543,
-      "loser_id": 1575229,
-      "winner_score": 2,
-      "loser_score": 0,
-      "round_text": "Winners Round 2",
-      "round": 2,
-      "phase": "1",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": [
-        {
-          "game_id": 26421443,
-          "order_num": 1,
-          "winner_id": 1157543,
-          "entrant1_score": null,
-          "entrant2_score": null,
-          "stage": "Small Battlefield",
-          "selections": [
-            {
-              "user_id": 1157543,
-              "selection_id": 38487782,
-              "character_id": 1410,
-              "character_name": "Ken"
-            },
-            {
-              "user_id": 1575229,
-              "selection_id": 38487783,
-              "character_id": 1301,
-              "character_name": "Luigi"
-            }
-          ]
-        },
-        {
-          "game_id": 26421559,
-          "order_num": 2,
-          "winner_id": 1157543,
-          "entrant1_score": null,
-          "entrant2_score": null,
-          "stage": "Pokémon Stadium 2",
-          "selections": [
-            {
-              "user_id": 1157543,
-              "selection_id": 38487978,
-              "character_id": 1410,
-              "character_name": "Ken"
-            },
-            {
-              "user_id": 1575229,
-              "selection_id": 38487979,
-              "character_id": 1301,
-              "character_name": "Luigi"
-            }
-          ]
-        }
-      ]
-    },
-    {
       "winner_id": 2310891,
       "loser_id": 2515753,
       "winner_score": 2,
@@ -4944,6 +4966,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "3",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -5018,6 +5041,66 @@
       ]
     },
     {
+      "winner_id": 1157543,
+      "loser_id": 1575229,
+      "winner_score": 2,
+      "loser_score": 0,
+      "round_text": "Winners Round 2",
+      "round": 2,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": [
+        {
+          "game_id": 26421443,
+          "order_num": 1,
+          "winner_id": 1157543,
+          "entrant1_score": null,
+          "entrant2_score": null,
+          "stage": "Small Battlefield",
+          "selections": [
+            {
+              "user_id": 1157543,
+              "selection_id": 38487782,
+              "character_id": 1410,
+              "character_name": "Ken"
+            },
+            {
+              "user_id": 1575229,
+              "selection_id": 38487783,
+              "character_id": 1301,
+              "character_name": "Luigi"
+            }
+          ]
+        },
+        {
+          "game_id": 26421559,
+          "order_num": 2,
+          "winner_id": 1157543,
+          "entrant1_score": null,
+          "entrant2_score": null,
+          "stage": "Pokémon Stadium 2",
+          "selections": [
+            {
+              "user_id": 1157543,
+              "selection_id": 38487978,
+              "character_id": 1410,
+              "character_name": "Ken"
+            },
+            {
+              "user_id": 1575229,
+              "selection_id": 38487979,
+              "character_id": 1301,
+              "character_name": "Luigi"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "winner_id": 1351081,
       "loser_id": 1623672,
       "winner_score": 2,
@@ -5025,6 +5108,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -5106,92 +5190,12 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "4",
+      "phase_order": 1,
       "wave": null,
       "dq": true,
       "cancel": false,
       "state": 3,
       "details": []
-    },
-    {
-      "winner_id": 2137979,
-      "loser_id": 2167748,
-      "winner_score": 2,
-      "loser_score": 1,
-      "round_text": "Winners Round 2",
-      "round": 2,
-      "phase": "1",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": [
-        {
-          "game_id": 26421201,
-          "order_num": 1,
-          "winner_id": 2137979,
-          "entrant1_score": null,
-          "entrant2_score": null,
-          "stage": "Small Battlefield",
-          "selections": [
-            {
-              "user_id": 2167748,
-              "selection_id": 38487340,
-              "character_id": 1275,
-              "character_name": "Cloud"
-            },
-            {
-              "user_id": 2137979,
-              "selection_id": 38487343,
-              "character_id": 1292,
-              "character_name": "Inkling"
-            }
-          ]
-        },
-        {
-          "game_id": 26421338,
-          "order_num": 2,
-          "winner_id": 2167748,
-          "entrant1_score": null,
-          "entrant2_score": null,
-          "stage": "Pokémon Stadium 2",
-          "selections": [
-            {
-              "user_id": 2137979,
-              "selection_id": 38487601,
-              "character_id": 1292,
-              "character_name": "Inkling"
-            },
-            {
-              "user_id": 2167748,
-              "selection_id": 38487602,
-              "character_id": 1275,
-              "character_name": "Cloud"
-            }
-          ]
-        },
-        {
-          "game_id": 26421466,
-          "order_num": 3,
-          "winner_id": 2137979,
-          "entrant1_score": null,
-          "entrant2_score": null,
-          "stage": "Pokémon Stadium 2",
-          "selections": [
-            {
-              "user_id": 2167748,
-              "selection_id": 38487821,
-              "character_id": 1275,
-              "character_name": "Cloud"
-            },
-            {
-              "user_id": 2137979,
-              "selection_id": 38487822,
-              "character_id": 1292,
-              "character_name": "Inkling"
-            }
-          ]
-        }
-      ]
     },
     {
       "winner_id": 1157543,
@@ -5201,6 +5205,7 @@
       "round_text": "Winners Semi-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -5275,6 +5280,88 @@
       ]
     },
     {
+      "winner_id": 2137979,
+      "loser_id": 2167748,
+      "winner_score": 2,
+      "loser_score": 1,
+      "round_text": "Winners Round 2",
+      "round": 2,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": [
+        {
+          "game_id": 26421201,
+          "order_num": 1,
+          "winner_id": 2137979,
+          "entrant1_score": null,
+          "entrant2_score": null,
+          "stage": "Small Battlefield",
+          "selections": [
+            {
+              "user_id": 2167748,
+              "selection_id": 38487340,
+              "character_id": 1275,
+              "character_name": "Cloud"
+            },
+            {
+              "user_id": 2137979,
+              "selection_id": 38487343,
+              "character_id": 1292,
+              "character_name": "Inkling"
+            }
+          ]
+        },
+        {
+          "game_id": 26421338,
+          "order_num": 2,
+          "winner_id": 2167748,
+          "entrant1_score": null,
+          "entrant2_score": null,
+          "stage": "Pokémon Stadium 2",
+          "selections": [
+            {
+              "user_id": 2137979,
+              "selection_id": 38487601,
+              "character_id": 1292,
+              "character_name": "Inkling"
+            },
+            {
+              "user_id": 2167748,
+              "selection_id": 38487602,
+              "character_id": 1275,
+              "character_name": "Cloud"
+            }
+          ]
+        },
+        {
+          "game_id": 26421466,
+          "order_num": 3,
+          "winner_id": 2137979,
+          "entrant1_score": null,
+          "entrant2_score": null,
+          "stage": "Pokémon Stadium 2",
+          "selections": [
+            {
+              "user_id": 2167748,
+              "selection_id": 38487821,
+              "character_id": 1275,
+              "character_name": "Cloud"
+            },
+            {
+              "user_id": 2137979,
+              "selection_id": 38487822,
+              "character_id": 1292,
+              "character_name": "Inkling"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "winner_id": 1270957,
       "loser_id": 1218013,
       "winner_score": 2,
@@ -5282,6 +5369,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "3",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -5363,6 +5451,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "3",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -5444,6 +5533,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -5458,6 +5548,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "4",
+      "phase_order": 1,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -5472,6 +5563,7 @@
       "round_text": "Winners Semi-Final",
       "round": 2,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -5597,6 +5689,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -5656,6 +5749,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "3",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -5737,6 +5831,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -5796,6 +5891,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "4",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -5855,6 +5951,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -5914,6 +6011,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "3",
+      "phase_order": 1,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -5928,6 +6026,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -5987,6 +6086,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "4",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -6046,6 +6146,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -6127,6 +6228,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -6186,6 +6288,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "3",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -6245,6 +6348,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -6304,6 +6408,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "4",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -6385,6 +6490,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "4",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -6466,6 +6572,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "3",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -6547,6 +6654,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -6606,6 +6714,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -6620,6 +6729,7 @@
       "round_text": "Winners Round 2",
       "round": 2,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -6679,6 +6789,7 @@
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "3",
+      "phase_order": 1,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -6693,6 +6804,7 @@
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -6707,6 +6819,7 @@
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "4",
+      "phase_order": 1,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -6721,6 +6834,7 @@
       "round_text": "Losers Quarter-Final",
       "round": -6,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -6824,20 +6938,7 @@
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "2",
-      "wave": null,
-      "dq": true,
-      "cancel": false,
-      "state": 3,
-      "details": []
-    },
-    {
-      "winner_id": 2848652,
-      "loser_id": 2347021,
-      "winner_score": 0,
-      "loser_score": -1,
-      "round_text": "Losers Round 1",
-      "round": -4,
-      "phase": "3",
+      "phase_order": 1,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -6852,6 +6953,7 @@
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "4",
+      "phase_order": 1,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -6859,13 +6961,14 @@
       "details": []
     },
     {
-      "winner_id": 2348679,
-      "loser_id": 2264465,
+      "winner_id": 2848652,
+      "loser_id": 2347021,
       "winner_score": 0,
       "loser_score": -1,
       "round_text": "Losers Round 1",
       "round": -4,
-      "phase": "1",
+      "phase": "3",
+      "phase_order": 1,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -6880,6 +6983,22 @@
       "round_text": "Losers Quarter-Final",
       "round": -6,
       "phase": "1",
+      "phase_order": 2,
+      "wave": null,
+      "dq": true,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "winner_id": 2348679,
+      "loser_id": 2264465,
+      "winner_score": 0,
+      "loser_score": -1,
+      "round_text": "Losers Round 1",
+      "round": -4,
+      "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -6894,6 +7013,7 @@
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -6953,6 +7073,7 @@
       "round_text": "Losers Round 1",
       "round": -4,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -7012,6 +7133,7 @@
       "round_text": "Losers Round 3",
       "round": -5,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -7093,6 +7215,7 @@
       "round_text": "Losers Round 3",
       "round": -5,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -7218,6 +7341,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "3",
+      "phase_order": 1,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -7232,6 +7356,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -7246,6 +7371,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "4",
+      "phase_order": 1,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -7260,6 +7386,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "2",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -7319,6 +7446,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 1,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -7415,65 +7543,6 @@
       ]
     },
     {
-      "winner_id": 2413095,
-      "loser_id": 2848652,
-      "winner_score": 2,
-      "loser_score": 0,
-      "round_text": "Winners Round 1",
-      "round": 1,
-      "phase": "3",
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": [
-        {
-          "game_id": 26421165,
-          "order_num": 1,
-          "winner_id": 2413095,
-          "entrant1_score": null,
-          "entrant2_score": null,
-          "stage": "Pokémon Stadium 2",
-          "selections": [
-            {
-              "user_id": 2848652,
-              "selection_id": 38487274,
-              "character_id": 1275,
-              "character_name": "Cloud"
-            },
-            {
-              "user_id": 2413095,
-              "selection_id": 38487275,
-              "character_id": 1293,
-              "character_name": "Jigglypuff"
-            }
-          ]
-        },
-        {
-          "game_id": 26421251,
-          "order_num": 2,
-          "winner_id": 2413095,
-          "entrant1_score": null,
-          "entrant2_score": null,
-          "stage": "Small Battlefield",
-          "selections": [
-            {
-              "user_id": 2413095,
-              "selection_id": 38487438,
-              "character_id": 1293,
-              "character_name": "Jigglypuff"
-            },
-            {
-              "user_id": 2848652,
-              "selection_id": 38487439,
-              "character_id": 1275,
-              "character_name": "Cloud"
-            }
-          ]
-        }
-      ]
-    },
-    {
       "winner_id": 2823168,
       "loser_id": 2825199,
       "winner_score": 2,
@@ -7481,6 +7550,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -7533,59 +7603,60 @@
       ]
     },
     {
-      "winner_id": 1197887,
-      "loser_id": 2777464,
+      "winner_id": 2413095,
+      "loser_id": 2848652,
       "winner_score": 2,
       "loser_score": 0,
       "round_text": "Winners Round 1",
       "round": 1,
-      "phase": "2",
+      "phase": "3",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
       "state": 3,
       "details": [
         {
-          "game_id": 26421154,
+          "game_id": 26421165,
           "order_num": 1,
-          "winner_id": 1197887,
+          "winner_id": 2413095,
           "entrant1_score": null,
           "entrant2_score": null,
           "stage": "Pokémon Stadium 2",
           "selections": [
             {
-              "user_id": 2777464,
-              "selection_id": 38487252,
-              "character_id": 1338,
-              "character_name": "Yoshi"
+              "user_id": 2848652,
+              "selection_id": 38487274,
+              "character_id": 1275,
+              "character_name": "Cloud"
             },
             {
-              "user_id": 1197887,
-              "selection_id": 38487253,
-              "character_id": 1280,
-              "character_name": "Donkey Kong"
+              "user_id": 2413095,
+              "selection_id": 38487275,
+              "character_id": 1293,
+              "character_name": "Jigglypuff"
             }
           ]
         },
         {
-          "game_id": 26421247,
+          "game_id": 26421251,
           "order_num": 2,
-          "winner_id": 1197887,
+          "winner_id": 2413095,
           "entrant1_score": null,
           "entrant2_score": null,
-          "stage": "Final Destination",
+          "stage": "Small Battlefield",
           "selections": [
             {
-              "user_id": 1197887,
-              "selection_id": 38487430,
-              "character_id": 1280,
-              "character_name": "Donkey Kong"
+              "user_id": 2413095,
+              "selection_id": 38487438,
+              "character_id": 1293,
+              "character_name": "Jigglypuff"
             },
             {
-              "user_id": 2777464,
-              "selection_id": 38487431,
-              "character_id": 1338,
-              "character_name": "Yoshi"
+              "user_id": 2848652,
+              "selection_id": 38487439,
+              "character_id": 1275,
+              "character_name": "Cloud"
             }
           ]
         }
@@ -7599,6 +7670,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 1,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -7695,6 +7767,66 @@
       ]
     },
     {
+      "winner_id": 1197887,
+      "loser_id": 2777464,
+      "winner_score": 2,
+      "loser_score": 0,
+      "round_text": "Winners Round 1",
+      "round": 1,
+      "phase": "2",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": [
+        {
+          "game_id": 26421154,
+          "order_num": 1,
+          "winner_id": 1197887,
+          "entrant1_score": null,
+          "entrant2_score": null,
+          "stage": "Pokémon Stadium 2",
+          "selections": [
+            {
+              "user_id": 2777464,
+              "selection_id": 38487252,
+              "character_id": 1338,
+              "character_name": "Yoshi"
+            },
+            {
+              "user_id": 1197887,
+              "selection_id": 38487253,
+              "character_id": 1280,
+              "character_name": "Donkey Kong"
+            }
+          ]
+        },
+        {
+          "game_id": 26421247,
+          "order_num": 2,
+          "winner_id": 1197887,
+          "entrant1_score": null,
+          "entrant2_score": null,
+          "stage": "Final Destination",
+          "selections": [
+            {
+              "user_id": 1197887,
+              "selection_id": 38487430,
+              "character_id": 1280,
+              "character_name": "Donkey Kong"
+            },
+            {
+              "user_id": 2777464,
+              "selection_id": 38487431,
+              "character_id": 1338,
+              "character_name": "Yoshi"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "winner_id": 2646337,
       "loser_id": 2507148,
       "winner_score": 2,
@@ -7702,6 +7834,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "4",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -7783,6 +7916,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 1,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -7886,6 +8020,7 @@
       "round_text": "Winners Round 1",
       "round": 1,
       "phase": "1",
+      "phase_order": 1,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -7945,6 +8080,7 @@
       "round_text": "Winners Quarter-Final",
       "round": 1,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -8026,6 +8162,7 @@
       "round_text": "Losers Round 2",
       "round": -4,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -8107,6 +8244,7 @@
       "round_text": "Losers Round 2",
       "round": -4,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -8188,6 +8326,7 @@
       "round_text": "Losers Round 2",
       "round": -4,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -8269,6 +8408,7 @@
       "round_text": "Losers Round 2",
       "round": -4,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -8350,6 +8490,7 @@
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -8431,6 +8572,7 @@
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": false,
       "cancel": false,
@@ -8534,6 +8676,7 @@
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": true,
       "cancel": false,
@@ -8548,6 +8691,7 @@
       "round_text": "Losers Round 1",
       "round": -3,
       "phase": "1",
+      "phase_order": 2,
       "wave": null,
       "dq": true,
       "cancel": false,
