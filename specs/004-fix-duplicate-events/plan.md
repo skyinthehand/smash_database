@@ -51,12 +51,14 @@
 新規の独自リトライ・ページネーション実装は追加しない(Constitution V)。
 
 **Scale/Scope**: 変更対象は `scripts/fetch/download.py`(`should_skip_tournament()`,
-`download_all_tournaments()` のイベント記録更新ロジック)、
+`download_all_tournaments()` および `download_by_ids()` のイベント記録更新ロジック ──
+両関数の更新ロジックは共有ヘルパー関数に統合する)、
 `scripts/fetch/backfill_schema_version.py`(`iter_event_dirs()`, `backfill_one_event()`)の
-2ファイル。661件の `attr.json` 欠落・複数件の重複ディレクトリの実際の再取得・解消は、
-本機能のコード修正を適用した上で既存の段階的バックフィル/日次更新の通常サイクルに委ねる
-(実際の start.gg API アクセスを伴う一括処理はスコープ外)。第7回チバスマ交流会1件のみ、
-本機能の検証ケースとして実際の解消を確認する。
+2ファイルに加え、本機能が自動解消しないスコープ境界(3件以上の既存重複ディレクトリのうち
+`tournaments.jsonl` から参照されていないもの)を記録する `docs/fix.md`。661件の `attr.json`
+欠落・複数件の重複ディレクトリの実際の再取得・解消は、本機能のコード修正を適用した上で既存の
+段階的バックフィル/日次更新の通常サイクルに委ねる(実際の start.gg API アクセスを伴う一括
+処理はスコープ外)。第7回チバスマ交流会1件のみ、本機能の検証ケースとして実際の解消を確認する。
 
 ## Constitution Check
 
@@ -100,27 +102,35 @@ specs/004-fix-duplicate-events/
 scripts/
 ├── fetch/
 │   ├── download.py                   # [MODIFY] should_skip_tournament() に延期検知を
-│   │                                  #   追加。download_all_tournaments() のイベント
-│   │                                  #   記録更新ロジックを「追加のみ」から「パスが
-│   │                                  #   変わっていれば更新+旧ディレクトリ削除」に変更
+│   │                                  #   追加。tournaments[]["events"] の更新ロジックを
+│   │                                  #   共有ヘルパー関数に切り出し、「追加のみ」から
+│   │                                  #   「パスが変わっていれば更新+旧ディレクトリ削除」に
+│   │                                  #   変更した上で、download_all_tournaments() と
+│   │                                  #   download_by_ids() の両方から呼び出す
 │   └── backfill_schema_version.py    # [MODIFY] iter_event_dirs() の発見対象を
 │                                      #   attr.json存在ベースから standings.json
 │                                      #   存在ベースに変更。backfill_one_event() に
 │                                      #   attr.json欠落時のtournaments.jsonlからの
 │                                      #   event_id復元フォールバックを追加
 └── test/
-    ├── test_download.py              # [MODIFY] 延期検知・ディレクトリ統合・
-    │                                  #   tournaments.jsonl更新のテストを追加
+    ├── test_download.py              # [MODIFY] 延期検知・ディレクトリ統合(両呼び出し
+    │                                  #   経路分)・tournaments.jsonl更新のテストを追加
     └── test_backfill_schema_version.py  # [MODIFY] attr.json欠落ディレクトリの発見・
                                        #   event_id復元のテストを追加
+
+docs/
+└── fix.md                            # [MODIFY] 本機能が自動解消しないスコープ境界
+                                       #   (tournaments.jsonl から参照されていない、
+                                       #   3件以上の既存重複ディレクトリの中間分)を
+                                       #   既知の制約として記録する
 
 data/startgg/events/Japan/2025/08/16/第7回チバスマ交流会/  # [検証対象、コード修正の
                                        #   実行結果として解消されることを確認する]
 ```
 
 **Structure Decision**: 単一プロジェクト構成(既存の `scripts/fetch/` `scripts/test/` の役割
-分担をそのまま踏襲)。新規ファイル・新規ワークフローは作成せず、既存の2ファイルへの局所的な
-修正のみで完結する。
+分担をそのまま踏襲)。新規ファイル・新規ワークフローは作成せず、既存の2つのスクリプトへの
+局所的な修正と、既存の `docs/fix.md` への追記のみで完結する。
 
 ## Complexity Tracking
 
