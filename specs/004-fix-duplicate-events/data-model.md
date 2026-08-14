@@ -50,7 +50,7 @@
 
 | 項目 | 変更前 | 変更後 |
 |---|---|---|
-| 走査キー | `attr.json` の存在 | `standings.json` の存在 |
+| 走査キー | `attr.json` の存在 | `attr.json` または `standings.json` の存在(和集合) |
 | 発見されるディレクトリ | `attr.json` を持つイベントディレクトリのみ | `attr.json` の有無に関わらず、取得が試みられた全イベントディレクトリ |
 | 戻り値の型 | `list[Path]`(ディレクトリ) | 変更なし |
 | ソート順(Japan優先) | 維持 | 維持(`002-incremental-schema-backfill` / 既存の Japan 優先ロジックに変更なし) |

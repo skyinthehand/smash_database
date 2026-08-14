@@ -50,7 +50,10 @@ Technical Context に `NEEDS CLARIFICATION` は無い(既存コードベース�
 ## 論点3: `attr.json` 欠落イベントの発見方法
 
 **Decision**: `backfill_schema_version.py::iter_event_dirs()` の走査対象を
-`events_root.rglob("attr.json")` から `events_root.rglob("standings.json")` に変更する。
+`events_root.rglob("attr.json")` に加えて `events_root.rglob("standings.json")` も走査し、
+両者の和集合(いずれかを持つディレクトリ)を対象にする(単純な置き換えではなく追加。
+既存の `attr.json` のみのテストフィクスチャ等、`standings.json` を伴わない正常系との
+後方互換性を保つため)。
 
 **Rationale**: `download_standings()` はイベント取得パイプラインの最初にディスクへ書き込みを
 行う関数であり(`fetch_with_page_fallback()` が成功した直後、`download_seeds`/

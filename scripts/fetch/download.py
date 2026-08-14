@@ -1,6 +1,7 @@
 import os
 import argparse
 import json
+import shutil
 import sys
 import time
 from datetime import datetime
@@ -181,13 +182,57 @@ def tournament_events_complete(tournament_entry):
             return False
     return True
 
-def should_skip_tournament(tournament_id, tournaments, done_tournaments, force_refresh):
+def should_skip_tournament(tournament_id, tournaments, done_tournaments, force_refresh, current_date_parts=None):
     if force_refresh:
         return False
     if tournament_id not in done_tournaments:
         return False
     tournament_entry = tournaments.get(tournament_id)
-    return bool(tournament_entry and tournament_events_complete(tournament_entry))
+    if not tournament_entry or not tournament_events_complete(tournament_entry):
+        return False
+    if current_date_parts is not None:
+        year, month, day = current_date_parts
+        date_segment = f"/{year}/{month}/{day}/"
+        for event in tournament_entry.get("events", []):
+            path = event.get("path") or ""
+            if date_segment not in path:
+                # 大会の開催日が延期された(記録済みパスの日付と現在の開催日が食い違う)。
+                return False
+    return True
+
+def record_event_path(tournaments, tournament_id, event_id, event_name, event_dir, matches_only=False):
+    """tournaments[tournament_id]["events"] を実体に合わせて更新する。
+
+    既知の event_id が記録済みと異なるパスで再取得された場合(大会の延期等)、新しい
+    ディレクトリの必須ファイル一式が揃っていることを確認できてから初めてパスを更新し、
+    ディスク上に残る古いディレクトリを削除する(揃うまでは両方を残し、データを失わない)。
+
+    戻り値: エントリの内容が変化した(呼び出し元が保存処理を行うべき)場合 True。
+    """
+    existing_events = tournaments[tournament_id]["events"]
+    existing_entry = next((e for e in existing_events if e.get("event_id") == event_id), None)
+
+    if existing_entry is None:
+        if matches_only:
+            return False
+        existing_events.append({
+            "event_id": event_id,
+            "event_name": event_name,
+            "path": event_dir,
+        })
+        return True
+
+    old_path = existing_entry.get("path")
+    if old_path == event_dir:
+        return False
+    if matches_only or not event_files_complete(event_dir):
+        return False
+
+    existing_entry["path"] = event_dir
+    if old_path and os.path.isdir(old_path):
+        shutil.rmtree(old_path)
+        print(f"Removed stale directory after relocation: {old_path}")
+    return True
 
 def _record_skip(skipped_events, tournament_id, tournament_name, event_id, event_name, exc):
     record = {
@@ -281,7 +326,11 @@ def download_all_tournaments(
                     print(f"({tournament_name} {tournament_dt}) is newer than start_date. Skipping.")
                     continue
 
-                if should_skip_tournament(tournament_id, tournaments, done_tournaments, force_refresh):
+                year, month, day = get_date_parts(timestamp)
+                if should_skip_tournament(
+                    tournament_id, tournaments, done_tournaments, force_refresh,
+                    current_date_parts=(year, month, day),
+                ):
                         print(f"({tournament_name} {datetime.fromtimestamp(timestamp)}) already downloaded.")
                         continue
                 if force_refresh and tournament_id in done_tournaments:
@@ -313,7 +362,6 @@ def download_all_tournaments(
                     print(
                         f"Tournament {tournament_id}: processing event {event_id} ({event_name}) matches_only={matches_only}."
                     )
-                    year, month, day = get_date_parts(timestamp)
                     event_dir = get_event_directory(startgg_dir, country_code, year, month, day, tournament_name, event_name)
 
                     if matches_only:
@@ -352,15 +400,7 @@ def download_all_tournaments(
                         f"Tournament {tournament_id}: finished event {event_id} ({event_name})."
                     )
 
-                    existing_events = tournaments[tournament_id]["events"]
-                    if not any(e.get("event_id") == event_id for e in existing_events):
-                        if matches_only:
-                            continue
-                        existing_events.append({
-                            "event_id": event_id,
-                            "event_name": event_name,
-                            "path": event_dir
-                        })
+                    if record_event_path(tournaments, tournament_id, event_id, event_name, event_dir, matches_only=matches_only):
                         if tournament_id in existing_tournament_ids:
                             rewrite_tournaments = True
                 # ファイルを保存
@@ -1065,13 +1105,7 @@ def download_by_ids(
             write_event_attributes(num_entrants, event_id, event_name, tournament_name, timestamp, place, url, labels, is_online, event_dir, guest_entrant_count=guest_entrant_count, end_at=end_timestamp)
             print(f"Tournament {tournament_id}: finished event {event_id} ({event_name}).")
 
-            existing_events = tournaments[tournament_id]["events"]
-            if not any(e.get("event_id") == event_id for e in existing_events):
-                existing_events.append({
-                    "event_id": event_id,
-                    "event_name": event_name,
-                    "path": event_dir,
-                })
+            record_event_path(tournaments, tournament_id, event_id, event_name, event_dir)
 
         if tournaments[tournament_id]["events"]:
             extend_tournament_info(tournaments[tournament_id], tournament_file_path)

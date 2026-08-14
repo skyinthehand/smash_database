@@ -4,9 +4,9 @@
 
 ### 契約
 
-- **FR-005 対応**: 戻り値は「`standings.json` を持つディレクトリ」の一覧(Japan優先ソートは
-  維持)。従来の「`attr.json` を持つディレクトリ」の一覧より広い集合を返す
-  (`attr.json` の有無を問わない)。
+- **FR-005 対応**: 戻り値は「`attr.json` または `standings.json` を持つディレクトリ」の一覧
+  (和集合、Japan優先ソートは維持)。従来の「`attr.json` を持つディレクトリ」の一覧より広い
+  集合を返す(`attr.json` が欠落していても `standings.json` があれば発見される)。
 - 戻り値の型・呼び出し元(`run_backfill()`)のインターフェースは変更しない。
 
 ## `backfill_one_event()`

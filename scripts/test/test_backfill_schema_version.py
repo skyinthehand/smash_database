@@ -1,6 +1,8 @@
+import io
 import json
 import tempfile
 import unittest
+from contextlib import redirect_stderr
 from pathlib import Path
 from unittest.mock import patch
 
@@ -14,6 +16,14 @@ def make_event_dir(root: Path, name: str, event_data_version=None) -> Path:
     if event_data_version is not None:
         attr["event_data_version"] = event_data_version
     (event_dir / "attr.json").write_text(json.dumps(attr), encoding="utf-8")
+    return event_dir
+
+
+def make_partial_event_dir(root: Path, name: str) -> Path:
+    """attr.json を持たない(standings.json のみの)イベントディレクトリを作る。"""
+    event_dir = root / name
+    event_dir.mkdir(parents=True, exist_ok=True)
+    (event_dir / "standings.json").write_text(json.dumps({"data": []}), encoding="utf-8")
     return event_dir
 
 
@@ -110,7 +120,9 @@ class BackfillSchemaVersionTests(unittest.TestCase):
             )
 
         mocked.assert_not_called()
-        self.assertEqual(summary, {"processed": 0, "skipped": 3, "wrapped_around": False})
+        self.assertEqual(
+            summary, {"processed": 0, "skipped": 3, "wrapped_around": False, "unresolved": 0}
+        )
 
     def test_wraps_around_after_full_cycle(self):
         for i in range(3):
@@ -197,6 +209,68 @@ class BackfillSchemaVersionTests(unittest.TestCase):
         attr_after = json.loads((event_dir / "attr.json").read_text(encoding="utf-8"))
         self.assertEqual(attr_after["end_at"], 1710086400)
         self.assertEqual(attr_after["event_data_version"], 3)
+
+    # -- US2: attr.json が欠落したディレクトリも発見・補完される ----------------
+
+    def test_discovers_directories_missing_attr_json_via_standings(self):
+        event_dir = make_partial_event_dir(self.events_root, "Japan/tournament_x/event_x")
+
+        order = [str(p) for p in bsv.iter_event_dirs(self.events_root)]
+
+        self.assertIn(str(event_dir), order)
+
+    def test_backfill_one_event_recovers_event_id_from_tournaments_jsonl_when_attr_json_missing(self):
+        event_dir = make_partial_event_dir(self.events_root, "Japan/tournament_y/event_y")
+
+        tournaments = {
+            1: {
+                "tournament_id": 1,
+                "events": [{"event_id": 555, "event_name": "event_y", "path": str(event_dir)}],
+            }
+        }
+        event = {"name": "Event", "startAt": 1710001000, "isOnline": True}
+        tournament = {"name": "Tournament", "url": "https://example.com", "endAt": 1710086400}
+
+        with patch.object(bsv, "fetch_event_details", return_value=(event, tournament)) as mocked_fetch, \
+             patch.object(bsv, "download_standings", return_value=([], [], {})), \
+             patch.object(bsv, "download_seeds"), \
+             patch.object(bsv, "download_all_set"), \
+             patch.object(bsv, "extend_user_info"), \
+             patch.object(bsv, "write_event_attributes") as mocked_write:
+            result = bsv.backfill_one_event(event_dir, {}, self.users_file_path, tournaments=tournaments)
+
+        self.assertTrue(result)
+        mocked_fetch.assert_called_once_with(555)
+        mocked_write.assert_called_once()
+
+    def test_backfill_one_event_reports_unresolved_when_event_id_cannot_be_determined(self):
+        event_dir = make_partial_event_dir(self.events_root, "Japan/tournament_z/event_z")
+        unresolved = []
+
+        stderr = io.StringIO()
+        with redirect_stderr(stderr):
+            result = bsv.backfill_one_event(
+                event_dir, {}, self.users_file_path, tournaments={}, unresolved=unresolved
+            )
+
+        self.assertFalse(result)
+        self.assertIn(str(event_dir), unresolved)
+        self.assertIn("[UNRESOLVED]", stderr.getvalue())
+
+    def test_run_backfill_counts_unresolved_events_and_continues(self):
+        # tournament_file_path を渡さない(=tournaments.jsonl からの復元ができない)場合、
+        # attr.json を持たないディレクトリは [UNRESOLVED] として計上され、
+        # 他のイベントの処理は継続する。
+        make_partial_event_dir(self.events_root, "Japan/tournament_z/event_z")
+        make_event_dir(self.events_root, "current", event_data_version=bsv.EVENT_DATA_VERSION)
+
+        summary = bsv.run_backfill(
+            self.events_root, self.users_file_path, self.cursor_path, max_events=0
+        )
+
+        self.assertEqual(summary["unresolved"], 1)
+        self.assertEqual(summary["processed"], 1)
+        self.assertEqual(summary["skipped"], 1)
 
     # -- US3: 独自のHTTP実装を持たない(既存のリトライ基盤のみ経由) -------------
 

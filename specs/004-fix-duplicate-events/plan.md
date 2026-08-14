@@ -107,9 +107,9 @@ scripts/
 │   │                                  #   「パスが変わっていれば更新+旧ディレクトリ削除」に
 │   │                                  #   変更した上で、download_all_tournaments() と
 │   │                                  #   download_by_ids() の両方から呼び出す
-│   └── backfill_schema_version.py    # [MODIFY] iter_event_dirs() の発見対象を
-│                                      #   attr.json存在ベースから standings.json
-│                                      #   存在ベースに変更。backfill_one_event() に
+│   └── backfill_schema_version.py    # [MODIFY] iter_event_dirs() の発見対象に
+│                                      #   standings.json 存在ベースを追加(attr.json
+│                                      #   との和集合)。backfill_one_event() に
 │                                      #   attr.json欠落時のtournaments.jsonlからの
 │                                      #   event_id復元フォールバックを追加
 └── test/
