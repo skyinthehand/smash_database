@@ -976,6 +976,11 @@ def fetch_event_ids_from_tournament(tournament_id, game_id):
         raise FetchError(f"Error: 'data' or 'tournament' key not found in response for tournament {tournament_id}. Response data: {response_data}\n in fetch_event_ids_from_tournament")
     
     events = response_data["data"]["tournament"]["events"]
+    if events is None:
+        raise FetchError(
+            f"Error: tournament {tournament_id} has no events for game_id={game_id} "
+            f"(events is null in response). Response data: {response_data}\n in fetch_event_ids_from_tournament"
+        )
     return [(event["id"], event["name"], event["isOnline"]) for event in events]
 
 def fetch_phase_id(event_id):

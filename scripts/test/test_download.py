@@ -16,6 +16,7 @@ from scripts.fetch.download import (
     download_by_ids,
     fetch_all_phase_groups,
     fetch_all_sets,
+    fetch_event_ids_from_tournament,
     get_event_directory,
     load_excluded_phase_ids,
     record_event_path,
@@ -419,6 +420,15 @@ class DownloadTests(unittest.TestCase):
                     current_date_parts=("2025", "08", "16"),
                 )
             )
+
+    @patch("scripts.fetch.download.fetch_data_with_retries")
+    def test_fetch_event_ids_from_tournament_raises_clear_error_when_events_is_null(self, mock_fetch):
+        mock_fetch.return_value = {
+            "data": {"tournament": {"id": 811466, "name": "Test Tournament", "events": None}}
+        }
+
+        with self.assertRaises(FetchError):
+            fetch_event_ids_from_tournament(811466, "1386")
 
     # -- record_event_path (US1/US3 共有ヘルパー) ---------------------------
 
