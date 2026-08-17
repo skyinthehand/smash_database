@@ -38,7 +38,10 @@ event_id を通常の取得と同じ手順で保存する(`scripts/fetch/` に�
 **Testing**: `unittest`。新規モジュール `scripts/fetch/backfill_tournament_events.py` /
 `scripts/fix/prune_empty_events.py` それぞれに対応するテストファイルを新設する。
 
-**Target Platform**: GitHub Actions `ubuntu-latest`(新規ワークフロー)+ ローカル CLI 実行。
+**Target Platform**: GitHub Actions `ubuntu-latest`(新規ワークフロー、`chore-update` へ
+直接コミットする既存の `schema_backfill.yml` / `update_tournament.yml` / `update_user.yml`
+と同じ `concurrency: group: chore-update-branch` に参加させ、同時実行によるコミット
+競合を避ける)+ ローカル CLI 実行。
 
 **Project Type**: single project(CLI / データパイプラインスクリプト)。
 

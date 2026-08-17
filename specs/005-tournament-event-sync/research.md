@@ -101,6 +101,31 @@ User Story 2(ローカルファイルの読み取り・削除のみ)はカーソ
 無く、ローカルディスクの読み取りのみのため、既存の `scripts/fix/validate_data.py` 等と
 同様、毎回全件処理しても実行コスト・API負荷の懸念が無い。
 
+## 論点6: `schema_backfill.yml` に統合せず新規ワークフローとする理由
+
+**Decision**: 既存の `schema_backfill.yml` に処理を追加するのではなく、新規ワークフロー
+`tournament_event_sync.yml` を作成する。ただし `concurrency: group: chore-update-branch`
+には参加させ、`chore-update` へ直接コミットする既存の3ワークフロー
+(`schema_backfill.yml`(毎時), `update_tournament.yml`(毎日), `update_user.yml`(毎日))
+と同じキューに並ばせる。
+
+**Rationale**: `schema_backfill.yml` は `cron: "30 * * * *"`(毎時)で
+event_data_version のロールアウトを細かく刻む用途にチューニングされており、頻度が
+本機能(頻繁には起きないイベント作り直しの検知)には合わない。別ファイルにすることで
+`update_tournament.yml` 等と同様の、より疎な独立した頻度を選べる。また、
+`schema_backfill.yml` のジョブに処理を追加すると、その1ジョブの実行時間が延び、
+`cancel-in-progress: true` により次の毎時トリガーで自分自身がより頻繁に打ち切られる
+リスクが増す。ワークフローを分けつつ同じ `concurrency` グループに参加させることで、
+コミット競合(3ワークフローとも同じ `chore-update` に直接pushする)は既存の仕組みで
+引き続き回避しつつ、実行頻度・実行時間は独立に保てる。既存ワークフロー
+(`data_backfill`/`data_force_refresh_backfill`/`schema_backfill`/`update_tournament`/
+`update_user`/`data_gap_check`/`fetch_large_event`)がいずれも1関心事1ファイルの
+単機能構成である、という確立された運用規約とも一貫する。
+
+**Alternatives considered**:
+- *`schema_backfill.yml` に本機能のステップを追加する*: ワークフローファイル数は
+  減るが、上記の頻度・実行時間・障害切り分けの理由により却下。
+
 ## 既存実装への影響確認
 
 - `fetch_event_ids_from_tournament()` / `download.py` 内の他の関数は変更しない
