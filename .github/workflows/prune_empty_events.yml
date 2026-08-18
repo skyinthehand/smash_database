@@ -52,9 +52,11 @@ jobs:
           python -m unittest scripts.test.test_prune_empty_events
 
       - name: Prune empty event directories
+        env:
+          STARTGG_TOKEN: ${{ secrets.STARTGG_TOKEN }}
         run: |
           set -euxo pipefail
-          python scripts/fix/prune_empty_events.py --apply
+          python scripts/fix/prune_empty_events.py --token "$STARTGG_TOKEN" --apply
 
       - name: Detect changes
         id: detect_changes

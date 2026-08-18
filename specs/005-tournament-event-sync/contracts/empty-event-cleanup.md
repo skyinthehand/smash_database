@@ -1,45 +1,90 @@
 # Contract: 空イベントディレクトリの整理(`scripts/fix/prune_empty_events.py`)
 
+**2026-08-18 改訂**: 実データ運用で「ローカルが空 = 削除して安全」という前提が誤って
+いたことが判明した(187-7-23verで実データを持つディレクトリを誤削除)。削除前に
+start.gg への再確認を必須とする設計に改めた。
+
 ## `count_data_entries(path) -> int`
 
 ### 契約
 
 - 指定された JSON ファイル(`{"data": [...]}` 形式)の `data` 配列の要素数を返す。
 - ファイルが存在しない、または読み込めない(壊れている)場合は `0` を返す(例外を
-  送出しない)。既存の `scripts/fix/redownload_event.py::count_data_entries()` と
-  同一の契約。
+  送出しない)。
 
 ## `is_empty_event(event_dir) -> bool`
 
 ### 契約
 
-- **FR-003 対応**: `count_data_entries(event_dir / "standings.json") == 0` かつ
+- **FR-001 対応**: `count_data_entries(event_dir / "standings.json") == 0` かつ
   `count_data_entries(event_dir / "matches.json") == 0` の場合に `True` を返す。
-- `seeds.json` / `attr.json` の中身は判定に使わない(Assumptions 参照)。
-- **FR-005 対応**: どちらか一方でも1件以上のデータを持つ場合は `False` を返す
-  (削除対象にならない)。
+- `seeds.json` / `attr.json` の中身は判定に使わない。
+- あくまで**削除候補の一次選別**であり、この結果だけで削除してはならない。
 
 ## `find_empty_event_dirs(events_root) -> list[Path]`
 
 ### 契約
 
-- `events_root` 以下の、`standings.json` または `matches.json` を持つ全ディレクトリ
-  (`002-incremental-schema-backfill` / `004-fix-duplicate-events` の
-  `iter_event_dirs()` と同様の走査対象)のうち、`is_empty_event()` が `True` を
-  返すものの一覧を返す。
-- カーソル永続化は行わない(`research.md` 論点5参照、API呼び出しを伴わないため)。
+- `events_root` 以下の、`standings.json` または `matches.json` を持つ全ディレクトリの
+  うち、`is_empty_event()` が `True` を返すものの一覧(削除候補)を返す。
 
-## `prune_empty_events(events_root, tournament_file_path, apply) -> dict`
+## `resolve_event_id(event_dir, tournaments) -> int | None`
 
 ### 契約
 
-- 戻り値: `{"found": int, "deleted": int, "deleted_paths": list[str]}`
-- **FR-004 対応**: `apply=True` の場合、`find_empty_event_dirs()` で見つかった各
-  ディレクトリを `shutil.rmtree()` で削除し、`tournaments.jsonl` を読み込んで
-  該当する `path` を持つイベントエントリを全トーナメントから取り除いた上で、
-  `write_jsonl()` で1回だけ書き戻す。
-- `apply=False`(デフォルト)の場合、削除対象を報告するのみで、ファイルシステム・
-  `tournaments.jsonl` のどちらも変更しない(`scripts/fix/redownload_event.py` の
-  `--yes` フラグと同じ dry-run デフォルトのパターンを踏襲する)。
-- **FR-005 対応**: `is_empty_event()` が `False` と判定したディレクトリは
-  `find_empty_event_dirs()` の結果に含まれないため、削除処理の対象にすらならない。
+- `attr.json` から `event_id` を読む。読めない/存在しない場合は `tournaments.jsonl`
+  の記録(`events[].path == str(event_dir)`)から復元する。どちらでも特定できない
+  場合は `None` を返す。
+
+## `resolve_tournament_id(event_id, event_dir, tournaments) -> int | None`
+
+### 契約
+
+- `tournaments.jsonl` の記録から、`path` または `event_id` が一致するエントリの
+  `tournament_id` を返す。見つからない場合は `None`。
+
+## `has_unrecorded_sibling_event(tournament_id, game_id, tournaments) -> bool | None`
+
+### 契約
+
+- `fetch_event_ids_from_tournament(tournament_id, game_id)`(既存関数、`004` で
+  `events is None` の場合 `FetchError` を送出するよう修正済み)を呼び出し、
+  `tournaments.jsonl` に未記録の event_id が含まれるかどうかを返す。
+- API呼び出しが `FetchError` で失敗した場合(トーナメントの events(filter)クエリが
+  `null` を返す等)は、確認不能を表す `None` を返す。呼び出し元はこれを「安全側に
+  倒して削除しない」as 扱うこと。
+
+## `reconcile_empty_event(event_dir, tournaments, users, users_file_path, game_id) -> str`
+
+### 契約
+
+- **FR-002/FR-003 対応**: 次の順で確認し、`"healed"` | `"deleted"` | `"kept"` の
+  いずれかを返す。
+  1. `event_id` を特定できない場合 → `"kept"`(削除しない)。
+  2. `backfill_one_event()`(`scripts/fetch/backfill_schema_version.py` の既存関数、
+     `event(id: $eventId)` を直接叩く経路で再取得)を呼ぶ。再取得後に
+     `is_empty_event()` が `False` になった場合(実データが見つかった)→
+     `"healed"`(保存済み、削除しない)。
+  3. まだ空で `tournament_id` を特定できない場合 → `"kept"`。
+  4. `has_unrecorded_sibling_event()` が `None`(確認不能)または `True`(未記録の
+     他イベントあり)の場合 → `"kept"`(削除しない)。
+  5. 上記いずれにも該当せず(再取得後も空、かつ同トーナメント配下に他のイベントも
+     無いことを確認できた場合)のみ → ディレクトリを削除し `"deleted"`。
+- 削除は、ローカルの空判定だけでなく、start.gg 側で今も空であることと、
+  同トーナメント配下に見逃している別イベントが無いことの両方を確認できた場合に
+  限る。
+
+## `prune_empty_events(events_root, tournament_file_path, users_file_path, game_id, apply) -> dict`
+
+### 契約
+
+- 戻り値: `{"found": int, "healed": int, "deleted": int, "kept": int, "deleted_paths": list[str]}`
+- `apply=False`(デフォルト)の場合、`find_empty_event_dirs()` の件数を報告するのみで、
+  API呼び出し・ファイルシステム・`tournaments.jsonl` のいずれも変更しない
+  (`scripts/fix/redownload_event.py` の `--yes` フラグと同じ dry-run デフォルトの
+  パターンを踏襲する)。
+- `apply=True` の場合、各候補について `reconcile_empty_event()` を呼び、
+  `"deleted"` になったものについてのみ `shutil.rmtree()` で削除し、
+  `tournaments.jsonl` から対応するイベント記録を取り除く。`"healed"`/`"deleted"`
+  が1件でもあれば `tournaments.jsonl` を `write_jsonl()` で1回だけ書き戻す
+  (`"kept"` のみの場合は書き戻さない)。

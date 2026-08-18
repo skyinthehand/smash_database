@@ -289,3 +289,29 @@ Task: "scripts/fix/prune_empty_events.py の実装(US2)"
 - テストは実装前に書き、失敗することを確認してから実装に進む
 - 各チェックポイントで、そのユーザーストーリーが単独で検証可能であることを確認する
 - 既存ファイル(`download.py`, `backfill_schema_version.py`)への変更は本機能のスコープ外
+  (ただし記録タイミング修正=T029-T031は例外として実施、上記参照)
+
+## 事後修正2: 削除前のstart.gg再確認を追加(2026-08-18、実運用中の誤削除を受けて)
+
+`prune_empty_events.py --apply` の実運用で、ローカルが空という理由だけで
+`187-7-23ver` の実データを持つディレクトリを誤って削除する事故が発生した
+(ユーザーが `git restore` で復元)。「取得済み時点で`endAt`が過去なら、ローカルが
+空=本当に空」という前提(旧Assumptions)が誤りだった。
+
+- [X] T033 `scripts/fix/prune_empty_events.py` を全面改修。削除前に
+      (1) `backfill_one_event()`(`backfill_schema_version.py`の既存関数を再利用)で
+      同じevent_idを再取得、実データが見つかれば保存して削除しない(`healed`)、
+      (2) まだ空なら`has_unrecorded_sibling_event()`で同じトーナメント配下に
+      未記録の別イベントが無いか確認、見つかった/確認不能なら削除しない(`kept`)、
+      という2段階の確認を追加。両方とも「確認済みで空」の場合のみ削除する(`deleted`)
+- [X] T034 `scripts/test/test_prune_empty_events.py` を全面改修。
+      healed/deleted/kept の各分岐、event_id・tournament_id解決、dry-runでAPI呼び出しが
+      発生しないことを確認するテストを追加(21 tests, OK)
+- [X] T035 `.github/workflows/prune_empty_events.yml` に `STARTGG_TOKEN` を追加
+      (削除前確認にAPI呼び出しが必要になったため)
+- [X] T036 spec.md(Clarifications/Acceptance Scenarios/Edge Cases/FR/SC/Assumptions)・
+      contracts/empty-event-cleanup.md・quickstart.md を新設計に合わせて更新。
+      `docs/fix.md` に、tournament_id=811466の兄弟イベント確認が恒常的に確認不能
+      (`events: null`)であるため、この特定のケースは自動削除されず人手対応が必要な
+      既知の制約として記録
+- [X] T037 全テストスイート実行、82 tests, OK
