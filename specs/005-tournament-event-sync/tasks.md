@@ -32,8 +32,8 @@ Structure 参照)。既存ファイル(`download.py`, `backfill_schema_version.p
 
 **Purpose**: 変更前の基準状態を確認する
 
-- [ ] T001 `python -m unittest discover -s scripts/test -p "test_*.py"` を実行し、
-      変更前の時点で全てパスすることを確認する(以降のタスクの差分検証の基準にする)
+- [X] T001 `python -m unittest discover -s scripts/test -p "test_*.py"` を実行し、
+      変更前の時点で全てパスすることを確認する(以降のタスクの差分検証の基準にする)(59 tests, OK)
 
 **Note**: 本機能は完全に新規のファイル(`scripts/fetch/backfill_tournament_events.py`,
 `scripts/fix/prune_empty_events.py`)として実装し、既存ファイルへの変更を伴わないため、
@@ -54,51 +54,51 @@ start.gg側の現在のイベント一覧を再取得し、記録に無い新し
 
 ### Tests for User Story 1
 
-- [ ] T002 [P] [US1] `scripts/test/test_backfill_tournament_events.py` を新規作成し、
+- [X] T002 [P] [US1] `scripts/test/test_backfill_tournament_events.py` を新規作成し、
       `iter_tournament_ids()` が記録イベント数0件のトーナメントも含めて返すことを
       確認するテストを追加する
-- [ ] T003 [P] [US1] 同ファイルに、`find_new_event_ids()` が `fetch_event_ids_from_tournament()`
+- [X] T003 [P] [US1] 同ファイルに、`find_new_event_ids()` が `fetch_event_ids_from_tournament()`
       の結果から、記録済みの event_id 集合に含まれないものだけを返すことを確認する
       テストを追加する
-- [ ] T004 [P] [US1] 同ファイルに、`fetch_event_ids_from_tournament()` が `FetchError` を
+- [X] T004 [P] [US1] 同ファイルに、`fetch_event_ids_from_tournament()` が `FetchError` を
       送出した場合、`find_new_event_ids()` が例外を伝播させず空リストを返すことを確認する
       テストを追加する
-- [ ] T005 [P] [US1] 同ファイルに、`save_new_event()` が新しい event_id の詳細を取得し、
+- [X] T005 [P] [US1] 同ファイルに、`save_new_event()` が新しい event_id の詳細を取得し、
       `attr.json` を含む一式を新規ディレクトリに書き込み、`tournaments` 辞書の該当
       トーナメントの `events` に新しいエントリを追加することを確認するテストを追加する
-- [ ] T006 [P] [US1] 同ファイルに、`save_new_event()` が取得失敗時に例外を送出せず
+- [X] T006 [P] [US1] 同ファイルに、`save_new_event()` が取得失敗時に例外を送出せず
       `False` を返すことを確認するテストを追加する
-- [ ] T007 [P] [US1] 同ファイルに、`run_tournament_event_sync()` がカーソルファイルを
+- [X] T007 [P] [US1] 同ファイルに、`run_tournament_event_sync()` がカーソルファイルを
       使って複数回の実行にまたがって異なるトーナメントを処理し、一周したら先頭に
       戻ることを確認するテストを追加する(`test_backfill_schema_version.py` の
       カーソルテストと同様のパターン)
-- [ ] T008 [P] [US1] 同ファイルに、新しいイベントが1件も見つからなかった場合は
+- [X] T008 [P] [US1] 同ファイルに、新しいイベントが1件も見つからなかった場合は
       `tournaments.jsonl` への書き込みが発生しないことを確認するテストを追加する
 
 ### Implementation for User Story 1
 
-- [ ] T009 [US1] `scripts/fetch/backfill_tournament_events.py` を新規作成し、
+- [X] T009 [US1] `scripts/fetch/backfill_tournament_events.py` を新規作成し、
       `scripts.fetch.backfill_schema_version` から `read_cursor()` / `write_cursor()` を
       再利用し、`iter_tournament_ids(tournaments)` を実装する(`tournaments.jsonl` の
       全 `tournament_id` を安定ソート順で返す。イベント数0件のトーナメントも含む)
-- [ ] T010 [US1] 同ファイルに、`fetch_event_details(event_id)` / `build_place_dict(tournament)`
+- [X] T010 [US1] 同ファイルに、`fetch_event_details(event_id)` / `build_place_dict(tournament)`
       を実装する(`scripts/fetch/backfill_schema_version.py` と同一パターン、
       `event(id: $eventId)` を直接叩く)。あわせて `find_new_event_ids(tournament_id,
       game_id, recorded_event_ids)` を実装し、`fetch_event_ids_from_tournament()` の
       `FetchError` を捕捉して空リストを返すようにする
-- [ ] T011 [US1] 同ファイルに `save_new_event(tournament_id, tournament_name, event_id,
+- [X] T011 [US1] 同ファイルに `save_new_event(tournament_id, tournament_name, event_id,
       country_code, startgg_dir, tournaments, users, users_file_path)` を実装する。
       `fetch_event_details()` → `get_date_parts()` + `get_event_directory()` →
       `download_standings()` → `download_seeds()` → `extend_user_info()` →
       `download_all_set()` → `write_event_attributes()` の順で新規保存し、成功したら
       `tournaments[tournament_id]["events"]` に追記して `True` を返す(T010 に依存)
-- [ ] T012 [US1] 同ファイルに `run_tournament_event_sync(tournament_file_path,
+- [X] T012 [US1] 同ファイルに `run_tournament_event_sync(tournament_file_path,
       cursor_path, startgg_dir, users_file_path, game_id, max_tournaments)` を実装する。
       `iter_tournament_ids()` でカーソルベースの循環スキャンを行い、各トーナメントに
       `find_new_event_ids()` を適用し、見つかった event_id ごとに `save_new_event()` を
       呼ぶ。新規イベントを1件以上保存した場合のみ `write_jsonl()` で `tournaments.jsonl`
       を書き戻す(T009, T011 に依存)
-- [ ] T013 [US1] 同ファイルに `main()` CLI エントリポイントを実装する(`--token`,
+- [X] T013 [US1] 同ファイルに `main()` CLI エントリポイントを実装する(`--token`,
       `--tournament_file_path`, `--cursor_path`, `--events_root`, `--users_file_path`,
       `--game_id`, `--max_tournaments`, 既存スクリプトと同様の `--url`/`--max_retries`/
       `--retry_delay`/`--indent_num` を含む)(T012 に依存)
@@ -120,38 +120,38 @@ start.gg側の現在のイベント一覧を再取得し、記録に無い新し
 
 ### Tests for User Story 2
 
-- [ ] T014 [P] [US2] `scripts/test/test_prune_empty_events.py` を新規作成し、
+- [X] T014 [P] [US2] `scripts/test/test_prune_empty_events.py` を新規作成し、
       `count_data_entries()` がファイル欠落・空の `data` 配列のどちらでも `0` を返し、
       例外を送出しないことを確認するテストを追加する
-- [ ] T015 [P] [US2] 同ファイルに、`is_empty_event()` が `standings.json` と
+- [X] T015 [P] [US2] 同ファイルに、`is_empty_event()` が `standings.json` と
       `matches.json` の両方が空の場合に `True` を返すことを確認するテストを追加する
-- [ ] T016 [P] [US2] 同ファイルに、`is_empty_event()` が `standings.json` または
+- [X] T016 [P] [US2] 同ファイルに、`is_empty_event()` が `standings.json` または
       `matches.json` のいずれかにデータがあれば `False` を返すことを確認するテストを
       追加する(FR-005 の確認)
-- [ ] T017 [P] [US2] 同ファイルに、`find_empty_event_dirs()` が複数のディレクトリ
+- [X] T017 [P] [US2] 同ファイルに、`find_empty_event_dirs()` が複数のディレクトリ
       (空・非空混在)の中から空のものだけを返すことを確認するテストを追加する
-- [ ] T018 [P] [US2] 同ファイルに、`prune_empty_events(apply=False)` がファイル
+- [X] T018 [P] [US2] 同ファイルに、`prune_empty_events(apply=False)` がファイル
       システム・`tournaments.jsonl` のどちらも変更しないことを確認するテストを追加する
       (dry-run のデフォルト動作)
-- [ ] T019 [P] [US2] 同ファイルに、`prune_empty_events(apply=True)` が空のディレクトリを
+- [X] T019 [P] [US2] 同ファイルに、`prune_empty_events(apply=True)` が空のディレクトリを
       削除し、`tournaments.jsonl` から対応するイベント記録を取り除いて書き戻すことを
       確認するテストを追加する
-- [ ] T020 [P] [US2] 同ファイルに、`prune_empty_events(apply=True)` が非空のディレクトリと
+- [X] T020 [P] [US2] 同ファイルに、`prune_empty_events(apply=True)` が非空のディレクトリと
       その `tournaments.jsonl` の記録には一切手を出さないことを確認するテストを追加する
 
 ### Implementation for User Story 2
 
-- [ ] T021 [US2] `scripts/fix/prune_empty_events.py` を新規作成し、
+- [X] T021 [US2] `scripts/fix/prune_empty_events.py` を新規作成し、
       `count_data_entries(path)` と `is_empty_event(event_dir)` を実装する
       (`scripts/fix/redownload_event.py::count_data_entries()` と同一パターン)
-- [ ] T022 [US2] 同ファイルに `find_empty_event_dirs(events_root)` を実装する
+- [X] T022 [US2] 同ファイルに `find_empty_event_dirs(events_root)` を実装する
       (`standings.json` または `matches.json` を持つ全ディレクトリを走査し、
       `is_empty_event()` が `True` のものを返す)(T021 に依存)
-- [ ] T023 [US2] 同ファイルに `prune_empty_events(events_root, tournament_file_path,
+- [X] T023 [US2] 同ファイルに `prune_empty_events(events_root, tournament_file_path,
       apply)` を実装する。`apply=True` の場合のみ `shutil.rmtree()` で削除し、
       `read_tournaments_jsonl()` → 該当 `path` を持つイベント記録を除去 →
       `write_jsonl()` で1回だけ書き戻す(T022 に依存)
-- [ ] T024 [US2] 同ファイルに `main()` CLI エントリポイントを実装する(`--events_root`,
+- [X] T024 [US2] 同ファイルに `main()` CLI エントリポイントを実装する(`--events_root`,
       `--tournament_file_path`, `--apply`、`--apply` 省略時は dry-run でレポートのみ)
       (T023 に依存)
 
@@ -162,14 +162,14 @@ start.gg側の現在のイベント一覧を再取得し、記録に無い新し
 
 ## Phase 4: Polish & Cross-Cutting Concerns
 
-- [ ] T025 [P] `.github/workflows/tournament_event_sync.yml` を新規作成する。
+- [X] T025 [P] `.github/workflows/tournament_event_sync.yml` を新規作成する。
       `schema_backfill.yml` と同じ `concurrency: group: chore-update-branch` に参加させ、
       `cron: "0 12 * * 0"`(毎週日曜 12:00 UTC)で
       `scripts/fetch/backfill_tournament_events.py` と `scripts/fix/prune_empty_events.py
       --apply` を順に実行し、`chore-update` へコミット・pushする(既存ワークフローと
       同じ `git config`/`checkout -B chore-update`/コミット・push パターンを踏襲)
-- [ ] T026 [P] `python -m unittest discover -s scripts/test -p "test_*.py"` を実行し、
-      本機能で追加したテストを含む全テストスイートがパスすることを確認する
+- [X] T026 [P] `python -m unittest discover -s scripts/test -p "test_*.py"` を実行し、
+      本機能で追加したテストを含む全テストスイートがパスすることを確認する(74 tests, OK)
 - [ ] T027 `quickstart.md` 手順2(第7回チバスマ交流会での実データ検証: event_id=1533881
       の新規取得、event_id=1423946 の空ディレクトリ削除)を実際の `STARTGG_TOKEN` で
       行い、目視確認する
