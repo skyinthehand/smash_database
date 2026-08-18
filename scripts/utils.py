@@ -183,6 +183,12 @@ class FetchError(Exception):
         super().__init__(message)
         print(message, file=sys.stderr)
 
+class NoEventsForGameError(FetchError):
+    """クエリ自体は正常に完了したが、対象ゲームに紐づくイベントが0件だったことを表す。
+    (GraphQLレスポンスに`errors`が無く、該当フィールドがnullだった場合)
+    トーナメント自体が見つからない・通信エラー等の他のFetchErrorとは区別し、
+    「確認できなかった」ではなく「確認した結果0件だった」ことを表すために使う。"""
+
 class NoPhaseError(Exception):
     def __init__(self, message):
         super().__init__(message)

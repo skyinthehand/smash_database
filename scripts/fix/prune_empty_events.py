@@ -45,6 +45,7 @@ from scripts.fetch.backfill_schema_version import backfill_one_event  # noqa: E4
 from scripts.fetch.download import fetch_event_ids_from_tournament  # noqa: E402
 from scripts.utils import (  # noqa: E402
     FetchError,
+    NoEventsForGameError,
     read_json,
     read_tournaments_jsonl,
     read_users_jsonl,
@@ -119,11 +120,19 @@ def resolve_tournament_id(event_id: int | None, event_dir: Path, tournaments: di
 
 def has_unrecorded_sibling_event(tournament_id: int, game_id: str, tournaments: dict) -> bool | None:
     """tournament_id 配下に、tournaments.jsonl にまだ記録されていない(対象ゲームの)
-    event_id が存在するかどうかを確認する。API側で確認できなかった場合は None を返す
-    (呼び出し元は None を「安全側に倒して削除しない」として扱うこと)。"""
+    event_id が存在するかどうかを確認する。
+
+    `NoEventsForGameError`(GraphQLの`errors`を伴わずeventsがnullだった=クエリは
+    正常完了した上で対象ゲームのイベントが0件だったことが確認できた場合)は、
+    「兄弟イベント無し」として `False` を返す。それ以外の `FetchError`(通信エラー・
+    トーナメント自体が見つからない等、確認そのものができなかった場合)は `None` を
+    返す(呼び出し元は None を「安全側に倒して削除しない」として扱うこと)。
+    """
     known_ids = {e.get("event_id") for e in tournaments.get(tournament_id, {}).get("events", [])}
     try:
         events_info = fetch_event_ids_from_tournament(tournament_id, game_id)
+    except NoEventsForGameError:
+        return False
     except FetchError as exc:
         print(f"[{tournament_id}] sibling check failed, treating as unresolved: {exc}", file=sys.stderr)
         return None

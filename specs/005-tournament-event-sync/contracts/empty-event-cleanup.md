@@ -47,12 +47,15 @@ start.gg への再確認を必須とする設計に改めた。
 
 ### 契約
 
-- `fetch_event_ids_from_tournament(tournament_id, game_id)`(既存関数、`004` で
-  `events is None` の場合 `FetchError` を送出するよう修正済み)を呼び出し、
+- `fetch_event_ids_from_tournament(tournament_id, game_id)`(既存関数)を呼び出し、
   `tournaments.jsonl` に未記録の event_id が含まれるかどうかを返す。
-- API呼び出しが `FetchError` で失敗した場合(トーナメントの events(filter)クエリが
-  `null` を返す等)は、確認不能を表す `None` を返す。呼び出し元はこれを「安全側に
-  倒して削除しない」as 扱うこと。
+- `NoEventsForGameError`(GraphQLの`errors`を伴わずeventsがnullだった場合。
+  クエリ自体は正常完了した上で対象ゲームのイベントが0件だったことを表す)を捕捉した
+  場合は `False`(兄弟イベント無しと確定)を返す。
+- それ以外の `FetchError`(通信エラー・トーナメント自体が見つからない・GraphQLの
+  `errors`を伴う場合など、確認そのものができなかった場合)を捕捉した場合は、
+  確認不能を表す `None` を返す。呼び出し元はこれを「安全側に倒して削除しない」として
+  扱うこと。
 
 ## `reconcile_empty_event(event_dir, tournaments, users, users_file_path, game_id) -> str`
 

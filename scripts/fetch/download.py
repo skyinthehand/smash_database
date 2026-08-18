@@ -25,7 +25,7 @@ from scripts.utils import (
     set_indent_num, set_page_delay, get_page_delay,
     fetch_data_with_retries, fetch_all_nodes,
     set_retry_parameters, set_api_parameters,
-    FetchError, NoPhaseError, AllFallbacksExhaustedError, MaxPagesExceededError,
+    FetchError, NoEventsForGameError, NoPhaseError, AllFallbacksExhaustedError, MaxPagesExceededError,
     EVENT_DATA_VERSION,
 )
 
@@ -984,9 +984,19 @@ def fetch_event_ids_from_tournament(tournament_id, game_id):
     
     events = response_data["data"]["tournament"]["events"]
     if events is None:
-        raise FetchError(
-            f"Error: tournament {tournament_id} has no events for game_id={game_id} "
-            f"(events is null in response). Response data: {response_data}\n in fetch_event_ids_from_tournament"
+        if response_data.get("errors"):
+            # errors が付いている場合は解決に失敗した(=確認不能)ため、通常の FetchError とする。
+            raise FetchError(
+                f"Error: tournament {tournament_id} events field errored for game_id={game_id}. "
+                f"Response data: {response_data}\n in fetch_event_ids_from_tournament"
+            )
+        # errors が無いのに events だけ null ということは、クエリ自体は正常に完了した上で
+        # 対象ゲームに紐づくイベントが0件だったと判断できる(GraphQLの仕様上、フィールド
+        # 解決エラーには通常 errors が伴うため)。「確認できなかった」のではなく
+        # 「確認した結果0件だった」ことを表す専用の例外を送出する。
+        raise NoEventsForGameError(
+            f"Tournament {tournament_id} has no events for game_id={game_id} "
+            f"(events is null in response, no GraphQL errors present). Response data: {response_data}\n in fetch_event_ids_from_tournament"
         )
     return [(event["id"], event["name"], event["isOnline"]) for event in events]
 

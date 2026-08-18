@@ -24,7 +24,14 @@ from scripts.fetch.download import (
     write_event_attributes,
     write_matches,
 )
-from scripts.utils import EVENT_DATA_VERSION, FetchError, MaxPagesExceededError, read_json, read_tournaments_jsonl
+from scripts.utils import (
+    EVENT_DATA_VERSION,
+    FetchError,
+    MaxPagesExceededError,
+    NoEventsForGameError,
+    read_json,
+    read_tournaments_jsonl,
+)
 
 
 class DownloadTests(unittest.TestCase):
@@ -422,13 +429,31 @@ class DownloadTests(unittest.TestCase):
             )
 
     @patch("scripts.fetch.download.fetch_data_with_retries")
-    def test_fetch_event_ids_from_tournament_raises_clear_error_when_events_is_null(self, mock_fetch):
+    def test_fetch_event_ids_from_tournament_raises_no_events_error_when_events_null_without_graphql_errors(
+        self, mock_fetch
+    ):
+        # errors が無いのに events だけ null ということは、クエリは正常完了した上で
+        # 対象ゲームのイベントが0件だったと判断できる → 専用の例外(NoEventsForGameError)。
         mock_fetch.return_value = {
             "data": {"tournament": {"id": 811466, "name": "Test Tournament", "events": None}}
         }
 
-        with self.assertRaises(FetchError):
+        with self.assertRaises(NoEventsForGameError):
             fetch_event_ids_from_tournament(811466, "1386")
+
+    @patch("scripts.fetch.download.fetch_data_with_retries")
+    def test_fetch_event_ids_from_tournament_raises_plain_fetch_error_when_events_null_with_graphql_errors(
+        self, mock_fetch
+    ):
+        # errors が付いている場合は解決に失敗した(=確認不能)ため、区別せず通常のFetchError。
+        mock_fetch.return_value = {
+            "data": {"tournament": {"id": 811466, "name": "Test Tournament", "events": None}},
+            "errors": [{"message": "internal error resolving events"}],
+        }
+
+        with self.assertRaises(FetchError) as ctx:
+            fetch_event_ids_from_tournament(811466, "1386")
+        self.assertNotIsInstance(ctx.exception, NoEventsForGameError)
 
     # -- record_event_path (US1/US3 共有ヘルパー) ---------------------------
 

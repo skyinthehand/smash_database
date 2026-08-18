@@ -108,10 +108,11 @@ tournament_id=867504 は通常の新規トーナメント発見(`download_all_to
   → `seeds.json` の中身は削除判定に含めない(ユーザー指定通り、判定基準は
   `standings.json` と `matches.json` の2ファイルのみ)。ただし削除前の再取得・兄弟
   イベント確認は必ず行う。
-- 兄弟イベントの確認に使う `fetch_event_ids_from_tournament()` 自体が特定の
-  トーナメントで恒常的に `null` を返す(実例: tournament_id=811466)場合はどうなるか？
-  → 確認不能として扱い、削除しない。この場合、当該ディレクトリは自動では整理されず
-  人手での対応が必要になる(既知の制約、`docs/fix.md` 参照)。
+- 兄弟イベントの確認に使う `fetch_event_ids_from_tournament()` が `events: null` を
+  返す(実例: tournament_id=811466)場合はどうなるか？ → GraphQLの `errors` を伴わない
+  場合(`NoEventsForGameError`)は「確認できた上で対象ゲームのイベントが0件」と判定し、
+  削除候補として扱う。`errors` を伴う場合(通信エラー等、確認そのものができなかった
+  場合)は通常の `FetchError` として扱い、削除しない。
 - 兄弟イベントが見つかった場合、それを自動的に取得・保存するか？ → しない
   (旧User Story 1と同じ理由でスコープ外)。削除を保留するのみで、発見・取得は
   既存の `download_all_tournaments()` の通常サイクルに委ねる。
@@ -153,12 +154,12 @@ tournament_id=867504 は通常の新規トーナメント発見(`download_all_to
   行えなかった)削除候補は、本機能によって削除されず、次回以降の実行サイクルに
   持ち越される(データを失うより保留する方が安全、という方針が守られている)。
   第7回チバスマ交流会の旧event_id(1423946、tournament_id=811466、実データ無し)は、
-  兄弟イベント確認に使う `fetch_event_ids_from_tournament(811466, ...)` が恒常的に
-  `null` を返すため、本機能では自動削除されず「確認不能」として保留され続ける
-  (既知の制約、`docs/fix.md` 参照。削除するなら人手での対応が必要)。
-  event_id=1533881・tournament_id=867504 側は、`004-fix-duplicate-events` の延長で
-  行った記録タイミング修正と `redownload_event.py` による手動取得により、本specの
-  対象に先立って解消済み。
+  兄弟イベント確認に使う `fetch_event_ids_from_tournament(811466, ...)` が
+  `events: null`(GraphQLの`errors`を伴わない、`NoEventsForGameError`)を返すため、
+  「対象ゲームのイベントが確認できた上で0件」と判定され、本機能の実行サイクルにより
+  削除される。event_id=1533881・tournament_id=867504 側は、`004-fix-duplicate-events`
+  の延長で行った記録タイミング修正と `redownload_event.py` による手動取得により、
+  本specの対象に先立って解消済み。
 
 ## Assumptions
 

@@ -5,7 +5,7 @@ from pathlib import Path
 from unittest.mock import patch
 
 from scripts.fix import prune_empty_events as pee
-from scripts.utils import FetchError, read_tournaments_jsonl
+from scripts.utils import FetchError, NoEventsForGameError, read_tournaments_jsonl
 
 
 def make_event_dir(root, name, standings_count=0, matches_count=0, event_id=None) -> Path:
@@ -125,9 +125,17 @@ class PruneEmptyEventsTests(unittest.TestCase):
 
     @patch("scripts.fix.prune_empty_events.fetch_event_ids_from_tournament")
     def test_has_unrecorded_sibling_event_none_on_fetch_error(self, mock_fetch):
-        mock_fetch.side_effect = FetchError("events is null in response")
+        mock_fetch.side_effect = FetchError("network error")
         tournaments = {811466: {"tournament_id": 811466, "events": []}}
         self.assertIsNone(pee.has_unrecorded_sibling_event(811466, "1386", tournaments))
+
+    @patch("scripts.fix.prune_empty_events.fetch_event_ids_from_tournament")
+    def test_has_unrecorded_sibling_event_false_when_no_events_for_game(self, mock_fetch):
+        # NoEventsForGameError(GraphQLのerrorsを伴わずeventsがnull)は「確認できた上で
+        # 0件」を意味するため、通常のFetchError(確認不能)とは区別してFalseを返す。
+        mock_fetch.side_effect = NoEventsForGameError("events is null in response, no GraphQL errors present")
+        tournaments = {811466: {"tournament_id": 811466, "events": []}}
+        self.assertFalse(pee.has_unrecorded_sibling_event(811466, "1386", tournaments))
 
     # -- reconcile_empty_event(削除可否の総合判定) --------------------------------
 
@@ -180,6 +188,22 @@ class PruneEmptyEventsTests(unittest.TestCase):
 
             self.assertEqual(outcome, "kept")
             self.assertTrue(event_dir.is_dir())
+
+    @patch("scripts.fix.prune_empty_events.fetch_event_ids_from_tournament")
+    @patch("scripts.fix.prune_empty_events.backfill_one_event", side_effect=write_still_empty)
+    def test_reconcile_deletes_when_tournament_confirmed_to_have_no_events_for_game(self, _mock_backfill, mock_fetch):
+        # 第7回チバスマ交流会(tournament_id=811466)を模したケース: 兄弟イベント確認が
+        # NoEventsForGameError(GraphQLのerrorsを伴わずeventsがnull)を返す場合、
+        # 「確認できた上で0件」として削除対象になる。
+        mock_fetch.side_effect = NoEventsForGameError("events is null in response, no GraphQL errors present")
+        with tempfile.TemporaryDirectory() as tmpdir:
+            event_dir = make_event_dir(tmpdir, "e", event_id=1423946)
+            tournaments = {811466: {"tournament_id": 811466, "events": [{"event_id": 1423946, "path": str(event_dir)}]}}
+
+            outcome = pee.reconcile_empty_event(event_dir, tournaments, {}, f"{tmpdir}/users.jsonl", "1386")
+
+            self.assertEqual(outcome, "deleted")
+            self.assertFalse(event_dir.exists())
 
     def test_reconcile_keeps_when_event_id_unresolvable(self):
         with tempfile.TemporaryDirectory() as tmpdir:
