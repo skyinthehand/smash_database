@@ -24,7 +24,7 @@ from scripts.fetch.download import (
     write_event_attributes,
     write_matches,
 )
-from scripts.utils import EVENT_DATA_VERSION, FetchError, read_json, read_tournaments_jsonl
+from scripts.utils import EVENT_DATA_VERSION, FetchError, MaxPagesExceededError, read_json, read_tournaments_jsonl
 
 
 class DownloadTests(unittest.TestCase):
@@ -869,6 +869,59 @@ class DownloadTests(unittest.TestCase):
 
     @patch("scripts.fetch.download.read_set", return_value=set())
     @patch("scripts.fetch.download.read_users_jsonl", return_value={})
+    @patch("scripts.fetch.download.fetch_tournament_by_id")
+    @patch("scripts.fetch.download.fetch_event_ids_from_tournament")
+    @patch("scripts.fetch.download.download_standings")
+    def test_download_by_ids_records_event_path_before_fetch_even_if_standings_fails(
+        self,
+        mock_standings,
+        mock_fetch_event_ids,
+        mock_fetch_tournament_by_id,
+        _mock_read_users,
+        _mock_read_set,
+    ):
+        # 004-fix-duplicate-events / 867504のケースで判明した通り、大規模イベント処理が
+        # 途中で失敗しても event_id とパスの対応関係だけは tournaments.jsonl に残るように
+        # なっていることを download_by_ids() 経由でも確認する。
+        mock_fetch_tournament_by_id.return_value = {
+            "name": "Test Tournament",
+            "startAt": 1714780800,
+            "endAt": 1714784400,
+            "countryCode": "JP",
+            "city": "Tokyo",
+            "lat": None,
+            "lng": None,
+            "venueName": None,
+            "timezone": "Asia/Tokyo",
+            "postalCode": None,
+            "venueAddress": None,
+            "mapsPlaceId": None,
+            "url": "https://example.com",
+        }
+        mock_fetch_event_ids.return_value = [(10, "Singles", False)]
+        mock_standings.side_effect = FetchError("standings query failed")
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            tournament_file_path = f"{tmpdir}/tournaments.jsonl"
+            download_by_ids(
+                [1],
+                "1386",
+                "JP",
+                f"{tmpdir}",
+                f"{tmpdir}/done.csv",
+                f"{tmpdir}/users.jsonl",
+                tournament_file_path,
+            )
+
+            updated = read_tournaments_jsonl(tournament_file_path)
+
+        self.assertEqual(len(updated[1]["events"]), 1)
+        self.assertEqual(updated[1]["events"][0]["event_id"], 10)
+        event_dir = updated[1]["events"][0]["path"]
+        self.assertFalse(os.path.isfile(os.path.join(event_dir, "attr.json")))
+
+    @patch("scripts.fetch.download.read_set", return_value=set())
+    @patch("scripts.fetch.download.read_users_jsonl", return_value={})
     @patch("scripts.fetch.download.read_tournaments_jsonl", return_value={})
     @patch("scripts.fetch.download.fetch_latest_tournaments_by_game")
     @patch("scripts.fetch.download.fetch_event_ids_from_tournament")
@@ -949,6 +1002,73 @@ class DownloadTests(unittest.TestCase):
         mock_extend_user_info.assert_not_called()
         mock_extend_tournament.assert_not_called()
         mock_write_done.assert_not_called()
+
+    @patch("scripts.fetch.download.read_set", return_value=set())
+    @patch("scripts.fetch.download.read_users_jsonl", return_value={})
+    @patch("scripts.fetch.download.fetch_latest_tournaments_by_game")
+    @patch("scripts.fetch.download.fetch_event_ids_from_tournament")
+    @patch("scripts.fetch.download.download_all_set")
+    @patch("scripts.fetch.download.download_standings")
+    @patch("scripts.fetch.download.download_seeds")
+    @patch("scripts.fetch.download.extend_user_info")
+    def test_download_all_tournaments_records_event_path_before_fetch_even_if_later_step_fails(
+        self,
+        _mock_extend_user_info,
+        _mock_download_seeds,
+        mock_download_standings,
+        mock_download_all_set,
+        mock_fetch_event_ids,
+        mock_fetch_tournaments,
+        _mock_read_users,
+        _mock_read_set,
+    ):
+        # 大規模イベント処理(matches取得)が失敗しても、event_id と保存先パスの対応関係
+        # 自体は tournaments.jsonl に記録され続けることを確認する(取得処理を始める前に
+        # 記録しているため)。
+        mock_fetch_tournaments.return_value = (
+            [
+                {
+                    "id": 1,
+                    "name": "Test Tournament",
+                    "startAt": 1714780800,
+                    "endAt": 1714784400,
+                    "countryCode": "JP",
+                    "city": "Tokyo",
+                    "lat": None,
+                    "lng": None,
+                    "venueName": None,
+                    "timezone": "Asia/Tokyo",
+                    "postalCode": None,
+                    "venueAddress": None,
+                    "mapsPlaceId": None,
+                    "url": "https://example.com",
+                }
+            ],
+            1,
+        )
+        mock_fetch_event_ids.return_value = [(10, "Singles", False)]
+        mock_download_standings.return_value = ([], [], {})
+        mock_download_all_set.side_effect = MaxPagesExceededError(total_pages=999, max_pages=10, per_page=10)
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            tournament_file_path = f"{tmpdir}/tournaments.jsonl"
+            download_all_tournaments(
+                "1386",
+                "JP",
+                datetime(2024, 5, 4, 23, 59, 59),
+                datetime(2024, 5, 4, 0, 0, 0),
+                f"{tmpdir}",
+                f"{tmpdir}/done.csv",
+                f"{tmpdir}/users.jsonl",
+                tournament_file_path,
+            )
+
+            updated = read_tournaments_jsonl(tournament_file_path)
+
+        self.assertEqual(len(updated[1]["events"]), 1)
+        self.assertEqual(updated[1]["events"][0]["event_id"], 10)
+        event_dir = updated[1]["events"][0]["path"]
+        self.assertFalse(os.path.isfile(os.path.join(event_dir, "attr.json")))
 
 
 if __name__ == "__main__":

@@ -1,70 +1,64 @@
-# Implementation Plan: トーナメント単位でのイベント作り直し検知と空イベントの整理
+# Implementation Plan: 空イベントディレクトリの整理
 
-**Branch**: `005-tournament-event-sync` | **Date**: 2026-08-17 | **Spec**: [spec.md](./spec.md)
+**Branch**: `005-tournament-event-sync` | **Date**: 2026-08-17(2026-08-18 に再スコープ) | **Spec**: [spec.md](./spec.md)
 
 **Input**: Feature specification from `/specs/005-tournament-event-sync/spec.md`
 
 ## Summary
 
-`004-fix-duplicate-events` の実データ検証で、第7回チバスマ交流会(tournament_id=811466)が
-「延期」ではなく「event_idの作り直し」(1423946 → 1533881)であったことが判明した。
-既存の全ての自動取得経路は `fetch_event_ids_from_tournament(tournament_id, game_id)` で
-「今まさに有効なイベント一覧」を取得するだけで、過去に記録した event_id との差分検知を
-行っていないため、作り直された新しいイベントは自動的には一切発見されない。
+当初は「トーナメント単位でのイベント一覧差分検知」(旧User Story 1)と「空イベント
+ディレクトリの整理」(User Story 2)の2本立てで計画したが、第7回チバスマ交流会の
+実データ検証により、旧User Story 1が前提としていた「同一tournament_id内でのevent_id
+作り直し」という仮説が誤りだったことが判明した(実際は tournament_id=811466 →
+867504 という**別のトーナメント**が作られていた)。真の原因は
+`scripts/fetch/download.py` の `download_all_tournaments()`/`download_by_ids()` が
+`tournaments.jsonl` への記録を取得パイプライン完了後まで遅延させていたことであり、
+これは `004-fix-duplicate-events` の延長として直接修正した(本specの成果物ではない)。
 
-本機能では、ユーザーの明示的な指示に基づき、「置き換え」の対応関係を判定する複雑なロジックは
-持たず、代わりに2つの独立した仕組みを追加する: (1) `tournaments.jsonl` に記録済みの各
-トーナメントについて、start.gg側の現在のイベント一覧を定期的に再取得し、記録に無い新しい
-event_id を通常の取得と同じ手順で保存する(`scripts/fetch/` に新規スクリプト)。(2)
-`standings.json` と `matches.json` が両方とも空のイベントディレクトリを検出し削除する
-(`scripts/fix/` に新規スクリプト)。両者を組み合わせることで、置き換え判定なしに最終的な
-データセットが整理された状態に収束する。
+この修正により旧User Story 1は不要と判断し撤回した。本機能は
+**空イベントディレクトリの整理(`scripts/fix/prune_empty_events.py`)のみ**を対象とする。
 
 ## Technical Context
 
 **Language/Version**: Python 3.11(既存コードベースと統一)
 
-**Primary Dependencies**: 標準ライブラリのみ。既存の `scripts.fetch.download`
-(`fetch_event_ids_from_tournament`, `download_standings`, `download_seeds`,
-`download_all_set`, `write_event_attributes`, `get_date_parts`, `get_event_directory`,
-`count_guest_entrants`, `extend_user_info`)、`scripts.utils`
-(`fetch_data_with_retries`, `read_json`, `read_tournaments_jsonl`, `write_jsonl`,
-`read_users_jsonl`)を再利用する。新規サードパーティ依存は追加しない。
+**Primary Dependencies**: 標準ライブラリのみ。既存の `scripts.utils`
+(`read_json`, `read_tournaments_jsonl`, `write_jsonl`)を再利用する。新規サードパーティ
+依存は追加しない。
 
 **Storage**: `data/startgg/events/**`(既存ファイルベース)、`data/startgg/tournaments.jsonl`
-(既存)。新規カーソルファイル `data/startgg/tournament_event_sync_cursor.txt`
-(User Story 1 の循環スキャン用、既存の `schema_backfill_cursor.txt` と同じ仕組み)を追加。
+(既存)。新規の永続化ファイルは追加しない(旧User Story 1用に計画していたカーソル
+ファイルは、撤回に伴い不要)。
 
-**Testing**: `unittest`。新規モジュール `scripts/fetch/backfill_tournament_events.py` /
-`scripts/fix/prune_empty_events.py` それぞれに対応するテストファイルを新設する。
+**Testing**: `unittest`。`scripts/fix/prune_empty_events.py` に対応するテストファイルを
+新設する。
 
-**Target Platform**: GitHub Actions `ubuntu-latest`(新規ワークフロー、`chore-update` へ
-直接コミットする既存の `schema_backfill.yml` / `update_tournament.yml` / `update_user.yml`
-と同じ `concurrency: group: chore-update-branch` に参加させ、同時実行によるコミット
-競合を避ける)+ ローカル CLI 実行。
+**Target Platform**: GitHub Actions `ubuntu-latest`(新規ワークフロー
+`.github/workflows/prune_empty_events.yml`、`chore-update` へ直接コミットする既存の
+`schema_backfill.yml` / `update_tournament.yml` / `update_user.yml` と同じ
+`concurrency: group: chore-update-branch` に参加させる)+ ローカル CLI 実行。
+API呼び出しを伴わないため `STARTGG_TOKEN` は不要。
 
 **Project Type**: single project(CLI / データパイプラインスクリプト)。
 
-**Performance Goals**: User Story 1(API呼び出しを伴う)は既存の段階的バックフィルと同様、
-循環スキャン・カーソル永続化・1回あたりの処理件数上限により、一度に大量のAPI呼び出しが
-発生しないようにする。User Story 2(ローカルファイルの削除のみ、API呼び出し無し)は
-毎回全件スキャンしても実行コストが小さいため、循環スキャンは不要とする。
+**Performance Goals**: ローカルファイルの削除のみ(API呼び出し無し)のため、毎回全件
+スキャンしても実行コストが小さく、循環スキャン・カーソル永続化は不要。
 
-**Constraints**: 新規の独自リトライ・ページネーション実装は追加しない(Constitution V、
-既存の `fetch_data_with_retries` / `fetch_event_ids_from_tournament` を再利用)。
-ディレクトリ削除(User Story 2)は git 管理下で行われるため、誤って削除しても
-`git log` / `git checkout` で復元可能(004 の `record_event_path()` と同じ考え方)。
-スクリプトの役割分離規約(Constitution 開発ワークフロー節: `scripts/fetch/` は取得、
-`scripts/fix/` は補完・検証・修復)に従い、API呼び出しを伴う新規イベント発見は
-`scripts/fetch/`、ローカル削除のみの空イベント整理は `scripts/fix/` に配置する。
+**Constraints**: ディレクトリ削除は git 管理下で行われるため、誤って削除しても
+`git log` / `git checkout` で復元可能(`004` の `record_event_path()` と同じ考え方)。
+Constitution の役割分離規約に従い `scripts/fix/` に配置する。
 
-**Scale/Scope**: 新規ファイル2つ(`scripts/fetch/backfill_tournament_events.py`,
-`scripts/fix/prune_empty_events.py`)、対応するテストファイル2つ、新規ワークフロー1つ
-(`.github/workflows/tournament_event_sync.yml`)。既存ファイルへの変更は無し(004とは
-異なり、`download.py` や `backfill_schema_version.py` 自体は変更しない)。第7回チバスマ
-交流会1件のみ、本機能の検証ケースとして実際の解消を確認する。全トーナメントへの初回適用
-(未知数の既存の空ディレクトリの整理・未発見イベントの発見)は、新設する循環スキャンの
-通常サイクルに委ねる。
+**Scale/Scope**: 新規ファイル1つ(`scripts/fix/prune_empty_events.py`)、対応する
+テストファイル1つ、新規ワークフロー1つ(`.github/workflows/prune_empty_events.yml`)。
+第7回チバスマ交流会の旧event_id(1423946)ディレクトリ1件のみ、本機能の検証ケースとして
+実際の削除を確認する。
+
+**関連する別修正(本specのスコープ外、`004-fix-duplicate-events` の延長)**:
+`scripts/fetch/download.py` の `download_all_tournaments()` / `download_by_ids()` を、
+`tournaments.jsonl` への記録(`record_event_path()` 呼び出し)が取得処理開始前
+(event_idと保存先パスが判明した時点)に行われるよう修正した。これにより、取得が
+途中で失敗しても event_id とパスの対応関係だけは記録され、後続のバックフィル
+(`backfill_schema_version.py` 等)から復旧可能になる。
 
 ## Constitution Check
 
@@ -72,18 +66,16 @@ event_id を通常の取得と同じ手順で保存する(`scripts/fetch/` に�
 
 | Principle | 判定 | 根拠 |
 |---|---|---|
-| I. データスキーマの整合性とバージョニング | PASS | `attr.json` 等のスキーマ(フィールド)は変更しない。既存の取得・保存ロジック(`write_event_attributes` 等)をそのまま再利用するのみ。`EVENT_DATA_VERSION` のバンプは不要。 |
-| II. 冪等でインクリメンタルな収集 | PASS(実装タスクあり) | User Story 1 は同じ event_id を二重に取得しない(記録済み event_id 集合との差分のみ取得)。User Story 2 は既に削除済みのディレクトリに対して再実行しても no-op。 |
-| III. マージ前の検証ゲート(NON-NEGOTIABLE) | PASS(実装タスクあり) | 新規スクリプトそれぞれにテストを追加し、既存の `test_validate_data` 等が無変更で通ることを確認する。 |
-| IV. ブランチとオートメーションの規律 | PASS | 新規ワークフローも既存の `data_backfill.yml`/`schema_backfill.yml` と同じパターンで `chore-update` ブランチへのみ commit/push する。`main` への反映は既存のPR経由フローを踏襲。 |
-| V. 外部APIへの耐障害アクセス | PASS | 新規の独自リトライ・ページネーション実装は追加しない。`fetch_event_ids_from_tournament` 等、既存の `fetch_data_with_retries` 経由の関数をそのまま再利用する。 |
+| I. データスキーマの整合性とバージョニング | PASS | スキーマ変更なし。 |
+| II. 冪等でインクリメンタルな収集 | PASS | 既に削除済みのディレクトリに対して再実行しても no-op。 |
+| III. マージ前の検証ゲート(NON-NEGOTIABLE) | PASS(実装タスクあり) | `prune_empty_events.py` にテストを追加し、既存の `test_validate_data` 等が無変更で通ることを確認する。 |
+| IV. ブランチとオートメーションの規律 | PASS | 新規ワークフローも既存パターンで `chore-update` ブランチへのみ commit/push する。 |
+| V. 外部APIへの耐障害アクセス | PASS | API呼び出しを行わない。 |
 
 「大量の re-fetch や再構成を伴う破壊的なデータ移行を行う前に、対象範囲と想定される影響を
-PR 説明に明記する」(開発ワークフロー節): User Story 2(空ディレクトリ削除)は既存データに
-対する削除操作を伴う。初回ロールアウト時にどの程度の件数が削除対象になるか未知数のため、
-PR 説明に「初回実行時の対象件数は事前に把握できていない」旨と、削除は git 管理下で
-可逆的である旨を明記する。想定影響(新規ワークフローの追加、既存ワークフローへの変更は無し)
-も明記する。
+PR 説明に明記する」(開発ワークフロー節): 空ディレクトリ削除は既存データに対する削除操作を
+伴う。初回ロールアウト時の対象件数は未知数のため、PR 説明に明記し、削除は git 管理下で
+可逆的である旨も明記する。
 
 違反なし。Complexity Tracking への記載は不要。
 
@@ -98,7 +90,7 @@ specs/005-tournament-event-sync/
 ├── data-model.md        # Phase 1 output
 ├── quickstart.md        # Phase 1 output
 ├── contracts/           # Phase 1 output
-│   ├── tournament-event-discovery.md
+│   ├── tournament-event-discovery.md  # [撤回済み、旧User Story 1の記録として保持]
 │   └── empty-event-cleanup.md
 └── tasks.md             # Phase 2 output (/speckit-tasks command - NOT created here)
 ```
@@ -107,40 +99,33 @@ specs/005-tournament-event-sync/
 
 ```text
 scripts/
-├── fetch/
-│   └── backfill_tournament_events.py  # [NEW] tournaments.jsonl に記録済みの各
-│                                       #   トーナメントを循環スキャンし、
-│                                       #   fetch_event_ids_from_tournament() で
-│                                       #   現在のイベント一覧を再取得。記録済み
-│                                       #   event_id 集合に無い新しい event_id を
-│                                       #   検出し、既存の取得関数
-│                                       #   (download_standings 等)で新規保存する
-├── fix/
-│   └── prune_empty_events.py          # [NEW] events_root を全件スキャンし、
-│                                       #   standings.json と matches.json が
-│                                       #   両方とも空のディレクトリを削除。
-│                                       #   tournaments.jsonl から対応する
-│                                       #   イベント記録も取り除き書き戻す
-└── test/
-    ├── test_backfill_tournament_events.py  # [NEW]
-    └── test_prune_empty_events.py          # [NEW]
+└── fix/
+    └── prune_empty_events.py          # events_root を全件スキャンし、
+                                        #   standings.json と matches.json が
+                                        #   両方とも空のディレクトリを削除。
+                                        #   tournaments.jsonl から対応する
+                                        #   イベント記録も取り除き書き戻す
+
+scripts/test/
+└── test_prune_empty_events.py
 
 .github/workflows/
-└── tournament_event_sync.yml          # [NEW] chore-update ブランチへの定期実行
-                                        #   (schema_backfill.yml と同じパターン)
+└── prune_empty_events.yml             # chore-update ブランチへの定期実行
+                                        #   (schema_backfill.yml と同じパターン、
+                                        #   STARTGG_TOKEN不要)
 
-data/startgg/
-├── tournament_event_sync_cursor.txt   # [NEW] User Story 1 の循環スキャン用カーソル
-├── events/Japan/2025/08/16/第7回チバスマ交流会/  # [検証対象、コード修正の
-│                                       #   実行結果として削除されることを確認する]
-└── events/Japan/2026/02/07/第7回チバスマ交流会/  # [検証対象、event_id=1533881が
-                                        #   新規取得されることを確認する]
+data/startgg/events/Japan/2025/08/16/第7回チバスマ交流会/  # [検証対象、
+                                        #   コード修正の実行結果として削除される
+                                        #   ことを確認する]
 ```
 
-**Structure Decision**: 単一プロジェクト構成。Constitution の役割分離規約(`scripts/fetch/`
-= 取得、`scripts/fix/` = 補完・検証・修復)に従い、User Story 1(API呼び出しを伴う新規発見)
-と User Story 2(ローカル削除のみ)を別ファイルとして新設する。既存ファイル(`download.py`,
-`backfill_schema_version.py`)への変更は行わない。
+**撤回された成果物**(旧User Story 1、2026-08-18時点で削除済み):
+`scripts/fetch/backfill_tournament_events.py`、`scripts/test/test_backfill_tournament_events.py`、
+`.github/workflows/tournament_event_sync.yml`。`contracts/tournament-event-discovery.md`
+は撤回の経緯を残すため削除せずそのまま残す。
+
+**Structure Decision**: 単一プロジェクト構成。Constitution の役割分離規約に従い
+`scripts/fix/` に配置する。
 
 ## Complexity Tracking
 

@@ -364,6 +364,13 @@ def download_all_tournaments(
                     )
                     event_dir = get_event_directory(startgg_dir, country_code, year, month, day, tournament_name, event_name)
 
+                    # event_id とディレクトリの対応関係は、取得処理が始まる前の時点で
+                    # 判明しているため、その後の取得(seeds/matches/attr.json)が途中で
+                    # 失敗しても記録が残るよう、ここで先に記録しておく。
+                    if record_event_path(tournaments, tournament_id, event_id, event_name, event_dir, matches_only=matches_only):
+                        if tournament_id in existing_tournament_ids:
+                            rewrite_tournaments = True
+
                     if matches_only:
                         if not os.path.isdir(event_dir):
                             print(
@@ -1080,6 +1087,11 @@ def download_by_ids(
             print(f"Tournament {tournament_id}: processing event {event_id} ({event_name}).")
             year, month, day = get_date_parts(timestamp)
             event_dir = get_event_directory(startgg_dir, _country_code, year, month, day, tournament_name, event_name)
+
+            # event_id とディレクトリの対応関係は、取得処理が始まる前の時点で判明している
+            # ため、その後の取得(seeds/matches/attr.json)が途中で失敗しても記録が残るよう、
+            # ここで先に記録しておく。
+            record_event_path(tournaments, tournament_id, event_id, event_name, event_dir)
 
             try:
                 user_data, player_data, entrant2user = download_standings(event_id, event_dir)

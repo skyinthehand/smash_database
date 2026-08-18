@@ -1,14 +1,9 @@
-name: "StartGG: Tournament Event Sync"
+name: "StartGG: Prune Empty Events"
 
 on:
   schedule:
     - cron: "0 12 * * 0"
   workflow_dispatch:
-    inputs:
-      max_tournaments:
-        description: "Maximum number of tournaments to check in this run."
-        required: false
-        default: "200"
 
 concurrency:
   group: chore-update-branch
@@ -19,9 +14,9 @@ permissions:
   pull-requests: write
 
 jobs:
-  tournament-event-sync:
+  prune-empty-events:
     runs-on: ubuntu-latest
-    timeout-minutes: 120
+    timeout-minutes: 60
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -54,22 +49,7 @@ jobs:
         run: |
           set -euxo pipefail
           python -m unittest scripts.test.test_validate_data
-          python -m unittest scripts.test.test_backfill_tournament_events
           python -m unittest scripts.test.test_prune_empty_events
-
-      - name: Discover newly (re)created tournament events
-        id: discover
-        env:
-          STARTGG_TOKEN: ${{ secrets.STARTGG_TOKEN }}
-        run: |
-          set -euxo pipefail
-          MAX_TOURNAMENTS="${{ inputs.max_tournaments }}"
-          if [ -z "$MAX_TOURNAMENTS" ]; then
-            MAX_TOURNAMENTS="200"
-          fi
-          python scripts/fetch/backfill_tournament_events.py \
-            --token "$STARTGG_TOKEN" \
-            --max_tournaments "$MAX_TOURNAMENTS"
 
       - name: Prune empty event directories
         run: |
@@ -92,7 +72,7 @@ jobs:
         run: |
           set -euxo pipefail
           git add -A
-          git commit -m "chore(data): tournament event sync (batch)"
+          git commit -m "chore(data): prune empty event directories"
           for attempt in 1 2 3; do
             if git push --set-upstream origin chore-update; then
               exit 0

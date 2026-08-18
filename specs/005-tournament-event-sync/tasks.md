@@ -3,17 +3,27 @@
 description: "Task list for 005-tournament-event-sync"
 ---
 
-# Tasks: トーナメント単位でのイベント作り直し検知と空イベントの整理
+# Tasks: 空イベントディレクトリの整理
+
+**⚠️ 2026-08-18 再スコープ**: 実データ検証の結果、Phase 2(User Story 1、旧称
+「トーナメント単位でのイベント作り直し検知」)は誤った前提(同一tournament_id内での
+event_id作り直し)に基づいていたことが判明したため**撤回**した。真の原因は
+`tournaments.jsonl` への記録タイミングの遅さであり、`004-fix-duplicate-events` の
+延長として `scripts/fetch/download.py` を直接修正した(T029-T031、本ファイル末尾)。
+Phase 2 の実装(`scripts/fetch/backfill_tournament_events.py` 等)は削除済み(T032)。
+Phase 3(空イベントディレクトリの整理)は撤回の影響を受けず、そのまま有効。
+経緯は spec.md の User Scenarios / Clarifications を参照。
 
 **Input**: Design documents from `/specs/005-tournament-event-sync/`
 
 **Prerequisites**: plan.md, spec.md, research.md, data-model.md,
-contracts/tournament-event-discovery.md, contracts/empty-event-cleanup.md, quickstart.md
+contracts/empty-event-cleanup.md, quickstart.md
+(`contracts/tournament-event-discovery.md` は撤回済み、経緯の記録として保持)
 
 **Tests**: Constitution Principle III(検証ゲート、NON-NEGOTIABLE)により、新規ロジックには
 テストを追加する。テストタスクを含む。
 
-**Organization**: タスクは spec.md の User Story 1・2 ごとにグループ化。
+**Organization**: タスクは spec.md の(旧)User Story 1・2 ごとにグループ化(Phase 2 は撤回済み)。
 
 ## Format: `[ID] [P?] [Story] Description`
 
@@ -42,9 +52,14 @@ Structure 参照)。既存ファイル(`download.py`, `backfill_schema_version.p
 
 ---
 
-## Phase 2: User Story 1 - トーナメント単位でイベントの作り直しを検知し、新しいイベントを取得する (Priority: P1) 🎯 MVP
+## Phase 2: User Story 1(撤回) - トーナメント単位でイベントの作り直しを検知し、新しいイベントを取得する
 
-**Goal**: `tournaments.jsonl` に記録済みの各トーナメント(記録イベント数0件を含む)について、
+**⚠️ 撤回(2026-08-18)**: 以下のT002-T013は実装・全テストパス済みだったが、実データ検証で
+前提(同一tournament_id内でのevent_id作り直し)が誤りと判明したため撤回した。
+`scripts/fetch/backfill_tournament_events.py` と `scripts/test/test_backfill_tournament_events.py`
+は削除済み(T032)。タスクの記録は経緯を残すためチェック状態を含めそのまま保持する。
+
+**Goal**(撤回前の計画): `tournaments.jsonl` に記録済みの各トーナメント(記録イベント数0件を含む)について、
 start.gg側の現在のイベント一覧を再取得し、記録に無い新しい event_id を発見して通常の
 取得手順で保存する。
 
@@ -162,30 +177,53 @@ start.gg側の現在のイベント一覧を再取得し、記録に無い新し
 
 ## Phase 4: Polish & Cross-Cutting Concerns
 
-- [X] T025 [P] `.github/workflows/tournament_event_sync.yml` を新規作成する。
-      `schema_backfill.yml` と同じ `concurrency: group: chore-update-branch` に参加させ、
-      `cron: "0 12 * * 0"`(毎週日曜 12:00 UTC)で
-      `scripts/fetch/backfill_tournament_events.py` と `scripts/fix/prune_empty_events.py
-      --apply` を順に実行し、`chore-update` へコミット・pushする(既存ワークフローと
-      同じ `git config`/`checkout -B chore-update`/コミット・push パターンを踏襲)
+- [X]~~T025~~ [P] (撤回) `.github/workflows/tournament_event_sync.yml` を新規作成する。
+      → **削除済み(T032)**。空イベント整理のみを行う `.github/workflows/prune_empty_events.yml`
+      に置き換えた(STARTGG_TOKEN不要、`cron: "0 12 * * 0"` は維持)。
 - [X] T026 [P] `python -m unittest discover -s scripts/test -p "test_*.py"` を実行し、
       本機能で追加したテストを含む全テストスイートがパスすることを確認する(74 tests, OK)
-- [X] T028 (計画外・T027の実データ検証中に発見) `run_tournament_event_sync()` は
-      カーソルベースで `tournament_id` の昇順に巡回するため、特定のトーナメント
-      (第7回チバスマ交流会 tournament_id=811466)を手動検証したくても、カーソルが
-      たまたまそこに到達するまで実行を繰り返す以外に手段が無いことが実機検証で判明した。
-      `004-fix-duplicate-events` の `download_by_ids()` の `--tournament_ids` と同様、
-      `scripts/fetch/backfill_tournament_events.py` に `sync_specific_tournaments()` と
-      `--tournament_ids` オプションを追加し、指定した tournament_id のみを即座に
-      チェックできるようにした(共有ヘルパー `_sync_one_tournament()` に切り出し、
-      `run_tournament_event_sync()` と重複なく共用)。テスト2件追加、全76 tests, OK
-- [ ] T027 `quickstart.md` 手順2(第7回チバスマ交流会での実データ検証: event_id=1533881
-      の新規取得、event_id=1423946 の空ディレクトリ削除)を実際の `STARTGG_TOKEN` で
-      行い、目視確認する
-      **未実施**: 本セッションのサンドボックス環境には実際の `STARTGG_TOKEN` / start.gg への
-      実ネットワークアクセスが無いため実行不可。マージ前またはマージ後、実環境
-      (ローカル or GitHub Actions の `workflow_dispatch` 手動実行)で人手による実施が
-      必要(`003-attr-end-at` の T018、`004-fix-duplicate-events` の T024 と同様の制約)。
+      (Phase 2 撤回後の現在は68 tests、T031参照)
+- [X]~~T028~~ (計画外・T027の実データ検証中に発見、後に撤回) `run_tournament_event_sync()` に
+      `sync_specific_tournaments()` と `--tournament_ids` オプションを追加した。
+      → `backfill_tournament_events.py` 自体の削除(T032)に伴い、この追加も撤回された。
+- [X] T027 `quickstart.md` 手順2(第7回チバスマ交流会での実データ検証)を実施した結果、
+      当初の想定(`backfill_tournament_events.py` による自動発見)とは異なる形で判明・解決した:
+      - event_id=1533881(tournament_id=867504、旧811466とは別レコード)は
+        `scripts/fix/redownload_event.py --event-id 1533881 --yes` で手動取得済み、
+        `attr.json` 作成済み(この過程で真の原因=記録タイミング問題を発見、T029-T031で修正)
+      - event_id=1423946(tournament_id=811466、実データ無し)のディレクトリ削除は
+        `scripts/fix/prune_empty_events.py --apply` の実行待ち(**未実施**、実環境での
+        人手実行が必要)
+
+---
+
+## 事後修正: `tournaments.jsonl` への記録タイミングの是正(2026-08-18)
+
+実データ検証により判明した真の根本原因(`download_all_tournaments()`/`download_by_ids()`が
+`tournaments.jsonl`への記録を取得パイプライン完了後まで遅延させていたこと)への対応。
+`004-fix-duplicate-events`で実装した`record_event_path()`を、取得処理の**前**に
+呼び出すよう変更した。
+
+- [X] T029 `scripts/test/test_download.py` に、`download_all_tournaments()`が
+      大規模イベント処理(matches取得)の失敗後も、event_idと保存先パスの対応関係が
+      `tournaments.jsonl`に記録され続けることを確認するテストを追加(
+      `test_download_all_tournaments_records_event_path_before_fetch_even_if_later_step_fails`)。
+      あわせて`download_by_ids()`版も追加(
+      `test_download_by_ids_records_event_path_before_fetch_even_if_standings_fails`)
+- [X] T030 `scripts/fetch/download.py`の`download_all_tournaments()`・`download_by_ids()`
+      の両方で、`record_event_path()`呼び出しを`event_dir`確定直後(取得処理を開始する前)に
+      移動。既存の(取得完了後の)呼び出しはそのまま残し、延期による再配置(`004`の
+      関心事)の完了検知に使う(2回目の呼び出しは新規イベントに対しては no-op)
+- [X] T031 全テストスイート実行、38 tests (test_download.py), 68 tests (discover全体), OK
+
+## 事後整理: 撤回された成果物の削除(2026-08-18)
+
+- [X] T032 `scripts/fetch/backfill_tournament_events.py`、
+      `scripts/test/test_backfill_tournament_events.py`、
+      `.github/workflows/tournament_event_sync.yml`、孤児化したカーソルファイル
+      `data/startgg/tournament_event_sync_cursor.txt` を削除。
+      `.github/workflows/prune_empty_events.yml`(空イベント整理のみ、STARTGG_TOKEN不要)を
+      新規作成して置き換えた
 
 ---
 
