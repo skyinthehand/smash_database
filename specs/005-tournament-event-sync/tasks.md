@@ -170,6 +170,15 @@ start.gg側の現在のイベント一覧を再取得し、記録に無い新し
       同じ `git config`/`checkout -B chore-update`/コミット・push パターンを踏襲)
 - [X] T026 [P] `python -m unittest discover -s scripts/test -p "test_*.py"` を実行し、
       本機能で追加したテストを含む全テストスイートがパスすることを確認する(74 tests, OK)
+- [X] T028 (計画外・T027の実データ検証中に発見) `run_tournament_event_sync()` は
+      カーソルベースで `tournament_id` の昇順に巡回するため、特定のトーナメント
+      (第7回チバスマ交流会 tournament_id=811466)を手動検証したくても、カーソルが
+      たまたまそこに到達するまで実行を繰り返す以外に手段が無いことが実機検証で判明した。
+      `004-fix-duplicate-events` の `download_by_ids()` の `--tournament_ids` と同様、
+      `scripts/fetch/backfill_tournament_events.py` に `sync_specific_tournaments()` と
+      `--tournament_ids` オプションを追加し、指定した tournament_id のみを即座に
+      チェックできるようにした(共有ヘルパー `_sync_one_tournament()` に切り出し、
+      `run_tournament_event_sync()` と重複なく共用)。テスト2件追加、全76 tests, OK
 - [ ] T027 `quickstart.md` 手順2(第7回チバスマ交流会での実データ検証: event_id=1533881
       の新規取得、event_id=1423946 の空ディレクトリ削除)を実際の `STARTGG_TOKEN` で
       行い、目視確認する

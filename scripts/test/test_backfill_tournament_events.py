@@ -175,6 +175,35 @@ class BackfillTournamentEventsTests(unittest.TestCase):
         self.assertEqual(content_before, content_after)
         self.assertTrue(mock_find.called)
 
+    # -- US1: sync_specific_tournaments(カーソルを使わない直接指定) ----------------
+
+    @patch("scripts.fetch.backfill_tournament_events.find_new_event_ids")
+    def test_sync_specific_tournaments_checks_only_requested_ids(self, mock_find):
+        mock_find.return_value = []
+        tournaments = make_tournaments(5)
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            tournament_file_path = f"{tmpdir}/tournaments.jsonl"
+            write_tournaments_jsonl(tournament_file_path, tournaments)
+
+            bte.sync_specific_tournaments(
+                [3], tournament_file_path, tmpdir, f"{tmpdir}/users.jsonl", "1386"
+            )
+
+        checked_ids = [call.args[0] for call in mock_find.call_args_list]
+        self.assertEqual(checked_ids, [3])
+
+    def test_sync_specific_tournaments_skips_unknown_tournament_id_without_raising(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            tournament_file_path = f"{tmpdir}/tournaments.jsonl"
+            write_tournaments_jsonl(tournament_file_path, make_tournaments(1))
+
+            summary = bte.sync_specific_tournaments(
+                [999], tournament_file_path, tmpdir, f"{tmpdir}/users.jsonl", "1386"
+            )
+
+        self.assertEqual(summary, {"tournaments_checked": 0, "new_events_found": 0})
+
 
 if __name__ == "__main__":
     unittest.main()

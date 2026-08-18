@@ -182,6 +182,65 @@ def save_new_event(
 # 循環スキャン本体
 # ---------------------------------------------------------------------------
 
+def _sync_one_tournament(
+    tournament_id: int,
+    tournament_entry: dict,
+    tournaments: dict,
+    startgg_dir: str,
+    users: dict,
+    users_file_path: str,
+    game_id: str,
+) -> int:
+    """1トーナメント分の差分検出・新規イベント保存を行い、保存できた件数を返す。"""
+    recorded_event_ids = {e.get("event_id") for e in tournament_entry.get("events", [])}
+    new_event_ids = find_new_event_ids(tournament_id, game_id, recorded_event_ids)
+    saved = 0
+    for event_id in new_event_ids:
+        if save_new_event(
+            tournament_id, tournament_entry.get("name") or "Unknown Tournament", event_id,
+            "", startgg_dir, tournaments, users, users_file_path,
+        ):
+            saved += 1
+    return saved
+
+
+def sync_specific_tournaments(
+    tournament_ids: list[int],
+    tournament_file_path: str,
+    startgg_dir: str,
+    users_file_path: str,
+    game_id: str,
+) -> dict:
+    """指定した tournament_id のみを対象に新しい event_id を検出・取得する。
+
+    カーソルを使わず `tournaments.jsonl` に記録済みの全トーナメントを巡回する
+    `run_tournament_event_sync()` とは異なり、手動検証やピンポイントな再実行
+    (`004-fix-duplicate-events` の `download_by_ids()` の `--tournament_ids` と
+    同様の用途)のために、指定した tournament_id だけを即座にチェックする。
+
+    {"tournaments_checked": int, "new_events_found": int}
+    """
+    tournaments = read_tournaments_jsonl(tournament_file_path)
+    users = read_users_jsonl(users_file_path)
+
+    checked = 0
+    new_events_found = 0
+    for tournament_id in tournament_ids:
+        tournament_entry = tournaments.get(tournament_id)
+        if tournament_entry is None:
+            print(f"[{tournament_id}] not found in {tournament_file_path}; skipping.", file=sys.stderr)
+            continue
+        new_events_found += _sync_one_tournament(
+            tournament_id, tournament_entry, tournaments, startgg_dir, users, users_file_path, game_id
+        )
+        checked += 1
+
+    if new_events_found > 0:
+        write_jsonl(list(tournaments.values()), tournament_file_path, with_version=True)
+
+    return {"tournaments_checked": checked, "new_events_found": new_events_found}
+
+
 def run_tournament_event_sync(
     tournament_file_path: str,
     cursor_path: Path,
@@ -221,15 +280,10 @@ def run_tournament_event_sync(
             wrapped_around = True
         tournament_id = tournament_ids[index]
         tournament_entry = tournaments[tournament_id]
-        recorded_event_ids = {e.get("event_id") for e in tournament_entry.get("events", [])}
 
-        new_event_ids = find_new_event_ids(tournament_id, game_id, recorded_event_ids)
-        for event_id in new_event_ids:
-            if save_new_event(
-                tournament_id, tournament_entry.get("name") or "Unknown Tournament", event_id,
-                "", startgg_dir, tournaments, users, users_file_path,
-            ):
-                new_events_found += 1
+        new_events_found += _sync_one_tournament(
+            tournament_id, tournament_entry, tournaments, startgg_dir, users, users_file_path, game_id
+        )
 
         checked += 1
         last_index = index
@@ -271,6 +325,11 @@ def main() -> int:
         default=200,
         help="Maximum number of tournaments to check in a single run (0 means unlimited).",
     )
+    parser.add_argument(
+        "--tournament_ids",
+        default=None,
+        help="Comma-separated tournament IDs to check directly, bypassing the cursor-based scan.",
+    )
     parser.add_argument("--url", default="https://api.start.gg/gql/alpha", help="API URL")
     parser.add_argument("--max_retries", type=int, default=20, help="Maximum number of retries for API requests")
     parser.add_argument("--retry_delay", type=int, default=5, help="Delay between retries in seconds")
@@ -280,6 +339,17 @@ def main() -> int:
     set_indent_num(args.indent_num)
     set_retry_parameters(args.max_retries, args.retry_delay)
     set_api_parameters(args.url, args.token)
+
+    if args.tournament_ids:
+        tournament_id_list = [int(tid.strip()) for tid in args.tournament_ids.split(",") if tid.strip()]
+        summary = sync_specific_tournaments(
+            tournament_id_list, args.tournament_file_path, args.events_root, args.users_file_path, args.game_id,
+        )
+        print(
+            f"Done. tournaments_checked={summary['tournaments_checked']} "
+            f"new_events_found={summary['new_events_found']}"
+        )
+        return 0
 
     cursor_path = Path(args.cursor_path)
 

@@ -40,7 +40,7 @@ grep -A3 '"tournament_id": 811466' data/startgg/tournaments.jsonl
 
 ```bash
 # User Story 1: 新しいevent_id(1533881)を発見・取得
-python3 scripts/fetch/backfill_tournament_events.py --token "$STARTGG_TOKEN" --max_tournaments 1
+python3 scripts/fetch/backfill_tournament_events.py --token "$STARTGG_TOKEN" --tournament_ids 811466
 
 # User Story 2: 空のディレクトリ(event_id=1423946)を削除
 python3 scripts/fix/prune_empty_events.py --apply
