@@ -1,3 +1,4 @@
+import calendar
 import json
 import os
 import tempfile
@@ -12,15 +13,25 @@ from scripts.fetch.download import (
     count_guest_entrants,
     dedupe_set_nodes,
     download_all_tournaments,
+    download_by_ids,
     fetch_all_phase_groups,
     fetch_all_sets,
+    fetch_event_ids_from_tournament,
     get_event_directory,
     load_excluded_phase_ids,
+    record_event_path,
     should_skip_tournament,
     write_event_attributes,
     write_matches,
 )
-from scripts.utils import EVENT_DATA_VERSION, FetchError, read_json
+from scripts.utils import (
+    EVENT_DATA_VERSION,
+    FetchError,
+    MaxPagesExceededError,
+    NoEventsForGameError,
+    read_json,
+    read_tournaments_jsonl,
+)
 
 
 class DownloadTests(unittest.TestCase):
@@ -383,6 +394,557 @@ class DownloadTests(unittest.TestCase):
         with patch("scripts.fetch.download.event_files_complete", return_value=False):
             self.assertFalse(should_skip_tournament(1, tournaments, {1}, force_refresh=False))
 
+    def test_should_not_skip_tournament_when_recorded_date_differs_from_current(self):
+        tournaments = {
+            1: {
+                "events": [
+                    {"path": "data/startgg/events/Japan/2025/08/16/T/E"},
+                ]
+            }
+        }
+
+        with patch("scripts.fetch.download.event_files_complete", return_value=True):
+            self.assertFalse(
+                should_skip_tournament(
+                    1, tournaments, {1}, force_refresh=False,
+                    current_date_parts=("2026", "02", "07"),
+                )
+            )
+
+    def test_should_skip_tournament_when_recorded_date_matches_current(self):
+        tournaments = {
+            1: {
+                "events": [
+                    {"path": "data/startgg/events/Japan/2025/08/16/T/E"},
+                ]
+            }
+        }
+
+        with patch("scripts.fetch.download.event_files_complete", return_value=True):
+            self.assertTrue(
+                should_skip_tournament(
+                    1, tournaments, {1}, force_refresh=False,
+                    current_date_parts=("2025", "08", "16"),
+                )
+            )
+
+    @patch("scripts.fetch.download.fetch_data_with_retries")
+    def test_fetch_event_ids_from_tournament_raises_no_events_error_when_events_null_without_graphql_errors(
+        self, mock_fetch
+    ):
+        # errors が無いのに events だけ null ということは、クエリは正常完了した上で
+        # 対象ゲームのイベントが0件だったと判断できる → 専用の例外(NoEventsForGameError)。
+        mock_fetch.return_value = {
+            "data": {"tournament": {"id": 811466, "name": "Test Tournament", "events": None}}
+        }
+
+        with self.assertRaises(NoEventsForGameError):
+            fetch_event_ids_from_tournament(811466, "1386")
+
+    @patch("scripts.fetch.download.fetch_data_with_retries")
+    def test_fetch_event_ids_from_tournament_raises_plain_fetch_error_when_events_null_with_graphql_errors(
+        self, mock_fetch
+    ):
+        # errors が付いている場合は解決に失敗した(=確認不能)ため、区別せず通常のFetchError。
+        mock_fetch.return_value = {
+            "data": {"tournament": {"id": 811466, "name": "Test Tournament", "events": None}},
+            "errors": [{"message": "internal error resolving events"}],
+        }
+
+        with self.assertRaises(FetchError) as ctx:
+            fetch_event_ids_from_tournament(811466, "1386")
+        self.assertNotIsInstance(ctx.exception, NoEventsForGameError)
+
+    # -- record_event_path (US1/US3 共有ヘルパー) ---------------------------
+
+    def test_record_event_path_appends_new_entry(self):
+        tournaments = {1: {"tournament_id": 1, "name": "T", "events": []}}
+
+        changed = record_event_path(tournaments, 1, 10, "Singles", "new-dir")
+
+        self.assertTrue(changed)
+        self.assertEqual(
+            tournaments[1]["events"],
+            [{"event_id": 10, "event_name": "Singles", "path": "new-dir"}],
+        )
+
+    def test_record_event_path_does_not_append_when_matches_only(self):
+        tournaments = {1: {"tournament_id": 1, "name": "T", "events": []}}
+
+        changed = record_event_path(tournaments, 1, 10, "Singles", "new-dir", matches_only=True)
+
+        self.assertFalse(changed)
+        self.assertEqual(tournaments[1]["events"], [])
+
+    def test_record_event_path_is_noop_when_path_unchanged(self):
+        tournaments = {
+            1: {"tournament_id": 1, "name": "T", "events": [{"event_id": 10, "event_name": "Singles", "path": "same-dir"}]}
+        }
+
+        with patch("scripts.fetch.download.event_files_complete", return_value=True) as mock_complete:
+            changed = record_event_path(tournaments, 1, 10, "Singles", "same-dir")
+
+        self.assertFalse(changed)
+        mock_complete.assert_not_called()
+
+    def test_record_event_path_relocates_when_new_directory_is_complete(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            old_dir = os.path.join(tmpdir, "old")
+            new_dir = os.path.join(tmpdir, "new")
+            os.makedirs(old_dir, exist_ok=True)
+            with open(os.path.join(old_dir, "marker.json"), "w", encoding="utf-8") as f:
+                f.write("{}")
+
+            tournaments = {
+                1: {"tournament_id": 1, "name": "T", "events": [{"event_id": 10, "event_name": "Singles", "path": old_dir}]}
+            }
+
+            with patch("scripts.fetch.download.event_files_complete", return_value=True):
+                changed = record_event_path(tournaments, 1, 10, "Singles", new_dir)
+
+            self.assertTrue(changed)
+            self.assertEqual(tournaments[1]["events"][0]["path"], new_dir)
+            self.assertFalse(os.path.isdir(old_dir))
+
+    def test_record_event_path_keeps_old_directory_when_new_directory_incomplete(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            old_dir = os.path.join(tmpdir, "old")
+            new_dir = os.path.join(tmpdir, "new")
+            os.makedirs(old_dir, exist_ok=True)
+
+            tournaments = {
+                1: {"tournament_id": 1, "name": "T", "events": [{"event_id": 10, "event_name": "Singles", "path": old_dir}]}
+            }
+
+            with patch("scripts.fetch.download.event_files_complete", return_value=False):
+                changed = record_event_path(tournaments, 1, 10, "Singles", new_dir)
+
+            self.assertFalse(changed)
+            self.assertEqual(tournaments[1]["events"][0]["path"], old_dir)
+            self.assertTrue(os.path.isdir(old_dir))
+
+    def test_record_event_path_does_not_touch_unrelated_event_id(self):
+        # FR-008: たまたま別イベントが記録されていても、異なる event_id は重複とみなさない。
+        tournaments = {
+            1: {
+                "tournament_id": 1,
+                "name": "T",
+                "events": [{"event_id": 99, "event_name": "Singles", "path": "unrelated-dir"}],
+            }
+        }
+
+        with patch("scripts.fetch.download.event_files_complete", return_value=True):
+            changed = record_event_path(tournaments, 1, 100, "Doubles", "another-dir")
+
+        self.assertTrue(changed)
+        self.assertEqual(
+            tournaments[1]["events"],
+            [
+                {"event_id": 99, "event_name": "Singles", "path": "unrelated-dir"},
+                {"event_id": 100, "event_name": "Doubles", "path": "another-dir"},
+            ],
+        )
+
+    @patch("scripts.fetch.download.event_files_complete", return_value=True)
+    @patch("scripts.fetch.download.read_set", return_value=set())
+    @patch("scripts.fetch.download.read_users_jsonl", return_value={})
+    @patch("scripts.fetch.download.fetch_latest_tournaments_by_game")
+    @patch("scripts.fetch.download.fetch_event_ids_from_tournament")
+    @patch("scripts.fetch.download.download_all_set")
+    @patch("scripts.fetch.download.download_standings")
+    @patch("scripts.fetch.download.download_seeds")
+    @patch("scripts.fetch.download.extend_user_info")
+    @patch("scripts.fetch.download.write_done_tournaments")
+    def test_download_all_tournaments_relocates_event_when_start_date_changes(
+        self,
+        _mock_write_done,
+        _mock_extend_user_info,
+        _mock_download_seeds,
+        mock_download_standings,
+        _mock_download_all_set,
+        mock_fetch_event_ids,
+        mock_fetch_tournaments,
+        _mock_read_users,
+        _mock_read_set,
+        _mock_event_files_complete,
+    ):
+        new_start = calendar.timegm((2026, 2, 7, 9, 0, 0, 0, 0, 0))
+        new_end = calendar.timegm((2026, 2, 7, 12, 0, 0, 0, 0, 0))
+        mock_fetch_tournaments.return_value = (
+            [
+                {
+                    "id": 1,
+                    "name": "Test Tournament",
+                    "startAt": new_start,
+                    "endAt": new_end,
+                    "countryCode": "JP",
+                    "city": "Chiba",
+                    "lat": None,
+                    "lng": None,
+                    "venueName": None,
+                    "timezone": "Asia/Tokyo",
+                    "postalCode": None,
+                    "venueAddress": None,
+                    "mapsPlaceId": None,
+                    "url": "https://example.com",
+                }
+            ],
+            1,
+        )
+        mock_fetch_event_ids.return_value = [(10, "Singles", False)]
+        mock_download_standings.return_value = ([], [], {})
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            old_event_dir = get_event_directory(tmpdir, "JP", "2025", "08", "16", "Test Tournament", "Singles")
+            os.makedirs(old_event_dir, exist_ok=True)
+            with open(os.path.join(old_event_dir, "marker.json"), "w", encoding="utf-8") as f:
+                f.write("{}")
+
+            tournament_file_path = f"{tmpdir}/tournaments.jsonl"
+            with open(tournament_file_path, "w", encoding="utf-8") as f:
+                json.dump(
+                    {
+                        "tournament_id": 1,
+                        "name": "Test Tournament",
+                        "events": [{"event_id": 10, "event_name": "Singles", "path": old_event_dir}],
+                        "version": "1.0",
+                    },
+                    f,
+                )
+                f.write("\n")
+
+            new_event_dir = get_event_directory(tmpdir, "JP", "2026", "02", "07", "Test Tournament", "Singles")
+            os.makedirs(new_event_dir, exist_ok=True)
+
+            download_all_tournaments(
+                "1386",
+                "JP",
+                datetime(2026, 2, 7, 23, 59, 59),
+                datetime(2026, 2, 7, 0, 0, 0),
+                f"{tmpdir}",
+                f"{tmpdir}/done.csv",
+                f"{tmpdir}/users.jsonl",
+                tournament_file_path,
+                force_refresh=True,
+            )
+
+            self.assertFalse(os.path.isdir(old_event_dir))
+            self.assertTrue(os.path.isfile(os.path.join(new_event_dir, "attr.json")))
+
+            updated = read_tournaments_jsonl(tournament_file_path)
+            self.assertEqual(updated[1]["events"][0]["path"], new_event_dir)
+
+    @patch("scripts.fetch.download.event_files_complete", return_value=False)
+    @patch("scripts.fetch.download.read_set", return_value=set())
+    @patch("scripts.fetch.download.read_users_jsonl", return_value={})
+    @patch("scripts.fetch.download.fetch_latest_tournaments_by_game")
+    @patch("scripts.fetch.download.fetch_event_ids_from_tournament")
+    @patch("scripts.fetch.download.download_all_set")
+    @patch("scripts.fetch.download.download_standings")
+    @patch("scripts.fetch.download.download_seeds")
+    @patch("scripts.fetch.download.extend_user_info")
+    @patch("scripts.fetch.download.write_done_tournaments")
+    def test_download_all_tournaments_keeps_old_directory_when_new_directory_incomplete(
+        self,
+        _mock_write_done,
+        _mock_extend_user_info,
+        _mock_download_seeds,
+        mock_download_standings,
+        _mock_download_all_set,
+        mock_fetch_event_ids,
+        mock_fetch_tournaments,
+        _mock_read_users,
+        _mock_read_set,
+        _mock_event_files_complete,
+    ):
+        new_start = calendar.timegm((2026, 2, 7, 9, 0, 0, 0, 0, 0))
+        new_end = calendar.timegm((2026, 2, 7, 12, 0, 0, 0, 0, 0))
+        mock_fetch_tournaments.return_value = (
+            [
+                {
+                    "id": 1,
+                    "name": "Test Tournament",
+                    "startAt": new_start,
+                    "endAt": new_end,
+                    "countryCode": "JP",
+                    "city": "Chiba",
+                    "lat": None,
+                    "lng": None,
+                    "venueName": None,
+                    "timezone": "Asia/Tokyo",
+                    "postalCode": None,
+                    "venueAddress": None,
+                    "mapsPlaceId": None,
+                    "url": "https://example.com",
+                }
+            ],
+            1,
+        )
+        mock_fetch_event_ids.return_value = [(10, "Singles", False)]
+        mock_download_standings.return_value = ([], [], {})
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            old_event_dir = get_event_directory(tmpdir, "JP", "2025", "08", "16", "Test Tournament", "Singles")
+            os.makedirs(old_event_dir, exist_ok=True)
+            with open(os.path.join(old_event_dir, "marker.json"), "w", encoding="utf-8") as f:
+                f.write("{}")
+
+            tournament_file_path = f"{tmpdir}/tournaments.jsonl"
+            with open(tournament_file_path, "w", encoding="utf-8") as f:
+                json.dump(
+                    {
+                        "tournament_id": 1,
+                        "name": "Test Tournament",
+                        "events": [{"event_id": 10, "event_name": "Singles", "path": old_event_dir}],
+                        "version": "1.0",
+                    },
+                    f,
+                )
+                f.write("\n")
+
+            new_event_dir = get_event_directory(tmpdir, "JP", "2026", "02", "07", "Test Tournament", "Singles")
+            os.makedirs(new_event_dir, exist_ok=True)
+
+            download_all_tournaments(
+                "1386",
+                "JP",
+                datetime(2026, 2, 7, 23, 59, 59),
+                datetime(2026, 2, 7, 0, 0, 0),
+                f"{tmpdir}",
+                f"{tmpdir}/done.csv",
+                f"{tmpdir}/users.jsonl",
+                tournament_file_path,
+                force_refresh=True,
+            )
+
+            self.assertTrue(os.path.isdir(old_event_dir))
+            updated = read_tournaments_jsonl(tournament_file_path)
+            self.assertEqual(updated[1]["events"][0]["path"], old_event_dir)
+
+    @patch("scripts.fetch.download.event_files_complete", return_value=True)
+    @patch("scripts.fetch.download.read_set", return_value=set())
+    @patch("scripts.fetch.download.read_users_jsonl", return_value={})
+    @patch("scripts.fetch.download.fetch_latest_tournaments_by_game")
+    @patch("scripts.fetch.download.fetch_event_ids_from_tournament")
+    @patch("scripts.fetch.download.download_all_set")
+    @patch("scripts.fetch.download.download_standings")
+    @patch("scripts.fetch.download.download_seeds")
+    @patch("scripts.fetch.download.extend_user_info")
+    @patch("scripts.fetch.download.write_done_tournaments")
+    def test_download_all_tournaments_does_not_touch_untracked_duplicate_directory(
+        self,
+        _mock_write_done,
+        _mock_extend_user_info,
+        _mock_download_seeds,
+        mock_download_standings,
+        _mock_download_all_set,
+        mock_fetch_event_ids,
+        mock_fetch_tournaments,
+        _mock_read_users,
+        _mock_read_set,
+        _mock_event_files_complete,
+    ):
+        # 3件以上重複しているケース(tournaments.jsonlが参照しているのは1件のみ)で、
+        # どこからも参照されていない中間ディレクトリには手を出さないことを確認する(Edge Case)。
+        new_start = calendar.timegm((2026, 2, 7, 9, 0, 0, 0, 0, 0))
+        new_end = calendar.timegm((2026, 2, 7, 12, 0, 0, 0, 0, 0))
+        mock_fetch_tournaments.return_value = (
+            [
+                {
+                    "id": 1,
+                    "name": "Test Tournament",
+                    "startAt": new_start,
+                    "endAt": new_end,
+                    "countryCode": "JP",
+                    "city": "Chiba",
+                    "lat": None,
+                    "lng": None,
+                    "venueName": None,
+                    "timezone": "Asia/Tokyo",
+                    "postalCode": None,
+                    "venueAddress": None,
+                    "mapsPlaceId": None,
+                    "url": "https://example.com",
+                }
+            ],
+            1,
+        )
+        mock_fetch_event_ids.return_value = [(10, "Singles", False)]
+        mock_download_standings.return_value = ([], [], {})
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            tracked_old_dir = get_event_directory(tmpdir, "JP", "2025", "08", "16", "Test Tournament", "Singles")
+            untracked_middle_dir = get_event_directory(tmpdir, "JP", "2025", "11", "01", "Test Tournament", "Singles")
+            os.makedirs(tracked_old_dir, exist_ok=True)
+            os.makedirs(untracked_middle_dir, exist_ok=True)
+            with open(os.path.join(untracked_middle_dir, "marker.json"), "w", encoding="utf-8") as f:
+                f.write("{}")
+
+            tournament_file_path = f"{tmpdir}/tournaments.jsonl"
+            with open(tournament_file_path, "w", encoding="utf-8") as f:
+                json.dump(
+                    {
+                        "tournament_id": 1,
+                        "name": "Test Tournament",
+                        "events": [{"event_id": 10, "event_name": "Singles", "path": tracked_old_dir}],
+                        "version": "1.0",
+                    },
+                    f,
+                )
+                f.write("\n")
+
+            new_event_dir = get_event_directory(tmpdir, "JP", "2026", "02", "07", "Test Tournament", "Singles")
+            os.makedirs(new_event_dir, exist_ok=True)
+
+            download_all_tournaments(
+                "1386",
+                "JP",
+                datetime(2026, 2, 7, 23, 59, 59),
+                datetime(2026, 2, 7, 0, 0, 0),
+                f"{tmpdir}",
+                f"{tmpdir}/done.csv",
+                f"{tmpdir}/users.jsonl",
+                tournament_file_path,
+                force_refresh=True,
+            )
+
+            self.assertFalse(os.path.isdir(tracked_old_dir))
+            self.assertTrue(os.path.isdir(untracked_middle_dir))
+
+    @patch("scripts.fetch.download.event_files_complete", return_value=True)
+    @patch("scripts.fetch.download.read_set", return_value=set())
+    @patch("scripts.fetch.download.read_users_jsonl", return_value={})
+    @patch("scripts.fetch.download.fetch_tournament_by_id")
+    @patch("scripts.fetch.download.fetch_event_ids_from_tournament")
+    @patch("scripts.fetch.download.download_all_set")
+    @patch("scripts.fetch.download.download_standings")
+    @patch("scripts.fetch.download.download_seeds")
+    @patch("scripts.fetch.download.extend_user_info")
+    @patch("scripts.fetch.download.write_done_tournaments")
+    def test_download_by_ids_relocates_event_via_shared_helper(
+        self,
+        _mock_write_done,
+        _mock_extend_user_info,
+        _mock_download_seeds,
+        mock_download_standings,
+        _mock_download_all_set,
+        mock_fetch_event_ids,
+        mock_fetch_tournament_by_id,
+        _mock_read_users,
+        _mock_read_set,
+        _mock_event_files_complete,
+    ):
+        new_start = calendar.timegm((2026, 2, 7, 9, 0, 0, 0, 0, 0))
+        new_end = calendar.timegm((2026, 2, 7, 12, 0, 0, 0, 0, 0))
+        mock_fetch_tournament_by_id.return_value = {
+            "name": "Test Tournament",
+            "startAt": new_start,
+            "endAt": new_end,
+            "countryCode": "JP",
+            "city": "Chiba",
+            "lat": None,
+            "lng": None,
+            "venueName": None,
+            "timezone": "Asia/Tokyo",
+            "postalCode": None,
+            "venueAddress": None,
+            "mapsPlaceId": None,
+            "url": "https://example.com",
+        }
+        mock_fetch_event_ids.return_value = [(10, "Singles", False)]
+        mock_download_standings.return_value = ([], [], {})
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            old_event_dir = get_event_directory(tmpdir, "JP", "2025", "08", "16", "Test Tournament", "Singles")
+            os.makedirs(old_event_dir, exist_ok=True)
+            with open(os.path.join(old_event_dir, "marker.json"), "w", encoding="utf-8") as f:
+                f.write("{}")
+
+            tournament_file_path = f"{tmpdir}/tournaments.jsonl"
+            with open(tournament_file_path, "w", encoding="utf-8") as f:
+                json.dump(
+                    {
+                        "tournament_id": 1,
+                        "name": "Test Tournament",
+                        "events": [{"event_id": 10, "event_name": "Singles", "path": old_event_dir}],
+                        "version": "1.0",
+                    },
+                    f,
+                )
+                f.write("\n")
+
+            new_event_dir = get_event_directory(tmpdir, "JP", "2026", "02", "07", "Test Tournament", "Singles")
+            os.makedirs(new_event_dir, exist_ok=True)
+
+            download_by_ids(
+                [1],
+                "1386",
+                "JP",
+                f"{tmpdir}",
+                f"{tmpdir}/done.csv",
+                f"{tmpdir}/users.jsonl",
+                tournament_file_path,
+            )
+
+            self.assertFalse(os.path.isdir(old_event_dir))
+            self.assertTrue(os.path.isfile(os.path.join(new_event_dir, "attr.json")))
+
+            updated = read_tournaments_jsonl(tournament_file_path)
+            self.assertEqual(updated[1]["events"][0]["path"], new_event_dir)
+
+    @patch("scripts.fetch.download.read_set", return_value=set())
+    @patch("scripts.fetch.download.read_users_jsonl", return_value={})
+    @patch("scripts.fetch.download.fetch_tournament_by_id")
+    @patch("scripts.fetch.download.fetch_event_ids_from_tournament")
+    @patch("scripts.fetch.download.download_standings")
+    def test_download_by_ids_records_event_path_before_fetch_even_if_standings_fails(
+        self,
+        mock_standings,
+        mock_fetch_event_ids,
+        mock_fetch_tournament_by_id,
+        _mock_read_users,
+        _mock_read_set,
+    ):
+        # 004-fix-duplicate-events / 867504のケースで判明した通り、大規模イベント処理が
+        # 途中で失敗しても event_id とパスの対応関係だけは tournaments.jsonl に残るように
+        # なっていることを download_by_ids() 経由でも確認する。
+        mock_fetch_tournament_by_id.return_value = {
+            "name": "Test Tournament",
+            "startAt": 1714780800,
+            "endAt": 1714784400,
+            "countryCode": "JP",
+            "city": "Tokyo",
+            "lat": None,
+            "lng": None,
+            "venueName": None,
+            "timezone": "Asia/Tokyo",
+            "postalCode": None,
+            "venueAddress": None,
+            "mapsPlaceId": None,
+            "url": "https://example.com",
+        }
+        mock_fetch_event_ids.return_value = [(10, "Singles", False)]
+        mock_standings.side_effect = FetchError("standings query failed")
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            tournament_file_path = f"{tmpdir}/tournaments.jsonl"
+            download_by_ids(
+                [1],
+                "1386",
+                "JP",
+                f"{tmpdir}",
+                f"{tmpdir}/done.csv",
+                f"{tmpdir}/users.jsonl",
+                tournament_file_path,
+            )
+
+            updated = read_tournaments_jsonl(tournament_file_path)
+
+        self.assertEqual(len(updated[1]["events"]), 1)
+        self.assertEqual(updated[1]["events"][0]["event_id"], 10)
+        event_dir = updated[1]["events"][0]["path"]
+        self.assertFalse(os.path.isfile(os.path.join(event_dir, "attr.json")))
+
     @patch("scripts.fetch.download.read_set", return_value=set())
     @patch("scripts.fetch.download.read_users_jsonl", return_value={})
     @patch("scripts.fetch.download.read_tournaments_jsonl", return_value={})
@@ -465,6 +1027,73 @@ class DownloadTests(unittest.TestCase):
         mock_extend_user_info.assert_not_called()
         mock_extend_tournament.assert_not_called()
         mock_write_done.assert_not_called()
+
+    @patch("scripts.fetch.download.read_set", return_value=set())
+    @patch("scripts.fetch.download.read_users_jsonl", return_value={})
+    @patch("scripts.fetch.download.fetch_latest_tournaments_by_game")
+    @patch("scripts.fetch.download.fetch_event_ids_from_tournament")
+    @patch("scripts.fetch.download.download_all_set")
+    @patch("scripts.fetch.download.download_standings")
+    @patch("scripts.fetch.download.download_seeds")
+    @patch("scripts.fetch.download.extend_user_info")
+    def test_download_all_tournaments_records_event_path_before_fetch_even_if_later_step_fails(
+        self,
+        _mock_extend_user_info,
+        _mock_download_seeds,
+        mock_download_standings,
+        mock_download_all_set,
+        mock_fetch_event_ids,
+        mock_fetch_tournaments,
+        _mock_read_users,
+        _mock_read_set,
+    ):
+        # 大規模イベント処理(matches取得)が失敗しても、event_id と保存先パスの対応関係
+        # 自体は tournaments.jsonl に記録され続けることを確認する(取得処理を始める前に
+        # 記録しているため)。
+        mock_fetch_tournaments.return_value = (
+            [
+                {
+                    "id": 1,
+                    "name": "Test Tournament",
+                    "startAt": 1714780800,
+                    "endAt": 1714784400,
+                    "countryCode": "JP",
+                    "city": "Tokyo",
+                    "lat": None,
+                    "lng": None,
+                    "venueName": None,
+                    "timezone": "Asia/Tokyo",
+                    "postalCode": None,
+                    "venueAddress": None,
+                    "mapsPlaceId": None,
+                    "url": "https://example.com",
+                }
+            ],
+            1,
+        )
+        mock_fetch_event_ids.return_value = [(10, "Singles", False)]
+        mock_download_standings.return_value = ([], [], {})
+        mock_download_all_set.side_effect = MaxPagesExceededError(total_pages=999, max_pages=10, per_page=10)
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            tournament_file_path = f"{tmpdir}/tournaments.jsonl"
+            download_all_tournaments(
+                "1386",
+                "JP",
+                datetime(2024, 5, 4, 23, 59, 59),
+                datetime(2024, 5, 4, 0, 0, 0),
+                f"{tmpdir}",
+                f"{tmpdir}/done.csv",
+                f"{tmpdir}/users.jsonl",
+                tournament_file_path,
+            )
+
+            updated = read_tournaments_jsonl(tournament_file_path)
+
+        self.assertEqual(len(updated[1]["events"]), 1)
+        self.assertEqual(updated[1]["events"][0]["event_id"], 10)
+        event_dir = updated[1]["events"][0]["path"]
+        self.assertFalse(os.path.isfile(os.path.join(event_dir, "attr.json")))
 
 
 if __name__ == "__main__":

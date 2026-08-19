@@ -38,6 +38,7 @@ from scripts.utils import (  # noqa: E402
     NoPhaseError,
     fetch_data_with_retries,
     read_json,
+    read_tournaments_jsonl,
     read_users_jsonl,
     set_api_parameters,
     set_indent_num,
@@ -50,8 +51,11 @@ from scripts.utils import (  # noqa: E402
 # ---------------------------------------------------------------------------
 
 def iter_event_dirs(events_root: Path) -> list[Path]:
-    """events_root 以下の attr.json を持つディレクトリを、Japanリージョンを
-    優先しつつパス文字列の昇順(安定ソート)で返す。"""
+    """events_root 以下の、attr.json または standings.json を持つディレクトリ
+    (=取得が試みられたイベントディレクトリ)を、Japanリージョンを優先しつつ
+    パス文字列の昇順(安定ソート)で返す。standings.json はパイプライン中で
+    最初に書き込まれるファイルのため、attr.json 単独では発見できない(取得が
+    途中で打ち切られた)ディレクトリも、standings.json 経由で網羅的に発見できる。"""
 
     def sort_key(event_dir: Path) -> tuple[int, str]:
         try:
@@ -61,7 +65,9 @@ def iter_event_dirs(events_root: Path) -> list[Path]:
         is_not_japan = 0 if region == "Japan" else 1
         return (is_not_japan, str(event_dir))
 
-    return sorted((p.parent for p in events_root.rglob("attr.json")), key=sort_key)
+    candidates = {p.parent for p in events_root.rglob("attr.json")}
+    candidates.update(p.parent for p in events_root.rglob("standings.json"))
+    return sorted(candidates, key=sort_key)
 
 
 def read_event_data_version(event_dir: Path) -> int:
@@ -124,20 +130,47 @@ def build_place_dict(tournament: dict) -> dict:
     }
 
 
-def backfill_one_event(event_dir: Path, users: dict, users_file_path: str) -> bool:
+def _find_event_id_in_tournaments(tournaments: dict | None, event_dir: Path) -> int | None:
+    """tournaments.jsonl の記録から、event_dir に一致する event_id を探す。"""
+    if not tournaments:
+        return None
+    target = str(event_dir)
+    for tournament in tournaments.values():
+        for event in tournament.get("events", []):
+            if event.get("path") == target:
+                return event.get("event_id")
+    return None
+
+
+def backfill_one_event(
+    event_dir: Path,
+    users: dict,
+    users_file_path: str,
+    tournaments: dict | None = None,
+    unresolved: list | None = None,
+) -> bool:
     """1つのイベントディレクトリを再取得し、event_data_version を更新する。
+
+    attr.json が欠落/破損していて event_id を直接読み取れない場合、
+    tournaments(tournaments.jsonl の内容)から復元を試みる。復元できない場合は
+    [UNRESOLVED] として報告し(unresolved が渡されていれば追記)、処理を継続する
+    (例外は送出しない)。
 
     成功したら True、失敗したら False を返す(呼び出し元は失敗してもスキャンを継続する)。
     """
     try:
         attr = read_json(str(event_dir / "attr.json"))
     except (OSError, ValueError) as exc:
-        print(f"[SKIP] {event_dir}: attr.json を読み込めません ({exc})", file=sys.stderr)
-        return False
+        print(f"[INFO] {event_dir}: attr.json を読み込めません ({exc})。tournaments.jsonl からの復元を試みます。", file=sys.stderr)
+        attr = {}
 
     event_id = attr.get("event_id")
     if event_id is None:
-        print(f"[SKIP] {event_dir}: attr.json に event_id がありません", file=sys.stderr)
+        event_id = _find_event_id_in_tournaments(tournaments, event_dir)
+    if event_id is None:
+        print(f"[UNRESOLVED] {event_dir}: event_id を特定できません", file=sys.stderr)
+        if unresolved is not None:
+            unresolved.append(str(event_dir))
         return False
 
     try:
@@ -190,15 +223,16 @@ def run_backfill(
     users_file_path: str,
     cursor_path: Path,
     max_events: int,
+    tournament_file_path: str | None = None,
 ) -> dict:
     """1回の実行分のバックフィルを行い、サマリーを dict で返す。
 
-    {"processed": int, "skipped": int, "wrapped_around": bool}
+    {"processed": int, "skipped": int, "wrapped_around": bool, "unresolved": int}
     """
     all_dirs = iter_event_dirs(events_root)
     total = len(all_dirs)
     if total == 0:
-        return {"processed": 0, "skipped": 0, "wrapped_around": False}
+        return {"processed": 0, "skipped": 0, "wrapped_around": False, "unresolved": 0}
 
     dir_strs = [str(d) for d in all_dirs]
     cursor_value = read_cursor(cursor_path)
@@ -207,10 +241,12 @@ def run_backfill(
         start_index = (dir_strs.index(cursor_value) + 1) % total
 
     users = read_users_jsonl(users_file_path)
+    tournaments = read_tournaments_jsonl(tournament_file_path) if tournament_file_path else None
 
     processed = 0
     skipped = 0
     wrapped_around = False
+    unresolved_events: list = []
     last_index = None
 
     for offset in range(total):
@@ -222,7 +258,10 @@ def run_backfill(
         if version < EVENT_DATA_VERSION:
             if max_events > 0 and processed >= max_events:
                 break
-            backfill_one_event(event_dir, users, users_file_path)
+            backfill_one_event(
+                event_dir, users, users_file_path,
+                tournaments=tournaments, unresolved=unresolved_events,
+            )
             processed += 1
             last_index = index
         else:
@@ -232,7 +271,12 @@ def run_backfill(
     if last_index is not None:
         write_cursor(cursor_path, dir_strs[last_index])
 
-    return {"processed": processed, "skipped": skipped, "wrapped_around": wrapped_around}
+    return {
+        "processed": processed,
+        "skipped": skipped,
+        "wrapped_around": wrapped_around,
+        "unresolved": len(unresolved_events),
+    }
 
 
 # ---------------------------------------------------------------------------
@@ -246,6 +290,11 @@ def main() -> int:
     parser.add_argument("--token", required=True, help="start.gg API token")
     parser.add_argument("--events_root", default="data/startgg/events", help="Events root directory")
     parser.add_argument("--users_file_path", default="data/startgg/users.jsonl", help="Path to users.jsonl")
+    parser.add_argument(
+        "--tournament_file_path",
+        default="data/startgg/tournaments.jsonl",
+        help="Path to tournaments.jsonl, used to recover event_id when attr.json is missing.",
+    )
     parser.add_argument(
         "--cursor_path",
         default="data/startgg/schema_backfill_cursor.txt",
@@ -273,10 +322,14 @@ def main() -> int:
     print(f"Target event_data_version: {EVENT_DATA_VERSION}")
     print(f"Cursor: {read_cursor(cursor_path) or '(none, starting from the beginning)'}")
 
-    summary = run_backfill(events_root, args.users_file_path, cursor_path, args.max_events)
+    summary = run_backfill(
+        events_root, args.users_file_path, cursor_path, args.max_events,
+        tournament_file_path=args.tournament_file_path,
+    )
 
     print(
         f"Done. processed={summary['processed']} skipped={summary['skipped']} "
+        f"unresolved={summary['unresolved']} "
         f"wrapped_around={str(summary['wrapped_around']).lower()}"
     )
     return 0
