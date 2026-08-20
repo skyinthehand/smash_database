@@ -3,8 +3,8 @@
 GitHub Actions が確認した日付と、`data/startgg/events/Japan/YYYY/MM/DD` の存在状況を記録します。
 
 - 集計開始日: `2018-12-29`
-- 集計終了日: `2026-08-20`
-- 最終更新 (UTC): `2026-08-19 18:36:15 UTC`
+- 集計終了日: `2026-08-21`
+- 最終更新 (UTC): `2026-08-20 18:39:21 UTC`
 
 | Date | Folder Exists | Checked By GitHub Actions | Last Checked At (JST) | Workflow |
 | --- | --- | --- | --- | --- |
@@ -165,7 +165,7 @@ GitHub Actions が確認した日付と、`data/startgg/events/Japan/YYYY/MM/DD`
 | 2019-06-01 | yes | no |  |  |
 | 2019-06-02 | yes | no |  |  |
 | 2019-06-03 | yes | no |  |  |
-| 2019-06-04 | yes | no |  |  |
+| 2019-06-04 | no | no |  |  |
 | 2019-06-05 | yes | no |  |  |
 | 2019-06-06 | yes | no |  |  |
 | 2019-06-07 | yes | no |  |  |
@@ -211,7 +211,7 @@ GitHub Actions が確認した日付と、`data/startgg/events/Japan/YYYY/MM/DD`
 | 2019-07-17 | no | no |  |  |
 | 2019-07-18 | yes | no |  |  |
 | 2019-07-19 | yes | no |  |  |
-| 2019-07-20 | yes | no |  |  |
+| 2019-07-20 | no | no |  |  |
 | 2019-07-21 | yes | no |  |  |
 | 2019-07-22 | no | no |  |  |
 | 2019-07-23 | no | no |  |  |
@@ -270,7 +270,7 @@ GitHub Actions が確認した日付と、`data/startgg/events/Japan/YYYY/MM/DD`
 | 2019-09-14 | yes | no |  |  |
 | 2019-09-15 | yes | no |  |  |
 | 2019-09-16 | no | no |  |  |
-| 2019-09-17 | yes | no |  |  |
+| 2019-09-17 | no | no |  |  |
 | 2019-09-18 | no | no |  |  |
 | 2019-09-19 | no | no |  |  |
 | 2019-09-20 | yes | no |  |  |
@@ -302,14 +302,14 @@ GitHub Actions が確認した日付と、`data/startgg/events/Japan/YYYY/MM/DD`
 | 2019-10-16 | no | no |  |  |
 | 2019-10-17 | no | no |  |  |
 | 2019-10-18 | yes | no |  |  |
-| 2019-10-19 | yes | no |  |  |
+| 2019-10-19 | no | no |  |  |
 | 2019-10-20 | yes | no |  |  |
-| 2019-10-21 | yes | no |  |  |
+| 2019-10-21 | no | no |  |  |
 | 2019-10-22 | yes | no |  |  |
 | 2019-10-23 | no | no |  |  |
 | 2019-10-24 | no | no |  |  |
 | 2019-10-25 | yes | no |  |  |
-| 2019-10-26 | yes | no |  |  |
+| 2019-10-26 | no | no |  |  |
 | 2019-10-27 | yes | no |  |  |
 | 2019-10-28 | yes | no |  |  |
 | 2019-10-29 | yes | no |  |  |
@@ -438,28 +438,28 @@ GitHub Actions が確認した日付と、`data/startgg/events/Japan/YYYY/MM/DD`
 | 2020-02-29 | yes | no |  |  |
 | 2020-03-01 | yes | no |  |  |
 | 2020-03-02 | no | no |  |  |
-| 2020-03-03 | yes | no |  |  |
+| 2020-03-03 | no | no |  |  |
 | 2020-03-04 | yes | no |  |  |
 | 2020-03-05 | no | no |  |  |
 | 2020-03-06 | no | no |  |  |
-| 2020-03-07 | yes | no |  |  |
+| 2020-03-07 | no | no |  |  |
 | 2020-03-08 | no | no |  |  |
 | 2020-03-09 | no | no |  |  |
-| 2020-03-10 | yes | no |  |  |
+| 2020-03-10 | no | no |  |  |
 | 2020-03-11 | no | no |  |  |
 | 2020-03-12 | no | no |  |  |
 | 2020-03-13 | no | no |  |  |
 | 2020-03-14 | yes | no |  |  |
 | 2020-03-15 | no | no |  |  |
 | 2020-03-16 | no | no |  |  |
-| 2020-03-17 | yes | no |  |  |
+| 2020-03-17 | no | no |  |  |
 | 2020-03-18 | no | no |  |  |
 | 2020-03-19 | no | no |  |  |
 | 2020-03-20 | yes | no |  |  |
 | 2020-03-21 | yes | no |  |  |
 | 2020-03-22 | no | no |  |  |
 | 2020-03-23 | no | no |  |  |
-| 2020-03-24 | yes | no |  |  |
+| 2020-03-24 | no | no |  |  |
 | 2020-03-25 | no | no |  |  |
 | 2020-03-26 | no | no |  |  |
 | 2020-03-27 | no | no |  |  |
@@ -470,7 +470,7 @@ GitHub Actions が確認した日付と、`data/startgg/events/Japan/YYYY/MM/DD`
 | 2020-04-01 | no | no |  |  |
 | 2020-04-02 | no | no |  |  |
 | 2020-04-03 | no | no |  |  |
-| 2020-04-04 | yes | no |  |  |
+| 2020-04-04 | no | no |  |  |
 | 2020-04-05 | no | no |  |  |
 | 2020-04-06 | no | no |  |  |
 | 2020-04-07 | no | no |  |  |
@@ -519,7 +519,7 @@ GitHub Actions が確認した日付と、`data/startgg/events/Japan/YYYY/MM/DD`
 | 2020-05-20 | no | no |  |  |
 | 2020-05-21 | no | no |  |  |
 | 2020-05-22 | no | no |  |  |
-| 2020-05-23 | yes | no |  |  |
+| 2020-05-23 | no | no |  |  |
 | 2020-05-24 | yes | no |  |  |
 | 2020-05-25 | no | no |  |  |
 | 2020-05-26 | no | no |  |  |
@@ -757,7 +757,7 @@ GitHub Actions が確認した日付と、`data/startgg/events/Japan/YYYY/MM/DD`
 | 2021-01-13 | no | no |  |  |
 | 2021-01-14 | no | no |  |  |
 | 2021-01-15 | no | no |  |  |
-| 2021-01-16 | yes | no |  |  |
+| 2021-01-16 | no | no |  |  |
 | 2021-01-17 | no | no |  |  |
 | 2021-01-18 | no | no |  |  |
 | 2021-01-19 | no | no |  |  |
@@ -865,7 +865,7 @@ GitHub Actions が確認した日付と、`data/startgg/events/Japan/YYYY/MM/DD`
 | 2021-05-01 | no | no |  |  |
 | 2021-05-02 | yes | no |  |  |
 | 2021-05-03 | no | no |  |  |
-| 2021-05-04 | yes | no |  |  |
+| 2021-05-04 | no | no |  |  |
 | 2021-05-05 | no | no |  |  |
 | 2021-05-06 | no | no |  |  |
 | 2021-05-07 | no | no |  |  |
@@ -940,7 +940,7 @@ GitHub Actions が確認した日付と、`data/startgg/events/Japan/YYYY/MM/DD`
 | 2021-07-15 | no | no |  |  |
 | 2021-07-16 | no | no |  |  |
 | 2021-07-17 | no | no |  |  |
-| 2021-07-18 | yes | no |  |  |
+| 2021-07-18 | no | no |  |  |
 | 2021-07-19 | no | no |  |  |
 | 2021-07-20 | no | no |  |  |
 | 2021-07-21 | no | no |  |  |
@@ -1064,19 +1064,19 @@ GitHub Actions が確認した日付と、`data/startgg/events/Japan/YYYY/MM/DD`
 | 2021-11-16 | no | no |  |  |
 | 2021-11-17 | no | no |  |  |
 | 2021-11-18 | no | no |  |  |
-| 2021-11-19 | yes | no |  |  |
+| 2021-11-19 | no | no |  |  |
 | 2021-11-20 | yes | no |  |  |
 | 2021-11-21 | yes | no |  |  |
 | 2021-11-22 | no | no |  |  |
 | 2021-11-23 | no | no |  |  |
-| 2021-11-24 | yes | no |  |  |
+| 2021-11-24 | no | no |  |  |
 | 2021-11-25 | no | no |  |  |
 | 2021-11-26 | no | no |  |  |
 | 2021-11-27 | yes | no |  |  |
 | 2021-11-28 | yes | no |  |  |
 | 2021-11-29 | yes | no |  |  |
 | 2021-11-30 | no | no |  |  |
-| 2021-12-01 | yes | no |  |  |
+| 2021-12-01 | no | no |  |  |
 | 2021-12-02 | no | no |  |  |
 | 2021-12-03 | no | no |  |  |
 | 2021-12-04 | yes | no |  |  |
@@ -1100,7 +1100,7 @@ GitHub Actions が確認した日付と、`data/startgg/events/Japan/YYYY/MM/DD`
 | 2021-12-22 | no | no |  |  |
 | 2021-12-23 | no | no |  |  |
 | 2021-12-24 | yes | no |  |  |
-| 2021-12-25 | yes | no |  |  |
+| 2021-12-25 | no | no |  |  |
 | 2021-12-26 | yes | no |  |  |
 | 2021-12-27 | yes | no |  |  |
 | 2021-12-28 | no | no |  |  |
@@ -1120,7 +1120,7 @@ GitHub Actions が確認した日付と、`data/startgg/events/Japan/YYYY/MM/DD`
 | 2022-01-11 | yes | no |  |  |
 | 2022-01-12 | no | no |  |  |
 | 2022-01-13 | no | no |  |  |
-| 2022-01-14 | yes | no |  |  |
+| 2022-01-14 | no | no |  |  |
 | 2022-01-15 | no | no |  |  |
 | 2022-01-16 | yes | no |  |  |
 | 2022-01-17 | no | no |  |  |
@@ -1148,7 +1148,7 @@ GitHub Actions が確認した日付と、`data/startgg/events/Japan/YYYY/MM/DD`
 | 2022-02-08 | no | no |  |  |
 | 2022-02-09 | no | no |  |  |
 | 2022-02-10 | no | no |  |  |
-| 2022-02-11 | yes | no |  |  |
+| 2022-02-11 | no | no |  |  |
 | 2022-02-12 | no | no |  |  |
 | 2022-02-13 | no | no |  |  |
 | 2022-02-14 | no | no |  |  |
@@ -1164,7 +1164,7 @@ GitHub Actions が確認した日付と、`data/startgg/events/Japan/YYYY/MM/DD`
 | 2022-02-24 | no | no |  |  |
 | 2022-02-25 | no | no |  |  |
 | 2022-02-26 | no | no |  |  |
-| 2022-02-27 | yes | no |  |  |
+| 2022-02-27 | no | no |  |  |
 | 2022-02-28 | yes | no |  |  |
 | 2022-03-01 | no | no |  |  |
 | 2022-03-02 | no | no |  |  |
@@ -1216,7 +1216,7 @@ GitHub Actions が確認した日付と、`data/startgg/events/Japan/YYYY/MM/DD`
 | 2022-04-17 | yes | no |  |  |
 | 2022-04-18 | no | no |  |  |
 | 2022-04-19 | no | no |  |  |
-| 2022-04-20 | yes | no |  |  |
+| 2022-04-20 | no | no |  |  |
 | 2022-04-21 | no | no |  |  |
 | 2022-04-22 | no | no |  |  |
 | 2022-04-23 | no | no |  |  |
@@ -1231,7 +1231,7 @@ GitHub Actions が確認した日付と、`data/startgg/events/Japan/YYYY/MM/DD`
 | 2022-05-02 | yes | no |  |  |
 | 2022-05-03 | no | no |  |  |
 | 2022-05-04 | yes | no |  |  |
-| 2022-05-05 | yes | no |  |  |
+| 2022-05-05 | no | no |  |  |
 | 2022-05-06 | no | no |  |  |
 | 2022-05-07 | no | no |  |  |
 | 2022-05-08 | yes | no |  |  |
@@ -1251,7 +1251,7 @@ GitHub Actions が確認した日付と、`data/startgg/events/Japan/YYYY/MM/DD`
 | 2022-05-22 | yes | no |  |  |
 | 2022-05-23 | no | no |  |  |
 | 2022-05-24 | no | no |  |  |
-| 2022-05-25 | yes | no |  |  |
+| 2022-05-25 | no | no |  |  |
 | 2022-05-26 | yes | no |  |  |
 | 2022-05-27 | yes | no |  |  |
 | 2022-05-28 | yes | no |  |  |
@@ -1515,7 +1515,7 @@ GitHub Actions が確認した日付と、`data/startgg/events/Japan/YYYY/MM/DD`
 | 2023-02-10 | yes | no |  |  |
 | 2023-02-11 | yes | no |  |  |
 | 2023-02-12 | yes | no |  |  |
-| 2023-02-13 | yes | no |  |  |
+| 2023-02-13 | no | no |  |  |
 | 2023-02-14 | no | no |  |  |
 | 2023-02-15 | yes | no |  |  |
 | 2023-02-16 | yes | no |  |  |
@@ -2045,8 +2045,8 @@ GitHub Actions が確認した日付と、`data/startgg/events/Japan/YYYY/MM/DD`
 | 2024-07-24 | yes | no |  |  |
 | 2024-07-25 | yes | no |  |  |
 | 2024-07-26 | yes | no |  |  |
-| 2024-07-27 | yes | no |  |  |
-| 2024-07-28 | yes | no |  |  |
+| 2024-07-27 | no | no |  |  |
+| 2024-07-28 | no | no |  |  |
 | 2024-07-29 | no | no |  |  |
 | 2024-07-30 | yes | no |  |  |
 | 2024-07-31 | yes | no |  |  |
@@ -2105,7 +2105,7 @@ GitHub Actions が確認した日付と、`data/startgg/events/Japan/YYYY/MM/DD`
 | 2024-09-22 | yes | no |  |  |
 | 2024-09-23 | yes | no |  |  |
 | 2024-09-24 | yes | no |  |  |
-| 2024-09-25 | yes | no |  |  |
+| 2024-09-25 | no | no |  |  |
 | 2024-09-26 | yes | no |  |  |
 | 2024-09-27 | yes | no |  |  |
 | 2024-09-28 | yes | no |  |  |
@@ -2203,7 +2203,7 @@ GitHub Actions が確認した日付と、`data/startgg/events/Japan/YYYY/MM/DD`
 | 2024-12-29 | yes | no |  |  |
 | 2024-12-30 | yes | no |  |  |
 | 2024-12-31 | yes | no |  |  |
-| 2025-01-01 | yes | no |  |  |
+| 2025-01-01 | no | no |  |  |
 | 2025-01-02 | yes | no |  |  |
 | 2025-01-03 | yes | no |  |  |
 | 2025-01-04 | yes | no |  |  |
@@ -2327,7 +2327,7 @@ GitHub Actions が確認した日付と、`data/startgg/events/Japan/YYYY/MM/DD`
 | 2025-05-02 | yes | no |  |  |
 | 2025-05-03 | yes | no |  |  |
 | 2025-05-04 | yes | no |  |  |
-| 2025-05-05 | yes | no |  |  |
+| 2025-05-05 | no | no |  |  |
 | 2025-05-06 | yes | no |  |  |
 | 2025-05-07 | yes | no |  |  |
 | 2025-05-08 | yes | no |  |  |
@@ -2571,7 +2571,7 @@ GitHub Actions が確認した日付と、`data/startgg/events/Japan/YYYY/MM/DD`
 | 2026-01-01 | no | no |  |  |
 | 2026-01-02 | no | no |  |  |
 | 2026-01-03 | no | no |  |  |
-| 2026-01-04 | yes | no |  |  |
+| 2026-01-04 | no | no |  |  |
 | 2026-01-05 | yes | no |  |  |
 | 2026-01-06 | yes | no |  |  |
 | 2026-01-07 | yes | no |  |  |
@@ -2662,7 +2662,7 @@ GitHub Actions が確認した日付と、`data/startgg/events/Japan/YYYY/MM/DD`
 | 2026-04-02 | yes | no |  |  |
 | 2026-04-03 | yes | no |  |  |
 | 2026-04-04 | yes | no |  |  |
-| 2026-04-05 | no | no |  |  |
+| 2026-04-05 | yes | no |  |  |
 | 2026-04-06 | yes | no |  |  |
 | 2026-04-07 | yes | no |  |  |
 | 2026-04-08 | yes | no |  |  |
@@ -2766,7 +2766,7 @@ GitHub Actions が確認した日付と、`data/startgg/events/Japan/YYYY/MM/DD`
 | 2026-07-15 | yes | no |  |  |
 | 2026-07-16 | yes | no |  |  |
 | 2026-07-17 | yes | no |  |  |
-| 2026-07-18 | no | no |  |  |
+| 2026-07-18 | yes | no |  |  |
 | 2026-07-19 | yes | no |  |  |
 | 2026-07-20 | yes | no |  |  |
 | 2026-07-21 | yes | no |  |  |
@@ -2788,7 +2788,7 @@ GitHub Actions が確認した日付と、`data/startgg/events/Japan/YYYY/MM/DD`
 | 2026-08-06 | yes | yes | 2026-08-07 08:59:07 JST | update_tournament |
 | 2026-08-07 | yes | yes | 2026-08-08 03:57:00 JST | update_tournament |
 | 2026-08-08 | yes | yes | 2026-08-09 03:38:06 JST | update_tournament |
-| 2026-08-09 | no | yes | 2026-08-09 03:38:06 JST | update_tournament |
+| 2026-08-09 | yes | yes | 2026-08-09 03:38:06 JST | update_tournament |
 | 2026-08-10 | yes | yes | 2026-08-11 03:57:47 JST | update_tournament |
 | 2026-08-11 | yes | yes | 2026-08-12 04:02:39 JST | update_tournament |
 | 2026-08-12 | yes | yes | 2026-08-13 04:03:08 JST | update_tournament |
@@ -2799,4 +2799,5 @@ GitHub Actions が確認した日付と、`data/startgg/events/Japan/YYYY/MM/DD`
 | 2026-08-17 | yes | yes | 2026-08-18 03:39:35 JST | update_tournament |
 | 2026-08-18 | yes | yes | 2026-08-19 03:38:55 JST | update_tournament |
 | 2026-08-19 | yes | yes | 2026-08-20 03:36:15 JST | update_tournament |
-| 2026-08-20 | no | yes | 2026-08-20 03:36:15 JST | update_tournament |
+| 2026-08-20 | yes | yes | 2026-08-21 03:39:21 JST | update_tournament |
+| 2026-08-21 | no | yes | 2026-08-21 03:39:21 JST | update_tournament |
