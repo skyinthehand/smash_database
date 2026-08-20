@@ -108,6 +108,79 @@ class ValidateDataTests(unittest.TestCase):
             self.assertEqual(errors, [])
             self.assertEqual(warnings, [])
 
+    def test_archive_status_accepted_in_place_of_renamed_status_field(self):
+        """event_data_version=4 で status は archive_status にリネームされた。新形式も許容する。"""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            event_dir = Path(tmpdir)
+            write_json(
+                event_dir / "attr.json",
+                {
+                    "event_id": 1,
+                    "tournament_name": "T",
+                    "event_name": "E",
+                    "timestamp": 0,
+                    "region": "Japan",
+                    "num_entrants": 0,
+                    "offline": True,
+                    "url": "u",
+                    "place": {
+                        "country_code": "JP",
+                        "city": "c",
+                        "lat": 0,
+                        "lng": 0,
+                        "venue_name": "v",
+                        "timezone": "t",
+                        "postal_code": "p",
+                        "venue_address": "a",
+                        "maps_place_id": "m",
+                    },
+                    "labels": {},
+                    "archive_status": "completed",
+                    "state": "COMPLETED",
+                    # status はあえて含めない(archive_statusへの移行後の新規データを想定)
+                },
+            )
+            write_json(event_dir / "standings.json", {"data": []})
+            write_json(event_dir / "seeds.json", {"data": []})
+            write_json(event_dir / "matches.json", {"data": []})
+            errors, warnings = validate_event_dir(event_dir)
+            self.assertEqual(errors, [])
+            self.assertEqual(warnings, [])
+
+    def test_missing_both_status_and_archive_status_is_an_error(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            event_dir = Path(tmpdir)
+            write_json(
+                event_dir / "attr.json",
+                {
+                    "event_id": 1,
+                    "tournament_name": "T",
+                    "event_name": "E",
+                    "timestamp": 0,
+                    "region": "Japan",
+                    "num_entrants": 0,
+                    "offline": True,
+                    "url": "u",
+                    "place": {
+                        "country_code": "JP",
+                        "city": "c",
+                        "lat": 0,
+                        "lng": 0,
+                        "venue_name": "v",
+                        "timezone": "t",
+                        "postal_code": "p",
+                        "venue_address": "a",
+                        "maps_place_id": "m",
+                    },
+                    "labels": {},
+                },
+            )
+            write_json(event_dir / "standings.json", {"data": []})
+            write_json(event_dir / "seeds.json", {"data": []})
+            write_json(event_dir / "matches.json", {"data": []})
+            errors, warnings = validate_event_dir(event_dir)
+            self.assertTrue(any("status" in err for err in errors))
+
     def test_match_ids_not_in_standings_warn(self):
         with tempfile.TemporaryDirectory() as tmpdir:
             event_dir = Path(tmpdir)

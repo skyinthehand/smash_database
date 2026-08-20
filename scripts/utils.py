@@ -47,7 +47,7 @@ JSON_VERSION = "1.0"
 # 取得対象フィールドを追加・変更する際はこの値を1つ上げ、対応する取得・保存ロジックの
 # 変更と docs/data_model.md の更新を同一PRに含めること。
 # 既存の JSON_VERSION (全ファイル種別共通のフォーマットバージョン) とは別物。
-EVENT_DATA_VERSION = 3
+EVENT_DATA_VERSION = 4
 
 __indent_num = 2
 

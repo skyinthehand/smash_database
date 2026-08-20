@@ -65,11 +65,17 @@
     "event_type": "main",
     "game_rule": "1on1"
   },
-  "status": "completed",
-  "event_data_version": 2,
+  "archive_status": "completed",
+  "state": "COMPLETED",
+  "event_data_version": 4,
   "guest_entrant_count": 0
 }
 ```
+- `archive_status`: このスクリプトによるデータ取得処理自体が完了したことを表すマーカー(常に`"completed"`)。
+- `state`: start.gg API の `event.state`(`ACTIVE`/`COMPLETED`など、大会イベント自体の進行状況)。
+  `event_data_version < 4` の既存データには存在しない(`null`扱い)。
+  以前は`status`という紛らわしい名前のフィールドが`archive_status`の意味で使われていたが、
+  `event_data_version=4`で`archive_status`にリネームし、`state`を新設した。
 
 ## standings
 

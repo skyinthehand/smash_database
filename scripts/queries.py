@@ -307,6 +307,7 @@ def get_tournament_events_query():
           name
           startAt
           isOnline
+          state
         }
       }
     }""" 

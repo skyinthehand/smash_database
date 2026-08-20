@@ -199,6 +199,7 @@ def main() -> int:
             event_dir,
             guest_entrant_count=count_guest_entrants(user_data),
             end_at=tournament.get("endAt"),
+            state=event.get("state"),
         )
 
         tournament_id = tournament.get("id")
