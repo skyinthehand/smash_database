@@ -22,7 +22,6 @@ ATTR_REQUIRED_FIELDS = (
     "url",
     "place",
     "labels",
-    "status",
 )
 PLACE_REQUIRED_FIELDS = (
     "country_code",
@@ -56,6 +55,10 @@ def validate_required_fields(obj: Dict, fields: tuple, context: str, errors: Lis
 
 def validate_attr(data: Dict, context: str, errors: List[str]) -> None:
     validate_required_fields(data, ATTR_REQUIRED_FIELDS, context, errors)
+    # "status" は event_data_version=4 で "archive_status" にリネームされた。
+    # 移行期は両方の値を許容し、未backfillの既存データを壊さないようにする。
+    if "status" not in data and "archive_status" not in data:
+        errors.append(f"{context}: missing field 'status' or 'archive_status'")
     place = data.get("place")
     if isinstance(place, dict):
         validate_required_fields(place, PLACE_REQUIRED_FIELDS, f"{context}.place", errors)

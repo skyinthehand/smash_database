@@ -7,6 +7,7 @@ from pathlib import Path
 from unittest.mock import patch
 
 from scripts.fetch import backfill_schema_version as bsv
+from scripts.utils import EVENT_DATA_VERSION
 
 
 def make_event_dir(root: Path, name: str, event_data_version=None) -> Path:
@@ -188,7 +189,7 @@ class BackfillSchemaVersionTests(unittest.TestCase):
 
     # -- US2: event_data_version=2 の既存イベントがバックフィルで end_at を獲得する ---
 
-    def test_outdated_event_gains_end_at_and_reaches_version_3(self):
+    def test_outdated_event_gains_end_at_and_reaches_current_version(self):
         event_dir = make_event_dir(self.events_root, "legacy_event", event_data_version=2)
         attr_before = json.loads((event_dir / "attr.json").read_text(encoding="utf-8"))
         event_id = attr_before["event_id"]
@@ -208,7 +209,7 @@ class BackfillSchemaVersionTests(unittest.TestCase):
         self.assertEqual(summary["processed"], 1)
         attr_after = json.loads((event_dir / "attr.json").read_text(encoding="utf-8"))
         self.assertEqual(attr_after["end_at"], 1710086400)
-        self.assertEqual(attr_after["event_data_version"], 3)
+        self.assertEqual(attr_after["event_data_version"], EVENT_DATA_VERSION)
 
     # -- US2: attr.json が欠落したディレクトリも発見・補完される ----------------
 

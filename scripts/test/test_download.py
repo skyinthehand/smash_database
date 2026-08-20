@@ -321,6 +321,51 @@ class DownloadTests(unittest.TestCase):
             attr = read_json(os.path.join(tmpdir, "attr.json"))
             self.assertIsNone(attr["end_at"])
 
+    def test_write_event_attributes_includes_state_and_renamed_archive_status(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            place = {
+                "country_code": "JP",
+                "city": "Tokyo",
+                "lat": 0,
+                "lng": 0,
+                "venue_name": "v",
+                "timezone": "Asia/Tokyo",
+                "postal_code": "p",
+                "venue_address": "a",
+                "maps_place_id": "m",
+            }
+            write_event_attributes(
+                10, 999, "Event", "Tournament", 1710001000, place,
+                "https://example.com", {}, True, tmpdir,
+                guest_entrant_count=3,
+                state="COMPLETED",
+            )
+            attr = read_json(os.path.join(tmpdir, "attr.json"))
+            self.assertEqual(attr["state"], "COMPLETED")
+            self.assertEqual(attr["archive_status"], "completed")
+            self.assertNotIn("status", attr)
+
+    def test_write_event_attributes_state_defaults_to_none(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            place = {
+                "country_code": "JP",
+                "city": "Tokyo",
+                "lat": 0,
+                "lng": 0,
+                "venue_name": "v",
+                "timezone": "Asia/Tokyo",
+                "postal_code": "p",
+                "venue_address": "a",
+                "maps_place_id": "m",
+            }
+            write_event_attributes(
+                10, 999, "Event", "Tournament", 1710001000, place,
+                "https://example.com", {}, True, tmpdir,
+                guest_entrant_count=3,
+            )
+            attr = read_json(os.path.join(tmpdir, "attr.json"))
+            self.assertIsNone(attr["state"])
+
     def test_count_guest_entrants_counts_none_users(self):
         user_data = [{"id": 1}, None, {"id": 2}, None, None]
         self.assertEqual(count_guest_entrants(user_data), 3)
@@ -454,6 +499,25 @@ class DownloadTests(unittest.TestCase):
         with self.assertRaises(FetchError) as ctx:
             fetch_event_ids_from_tournament(811466, "1386")
         self.assertNotIsInstance(ctx.exception, NoEventsForGameError)
+
+    @patch("scripts.fetch.download.fetch_data_with_retries")
+    def test_fetch_event_ids_from_tournament_includes_state(self, mock_fetch):
+        mock_fetch.return_value = {
+            "data": {
+                "tournament": {
+                    "id": 811466,
+                    "name": "Test Tournament",
+                    "events": [
+                        {"id": 10, "name": "Singles", "isOnline": False, "state": "COMPLETED"},
+                    ],
+                }
+            }
+        }
+
+        self.assertEqual(
+            fetch_event_ids_from_tournament(811466, "1386"),
+            [(10, "Singles", False, "COMPLETED")],
+        )
 
     # -- record_event_path (US1/US3 共有ヘルパー) ---------------------------
 
@@ -591,7 +655,7 @@ class DownloadTests(unittest.TestCase):
             ],
             1,
         )
-        mock_fetch_event_ids.return_value = [(10, "Singles", False)]
+        mock_fetch_event_ids.return_value = [(10, "Singles", False, "COMPLETED")]
         mock_download_standings.return_value = ([], [], {})
 
         with tempfile.TemporaryDirectory() as tmpdir:
@@ -680,7 +744,7 @@ class DownloadTests(unittest.TestCase):
             ],
             1,
         )
-        mock_fetch_event_ids.return_value = [(10, "Singles", False)]
+        mock_fetch_event_ids.return_value = [(10, "Singles", False, "COMPLETED")]
         mock_download_standings.return_value = ([], [], {})
 
         with tempfile.TemporaryDirectory() as tmpdir:
@@ -769,7 +833,7 @@ class DownloadTests(unittest.TestCase):
             ],
             1,
         )
-        mock_fetch_event_ids.return_value = [(10, "Singles", False)]
+        mock_fetch_event_ids.return_value = [(10, "Singles", False, "COMPLETED")]
         mock_download_standings.return_value = ([], [], {})
 
         with tempfile.TemporaryDirectory() as tmpdir:
@@ -851,7 +915,7 @@ class DownloadTests(unittest.TestCase):
             "mapsPlaceId": None,
             "url": "https://example.com",
         }
-        mock_fetch_event_ids.return_value = [(10, "Singles", False)]
+        mock_fetch_event_ids.return_value = [(10, "Singles", False, "COMPLETED")]
         mock_download_standings.return_value = ([], [], {})
 
         with tempfile.TemporaryDirectory() as tmpdir:
@@ -923,7 +987,7 @@ class DownloadTests(unittest.TestCase):
             "mapsPlaceId": None,
             "url": "https://example.com",
         }
-        mock_fetch_event_ids.return_value = [(10, "Singles", False)]
+        mock_fetch_event_ids.return_value = [(10, "Singles", False, "COMPLETED")]
         mock_standings.side_effect = FetchError("standings query failed")
 
         with tempfile.TemporaryDirectory() as tmpdir:
@@ -993,7 +1057,7 @@ class DownloadTests(unittest.TestCase):
             ],
             1,
         )
-        mock_fetch_event_ids.return_value = [(10, "Singles", False)]
+        mock_fetch_event_ids.return_value = [(10, "Singles", False, "COMPLETED")]
         mock_fetch_entrant_user_map.return_value = {11: 2716511}
 
         with tempfile.TemporaryDirectory() as tmpdir:
@@ -1071,7 +1135,7 @@ class DownloadTests(unittest.TestCase):
             ],
             1,
         )
-        mock_fetch_event_ids.return_value = [(10, "Singles", False)]
+        mock_fetch_event_ids.return_value = [(10, "Singles", False, "COMPLETED")]
         mock_download_standings.return_value = ([], [], {})
         mock_download_all_set.side_effect = MaxPagesExceededError(total_pages=999, max_pages=10, per_page=10)
 
