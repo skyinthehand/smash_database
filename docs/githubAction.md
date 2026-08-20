@@ -1,9 +1,18 @@
 # GitHub Actions
 
 ## 概要
-- GitHub Actions による更新結果は、まず `chore-update` ブランチへ commit / push する。
-- `update_tournament.yml` / `update_user.yml` は `chore-update` から `main` への PR を自動で維持し、可能なら rebase auto-merge を有効にする。
-- `chore-update` の PR が `main` に merge された後は、専用 workflow が `chore-update` ブランチを `main` に同期し直す。
+- 定期実行される更新系ワークフロー(`update_tournament.yml` / `update_user.yml` /
+  `schema_backfill.yml` / `prune_empty_events.yml`)は、差分があれば `main` ブランチへ
+  **直接** commit / push する(中間ブランチや PR は経由しない)。
+  複数ワークフローが同時に `main` へ push しうるため、`concurrency: group: main-data-commits`
+  で直列化し、push が競合した場合は `git pull --rebase origin main` してリトライする。
+  (旧: `chore-update` ブランチへ集約し PR 経由の rebase auto-merge で `main` に反映していたが、
+  `main` への直接コミットが `chore-update` ベースの自動化から見えず、古い状態のまま処理が
+  継続する実害が確認されたため廃止した。詳細は憲法 Principle IV を参照。)
+- `data_backfill.yml` / `data_force_refresh_backfill.yml` / `data_gap_check.yml` /
+  `fetch_large_event.yml` は上記とは別系統で、実行ごとに専用ブランチを作成し `main` への
+  PR を経由するパターンを引き続き使う(大規模・破壊的になりうる手動実行のため、レビューを
+  挟む設計を意図的に維持している)。
 - 大会データの取得状況は `docs/chore-tornament/README.md` に日付単位で記録する。
 - 記録対象の日付範囲は `2018-12-29` から当日まで。
 
@@ -18,8 +27,7 @@
   - `scripts/fetch/download.py` を日本 (`JP`) 向けに当日・前日分で実行
   - `python -m unittest scripts.test.test_validate_data` を実行
   - `scripts/fix/update_chore_tournament_log.py` で `docs/chore-tornament/` を更新
-  - 差分があれば `chore-update` ブランチへ直接 push
-  - `chore-update` -> `main` の PR を自動作成または再利用し、rebase auto-merge を設定する
+  - 差分があれば `main` ブランチへ直接 push
 
 ### `update_user.yml`
 - 定義ファイル: `.github/workflows/update_user.yml`
@@ -28,8 +36,7 @@
   - `workflow_dispatch`
 - 実行内容:
   - `scripts/fetch/refresh_users.py --max_users 300` を実行
-  - 差分があれば `chore-update` ブランチへ直接 push
-  - `chore-update` -> `main` の PR を自動作成または再利用し、rebase auto-merge を設定する
+  - 差分があれば `main` ブランチへ直接 push
 
 ### `data_backfill.yml`
 - 定義ファイル: `.github/workflows/data_backfill.yml`
@@ -68,8 +75,19 @@
     続きから、1回につき `--max_events`(既定200件)まで再取得する
   - `python -m unittest scripts.test.test_validate_data` /
     `scripts.test.test_backfill_schema_version` を実行
-  - 差分があれば `chore-update` ブランチへ直接 push
-  - `chore-update` -> `main` の PR を自動作成または再利用する
+  - 差分があれば `main` ブランチへ直接 push(バッチごとに commit / push を繰り返す)
+
+### `prune_empty_events.yml`
+- 定義ファイル: `.github/workflows/prune_empty_events.yml`
+- 実行タイミング:
+  - `schedule`: 毎週日曜 `12:00 UTC`(`cron: "0 12 * * 0"`)
+  - `workflow_dispatch`
+- 実行内容:
+  - `python -m unittest scripts.test.test_validate_data` /
+    `scripts.test.test_prune_empty_events` を実行
+  - `scripts/fix/prune_empty_events.py --apply` を実行し、`standings.json` /
+    `matches.json` が空のイベントディレクトリを、start.gg への再確認を経てから削除する
+  - 差分があれば `main` ブランチへ直接 push
 
 ## 手動実行と定期実行の挙動
 
@@ -95,10 +113,16 @@
   - `workflow_dispatch` の場合: 実行した時点ですぐ起動し、同じ処理をその場で実行する
     (`max_events` 入力で1回あたりの処理件数を上書き可能)。
 
+- `prune_empty_events.yml`
+  - `schedule` の場合: 毎週日曜 `21:00 JST`(`12:00 UTC`)に起動する。
+  - `workflow_dispatch` の場合: 実行した時点ですぐ起動する。
+
 - 共通挙動
-  - どの workflow も最初に `chore-update` ブランチへ checkout し、差分がある場合のみそのブランチへ commit / push する。
-  - `update_tournament.yml` と `update_user.yml` は `main` 向け PR を自動管理する。
-  - rebase merge 後の履歴ずれを避けるため、merge 後に `chore-update` は `main` に同期し直す。
+  - `update_tournament.yml` / `update_user.yml` / `schema_backfill.yml` /
+    `prune_empty_events.yml` は `main` を checkout し、差分がある場合のみ `main` へ
+    直接 commit / push する(PR は経由しない)。
+  - 同時に `main` へ push しうるため `concurrency: group: main-data-commits` で
+    直列化し、push 競合時は `git pull --rebase origin main` してリトライする。
   - `schedule` は GitHub Actions の仕様上、デフォルトブランチ上の workflow 定義を元に起動される。
 
 ## `docs/chore-tornament`
