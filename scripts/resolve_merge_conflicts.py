@@ -44,6 +44,23 @@ if ROOT_DIR not in sys.path:
 # ヘルパー: git のインデックスから特定ステージのファイル内容を取得
 # ---------------------------------------------------------------------------
 
+def has_conflict(path: str) -> bool:
+    """
+    このパスが実際にマージ競合中(git のインデックスに stage 1/2/3 のエントリが
+    存在する = unmerged)かどうかを確認する。
+
+    このチェックを行わずに git show :2:/:3: を実行すると、競合が無い
+    (=クリーンにマージ済みの)ファイルに対しても stage が見つからず失敗し、
+    ours_lines/theirs_lines が両方とも空になった結果、正しくマージ済みだった
+    ファイルの中身を空で上書きしてしまう(実際に発生した事故)。
+    """
+    result = subprocess.run(
+        ["git", "ls-files", "-u", "--", path],
+        capture_output=True,
+    )
+    return bool(result.stdout.strip())
+
+
 def git_show(stage: int, path: str) -> str:
     """
     git show :<stage>:<path> を実行してファイル内容を返す。
@@ -84,6 +101,10 @@ def resolve_done_csv(path: str) -> None:
     """
     print(f"\n[1] {path}")
 
+    if not has_conflict(path):
+        print("  競合していません(クリーンにマージ済み)。スキップします。")
+        return
+
     # 空行を除外しつつ順序を保持するため list で読み込む
     ours_lines   = [l for l in git_show(2, path).splitlines() if l.strip()]
     theirs_lines = [l for l in git_show(3, path).splitlines() if l.strip()]
@@ -121,6 +142,10 @@ def resolve_jsonl(path: str, id_key: str) -> None:
       theirs 側に「更新済みの同一ID」があっても、現ブランチの内容を正とみなす。
     """
     print(f"\n[2] {path}  (id_key={id_key})")
+
+    if not has_conflict(path):
+        print("  競合していません(クリーンにマージ済み)。スキップします。")
+        return
 
     ours_lines   = [l for l in git_show(2, path).splitlines() if l.strip()]
     theirs_lines = [l for l in git_show(3, path).splitlines() if l.strip()]
@@ -164,6 +189,10 @@ def resolve_checked_dates(path: str) -> None:
     最終的に日付キーで昇順ソートして書き出す（JSON の可読性・差分の見やすさのため）。
     """
     print(f"\n[3] {path}")
+
+    if not has_conflict(path):
+        print("  競合していません(クリーンにマージ済み)。スキップします。")
+        return
 
     ours_raw   = git_show(2, path)
     theirs_raw = git_show(3, path)
@@ -225,6 +254,10 @@ def resolve_readme(path: str) -> None:
       競合マーカーのパースは行わない（複雑で壊れやすいため）。
     """
     print(f"\n[4] {path}")
+
+    if not has_conflict(path):
+        print("  競合していません(クリーンにマージ済み)。スキップします。")
+        return
 
     ours_raw   = git_show(2, path)
     theirs_raw = git_show(3, path)
