@@ -1,37 +1,53 @@
 <!--
 Sync Impact Report
 -------------------
-Version change: (none, template) → 1.0.0
-Rationale: Initial ratification. No prior constitution existed (only unfilled
-template placeholders were present), so this is treated as a new adoption,
-not an amendment.
+Version change: 1.0.0 → 2.0.0
+Rationale: MAJOR — Principle IV redefined in a backward-incompatible way.
+The `chore-update` branch + PR-based rebase auto-merge requirement is
+removed and replaced with a direct-to-main commit requirement. This is not
+an additive clarification; it reverses a previously MUST'd mechanism, so
+per this constitution's own versioning policy (Governance section) it is a
+MAJOR bump.
 
-Modified principles: N/A (initial creation)
+Modified principles:
+- IV. ブランチとオートメーションの規律 (Branch & Automation Discipline):
+  chore-update ブランチ + PR 経由の rebase auto-merge (MUST) を廃止し、
+  `main` への直接 commit/push (MUST) + 共有 concurrency group による直列化
+  + push 競合時の `git pull --rebase origin main` リトライ (MUST) に置換。
+  `docs/chore-tornament/README.md` / `checked_dates.json` の
+  script-only-update ルールは変更なしで維持。
+  Rationale の追記: 実際に main への直接コミットが chore-update ベースの
+  自動化から見えず、古い状態のまま処理が継続した実インシデント
+  (`schema_backfill_cursor.txt` の手動削除が無視された事例)を根拠として
+  記録。
 
-Added sections:
-- Core Principles I–V (Data Schema Integrity & Versioning; Idempotent
-  Incremental Collection; Validation Gate (NON-NEGOTIABLE); Branch &
-  Automation Discipline; Resilient External API Access)
-- データ保存規約 (Data Storage Conventions)
-- 開発ワークフロー (Development Workflow)
-- Governance
+Added sections: none
 
-Removed sections: N/A
+Removed sections: none (IV の本文のみ再定義。見出し名は維持)
 
 Templates requiring updates:
-- .specify/templates/plan-template.md: ✅ no change needed (Constitution
-  Check section is already generic and reads from this file at plan time)
+- .specify/templates/plan-template.md: ✅ no change needed (no
+  chore-update-specific references found)
 - .specify/templates/spec-template.md: ✅ no change needed (no
-  constitution-specific mandatory sections were added that affect spec scope)
-- .specify/templates/tasks-template.md: ✅ no change needed (no new
-  principle-driven task category was introduced beyond existing
-  test/validation categories)
-- .claude/skills/speckit-*/SKILL.md: ✅ no agent-specific (CLAUDE-only)
-  references found requiring generalization
+  chore-update-specific references found)
+- .specify/templates/tasks-template.md: ✅ no change needed (no
+  chore-update-specific references found)
+- .claude/skills/speckit-*/SKILL.md: ✅ no chore-update-specific references
+  found requiring updates
+- .github/workflows/schema_backfill.yml,
+  .github/workflows/update_tournament.yml,
+  .github/workflows/update_user.yml,
+  .github/workflows/prune_empty_events.yml,
+  .github/workflows/reset_chore_update_after_merge.yml: ⚠ pending — must be
+  updated (or, for reset_chore_update_after_merge.yml, removed) to match
+  the new Principle IV outside of this command's scope; tracked as a
+  deferred intent below.
+- docs/githubAction.md: ⚠ pending — describes the old chore-update flow in
+  detail; tracked as a deferred intent below.
 
-Follow-up TODOs: none. All placeholders resolved from repository context
-(README.md, docs/data_model.md, docs/flow.md, docs/directory.md,
-docs/fix.md, docs/startgg_design.md, docs/githubAction.md).
+Follow-up TODOs: none within constitution scope. See "Next Actions" for the
+non-governance follow-up (workflow YAML / docs updates) the requester will
+perform separately.
 -->
 
 # smash_database Constitution
@@ -66,15 +82,23 @@ Rationale: データベース全体の一貫性は自動収集パイプライン
 一度壊れたデータは後から検出・修復するコストが高い。
 
 ### IV. ブランチとオートメーションの規律 (Branch & Automation Discipline)
-GitHub Actions による自動更新は MUST 必ず `chore-update` ブランチへ commit /
-push し、`main` への反映は PR 経由の rebase auto-merge を MUST 通す。自動化が
-`main` へ直接 push することは MUST NOT 行わない。`chore-update` が `main` へ
-merge された後は、専用 workflow で `chore-update` を MUST re-sync する。
+`data/` を更新する GitHub Actions 自動化は MUST 中間ブランチを経由せず、
+`main` へ直接 commit / push する。複数の自動化ワークフローが同時に `main`
+へ push しうる場合、共有の `concurrency` group で MUST 直列化し、push が
+競合した場合は `git pull --rebase origin main` による MUST リトライを行う。
+`main` に変更を積む前に、Principle III（マージ前の検証ゲート）のテストを
+MUST pass させる。
 `docs/chore-tornament/README.md` と `checked_dates.json` は
 `scripts/fix/update_chore_tournament_log.py` 経由でのみ MUST 更新し、手動編集
 は MUST NOT 行わない。
-Rationale: `docs/githubAction.md` に定義された運用フローを崩すと、rebase
-merge 後の履歴ずれや記録の欠落が発生する。
+Rationale: 以前は自動更新を `chore-update` ブランチに集約し、PR 経由の
+rebase auto-merge で `main` に反映していたが、`main` への直接コミット(手動の
+修正など)が発生すると `chore-update` 側の自動化はそれに気づかず、古い状態を
+ベースに動き続けてしまう実害(例: `data/startgg/schema_backfill_cursor.txt`
+を `main` で手動削除したのに、`chore-update` ベースで動く定期実行がそれを
+無視して古いカーソル位置から処理を継続した実例)が確認された。二段階の
+ブランチ間接化が安全性ではなく不整合の温床になっていたため、直接 `main` へ
+commit する方式に改めた。
 
 ### V. 外部APIへの耐障害アクセス (Resilient External API Access)
 start.gg GraphQL API への呼び出しは `scripts/utils.py` の
@@ -123,4 +147,4 @@ Rationale: 統一されたリトライ経路がないと、一部スクリプト
   `docs/data_model.md` / `docs/startgg_design.md` / `docs/flow.md` /
   `docs/githubAction.md` / `docs/directory.md` / `docs/fix.md` を参照する。
 
-**Version**: 1.0.0 | **Ratified**: 2026-07-31 | **Last Amended**: 2026-07-31
+**Version**: 2.0.0 | **Ratified**: 2026-07-31 | **Last Amended**: 2026-08-20

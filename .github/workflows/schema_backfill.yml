@@ -15,12 +15,11 @@ on:
         default: "20"
 
 concurrency:
-  group: chore-update-branch
+  group: main-data-commits
   cancel-in-progress: true
 
 permissions:
   contents: write
-  pull-requests: write
 
 jobs:
   schema-backfill:
@@ -30,19 +29,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
+          ref: main
           fetch-depth: 0
 
-      - name: Prepare chore-update branch
+      - name: Configure git
         run: |
           set -euxo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git fetch origin chore-update || true
-          if git show-ref --verify --quiet refs/remotes/origin/chore-update; then
-            git checkout -B chore-update origin/chore-update
-          else
-            git checkout -B chore-update
-          fi
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -97,11 +91,11 @@ jobs:
               git commit -m "chore(data): backfill event schema version (batch)"
               PUSHED=0
               for attempt in 1 2 3; do
-                if git push --set-upstream origin chore-update; then
+                if git push origin HEAD:main; then
                   PUSHED=1
                   break
                 fi
-                git pull --rebase origin chore-update
+                git pull --rebase origin main
               done
               if [ "$PUSHED" -ne 1 ]; then
                 echo "push failed after retries" >&2
@@ -131,31 +125,6 @@ jobs:
           if [ "$SCRIPT_FAILED" -ne 0 ]; then
             exit 1
           fi
-
-      - name: Ensure main PR exists without auto-merge
-        if: always() && steps.backfill.outputs.any_changes == 'true'
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          set -euxo pipefail
-          PR_NUMBER="$(gh pr list \
-            --repo "$GITHUB_REPOSITORY" \
-            --head chore-update \
-            --base main \
-            --state open \
-            --json number \
-            --jq '.[0].number // empty')"
-
-          if [ -z "$PR_NUMBER" ]; then
-            PR_URL="$(gh pr create \
-              --repo "$GITHUB_REPOSITORY" \
-              --base main \
-              --head chore-update \
-              --title "chore(data): sync chore-update into main" \
-              --body "Automated data update PR from \`chore-update\` into \`main\`." )"
-            PR_NUMBER="${PR_URL##*/}"
-          fi
-          echo "PR #$PR_NUMBER is ready for manual review and merge."
 
       - name: Debug on failure
         if: failure()
