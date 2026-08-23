@@ -67,7 +67,8 @@
   },
   "archive_status": "completed",
   "state": "COMPLETED",
-  "event_data_version": 4,
+  "type": 1,
+  "event_data_version": 5,
   "guest_entrant_count": 0
 }
 ```
@@ -76,6 +77,8 @@
   `event_data_version < 4` の既存データには存在しない(`null`扱い)。
   以前は`status`という紛らわしい名前のフィールドが`archive_status`の意味で使われていたが、
   `event_data_version=4`で`archive_status`にリネームし、`state`を新設した。
+- `type`: start.gg API の `event.type`(イベント種別)。`event_data_version < 5` の既存データには
+  存在しない(`null`扱い)。`event_data_version=5`で新設した。
 
 ## standings
 

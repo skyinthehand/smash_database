@@ -113,13 +113,13 @@ class PruneEmptyEventsTests(unittest.TestCase):
 
     @patch("scripts.fix.prune_empty_events.fetch_event_ids_from_tournament")
     def test_has_unrecorded_sibling_event_true_when_new_event_found(self, mock_fetch):
-        mock_fetch.return_value = [(1533881, "Singles", False, "COMPLETED")]
+        mock_fetch.return_value = [(1533881, "Singles", False, "COMPLETED", 1)]
         tournaments = {811466: {"tournament_id": 811466, "events": [{"event_id": 1423946, "path": "x"}]}}
         self.assertTrue(pee.has_unrecorded_sibling_event(811466, "1386", tournaments))
 
     @patch("scripts.fix.prune_empty_events.fetch_event_ids_from_tournament")
     def test_has_unrecorded_sibling_event_false_when_no_other_events(self, mock_fetch):
-        mock_fetch.return_value = [(1423946, "Singles", False, "COMPLETED")]
+        mock_fetch.return_value = [(1423946, "Singles", False, "COMPLETED", 1)]
         tournaments = {811466: {"tournament_id": 811466, "events": [{"event_id": 1423946, "path": "x"}]}}
         self.assertFalse(pee.has_unrecorded_sibling_event(811466, "1386", tournaments))
 
@@ -166,7 +166,7 @@ class PruneEmptyEventsTests(unittest.TestCase):
     @patch("scripts.fix.prune_empty_events.fetch_event_ids_from_tournament")
     @patch("scripts.fix.prune_empty_events.backfill_one_event", side_effect=write_still_empty)
     def test_reconcile_keeps_when_sibling_event_exists(self, _mock_backfill, mock_fetch):
-        mock_fetch.return_value = [(1423946, "Singles", False, "COMPLETED"), (1533881, "Singles", False, "COMPLETED")]
+        mock_fetch.return_value = [(1423946, "Singles", False, "COMPLETED", 1), (1533881, "Singles", False, "COMPLETED", 1)]
         with tempfile.TemporaryDirectory() as tmpdir:
             event_dir = make_event_dir(tmpdir, "e", event_id=1423946)
             tournaments = {811466: {"tournament_id": 811466, "events": [{"event_id": 1423946, "path": str(event_dir)}]}}
@@ -255,7 +255,7 @@ class PruneEmptyEventsTests(unittest.TestCase):
     @patch("scripts.fix.prune_empty_events.fetch_event_ids_from_tournament")
     @patch("scripts.fix.prune_empty_events.backfill_one_event", side_effect=write_still_empty)
     def test_prune_empty_events_apply_does_not_delete_when_sibling_event_found(self, _mock_backfill, mock_fetch):
-        mock_fetch.return_value = [(1423946, "Singles", False, "COMPLETED"), (1533881, "Singles", False, "COMPLETED")]
+        mock_fetch.return_value = [(1423946, "Singles", False, "COMPLETED", 1), (1533881, "Singles", False, "COMPLETED", 1)]
         with tempfile.TemporaryDirectory() as tmpdir:
             empty_dir = make_event_dir(tmpdir, "Japan/t1/empty", event_id=1423946)
             tournament_file_path = f"{tmpdir}/tournaments.jsonl"

@@ -272,7 +272,7 @@ def write_matches(all_nodes, entrant2user, event_dir):
         print(f"No processable matches found after filtering. Skipped {skipped_count} incomplete sets.")
 
 
-def write_event_attributes(num_entrants, event_id, event_name, tournament_name, timestamp, place, url, labels, is_online, event_dir, guest_entrant_count=None, end_at=None, state=None):
+def write_event_attributes(num_entrants, event_id, event_name, tournament_name, timestamp, place, url, labels, is_online, event_dir, guest_entrant_count=None, end_at=None, state=None, event_type=None):
     """イベントの属性情報をattr.jsonとして保存する"""
     os.makedirs(event_dir, exist_ok=True) # ディレクトリが存在しない場合は作成
     json_data = {
@@ -287,6 +287,7 @@ def write_event_attributes(num_entrants, event_id, event_name, tournament_name, 
         "labels": labels if labels is not None else [], # 追加メタ情報（現在は空）
         "archive_status": "completed", # データ取得処理自体の完了マーカー(start.ggのevent.stateとは別概念)
         "state": state, # start.ggのevent.state (ACTIVE/COMPLETEDなど)
+        "type": event_type, # start.ggのevent.type
         "timestamp": timestamp, # イベント開始タイムスタンプ
         "end_at": end_at, # 大会終了タイムスタンプ
         "fetched_at": int(datetime.now().timestamp()), # データ取得日時
@@ -725,7 +726,7 @@ def download_specific_event(tournament_slug, event_slug, startgg_dir, done_file_
         # 5e. イベント属性
         labels = {}
 
-        write_event_attributes(num_entrants, event_id, event_name, tournament_name, timestamp, place, tournament_url, labels, is_online, event_dir, guest_entrant_count=guest_entrant_count, end_at=end_at, state=event_data.get("state"))
+        write_event_attributes(num_entrants, event_id, event_name, tournament_name, timestamp, place, tournament_url, labels, is_online, event_dir, guest_entrant_count=guest_entrant_count, end_at=end_at, state=event_data.get("state"), event_type=event_data.get("type"))
 
         # 6. tournaments.jsonl を更新
         # トーナメントがまだ記録されていなければ追加、存在すればイベント情報を追加

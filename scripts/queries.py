@@ -308,6 +308,7 @@ def get_tournament_events_query():
           startAt
           isOnline
           state
+          type
         }
       }
     }""" 
@@ -424,6 +425,7 @@ def get_event_details_by_tournament_query():
           isOnline
           numEntrants
           state
+          type
         }
       }
     }
@@ -459,6 +461,7 @@ def get_event_details_by_id_query():
         numEntrants
         isOnline
         state
+        type
         tournament {
           id
           name
