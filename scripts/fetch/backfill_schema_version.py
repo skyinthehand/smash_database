@@ -210,6 +210,7 @@ def backfill_one_event(
         guest_entrant_count=count_guest_entrants(user_data),
         end_at=tournament.get("endAt"),
         state=event.get("state"),
+        event_type=event.get("type"),
     )
     print(f"[{event_id}] backfilled to event_data_version={EVENT_DATA_VERSION} ({event_dir})")
     return True

@@ -136,7 +136,7 @@ def has_unrecorded_sibling_event(tournament_id: int, game_id: str, tournaments: 
     except FetchError as exc:
         print(f"[{tournament_id}] sibling check failed, treating as unresolved: {exc}", file=sys.stderr)
         return None
-    return any(event_id not in known_ids for event_id, _name, _online, _state in events_info)
+    return any(event_id not in known_ids for event_id, _name, _online, _state, _type in events_info)
 
 
 def reconcile_empty_event(
