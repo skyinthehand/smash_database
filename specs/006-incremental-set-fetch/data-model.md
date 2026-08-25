@@ -1,92 +1,96 @@
-# Data Model: Incremental Per-Set Match Fetching & Recovery
+# データモデル: setごとの逐次取得によるマッチ取得とリカバリ
 
-This feature changes one existing file's schema (`matches.json`) and one shared
-version constant (`EVENT_DATA_VERSION`). It introduces no new files. The full
-persisted-file schema documentation lives in `docs/data_model.md` (to be updated as
-part of implementation, per Constitution Principle I); this document describes the
-entities and their lifecycle for design purposes.
+本機能は既存ファイルのスキーマ（`matches.json`）1つと、共有バージョン定数
+（`EVENT_DATA_VERSION`）1つを変更する。新規ファイルは導入しない。永続化される
+全ファイルのスキーマドキュメントは`docs/data_model.md`にある（実装の一環として
+更新する。憲法Principle I）。本ドキュメントは、設計目的でエンティティとその
+ライフサイクルを記述する。
 
-## Entity: Match Record
+## エンティティ: Match Record（マッチレコード）
 
-One entry in `matches.json`'s `data` array. Represents one start.gg set belonging to
-an event. Exists in exactly one of two states at any point in time.
+`matches.json`の`data`配列内の1エントリ。イベントに属する1つのstart.gg setを
+表す。常にどちらか一方の状態を取る。
 
-### State: `placeholder`
+### 状態: `placeholder`（プレースホルダー）
 
-| Field | Type | Notes |
+| フィールド | 型 | 備考 |
 |---|---|---|
-| `set_id` | integer | start.gg set ID. The only field present. |
+| `set_id` | integer | start.ggのset ID。唯一存在するフィールド。 |
 
-No other keys are present on a placeholder record (see research.md §4 for why
-key-presence, not a `null` value, distinguishes this state).
+プレースホルダーレコードには他のキーは一切存在しない（キー存在の有無で状態を
+区別する理由についてはresearch.md §4を参照）。
 
-### State: `complete`
+### 状態: `complete`（完了済み）
 
-| Field | Type | Notes |
+| フィールド | 型 | 備考 |
 |---|---|---|
-| `set_id` | integer | **New in this feature.** start.gg set ID; unchanged from the placeholder that was replaced. |
-| `winner_id` | integer \| null | Existing field. `null` for unlinked/guest entrants. |
-| `loser_id` | integer \| null | Existing field. |
-| `winner_score` | integer | Existing field. |
-| `loser_score` | integer | Existing field. |
-| `round_text` | string \| null | Existing field. |
-| `round` | integer \| null | Existing field. |
-| `phase` | string \| null | Existing field. |
-| `phase_order` | integer \| null | Existing field. |
-| `wave` | string \| null | Existing field. |
-| `dq` | boolean | Existing field. |
-| `cancel` | boolean | Existing field. |
-| `state` | integer | Existing field (start.gg set state). |
-| `details` | array | Existing field; per-game detail (`game_id`, `order_num`, `winner_id`, scores, `stage`, `selections`). |
+| `set_id` | integer | **本機能で新規追加。** start.ggのset ID。置き換え元のプレースホルダーから値は変わらない。 |
+| `winner_id` | integer \| null | 既存フィールド。参加者リンクの無いゲスト/未リンクエントラントでは`null`。 |
+| `loser_id` | integer \| null | 既存フィールド。 |
+| `winner_score` | integer | 既存フィールド。 |
+| `loser_score` | integer | 既存フィールド。 |
+| `round_text` | string \| null | 既存フィールド。 |
+| `round` | integer \| null | 既存フィールド。 |
+| `phase` | string \| null | 既存フィールド。 |
+| `phase_order` | integer \| null | 既存フィールド。 |
+| `wave` | string \| null | 既存フィールド。 |
+| `dq` | boolean | 既存フィールド。 |
+| `cancel` | boolean | 既存フィールド。 |
+| `state` | integer | 既存フィールド（start.gg側のset state）。 |
+| `details` | array | 既存フィールド。ゲーム単位の詳細（`game_id`、`order_num`、`winner_id`、スコア、`stage`、`selections`）。 |
 
-### State transitions
-
-```
-(does not exist) --[event set-ID listing fetched]--> placeholder
-placeholder       --[set detail fetch succeeds]-----> complete
-placeholder       --[set detail fetch fails]--------> placeholder (unchanged, retried later)
-complete          --[re-fetch, e.g. version backfill]-> complete (overwritten in place, same set_id)
-```
-
-A record MUST NOT transition from `complete` back to `placeholder`. A record's
-`set_id` MUST NOT change across a transition (FR-004, FR-008). There is exactly one
-record per `set_id` per event at all times (FR-008) — a fetch never appends a second
-record for a `set_id` that already has one, whether placeholder or complete.
-
-### Validation rules (derived from spec.md Functional Requirements)
-
-- FR-002/FR-007: Every `set_id` known for an event (from the ID-listing fetch) MUST
-  have exactly one corresponding record (placeholder or complete) in `matches.json`.
-- FR-008: No two records in the same event's `matches.json` share a `set_id`.
-- FR-009: An event is "complete" (eligible for `attr.json` with
-  `archive_status: "completed"`) iff every record in its `matches.json` is in the
-  `complete` state (or is covered by the pre-existing `excluded_phases.json`
-  exclusion mechanism, unchanged by this feature).
-
-## Entity: Event (existing, behavior change only)
-
-No new fields. Behavior change: `attr.json`'s existence is now gated on "no
-placeholder Match Records remain" (state, not a single fetch attempt's success),
-per FR-009. Everything else about `attr.json` (`docs/data_model.md`'s existing
-schema) is unchanged by this feature, aside from the `event_data_version` bump.
-
-## Shared constant: `EVENT_DATA_VERSION`
-
-`scripts/utils.py`: `5 → 6`. Signals that `matches.json` records for this event
-schema generation carry `set_id` and may (transiently, pre-completion) include
-placeholder records. Drives `scripts/fetch/backfill_schema_version.py`'s existing
-rolling backfill of events at older versions (research.md §5) — no schema-specific
-change needed inside that scanner itself, since it already generically compares
-`attr.json`'s `event_data_version` (or `0` if `attr.json` is absent) against the
-current constant.
-
-## Relationships
+### 状態遷移
 
 ```
-Event (1) ── has ── Match Record (0..N)   [N = event's total set count]
-Match Record ── belongs to exactly one ── start.gg Set (by set_id)
+（存在しない） --[イベントのset ID一覧を取得]--> placeholder
+placeholder    --[setの詳細取得に成功]-----------> complete
+placeholder    --[setの詳細取得に失敗]-----------> placeholder（変化なし、後で再取得）
+complete       --[再取得。例: バージョンバックフィル]--> complete（その場で上書き。同じset_id）
 ```
 
-No relationship changes; `matches.json` continues to be the sole place Match Records
-are stored, and continues to live at the same path as today
-(`data/startgg/events/{Region}/{YYYY}/{MM}/{DD}/{Tournament}/{Event}/matches.json`).
+レコードが`complete`から`placeholder`に戻ることは無い。状態遷移をまたいで
+`set_id`が変わることも無い（FR-004, FR-008）。1つのイベント内で1つの`set_id`
+につき常にちょうど1件のレコードが存在する（FR-008）——既にレコードが存在する
+`set_id`（プレースホルダーであれ完了済みであれ）に対して、取得処理が2件目の
+レコードを追記することは無い。
+
+### バリデーションルール（spec.mdのFunctional Requirementsから導出）
+
+- FR-002/FR-007: イベントについて（ID一覧取得により）判明している全ての
+  `set_id`は、`matches.json`内に対応するレコード（プレースホルダーまたは
+  完了済み）をちょうど1件持たなければならない。
+- FR-008: 同じイベントの`matches.json`内で、2つのレコードが同じ`set_id`を
+  共有することは無い。
+- FR-009: イベントが「完了」（`archive_status: "completed"`付きの
+  `attr.json`を書き込む資格がある）とみなされるのは、`matches.json`内の
+  全レコードが`complete`状態である場合、またはそのレコードが既存の
+  `excluded_phases.json`除外機構（本機能では変更なし）の対象として明示的に
+  除外されている場合のみ。
+
+## エンティティ: Event（イベント。既存。挙動のみ変更）
+
+新規フィールドは無い。挙動の変更点: `attr.json`の存在が、FR-009に従い
+「プレースホルダーのMatch Recordが1件も残っていないこと」（単一の取得試行の
+成功/失敗ではなく、状態）によってゲートされるようになる。`attr.json`に関する
+その他の事項（`docs/data_model.md`の既存スキーマ）は、`event_data_version`の
+引き上げを除き、本機能によって変更されない。
+
+## 共有定数: `EVENT_DATA_VERSION`
+
+`scripts/utils.py`: `5 → 6`。このイベントスキーマ世代の`matches.json`レコードは
+`set_id`を持ち、（完了前は一時的に）プレースホルダーレコードを含み得ることを
+示す。`scripts/fetch/backfill_schema_version.py`の既存の巡回バックフィル
+（research.md §5）を駆動する——そのスキャナ自体には特別な変更は不要で、既に
+`attr.json`の`event_data_version`（無ければ`0`扱い）を現在の定数と汎用的に
+比較しているため。
+
+## 関連
+
+```
+Event（1） ── has ── Match Record（0..N）   [N = イベントの総set数]
+Match Record ── belongs to exactly one ── start.gg Set（set_idで紐付け）
+```
+
+関連の変更は無い。`matches.json`は引き続きMatch Recordを保持する唯一の場所
+であり、引き続き今日と同じパスに置かれる
+（`data/startgg/events/{Region}/{YYYY}/{MM}/{DD}/{Tournament}/{Event}/matches.json`）。

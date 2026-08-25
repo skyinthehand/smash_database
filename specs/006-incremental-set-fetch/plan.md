@@ -1,175 +1,183 @@
-# Implementation Plan: Incremental Per-Set Match Fetching & Recovery
+# 実装計画: setごとの逐次取得によるマッチ取得とリカバリ
 
-**Branch**: `006-incremental-set-fetch` | **Date**: 2026-08-26 | **Spec**: [spec.md](./spec.md)
+**ブランチ**: `006-incremental-set-fetch` | **日付**: 2026-08-26 | **仕様書**: [spec.md](./spec.md)
 
-**Input**: Feature specification from `/specs/006-incremental-set-fetch/spec.md`
+**入力**: `/specs/006-incremental-set-fetch/spec.md` のフィーチャー仕様
 
-## Summary
+## 概要
 
-Large start.gg events (hundreds of entrants, thousands of sets) currently fail to save
-any match data at all when the single bulk, paginated `event.sets` query exceeds the
-page/complexity budget — `matches.json` and `attr.json` never get written, even though
-`standings.json`/`seeds.json` already succeeded. The fix replaces that one-shot bulk
-fetch with an incremental, resumable approach: seed `matches.json` with one placeholder
-record (`set_id` only) per set — via a new lightweight, ID-only `event.sets` query —
-before fetching any full detail, then fetch each outstanding set's full detail directly
-by ID (`set(id: ID!)`, confirmed to exist on start.gg's API) and replace its placeholder
-in place. This keeps each request's complexity bounded regardless of event size, lets
-partially-fetched events survive interruption and resume across scheduled runs, and
-lets `matches.json` itself (mix of placeholder vs. complete records) double as the
-outstanding-work tracker — no separate intermediate file. It also retires the
-now-unnecessary max_pages-based large-event-skip issue/`fetch_large_event` manual
-recovery path (FR-012/013), and backfills `set_id` onto historical `matches.json`
-records via the existing `event_data_version`-driven rolling backfill cycle (FR-010/011).
+大規模なstart.ggイベント（数百人規模、数千set規模）は現在、単一の一括ページング
+クエリ（`event.sets`）がページ/complexity上限を超えると、`matches.json`と
+`attr.json`が一切保存されないまま失敗する。`standings.json`/`seeds.json`は既に
+成功しているにもかかわらずである。この修正では、その一発勝負の一括取得を、
+逐次的でレジューム可能な方式に置き換える。まず新設する軽量なID専用の
+`event.sets`クエリで、set詳細を取得する前に`matches.json`をset1件につき
+プレースホルダーレコード（`set_id`のみ）1件で埋めておく。その後、未取得の各set
+について詳細をIDで直接取得し（`set(id: ID!)`。start.gg APIに実在することを確認
+済み）、プレースホルダーをその場で置き換えていく。これにより、1リクエストあたりの
+complexityはイベント規模に関係なく一定に保たれ、部分的に取得済みのイベントは
+中断されてもデータを失わず、スケジュール実行をまたいで再開できる。さらに
+`matches.json`自体（プレースホルダーと完了済みレコードの混在状態）が、未取得分の
+追跡役を兼ねるため、別の中間ファイルは不要になる。あわせて、不要になった
+max_pagesベースのlarge-event-skip issue／`fetch_large_event`手動リカバリ経路を
+廃止し（FR-012/013）、既存の`event_data_version`駆動の巡回バックフィルサイクル
+経由で、過去分の`matches.json`レコードにも`set_id`をバックフィルする
+（FR-010/011）。
 
-## Technical Context
+## Technical Context（技術的コンテキスト）
 
-**Language/Version**: Python 3.11 (matches CI in `.github/workflows/*.yml`)
+**言語/バージョン**: Python 3.11（`.github/workflows/*.yml`のCI設定と一致）
 
-**Primary Dependencies**: `requests` (only third-party dependency); everything else is
-stdlib (`json`, `argparse`, `os`, `time`, `unittest`). No web framework, no ORM, no
-package manager config file (`pip install requests` directly in CI).
+**主要な依存関係**: `requests`（唯一のサードパーティ依存）。それ以外は全て標準
+ライブラリ（`json`, `argparse`, `os`, `time`, `unittest`）。Webフレームワークや
+ORM、パッケージマネージャの設定ファイルは無し（CI内で`pip install requests`を
+直接実行）。
 
-**Storage**: Flat JSON files under `data/startgg/events/{Region}/{YYYY}/{MM}/{DD}/
-{Tournament}/{Event}/{attr,standings,seeds,matches}.json`, committed directly to the
-git repository (no database). `matches.json` gains a placeholder record shape as part
-of this feature; no new file is introduced.
+**ストレージ**: `data/startgg/events/{Region}/{YYYY}/{MM}/{DD}/{Tournament}/
+{Event}/{attr,standings,seeds,matches}.json`配下のフラットなJSONファイル。git
+リポジトリに直接コミットされる（データベースなし）。本機能により`matches.json`
+にプレースホルダーレコード形状が追加されるが、新規ファイルは導入しない。
 
-**Testing**: `python -m unittest scripts.test.<module>` (stdlib `unittest`,
-`unittest.mock.patch` for GraphQL/API mocking — see `scripts/test/test_download.py`
-for the established pattern of mocking `fetch_latest_tournaments_by_game`,
-`fetch_event_ids_from_tournament`, `download_all_set`, etc.). Constitution Principle
-III requires `scripts.test.test_validate_data` to keep passing and requires new tests
-for any new data shape.
+**テスト**: `python -m unittest scripts.test.<module>`（標準ライブラリの
+`unittest`、GraphQL/APIのモックには`unittest.mock.patch`を使用 —
+`fetch_latest_tournaments_by_game`、`fetch_event_ids_from_tournament`、
+`download_all_set`等をモックする既存パターンは`scripts/test/test_download.py`を
+参照）。憲法Principle IIIにより、`scripts.test.test_validate_data`は常にpassさせる
+必要があり、新しいデータ形状には対応するテストの追加が必須。
 
-**Target Platform**: GitHub Actions (`ubuntu-latest`, 60-minute job timeout per
-`.github/workflows/data_gap_check.yml`) for scheduled runs, plus local CLI execution
-for manual/ad-hoc runs (`scripts/fetch/download.py`, `download_specific_event.py`,
-`backfill_schema_version.py`).
+**対象プラットフォーム**: 定期実行にはGitHub Actions（`ubuntu-latest`、
+`.github/workflows/data_gap_check.yml`のjobタイムアウト60分）、手動・個別実行には
+ローカルCLI実行（`scripts/fetch/download.py`、`download_specific_event.py`、
+`backfill_schema_version.py`）。
 
-**Project Type**: CLI / batch data pipeline (no server, no UI). Single-project layout
-under `scripts/` (see Project Structure below).
+**プロジェクト種別**: CLI／バッチ型データパイプライン（サーバーもUIも無し）。
+`scripts/`配下の単一プロジェクト構成（Project Structure参照）。
 
-**Performance Goals**: Not latency-sensitive. The binding constraint is the GitHub
-Actions job timeout (60 min) combined with start.gg's per-request GraphQL complexity
-limit — the design goal is that no single request's complexity scales with an event's
-total set count, so progress is never all-or-nothing.
+**パフォーマンス目標**: レイテンシは重要ではない。制約となるのはGitHub Actions
+のjobタイムアウト（60分）とstart.ggのリクエストあたりGraphQL complexity上限の
+組み合わせであり、設計上の目標は「1リクエストのcomplexityがイベントの総set数に
+比例して増大しないこと」——これにより進捗がall-or-nothingにならなくなる。
 
-**Constraints**: Constitution Principle V — all new start.gg API calls MUST go through
-`scripts/utils.py`'s `fetch_data_with_retries()` (single request) / `fetch_all_nodes()`
-(paginated) rather than hand-rolled retry/backoff. Constitution Principle II — must
-stay idempotent/incremental; re-running against an event with existing placeholder and
-complete records must not re-fetch already-complete sets or duplicate records.
-Constitution Principle I — the `matches.json` schema change requires an
-`EVENT_DATA_VERSION` bump, a `docs/data_model.md` update in the same PR, and a backfill
-path for existing data (reusing `scripts/fetch/backfill_schema_version.py`'s rolling
-cycle, not a one-off migration).
+**制約**: 憲法Principle V — start.ggへの新規API呼び出しは全て
+`scripts/utils.py`の`fetch_data_with_retries()`（単発リクエスト）／
+`fetch_all_nodes()`（ページング）を経由し、独自のリトライ/バックオフを実装しない
+こと。憲法Principle II — 冪等・インクリメンタルを維持すること。プレースホルダーと
+完了済みレコードが混在するイベントに対して再実行しても、完了済みsetの再取得や
+レコードの重複を起こさないこと。憲法Principle I — `matches.json`のスキーマ変更に
+伴い`EVENT_DATA_VERSION`を上げ、同一PRで`docs/data_model.md`を更新し、既存データの
+移行経路を用意すること（一回限りの移行スクリプトではなく、
+`scripts/fetch/backfill_schema_version.py`の巡回サイクルを再利用する）。
 
-**Scale/Scope**: `data/startgg/events/` currently holds several thousand event
-directories. Large events observed in production: `grand_slum` (488 entrants,
-`total_pages=1267` at `max_pages=200`) and `SHIBUYA_DAIRAN` (256 entrants,
-`total_pages=510`) — see spec.md User Story 1. The weekly gap-check
-(`data_gap_check.yml`) scans a rolling 60-day window; other workflows
-(`schema_backfill.yml`, `data_backfill.yml`, `update_tournament.yml`) run on their own
-schedules against the full history.
+**規模/スコープ**: `data/startgg/events/`配下には現状数千件のイベントディレクトリ
+が存在する。実際に観測された大規模イベント: `grand_slum`（488人、`max_pages=200`
+に対し`total_pages=1267`）、`SHIBUYA_DAIRAN`（256人、`total_pages=510`）——
+spec.mdのUser Story 1参照。週次gap-check（`data_gap_check.yml`）は直近60日を走査
+し、その他のワークフロー（`schema_backfill.yml`、`data_backfill.yml`、
+`update_tournament.yml`）はそれぞれ独自のスケジュールで全履歴を対象に実行される。
 
-## Constitution Check
+## Constitution Check（憲法チェック）
 
-*GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
+*ゲート: Phase 0のresearch前に必ずpassすること。Phase 1の設計後に再チェックする。*
 
-| Principle | Check | Status |
+| 原則 | チェック内容 | 判定 |
 |---|---|---|
-| I. データスキーマの整合性とバージョニング | `matches.json` gets a new placeholder record shape → `EVENT_DATA_VERSION` bump (5→6), `docs/data_model.md` updated same PR, existing data migrated via the *existing* `backfill_schema_version.py` rolling cycle (FR-010/011), not a bespoke migration script. | PASS (design commits to this) |
-| II. 冪等でインクリメンタルな収集 | Re-running fetch for an event with a mix of placeholder/complete records only re-fetches placeholders (FR-006/007/008); `done.csv`/`tournament_events_complete()` already treat an event without `attr.json` as incomplete, so in-progress large events keep getting revisited naturally — no new "done" tracking needed. | PASS |
-| III. マージ前の検証ゲート | New tests required in `scripts/test/` for: placeholder seeding, outstanding-set detection, no-duplicate-set_id, completion-gates-on-no-placeholders, large-event-skip removal. `scripts.test.test_validate_data` must keep passing (see Phase 1 note on `validate_data.py`). | PASS (planned as tasks) |
-| IV. ブランチとオートメーションの規律 | No change to the direct-to-`main` / concurrency-group / rebase-retry commit pattern used by `data_gap_check.yml` and friends; this feature does not introduce new automation, it changes what `download.py` does within the existing workflows. Removing `fetch_large_event.yml` is a deletion, not a new automation path. | PASS |
-| V. 外部APIへの耐障害アクセス | New queries (event set-ID listing, single/batched `set(id:)` detail fetch) MUST go through `fetch_all_nodes()` / `fetch_data_with_retries()` respectively — no custom retry loop. Verified `set(id: ID!): Set` exists on start.gg's schema (see research.md). | PASS (design commits to this) |
-| データ保存規約 | Directory layout (`{Region}/{YYYY}/{MM}/{DD}/{Tournament}/{Event}`) unchanged. The "no manual escape hatch" residual risk (spec.md Edge Cases) gets recorded in `docs/fix.md` per convention, not left as a code comment. | PASS (planned as task) |
-| 開発ワークフロー | Changes live in `scripts/fetch/download.py` (fetch logic) and `scripts/queries.py` (new queries) — same files/roles as today, no new script category. `docs/data_model.md`, `docs/startgg_design.md`, `docs/flow.md`, `docs/fix.md` updates travel in the same PR as the schema/workflow change. | PASS (planned as tasks) |
+| I. データスキーマの整合性とバージョニング | `matches.json`に新しいプレースホルダーレコード形状が加わる → `EVENT_DATA_VERSION`を5→6に上げ、同一PRで`docs/data_model.md`を更新し、既存データは*既存の*`backfill_schema_version.py`の巡回サイクル（FR-010/011）で移行する。独自の移行スクリプトは作らない。 | PASS（設計として確約） |
+| II. 冪等でインクリメンタルな収集 | プレースホルダー/完了済みレコードが混在するイベントへの再実行は、プレースホルダーのみを再取得する（FR-006/007/008）。`done.csv`/`tournament_events_complete()`は既に「`attr.json`が無いイベントは未完了」として扱っているため、取得中の大規模イベントは自然に再訪される——新しい「完了」管理は不要。 | PASS |
+| III. マージ前の検証ゲート | `scripts/test/`に新規テストが必要: プレースホルダーの投入、未取得setの検出、set_id重複の禁止、プレースホルダー0件による完了判定、large-event-skip廃止。`scripts.test.test_validate_data`は引き続きpassさせる（Phase 1の`validate_data.py`に関する注記参照）。 | PASS（タスクとして計画） |
+| IV. ブランチとオートメーションの規律 | `data_gap_check.yml`等が使っている、`main`への直接commit／concurrency group／push競合時のrebaseリトライという既存パターンには変更なし。本機能は新しい自動化を追加するのではなく、既存ワークフロー内で`download.py`が行う処理を変更するだけ。`fetch_large_event.yml`の削除は既存自動化の削除であり、新規自動化経路の追加ではない。 | PASS |
+| V. 外部APIへの耐障害アクセス | 新規クエリ（イベントのset ID一覧取得、`set(id:)`による単体/バッチ詳細取得）は、それぞれ`fetch_all_nodes()`/`fetch_data_with_retries()`を経由すること——独自のリトライループは書かない。`set(id: ID!): Set`がstart.ggのスキーマに実在することを確認済み（research.md参照）。 | PASS（設計として確約） |
+| データ保存規約 | ディレクトリレイアウト（`{Region}/{YYYY}/{MM}/{DD}/{Tournament}/{Event}`）は変更なし。「set ID一覧取得自体が破綻した場合の手動escape hatchが無い」という残存リスク（spec.md Edge Cases）は、コードコメントではなく`docs/fix.md`に規約通り記録する。 | PASS（タスクとして計画） |
+| 開発ワークフロー | 変更は`scripts/fetch/download.py`（取得ロジック）と`scripts/queries.py`（新規クエリ）に収まる——今日と同じファイル/役割分担であり、新しいスクリプト区分は増えない。`docs/data_model.md`、`docs/startgg_design.md`、`docs/flow.md`、`docs/fix.md`の更新は、スキーマ/ワークフロー変更と同一PRに含める。 | PASS（タスクとして計画） |
 
-No violations requiring justification — Complexity Tracking table is empty.
+正当化が必要な違反は無し——Complexity Trackingの表は意図的に空。
 
-**Post-design re-check** (after Phase 0/1, see research.md, data-model.md,
-contracts/, quickstart.md): No new violations introduced. Every commitment the table
-above made — reusing `fetch_all_nodes()`/`fetch_data_with_retries()` (Principle V,
-confirmed against start.gg's actual schema in research.md §2), routing schema change
-through `EVENT_DATA_VERSION` + the existing `backfill_schema_version.py` cycle
-(Principle I, research.md §5), keeping `matches.json` the single source of truth so no
-new "done" tracking is needed (Principle II), and recording the residual manual-escape-
-hatch risk in `docs/fix.md` rather than a code comment (data storage conventions) — is
-carried through consistently into the Phase 1 design artifacts. Still PASS.
+**設計後の再チェック**（Phase 0/1後。research.md, data-model.md, contracts/,
+quickstart.md参照）: 新たな違反は生じていない。上表で確約した内容——
+`fetch_all_nodes()`/`fetch_data_with_retries()`の再利用（Principle V。
+research.md §2でstart.ggの実スキーマに対して確認済み）、`EVENT_DATA_VERSION`＋
+既存の`backfill_schema_version.py`サイクルを通したスキーマ変更の反映
+（Principle I。research.md §5）、`matches.json`を唯一の真実の情報源とすることで
+新しい「完了」管理を不要にした点（Principle II）、残存リスクをコードコメントでは
+なく`docs/fix.md`に記録する点（データ保存規約）——は全てPhase 1の設計成果物に
+一貫して引き継がれている。引き続きPASS。
 
-## Project Structure
+## Project Structure（プロジェクト構成）
 
-### Documentation (this feature)
+### ドキュメント（本フィーチャー）
 
 ```text
 specs/006-incremental-set-fetch/
-├── plan.md              # This file (/speckit-plan command output)
-├── research.md          # Phase 0 output (/speckit-plan command)
-├── data-model.md         # Phase 1 output (/speckit-plan command)
-├── quickstart.md        # Phase 1 output (/speckit-plan command)
-├── contracts/           # Phase 1 output (/speckit-plan command)
+├── plan.md              # 本ファイル（/speckit-plan コマンドの出力）
+├── research.md          # Phase 0 出力（/speckit-plan コマンド）
+├── data-model.md         # Phase 1 出力（/speckit-plan コマンド）
+├── quickstart.md        # Phase 1 出力（/speckit-plan コマンド）
+├── contracts/           # Phase 1 出力（/speckit-plan コマンド）
 │   └── matches-record-contract.md
 ├── checklists/
 │   └── requirements.md
-└── tasks.md             # Phase 2 output (/speckit-tasks command - NOT created here)
+└── tasks.md             # Phase 2 出力（/speckit-tasks コマンド — 本コマンドでは作成しない）
 ```
 
-### Source Code (repository root)
+### ソースコード（リポジトリルート）
 
-This is the existing repository layout; no new top-level directories are introduced.
-Changes land inside the existing `fetch`/`fix`/`test` split (Constitution "開発ワークフロー").
+これは既存のリポジトリ構成そのものであり、新しいトップレベルディレクトリは
+導入しない。変更は既存の`fetch`/`fix`/`test`の分離（憲法「開発ワークフロー」）の
+中に収まる。
 
 ```text
 scripts/
 ├── fetch/
-│   ├── download.py                 # MODIFIED: placeholder seeding + per-set incremental
-│   │                                #   fetch replace existing bulk download_all_set() path;
-│   │                                #   FR-012/013 removes max_pages large-event-skip logic
-│   ├── backfill_schema_version.py  # MODIFIED (or unaffected if it fully delegates to
-│   │                                #   download.py functions): rolling backfill picks up
-│   │                                #   set_id-less events via EVENT_DATA_VERSION bump
-│   ├── download_specific_event.py  # reviewed for consistency, MODIFIED only if it
-│   │                                #   duplicates the old bulk-fetch pattern
-│   └── refresh_event_dir.py        # reviewed for consistency (matches_only path)
+│   ├── download.py                 # 変更: プレースホルダー投入＋setごとの逐次
+│   │                                #   取得が既存の一括download_all_set()経路を
+│   │                                #   置き換える。FR-012/013によりmax_pagesベース
+│   │                                #   のlarge-event-skipロジックを削除
+│   ├── backfill_schema_version.py  # 変更（download.pyの関数に完全委譲していれば
+│   │                                #   影響なしの可能性あり）: EVENT_DATA_VERSION
+│   │                                #   の引き上げにより、set_idを持たないイベント
+│   │                                #   が巡回バックフィル対象として拾われる
+│   ├── download_specific_event.py  # 整合性を確認。旧・一括取得パターンを重複
+│   │                                #   実装している箇所があれば変更
+│   └── refresh_event_dir.py        # 整合性を確認（matches_only経路）
 ├── fix/
-│   └── validate_data.py            # reviewed; optionally strengthened to assert no
-│                                    #   placeholder records remain once attr.json exists
+│   └── validate_data.py            # 確認のみ。任意で、attr.json存在時に
+│                                    #   プレースホルダーレコードが残っていないことを
+│                                    #   検証する強化を追加してもよい
 ├── test/
-│   ├── test_download.py            # MODIFIED: new tests for FR-001–FR-009, FR-014
-│   └── test_validate_data.py       # MUST keep passing (Constitution Principle III)
-├── queries.py                      # MODIFIED: add lightweight event.sets ID-only query
-│                                    #   and set(id:) single/batched detail query
-└── utils.py                        # MODIFIED: EVENT_DATA_VERSION bump (5 → 6)
+│   ├── test_download.py            # 変更: FR-001〜FR-009, FR-014の新規テスト
+│   └── test_validate_data.py       # 引き続きpassさせる必要あり（憲法Principle III）
+├── queries.py                      # 変更: 軽量なID専用event.setsクエリと、
+│                                    #   set(id:)による詳細取得クエリを追加
+└── utils.py                        # 変更: EVENT_DATA_VERSIONを5→6に引き上げ
 
 .github/workflows/
-├── data_gap_check.yml              # UNCHANGED (behavior improves as a side effect of
-│                                    #   download.py's new fetch strategy)
-└── fetch_large_event.yml           # REMOVED (FR-012)
+├── data_gap_check.yml              # 変更なし（download.pyの新しい取得戦略の
+│                                    #   副次効果として挙動が改善する）
+└── fetch_large_event.yml           # 削除（FR-012）
 
 docs/
-├── data_model.md                   # MODIFIED: document matches.json placeholder shape,
-│                                    #   set_id field, EVENT_DATA_VERSION=6
-├── startgg_design.md               # MODIFIED: document the two new queries
-├── flow.md                         # MODIFIED if the large-event-skip step is depicted
-└── fix.md                          # MODIFIED: record the "no manual escape hatch for
-                                     #   set-ID-listing overflow" residual risk
+├── data_model.md                   # 変更: matches.jsonのプレースホルダー形状、
+│                                    #   set_idフィールド、EVENT_DATA_VERSION=6を記載
+├── startgg_design.md               # 変更: 新設した2つのクエリを記載
+├── flow.md                         # large-event-skipの手順が図示されていれば変更
+└── fix.md                          # 変更: 「set ID一覧取得自体が破綻した場合、
+                                     #   手動escape hatchが無い」という残存リスクを記録
 
 data/startgg/events/{Region}/{YYYY}/{MM}/{DD}/{Tournament}/{Event}/
-├── attr.json        # UNCHANGED shape; now only written once no placeholders remain
-├── standings.json    # UNCHANGED
-├── seeds.json        # UNCHANGED
-└── matches.json      # MODIFIED shape: records may be placeholder (set_id only) or
-                       #   complete; set_id added to every record
+├── attr.json        # 形状は変更なし。プレースホルダーが1件も残っていない時に
+│                     #   のみ書き込まれるようになる
+├── standings.json    # 変更なし
+├── seeds.json        # 変更なし
+└── matches.json      # 形状変更: レコードはプレースホルダー（set_idのみ）または
+                       #   完了済みのいずれか。全レコードにset_idを追加
 ```
 
-**Structure Decision**: Single existing Python script project (`scripts/fetch`,
-`scripts/fix`, `scripts/test`, `scripts/queries.py`, `scripts/utils.py`) — no new
-project, package, or top-level directory. This feature is implemented as changes to
-`download.py`'s fetch strategy plus two new GraphQL queries in `queries.py`, following
-the same fetch/fix/test separation the constitution already mandates.
+**構成方針**: 既存のPythonスクリプトプロジェクト単一構成
+（`scripts/fetch`、`scripts/fix`、`scripts/test`、`scripts/queries.py`、
+`scripts/utils.py`）をそのまま使う——新規プロジェクト・パッケージ・トップレベル
+ディレクトリは追加しない。本機能は`download.py`の取得戦略の変更と、
+`queries.py`への新規GraphQLクエリ2件の追加として実装し、憲法が既に定めている
+fetch/fix/testの分離をそのまま踏襲する。
 
-## Complexity Tracking
+## Complexity Tracking（複雑さの追跡）
 
-> No Constitution Check violations — this table is intentionally empty.
+> 憲法チェックの違反は無し——この表は意図的に空にしている。

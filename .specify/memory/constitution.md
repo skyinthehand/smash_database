@@ -1,53 +1,42 @@
 <!--
 Sync Impact Report
 -------------------
-Version change: 1.0.0 → 2.0.0
-Rationale: MAJOR — Principle IV redefined in a backward-incompatible way.
-The `chore-update` branch + PR-based rebase auto-merge requirement is
-removed and replaced with a direct-to-main commit requirement. This is not
-an additive clarification; it reverses a previously MUST'd mechanism, so
-per this constitution's own versioning policy (Governance section) it is a
-MAJOR bump.
+Version change: 2.0.0 → 2.1.0
+Rationale: MINOR — 開発ワークフロー節への追加。既存原則の後方非互換な削除・
+再定義ではなく、spec-kit（`/speckit-specify` 等）が `specs/` 配下に生成する
+ドキュメントの記述言語に関するルールを新設する追加的なガイダンスのため、
+本憲法自身のバージョニング方針（Governance節）に照らし MINOR とする。
 
-Modified principles:
-- IV. ブランチとオートメーションの規律 (Branch & Automation Discipline):
-  chore-update ブランチ + PR 経由の rebase auto-merge (MUST) を廃止し、
-  `main` への直接 commit/push (MUST) + 共有 concurrency group による直列化
-  + push 競合時の `git pull --rebase origin main` リトライ (MUST) に置換。
-  `docs/chore-tornament/README.md` / `checked_dates.json` の
-  script-only-update ルールは変更なしで維持。
-  Rationale の追記: 実際に main への直接コミットが chore-update ベースの
-  自動化から見えず、古い状態のまま処理が継続した実インシデント
-  (`schema_backfill_cursor.txt` の手動削除が無視された事例)を根拠として
-  記録。
+Modified sections:
+- 開発ワークフロー (Development Workflow): spec-kit コマンド
+  (`/speckit-specify` / `/speckit-clarify` / `/speckit-plan` / `/speckit-tasks`
+  等) が `specs/` 配下に生成するドキュメント（`spec.md` / `plan.md` /
+  `research.md` / `data-model.md` / `quickstart.md` / `contracts/` /
+  `tasks.md` / `checklists/` 等）は、コード識別子・ファイルパス・
+  フィールド名・関数名などコード由来の用語を除き日本語で記述する、という
+  項目を追加。
+  Rationale: 本プロジェクトのメンテナ・コミットメッセージ・既存 `docs/`
+  配下のドキュメント（`data_model.md` / `flow.md` / `startgg_design.md`
+  等）は日本語で書かれており、spec-kit の成果物だけ英語になっていると
+  一貫性が無い。実際に `specs/006-incremental-set-fetch/` で英語のまま
+  作成してしまい、後から日本語へ翻訳し直す手戻りが発生したことを踏まえる。
 
-Added sections: none
+Added sections: none (既存の「開発ワークフロー」節への箇条書き追加のみ)
 
-Removed sections: none (IV の本文のみ再定義。見出し名は維持)
+Removed sections: none
 
 Templates requiring updates:
-- .specify/templates/plan-template.md: ✅ no change needed (no
-  chore-update-specific references found)
-- .specify/templates/spec-template.md: ✅ no change needed (no
-  chore-update-specific references found)
-- .specify/templates/tasks-template.md: ✅ no change needed (no
-  chore-update-specific references found)
-- .claude/skills/speckit-*/SKILL.md: ✅ no chore-update-specific references
-  found requiring updates
-- .github/workflows/schema_backfill.yml,
-  .github/workflows/update_tournament.yml,
-  .github/workflows/update_user.yml,
-  .github/workflows/prune_empty_events.yml,
-  .github/workflows/reset_chore_update_after_merge.yml: ⚠ pending — must be
-  updated (or, for reset_chore_update_after_merge.yml, removed) to match
-  the new Principle IV outside of this command's scope; tracked as a
-  deferred intent below.
-- docs/githubAction.md: ⚠ pending — describes the old chore-update flow in
-  detail; tracked as a deferred intent below.
+- .specify/templates/plan-template.md: ✅ no change needed (テンプレートの
+  見出し構造自体は変更対象外。実際に生成される本文側で言語ルールを守る)
+- .specify/templates/spec-template.md: ✅ no change needed (同上)
+- .specify/templates/tasks-template.md: ✅ no change needed (同上)
+- .specify/templates/checklist-template.md: ✅ no change needed (同上)
+- .claude/skills/speckit-*/SKILL.md: ✅ 言語に関する既存の矛盾する指示は
+  見つからず、追加の変更は不要
 
 Follow-up TODOs: none within constitution scope. See "Next Actions" for the
-non-governance follow-up (workflow YAML / docs updates) the requester will
-perform separately.
+non-governance follow-up (specs/006-incremental-set-fetch/spec.md の日本語化)
+the requester may perform separately.
 -->
 
 # smash_database Constitution
@@ -129,6 +118,15 @@ Rationale: 統一されたリトライ経路がないと、一部スクリプト
 - 大量の re-fetch や再構成を伴う破壊的なデータ移行を行う前に、対象範囲と
   想定される影響（対象イベント数・API呼び出し回数など）を PR 説明に MUST
   明記する。
+- spec-kit コマンド（`/speckit-specify` / `/speckit-clarify` / `/speckit-plan` /
+  `/speckit-tasks` 等）が `specs/` 配下に生成するドキュメント（`spec.md` /
+  `plan.md` / `research.md` / `data-model.md` / `quickstart.md` /
+  `contracts/` / `tasks.md` / `checklists/` 等）は、コード識別子・
+  ファイルパス・フィールド名・関数名などコード由来の用語を除き、MUST
+  日本語で記述する。
+  Rationale: コミットメッセージや既存の `docs/` 配下のドキュメントは
+  日本語で書かれており、spec-kit の成果物だけ英語のままだと一貫性が無く、
+  後から日本語へ翻訳し直す手戻りが発生する。
 
 ## Governance
 
@@ -147,4 +145,4 @@ Rationale: 統一されたリトライ経路がないと、一部スクリプト
   `docs/data_model.md` / `docs/startgg_design.md` / `docs/flow.md` /
   `docs/githubAction.md` / `docs/directory.md` / `docs/fix.md` を参照する。
 
-**Version**: 2.0.0 | **Ratified**: 2026-07-31 | **Last Amended**: 2026-08-20
+**Version**: 2.1.0 | **Ratified**: 2026-07-31 | **Last Amended**: 2026-08-26

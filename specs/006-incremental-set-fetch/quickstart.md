@@ -1,19 +1,20 @@
-# Quickstart: Validating Incremental Per-Set Match Fetching & Recovery
+# クイックスタート: setごとの逐次取得によるマッチ取得とリカバリの検証
 
-This guide validates the feature end-to-end once implemented. See
-[data-model.md](./data-model.md) for record shapes and
-[contracts/matches-record-contract.md](./contracts/matches-record-contract.md) for the
-guarantees being checked.
+このガイドは、実装完了後に本機能をエンドツーエンドで検証する手順である。
+レコード形状は[data-model.md](./data-model.md)、確認すべき保証事項は
+[contracts/matches-record-contract.md](./contracts/matches-record-contract.md)
+を参照。
 
-## Prerequisites
+## 前提条件
 
-- Python 3.11, `pip install requests` (repo has no other dependencies).
-- A start.gg API token (`STARTGG_TOKEN`) with read access, for the optional live-API
-  scenarios below. The unit-test scenarios need no token (all GraphQL calls are
-  mocked, per the existing pattern in `scripts/test/test_download.py`).
-- Run all commands from the repository root.
+- Python 3.11、`pip install requests`（本リポジトリには他の依存関係は無い）。
+- 以下のライブ実API検証シナリオには、読み取り権限を持つstart.gg APIトークン
+  （`STARTGG_TOKEN`）が必要。ユニットテストのシナリオはトークン不要（全ての
+  GraphQL呼び出しは、`scripts/test/test_download.py`の既存パターンに従い
+  モックされる）。
+- 全てのコマンドはリポジトリのルートから実行すること。
 
-## 1. Unit tests (fast, no network — run this first)
+## 1. ユニットテスト（高速・ネットワーク不要——まずこれを実行する）
 
 ```bash
 python -m unittest scripts.test.test_download -v
@@ -21,36 +22,38 @@ python -m unittest scripts.test.test_validate_data -v
 python -m unittest scripts.test.test_backfill_schema_version -v
 ```
 
-Expected: all pass. This is the Constitution Principle III gate and should cover, at
-minimum:
+期待結果: 全てpass。これは憲法Principle IIIのゲートであり、最低限以下を
+カバーすること:
 
-- `matches.json` is seeded with one placeholder (`set_id`-only) record per known set
-  before any per-set detail fetch (FR-002).
-- A subsequent run against an event with a mix of placeholder/complete records fetches
-  detail only for the still-placeholder `set_id`s (FR-006/FR-007) and never appends a
-  duplicate record for a `set_id` that already has one (FR-008).
-- `attr.json` is written (with `archive_status: "completed"`) only once no placeholder
-  records remain (FR-009).
-- No code path can raise `MaxPagesExceededError` from set/match detail fetching
-  anymore, and no `large-event-skip`-labeled artifact is produced (FR-012/FR-013).
-- `backfill_schema_version.py` picks up an event whose `attr.json.event_data_version`
-  is below the new `EVENT_DATA_VERSION` (or whose `attr.json` is entirely absent) and
-  re-fetches it through the incremental path (FR-010/FR-011).
+- setの詳細を取得する前に、既知の全setについて1件ずつプレースホルダー
+  （`set_id`のみ）レコードで`matches.json`が投入される（FR-002）。
+- プレースホルダーと完了済みレコードが混在するイベントへの後続の実行では、
+  まだプレースホルダーのままの`set_id`のみ詳細を取得し（FR-006/FR-007）、
+  既にレコードが存在する`set_id`に対して重複レコードを追記することは無い
+  （FR-008）。
+- `attr.json`（`archive_status: "completed"`付き）が書き込まれるのは、
+  プレースホルダーレコードが1件も残っていない場合に限る（FR-009）。
+- set/マッチ詳細取得のどのコードパスからも、もはや`MaxPagesExceededError`
+  は発生し得ず、`large-event-skip`ラベル付きの成果物も生成されない
+  （FR-012/FR-013）。
+- `backfill_schema_version.py`は、`attr.json.event_data_version`が新しい
+  `EVENT_DATA_VERSION`を下回るイベント（または`attr.json`が完全に存在しない
+  イベント）を検出し、逐次取得経路で再取得する（FR-010/FR-011）。
 
-## 2. Live-API scenario: interrupted fetch survives (User Story 1)
+## 2. ライブAPIシナリオ: 中断された取得がデータを失わないこと（User Story 1）
 
-Requires `STARTGG_TOKEN`. Pick a large real tournament (or reuse the ones already
-identified during this feature's investigation: `第１９回グランドスラム` /
-`渋谷大乱 第一陣` — see spec.md User Story 1) and its `tournament_id`.
+`STARTGG_TOKEN`が必要。実在する大規模な大会（あるいは本機能の調査で既に
+特定済みのもの——「第１９回グランドスラム」「渋谷大乱 第一陣」。spec.mdの
+User Story 1参照）とその`tournament_id`を選ぶ。
 
 ```bash
 python scripts/fetch/download.py --token "$STARTGG_TOKEN" \
   --tournament_ids <TOURNAMENT_ID> --country_code JP
-# let it run for a short while, then interrupt it (Ctrl-C) partway through the
-# per-set detail fetch phase for the large event
+# しばらく実行させ、大規模イベントのset詳細取得フェーズの途中で中断する
+# （Ctrl-C）
 ```
 
-**Check** (User Story 1 / SC-001):
+**確認事項**（User Story 1 / SC-001）:
 
 ```bash
 python3 -c "
@@ -59,50 +62,52 @@ d = json.load(open('<event_dir>/matches.json'))
 placeholders = [r for r in d['data'] if 'winner_id' not in r]
 complete = [r for r in d['data'] if 'winner_id' in r]
 print(f'placeholders={len(placeholders)} complete={len(complete)}')
-assert not any(r for r in d['data'] if 'set_id' not in r), 'every record must carry set_id'
+assert not any(r for r in d['data'] if 'set_id' not in r), '全レコードがset_idを持つべき'
 "
-ls <event_dir>/attr.json  # MUST NOT exist yet — event is still incomplete
+ls <event_dir>/attr.json  # まだ存在しないはず——イベントは未完了
 ```
 
-Re-run the same `download.py` command. **Check** (User Story 1 / FR-006, SC-002): the
-`complete` count only grows, previously-complete records are byte-for-byte unchanged,
-and no `set_id` appears more than once. Repeat until `attr.json` appears — this proves
-completion is reachable purely by re-running the normal command, with no manual
-workflow (User Story 2 / SC-005).
+同じ`download.py`コマンドを再実行する。**確認事項**（User Story 1 / FR-006,
+SC-002）: `complete`の件数のみが増加し、既に完了していたレコードは1バイトも
+変化せず、`set_id`が2回以上出現することも無い。`attr.json`が現れるまでこれを
+繰り返す——これにより、手動ワークフローを一切使わず、通常のコマンドの
+再実行だけで完了に到達できることが証明される（User Story 2 / SC-005）。
 
-## 3. Traceability check (User Story 4)
+## 3. トレーサビリティの確認（User Story 4）
 
 ```bash
 python3 -c "
 import json
 d = json.load(open('<event_dir>/matches.json'))
 set_ids = [r['set_id'] for r in d['data']]
-assert len(set_ids) == len(set(set_ids)), 'duplicate set_id found'
-print(f'{len(set_ids)} unique set_id values, all present')
+assert len(set_ids) == len(set(set_ids)), '重複するset_idが見つかった'
+print(f'{len(set_ids)} 件のset_idが全て一意')
 "
 ```
 
-## 4. Backfill check (FR-010/FR-011)
+## 4. バックフィルの確認（FR-010/FR-011）
 
-Against a small, already-committed pre-feature event directory (any event with
-`attr.json.event_data_version` < the new value):
+既にコミット済みの、本機能導入前のイベントディレクトリ（`attr.json`の
+`event_data_version`が新しい値未満のもの）を1件選ぶ:
 
 ```bash
 python scripts/fetch/backfill_schema_version.py --token "$STARTGG_TOKEN" --max_events 1
 ```
 
-**Check**: the event's `attr.json.event_data_version` is now current, and its
-`matches.json` records all carry `set_id` with no placeholders left behind.
+**確認事項**: そのイベントの`attr.json.event_data_version`が最新になっており、
+`matches.json`の全レコードに`set_id`が付与され、プレースホルダーが1件も
+残っていないこと。
 
-## 5. Retirement check (FR-012/FR-013)
+## 5. 廃止の確認（FR-012/FR-013）
 
 ```bash
-test ! -f .github/workflows/fetch_large_event.yml && echo "removed: OK"
-grep -L "large-event-skip" .github/workflows/data_gap_check.yml && echo "no large-event-skip step: OK"
+test ! -f .github/workflows/fetch_large_event.yml && echo "削除済み: OK"
+grep -L "large-event-skip" .github/workflows/data_gap_check.yml && echo "large-event-skipステップ無し: OK"
 ```
 
-## 6. Documentation sync (Constitution Principle I)
+## 6. ドキュメント同期の確認（憲法Principle I）
 
-Confirm `docs/data_model.md` documents the placeholder record shape and the new
-`EVENT_DATA_VERSION`, and `docs/fix.md` records the residual "no manual escape hatch
-if set-ID listing itself can't complete" risk (spec.md Edge Cases).
+`docs/data_model.md`にプレースホルダーレコード形状と新しい
+`EVENT_DATA_VERSION`が記載されていること、`docs/fix.md`に「set ID一覧取得
+自体が破綻した場合、手動escape hatchが無い」という残存リスク（spec.mdの
+Edge Cases）が記録されていることを確認する。

@@ -1,58 +1,66 @@
-# Contract: `matches.json` Record Shape
+# 契約: `matches.json` レコード形状
 
-This project has no network API or CLI surface exposed to external users — its
-"interface" is the JSON files it writes under `data/startgg/`, consumed by other
-scripts in this repository (`scripts/fix/validate_data.py`, `scripts/queries.py`,
-`scripts/fetch/backfill_schema_version.py`) and, per `docs/data_model.md`, by anyone
-reading the committed data directly. This document is the contract for the one file
-shape this feature changes.
+このプロジェクトには外部ユーザー向けのネットワークAPIやCLI表面は無い——
+その「インターフェース」は`data/startgg/`配下に書き出すJSONファイルであり、
+本リポジトリ内の他のスクリプト（`scripts/fix/validate_data.py`、
+`scripts/queries.py`、`scripts/fetch/backfill_schema_version.py`）や、
+`docs/data_model.md`に従ってコミット済みデータを直接読む誰か、によって消費
+される。本ドキュメントは、本機能が変更する唯一のファイル形状に関する契約
+である。
 
-## Producer
+## 生産者（Producer）
 
-`scripts/fetch/download.py` (all entry points that write `matches.json`: the main
-`download_all_tournaments()` path, `download_specific_event.py`,
-`backfill_schema_version.py`'s re-fetch path).
+`scripts/fetch/download.py`（`matches.json`を書き込む全てのエントリポイント:
+メインの`download_all_tournaments()`経路、`download_specific_event.py`、
+`backfill_schema_version.py`の再取得経路）。
 
-## Consumers
+## 消費者（Consumers）
 
-- `scripts/fix/validate_data.py` — reads `matches.json` for events it discovers via
-  `attr.json` presence (see research.md §7). MUST continue to see only fully-`complete`
-  records for any event whose `attr.json` exists, per FR-009 — this is the invariant
-  that keeps the existing validator correct without modification.
-- `scripts/queries.py` and any other read-only analysis code — same invariant: an
-  event is only ever exposed as "done" (via `attr.json`/`archive_status`) once its
-  `matches.json` contains no placeholder records.
-- `scripts/fetch/backfill_schema_version.py` — both a producer (re-fetches outdated
-  events) and, transitively, a consumer of the placeholder/complete state to decide
-  what remains outstanding for a partially-backfilled event.
+- `scripts/fix/validate_data.py` — `attr.json`の存在によって発見したイベント
+  について`matches.json`を読む（research.md §7参照）。FR-009により、
+  `attr.json`が存在するイベントについては、常に完全に`complete`な
+  レコードのみを見ることが保証されなければならない——これが、既存の
+  バリデータを変更せずとも正しく動作し続けるための不変条件である。
+- `scripts/queries.py`やその他の読み取り専用の分析コード — 同じ不変条件:
+  イベントが「完了」（`attr.json`/`archive_status`経由）として公開される
+  のは、`matches.json`にプレースホルダーレコードが1件も無い場合のみ。
+- `scripts/fetch/backfill_schema_version.py` — 生産者（古いイベントを
+  再取得する）であると同時に、間接的にはプレースホルダー/完了済みの状態を
+  読み取って、部分的にバックフィル済みのイベントに何が未取得として残って
+  いるかを判断する消費者でもある。
 
-## Guarantees this feature MUST uphold
+## 本機能が守るべき保証
 
-1. **No consumer that gates on `attr.json` ever observes a placeholder record.**
-   `attr.json` (with `archive_status: "completed"`) is written if and only if every
-   record in that event's `matches.json` is `complete` (FR-009). A consumer that reads
-   `matches.json` without checking for `attr.json` first has always had to tolerate an
-   event's data being absent/incomplete (interruption was already possible before this
-   feature); this feature does not change that pre-existing expectation, it just gives
-   "incomplete" a more granular in-file representation instead of a missing file.
+1. **`attr.json`をゲートに使う消費者が、プレースホルダーレコードを観測する
+   ことは無い。** `attr.json`（`archive_status: "completed"`付き）が
+   書き込まれるのは、そのイベントの`matches.json`内の全レコードが
+   `complete`である場合に限る（FR-009）。`attr.json`を先に確認せずに
+   `matches.json`を読む消費者は、これまでもイベントのデータが
+   不在/不完全であることを許容せざるを得なかった（本機能以前から中断は
+   起こり得た）——本機能はこの既存の前提を変えるのではなく、「不完全」を
+   ファイル欠如ではなくファイル内のより粒度の細かい表現に変えるだけである。
 
-2. **`set_id` uniqueness.** Within one event's `matches.json`, no two records share a
-   `set_id`, in either state (FR-008). Consumers may safely key on `set_id`.
+2. **`set_id`の一意性。** 1つのイベントの`matches.json`内では、
+   状態を問わず、2つのレコードが同じ`set_id`を共有することは無い
+   （FR-008）。消費者は`set_id`をキーとして安全に扱ってよい。
 
-3. **Monotonic state transitions.** A record only ever moves `placeholder → complete`,
-   never the reverse, and its `set_id` is invariant across that transition (data-model.md).
+3. **単調な状態遷移。** レコードは`placeholder → complete`にのみ遷移し、
+   逆方向には遷移しない。その遷移をまたいで`set_id`は不変である
+   （data-model.md）。
 
-4. **Backward-compatible complete-record shape.** The `complete` state is the existing
-   pre-feature `matches.json` record shape (`winner_id`, `loser_id`, `winner_score`,
-   `loser_score`, `round_text`, `round`, `phase`, `phase_order`, `wave`, `dq`, `cancel`,
-   `state`, `details`) plus the new `set_id` field. No existing field is renamed,
-   retyped, or removed — consumers written against the pre-feature shape continue to
-   work against `complete` records unchanged, aside from gaining `set_id`.
+4. **後方互換な完了済みレコード形状。** `complete`状態は、本機能導入前の
+   既存`matches.json`レコード形状（`winner_id`、`loser_id`、
+   `winner_score`、`loser_score`、`round_text`、`round`、`phase`、
+   `phase_order`、`wave`、`dq`、`cancel`、`state`、`details`）に、新規の
+   `set_id`フィールドを加えたものである。既存フィールドの改名・型変更・
+   削除は行わない——本機能導入前の形状を前提に書かれた消費者コードは、
+   `set_id`が増える点を除き、`complete`レコードに対して変更無く動作し
+   続ける。
 
-## Non-guarantees (explicitly out of scope)
+## 対象外（明示的にスコープ外）
 
-- Placeholder records are **not** guaranteed to ever appear in a `matches.json` a
-  consumer reads, if that consumer only ever looks at events gated by `attr.json`
-  (which is the existing, expected usage pattern per guarantee #1).
-- This contract does not cover `standings.json`, `seeds.json`, or `attr.json` — those
-  are unchanged by this feature.
+- プレースホルダーレコードは、`attr.json`でゲートされたイベントのみを見る
+  消費者（保証#1で述べた既存の標準的な利用パターン）にとって、必ずしも
+  目に触れる保証は無い。
+- 本契約は`standings.json`、`seeds.json`、`attr.json`を対象としない——
+  これらは本機能により変更されない。

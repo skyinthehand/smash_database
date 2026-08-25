@@ -1,170 +1,180 @@
-# Research: Incremental Per-Set Match Fetching & Recovery
+# Research: setごとの逐次取得によるマッチ取得とリカバリ
 
-## 1. Fetching an event's set_id list cheaply
+## 1. イベントのset ID一覧を安く取得する
 
-**Decision**: Add a new, minimal GraphQL query (`get_event_set_ids_query()` in
-`scripts/queries.py`) that requests only `sets(page, perPage) { pageInfo { total
-totalPages } nodes { id } } }` under `event(id: $eventId)`. Fetched via the existing
-`fetch_all_nodes()` helper (paginated, retried), exactly like today's bulk sets query,
-but with a field selection of just `id` instead of the full `_SET_NODE_FIELDS`/
-`_SET_NODE_FIELDS_LIGHT` set (which include `slots`, `games`, `selections`, etc.).
+**決定**: `scripts/queries.py`に新規の最小限GraphQLクエリ
+（`get_event_set_ids_query()`）を追加する。`event(id: $eventId)`配下の
+`sets(page, perPage) { pageInfo { total totalPages } nodes { id } } }`のみを
+要求し、既存の`_SET_NODE_FIELDS`/`_SET_NODE_FIELDS_LIGHT`（`slots`、`games`、
+`selections`等を含む）ではなく、`id`のみのフィールド選択にする。取得は既存の
+`fetch_all_nodes()`ヘルパー経由（ページング・リトライ込み）で、今日の一括setsクエリ
+と同じ仕組みを使う。
 
-**Rationale**: The original failure (`grand_slum`: `total_pages=1267` at
-`max_pages=200`; `SHIBUYA_DAIRAN`: `total_pages=510`) comes from start.gg's per-request
-GraphQL complexity limit, which scales with how many nested fields are requested per
-node × how many nodes per page. An ID-only projection has a small, fixed per-node cost,
-so far more sets fit in a single page before hitting the complexity ceiling — this
-listing step is expected to comfortably paginate to completion even for the largest
-observed events (spec.md Assumptions).
+**根拠**: 元々の失敗（`grand_slum`: `max_pages=200`に対し`total_pages=1267`。
+`SHIBUYA_DAIRAN`: `total_pages=510`）は、start.ggのリクエストあたりGraphQL
+complexity上限に起因し、1ノードあたりに要求するネストしたフィールド数×1ページ
+あたりのノード数に比例してcomplexityが増大する。IDのみの射影であれば1ノード
+あたりのコストは小さく一定なので、complexity上限に到達するまでに1ページに収まる
+set数が大幅に増える——このlisting段階は、実際に観測された最大級のイベントでも
+問題なくページングを完走できると見込んでいる（spec.md Assumptions）。
 
-**Alternatives considered**:
-- Reuse the existing `get_event_sets_light_query()` (`_SET_NODE_FIELDS_LIGHT`) for
-  listing. Rejected: still requests `slots`, `games`, `phaseGroup` per node — the same
-  category of complexity blowup as the full query, just scaled down, not eliminated.
-- Derive the set count from `standings`/`seeds` entrant counts instead of a dedicated
-  query. Rejected: entrant count doesn't give individual `set_id`s, which are required
-  to seed placeholders (FR-002) and to detect outstanding work (FR-007).
+**検討した代替案**:
+- listingに既存の`get_event_sets_light_query()`（`_SET_NODE_FIELDS_LIGHT`）を
+  流用する。却下: `slots`、`games`、`phaseGroup`を1ノードあたり要求する点は変わらず
+  ——complexity爆発を縮小しただけで、根本的には解消していない。
+- `standings`/`seeds`のエントラント数からset数を推定する。却下: エントラント数
+  からは個々の`set_id`が得られず、プレースホルダーの投入（FR-002）や未取得分の
+  検出（FR-007）に必要な情報が不足する。
 
-## 2. Fetching a single set's full detail directly by ID
+## 2. 単一setの詳細をIDで直接取得する
 
-**Decision**: Fetch each outstanding set's full detail via start.gg's top-level
-`set(id: ID!): Set` query field, reusing the existing `_SET_NODE_FIELDS` selection,
-rather than continuing to page through `event.sets` or `phaseGroup.sets`.
+**決定**: 未取得の各setの詳細は、`event.sets`や`phaseGroup.sets`のページング
+継続ではなく、start.ggのトップレベルクエリ`set(id: ID!): Set`を使って取得する。
+フィールド選択は既存の`_SET_NODE_FIELDS`をそのまま再利用する。
 
-**Rationale**: Confirmed via start.gg's published GraphQL schema reference
-(`developer.start.gg` → `smashgg-schema.netlify.app/reference/query.doc.html`) that the
-root `Query` type exposes `set(id: ID!): Set` alongside `event`, `phaseGroup`,
-`phase`, etc. Fetching by ID means each request's complexity is bounded by the fixed
-shape of `_SET_NODE_FIELDS` — independent of the event's total set count or which
-phase/pool the set belongs to. This is what makes progress genuinely incremental
-(FR-003): no request ever needs to "see" the whole event at once again.
+**根拠**: start.ggの公開GraphQLスキーマリファレンス（`developer.start.gg` →
+`smashgg-schema.netlify.app/reference/query.doc.html`）を実際に取得して確認した
+ところ、ルートの`Query`型には`event`、`phaseGroup`、`phase`等と並んで
+`set(id: ID!): Set`が存在する。IDで取得することで、1リクエストあたりの
+complexityは`_SET_NODE_FIELDS`の固定的な形状にのみ依存し——イベントの総set数や
+どのphase/poolに属するかとは無関係になる。これが「逐次的」であることの本質
+（FR-003）であり、1つのリクエストが二度と「イベント全体」を見る必要が無くなる。
 
-**Alternatives considered**:
-- Keep paging through `event.sets`/`phaseGroup.sets` (today's approach,
-  `_fetch_all_sets_by_phase_group` / `_fetch_sets_with_fallback` in `download.py`) but
-  checkpoint by page number instead of by `set_id`. Rejected: an event with a single
-  huge pool phase can still blow the complexity budget on page 1 regardless of
-  checkpointing granularity (this is exactly why `excluded_phases.json` already exists
-  as a manual escape hatch for known-bad phase groups) — checkpointing by page doesn't
-  fix the root cause, it only shrinks the blast radius.
-- Batch fetches via `phaseGroup.sets` with a very small `per_page` (e.g. 1) as a
-  cheaper way to "page one set at a time" without a new query. Rejected: still pays
-  the per-request overhead of resolving the phaseGroup pagination machinery, and, per
-  `SETS_PER_PAGE_FALLBACKS = (50, 25, 10, 5, 3, 1)`, `per_page=1` is already the last
-  resort in the existing fallback ladder and is known to sometimes still fail on
-  pathological phase groups (hence `excluded_phases.json`). Fetching by `set_id`
-  directly avoids phase/pool pagination entirely.
+**検討した代替案**:
+- `event.sets`/`phaseGroup.sets`のページング（今日の実装。`download.py`の
+  `_fetch_all_sets_by_phase_group` / `_fetch_sets_with_fallback`）を続けつつ、
+  set_idではなくページ番号でチェックポイントを取る。却下: 巨大なプール1つを
+  持つイベントでは、チェックポイント粒度に関係なく1ページ目でcomplexity予算を
+  使い切ってしまう可能性がある（これはまさに、既知の問題phaseGroupを除外する
+  ための`excluded_phases.json`という手動escape hatchが既に存在する理由と同じ）。
+  ページ単位のチェックポイントは根本原因を解消せず、被害範囲を縮小するだけ。
+- `phaseGroup.sets`を非常に小さい`per_page`（例: 1）で叩き、「1件ずつページング
+  する」ことで新規クエリを不要にする。却下: phaseGroupのページング機構を解決する
+  ためのリクエストあたりオーバーヘッドは依然として発生する。加えて
+  `SETS_PER_PAGE_FALLBACKS = (50, 25, 10, 5, 3, 1)`の通り、`per_page=1`は既存の
+  フォールバック梯子の最終手段であり、既知として、問題のあるphaseGroupでは
+  それでも失敗することがある（`excluded_phases.json`の存在理由）。set_idで直接
+  取得すればphase/poolのページングそのものを完全に回避できる。
 
-## 3. Batching multiple sets per request
+## 3. 1リクエストで複数setをバッチ処理する
 
-**Decision**: Fetch outstanding sets in small batches per HTTP request using GraphQL
-field aliasing against the same `set(id:)` field (e.g. `s0: set(id: $id0) { ... } s1:
-set(id: $id1) { ... }`), with a batch size in the same order of magnitude as the
-existing `SETS_PER_PAGE_FALLBACKS` values (tens, not hundreds) — exact size to be
-tuned in Phase 2 (tasks) against observed complexity costs, with a fallback-to-smaller
-strategy analogous to `_fetch_sets_with_fallback`'s existing pattern for consistency
-(Constitution Principle V: no bespoke retry logic, but request *shaping* — how many
-sets per request — is this feature's own concern, distinct from retry/backoff).
+**決定**: 未取得のsetは、同じ`set(id:)`フィールドに対するGraphQLエイリアス
+（例: `s0: set(id: $id0) { ... } s1: set(id: $id1) { ... }`）を使って、1リクエスト
+あたり小さなバッチ単位で取得する。バッチサイズは既存の
+`SETS_PER_PAGE_FALLBACKS`の値と同程度の桁数（数十、数百ではない）とし、正確な
+サイズはPhase 2（tasks）で実測されたcomplexityコストに基づいて調整する。
+一貫性の観点から、`_fetch_sets_with_fallback`の既存パターンに倣ったフォールバック
+戦略（サイズを縮小しながらリトライ）を用いる（憲法Principle V: 独自のリトライ
+ロジックは書かないが、「1リクエストに何set含めるか」というリクエスト整形は
+本機能固有の関心事であり、リトライ/バックオフとは別物）。
 
-**Rationale**: A batch of 1 set per request is correctness-safe but would mean
-thousands of individual HTTP round-trips (plus inter-request `page_delay`) to fully
-backfill a `grand_slum`-sized event, risking the same GitHub Actions 60-minute job
-timeout that (independently) already caused several `data_gap_check` runs to be
-cancelled outright (see prior investigation in this session: runs on 2026-08-02,
-2026-08-09, 2026-08-16 were killed mid-`Download` step). Batching amortizes per-request
-overhead while keeping each request's complexity bounded and predictable (batch size ×
-fixed per-set cost), unlike the old approach where complexity scaled with the *event's*
-total set count.
+**根拠**: 1リクエストあたりset 1件のバッチであれば正しさは保証できるが、
+`grand_slum`規模のイベントを完全にバックフィルするには数千回もの個別HTTP
+往復（加えてリクエスト間の`page_delay`）が必要になり、GitHub Actionsの60分の
+jobタイムアウト——本セッション中の調査で、これが独立に既に2026-08-02、
+2026-08-09、2026-08-16の`data_gap_check`実行を`Download`ステップの途中で強制
+終了させていたことが判明済み——に再び抵触するリスクが高い。バッチ化することで、
+リクエストあたりオーバーヘッドを償却しつつ、複雑さを（バッチサイズ×set1件あたり
+の固定コスト）として予測可能な範囲に保てる。旧方式ではcomplexityが*イベントの*
+総set数に比例して増大していたのとは対照的である。
 
-**Alternatives considered**:
-- Fixed batch size with no fallback. Rejected: different events may have different
-  per-set complexity (e.g. sets with many games/selections vs. simple ones), so a
-  fallback ladder (mirroring `SETS_PER_PAGE_FALLBACKS`) is more robust than a single
-  hardcoded constant, consistent with how the rest of `download.py` already handles
-  this class of problem.
+**検討した代替案**:
+- フォールバック無しの固定バッチサイズ。却下: イベントによってset単体あたりの
+  complexity（ゲーム数・キャラクター選択数が多いsetとシンプルなsetなど）が異なる
+  ため、単一の固定定数よりも（`SETS_PER_PAGE_FALLBACKS`を踏襲した）フォール
+  バック梯子の方が堅牢であり、`download.py`の他部分が既にこの種の問題をどう
+  扱っているかとも一貫する。
 
-## 4. Placeholder record representation & outstanding-work detection
+## 4. プレースホルダーレコードの表現と未取得分の検出
 
-**Decision**: A placeholder record in `matches.json` is a dict containing only
-`{"set_id": <int>}`. A complete record is today's existing shape (`winner_id`,
-`loser_id`, `winner_score`, ..., `details`) plus the new `set_id` field. "Outstanding"
-is computed by scanning `matches.json`'s `data` list for records whose only key is
-`set_id` (equivalently: records missing `winner_id`). Replacing a placeholder is an
-in-place list update keyed by `set_id`, not an append (FR-008).
+**決定**: `matches.json`のプレースホルダーレコードは`{"set_id": <int>}`のみを
+持つdictとする。完了済みレコードは、今日の既存の形状（`winner_id`、`loser_id`、
+`winner_score`、...、`details`）に、新規の`set_id`フィールドを加えたものとする。
+「未取得」は、`matches.json`の`data`リストの中から、キーが`set_id`のみのレコード
+（同義として`winner_id`を持たないレコード）を走査して求める。プレースホルダーの
+置き換えは、`set_id`をキーとしたリストの「その場」更新であり、追記ではない
+（FR-008）。
 
-**Rationale**: Matches spec.md's Key Entities description exactly ("only `set_id`
-populated" vs. full shape) and keeps `matches.json` self-describing — no second file or
-derived index needs to stay in sync with it.
+**根拠**: spec.mdのKey Entitiesの記述（「`set_id`のみが投入されている」 vs
+フル形状）と正確に一致し、`matches.json`を自己完結させられる——同期を取る必要
+のある2つ目のファイルや派生インデックスが不要になる。
 
-**Alternatives considered**:
-- Placeholder record with all fields present but `null` (e.g. `{"set_id": 1,
-  "winner_id": None, ...}`). Rejected: makes "is this a placeholder" ambiguous against
-  legitimate `null` values that already occur in complete records today (e.g. `dq`
-  matches can have unusual scores; guest/unlinked entrants already produce `null`
-  `winner_id`/`loser_id` in some rows per `docs/data_model.md`'s existing note on
-  doubles/crew events). A key-presence check (`"winner_id" not in record`) cannot be
-  confused with a legitimately-`null` `winner_id` on a complete record the way a
-  value-based check (`record["winner_id"] is None`) can.
+**検討した代替案**:
+- 全フィールドを持たせつつ値を`null`にするプレースホルダー（例:
+  `{"set_id": 1, "winner_id": None, ...}`）。却下: 完了済みレコードでも既に
+  発生し得る正当な`null`値（例: `docs/data_model.md`が既に注記している通り、
+  doubles/crew等では`winner_id`/`loser_id`が`null`になり得る参加者リンク無し
+  エントラントのケース）との区別が曖昧になる。キー存在チェック
+  （`"winner_id" not in record`）であれば、値ベースのチェック
+  （`record["winner_id"] is None`）と違い、完了済みレコードの正当な`null`と
+  混同されない。
 
-## 5. `EVENT_DATA_VERSION` bump and backfill integration
+## 5. `EVENT_DATA_VERSION`の引き上げとバックフィルへの統合
 
-**Decision**: Bump `scripts/utils.py`'s `EVENT_DATA_VERSION` from `5` to `6`. Existing
-events (whose `matches.json` records lack `set_id`, or whose `attr.json` is entirely
-absent because they were interrupted under the old all-or-nothing fetch) are backfilled
-by `scripts/fetch/backfill_schema_version.py`'s existing rolling/cyclic scan — no new
-migration script. That scanner already discovers directories via `standings.json`
-presence (not just `attr.json`), specifically so interrupted events (today: missing
-`attr.json`) are found (see `iter_event_dirs()`'s docstring) — this property is what
-lets FR-011's backfill naturally pick up events that were left incomplete by the old
-bug, once they're re-processed through the new incremental path.
+**決定**: `scripts/utils.py`の`EVENT_DATA_VERSION`を`5`から`6`に引き上げる。
+既存イベント（`matches.json`レコードに`set_id`が無いもの、または旧来の
+all-or-nothing取得により中断されて`attr.json`自体が存在しないもの）は、
+`scripts/fetch/backfill_schema_version.py`の既存の巡回スキャンでバックフィル
+する——新規の移行スクリプトは作らない。このスキャナは、（`attr.json`だけでなく）
+`standings.json`の存在によってもディレクトリを発見するよう既に実装されており
+（`iter_event_dirs()`のdocstring参照）、これはまさに中断済みイベント（現状:
+`attr.json`が無い）を見つけ出すためのものである——この性質のおかげで、FR-011の
+バックフィルは、旧バグにより不完全なまま放置されたイベントが、新しい逐次取得
+経路で再処理された際に自然に拾われる。
 
-**Rationale**: Reuses the exact mechanism Constitution Principle I mandates ("既存デー
-タへの影響がある場合は... MUST 移行する") and that already exists in this codebase for
-this exact kind of change, rather than introducing a parallel one-off backfill tool.
+**根拠**: 憲法Principle Iが求めている（「既存データへの影響がある場合は...
+MUST 移行する」）まさにその仕組みであり、かつこの種の変更のためにこの
+コードベースに既に存在している仕組みを再利用するものであり、並行する一回限りの
+バックフィルツールを新設しない。
 
-## 6. Retiring `large-event-skip` / `fetch_large_event`
+## 6. `large-event-skip`／`fetch_large_event`の廃止
 
-**Decision**: Delete `.github/workflows/fetch_large_event.yml`. Remove the
-`max_pages`/`skip_report_path`/`MaxPagesExceededError`/`_record_skip` machinery and the
-"Create large-event-skip issue" step in `data_gap_check.yml`, since no code path can
-raise `MaxPagesExceededError` from set-fetching anymore once bulk `event.sets`/
-`phaseGroup.sets` pagination for match detail is replaced by ID-based fetching (§2).
+**決定**: `.github/workflows/fetch_large_event.yml`を削除する。
+`data_gap_check.yml`の`max_pages`/`skip_report_path`/`MaxPagesExceededError`/
+`_record_skip`の仕組みと「Create large-event-skip issue」ステップを削除する。
+set取得の一括`event.sets`/`phaseGroup.sets`ページングをID単位の取得に置き換える
+ことで、set取得由来の`MaxPagesExceededError`はどのコードパスからも発生し得なく
+なるため。
 
-**Rationale**: FR-012/013 (spec.md) — confirmed by the user as a deliberate scope
-decision during `/speckit-clarify`, not an oversight. Session investigation already
-established the `large-event-skip` issue-creation path had never actually fired in
-production (the `large-event-skip` GitHub label doesn't exist in the repo) due to an
-unrelated, separately-fixed bug in `download_all_tournaments`'s early-return-on-
-`finish_date` — so removing it sheds dead-in-practice operational surface, not a
-working safety net.
+**根拠**: FR-012/013（spec.md）——`/speckit-clarify`の中でユーザーが見落としでは
+なく意図的なスコープ判断として確認済み。本セッション中の調査で、
+`large-event-skip`のissue作成経路は実運用で一度も発火していなかったことが既に
+判明している（リポジトリに`large-event-skip`ラベル自体が存在しない）。原因は
+`download_all_tournaments`の`finish_date`到達時の早期returnという別件のバグで、
+これは本フィーチャーとは別に既に修正済みである——つまり廃止するのは、機能して
+いた安全網ではなく、実運用上は死んでいた経路である。
 
-**Note**: `MaxPagesExceededError` and `max_pages` may still be relevant to *other*
-paginated queries this feature retains (e.g. the new ID-only set-listing query in §1,
-`standings`, `seeds`) — only the *sets-detail-fetch*-triggered skip/report/issue path
-is retired, not the `max_pages` mechanism itself.
+**注記**: `MaxPagesExceededError`と`max_pages`自体は、本機能が引き続き使用する
+他のページングクエリ（§1の新規ID専用set一覧クエリ、`standings`、`seeds`）には
+今後も関係し得る——廃止するのは*set詳細取得*が引き金となるskip/report/issue
+経路のみであり、`max_pages`という仕組み自体ではない。
 
-## 7. Interaction with `scripts/fix/validate_data.py`
+## 7. `scripts/fix/validate_data.py`との相互作用
 
-**Finding (not a design decision — confirmed by reading the code)**:
-`validate_data.py` discovers event directories via `events_root.rglob("attr.json")` —
-it never visits a directory that lacks `attr.json`. Since `attr.json` is only written
-once no placeholders remain (FR-009), an event still being incrementally filled in is
-invisible to today's validator and cannot produce false errors from partially-populated
-`matches.json`. No change to `validate_data.py`'s discovery mechanism is required.
+**調査結果（設計判断ではなく、コードを読んで確認した事実）**:
+`validate_data.py`は`events_root.rglob("attr.json")`によってイベント
+ディレクトリを発見しており、`attr.json`が無いディレクトリを訪れることは無い。
+`attr.json`はプレースホルダーが1件も残っていない場合にのみ書き込まれる
+（FR-009）ため、逐次的に埋められている途中のイベントは今日のバリデータからは
+不可視であり、部分的に埋まった`matches.json`から誤検知エラーが出ることは無い。
+`validate_data.py`の発見ロジックを変更する必要は無い。
 
-**Optional hardening (recommended, not required)**: Once `attr.json` exists for an
-event, `validate_data.py` could additionally assert that `matches.json` contains zero
-placeholder-shaped records (a `winner_id`-missing record) as a defensive invariant
-check — catching a hypothetical future bug where `attr.json` gets written prematurely.
-Left as a candidate task, not a blocking requirement.
+**任意の強化（推奨だが必須ではない）**: あるイベントの`attr.json`が存在する
+場合、`validate_data.py`側で、そのイベントの`matches.json`にプレースホルダー
+形状のレコード（`winner_id`が欠落したレコード）が1件も無いことを追加でassert
+してもよい——将来、仮に`attr.json`が時期尚早に書き込まれるバグが混入した場合の
+防御的な不変条件チェックとなる。ブロッキングな要件ではなく、タスク候補として
+残す。
 
-## 8. Compliance with existing retry/backoff (Constitution Principle V)
+## 8. 既存のリトライ/バックオフとの整合（憲法Principle V）
 
-**Decision**: Both new queries (§1 ID-listing, §2/§3 by-ID detail fetch) are issued
-through `fetch_data_with_retries()` (single request) and, for the paginated listing
-query, `fetch_all_nodes()` — the same helpers `download.py` already uses for every
-other query. No new retry/backoff/complexity-detection logic is written.
+**決定**: 新設する2つのクエリ（§1のID一覧取得、§2/§3のIDによる詳細取得）は
+どちらも、`download.py`が他の全クエリで既に使っているのと同じヘルパー——単発
+リクエストには`fetch_data_with_retries()`、ページングするlistingクエリには
+`fetch_all_nodes()`——経由で発行する。新しいリトライ/バックオフ/complexity検知
+ロジックは一切書かない。
 
-**Rationale**: Directly required by Constitution Principle V; also means the existing
-429/5xx handling in `fetch_data_with_retries()` (`docs/startgg_design.md` §ページング
-とリトライ) applies unchanged to the new queries with no extra work.
+**根拠**: 憲法Principle Vによる直接の要求であり、これにより
+`fetch_data_with_retries()`の既存の429/5xxハンドリング
+（`docs/startgg_design.md`「ページングとリトライ」節）が、追加の作業無しで
+新規クエリにもそのまま適用される。
