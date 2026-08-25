@@ -1,56 +1,66 @@
-# Specification Quality Checklist: Incremental Per-Set Match Fetching & Recovery
+# 仕様品質チェックリスト: setごとの逐次取得によるマッチ取得とリカバリ
 
-**Purpose**: Validate specification completeness and quality before proceeding to planning
-**Created**: 2026-08-25
-**Feature**: [spec.md](../spec.md)
+**目的**: planningに進む前に、仕様の完全性と品質を検証する
+**作成日**: 2026-08-25
+**対象フィーチャー**: [spec.md](../spec.md)
 
-## Content Quality
+## 内容品質 (Content Quality)
 
-- [x] No implementation details (languages, frameworks, APIs)
-- [x] Focused on user value and business needs
-- [x] Written for non-technical stakeholders
-- [x] All mandatory sections completed
+- [x] 実装詳細（言語、フレームワーク、API）が含まれていない
+- [x] ユーザー価値とビジネスニーズに焦点が当たっている
+- [x] 非技術者のステークホルダー向けに書かれている
+- [x] 必須セクションが全て記入されている
 
-## Requirement Completeness
+## 要件の完全性 (Requirement Completeness)
 
-- [x] No [NEEDS CLARIFICATION] markers remain
-- [x] Requirements are testable and unambiguous
-- [x] Success criteria are measurable
-- [x] Success criteria are technology-agnostic (no implementation details)
-- [x] All acceptance scenarios are defined
-- [x] Edge cases are identified
-- [x] Scope is clearly bounded
-- [x] Dependencies and assumptions identified
+- [x] [NEEDS CLARIFICATION] マーカーが残っていない
+- [x] 要件はテスト可能で曖昧さが無い
+- [x] 成功基準は測定可能である
+- [x] 成功基準は技術非依存である（実装詳細を含まない）
+- [x] 全ての受け入れシナリオが定義されている
+- [x] エッジケースが特定されている
+- [x] スコープが明確に境界付けられている
+- [x] 依存関係と前提条件が特定されている
 
-## Feature Readiness
+## フィーチャーの準備状況 (Feature Readiness)
 
-- [x] All functional requirements have clear acceptance criteria
-- [x] User scenarios cover primary flows
-- [x] Feature meets measurable outcomes defined in Success Criteria
-- [x] No implementation details leak into specification
+- [x] 全ての機能要件が明確な受け入れ基準を持つ
+- [x] ユーザーシナリオが主要フローをカバーしている
+- [x] フィーチャーがSuccess Criteriaで定義された測定可能な成果を満たす
+- [x] 実装詳細が仕様に漏れ出していない
 
-## Notes
+## Notes（経緯メモ）
 
-- Pre-`/speckit-clarify` round (2026-08-25): 3 clarification questions resolved during
-  `/speckit-specify` — (1) backfill existing `matches.json` via the existing
-  version-based rolling backfill mechanism, (2) persist the set_id tracking under
-  `data/startgg/` alongside the event's other files, (3) **retire** the
-  large-event-skip auto-issue-creation step and the manual `fetch_large_event`
-  recovery workflow entirely (revised from an initial "keep as fallback" draft) —
-  incremental per-set fetching becomes the sole recovery mechanism for large events
-  (User Story 2, FR-012, FR-013, SC-005).
-- `/speckit-clarify` round (2026-08-25, logged in spec.md's `## Clarifications`
-  section): 2 further questions resolved — (1) the set_id list is left untouched
-  during normal incremental fetching once known, and is only reconciled against
-  start.gg via the existing `event_data_version`-driven backfill cycle, not on every
-  run (FR-014); (2) there is no separate intermediate file at all — `matches.json`
-  itself is pre-seeded with placeholder records (`set_id` only) for every set, each
-  replaced in place as that set's detail is fetched (Key Entities, FR-001–FR-009).
-  This second answer superseded the earlier "commit a separate intermediate file"
-  resolution from the `/speckit-specify` round.
-- Separately, a pre-existing bug was found and fixed in `scripts/fetch/download.py`
-  (`download_all_tournaments` returned early on reaching `finish_date`, bypassing the
-  skip-report-writing code, so the large-event-skip issue had in practice never fired).
-  That fix is independent of this feature and already applied; it becomes moot for the
-  large-event-skip path once FR-012 removes that path, but the corrected control flow
-  itself remains.
+- `/speckit-clarify`実施前ラウンド（2026-08-25、`/speckit-specify`中に解消）:
+  3件の質問を解消 — (1) 既存の`matches.json`は、既存のバージョンベースの
+  巡回バックフィル機構を通じてバックフィルする、(2) set_idの追跡は別ファイル
+  ではなくイベントの他ファイルと同様`data/startgg/`配下に永続化する、
+  (3) large-event-skipの自動issue作成ステップと手動`fetch_large_event`
+  リカバリワークフローを**完全に廃止**する（「フォールバックとして残す」と
+  いう当初案から修正）——逐次取得が大規模イベントの唯一のリカバリ機構になる
+  （User Story 2, FR-012, FR-013, SC-005 相当）。
+- `/speckit-clarify`ラウンド（2026-08-25、spec.mdの`## Clarifications`節に
+  記録）: さらに2件の質問を解消 — (1) set_id一覧は、一度判明したら通常の
+  逐次取得の中では触らず、既存の`event_data_version`駆動のバックフィル
+  サイクル経由でのみstart.ggと照合する（毎回の実行では行わない）、
+  (2) 別の中間ファイルは一切作らない——`matches.json`自体に、全setについて
+  プレースホルダーレコード（`set_id`のみ）を事前投入し、各setの詳細取得が
+  済んだ時点でその場で置き換える（Key Entities、FRの該当箇所）。この2件目
+  の回答は、`/speckit-specify`ラウンドで出した「別の中間ファイルをコミット
+  する」という当初案を置き換えるものだった。
+- 追加の設計修正（2026-08-26）: 「まず一括クエリを試し、失敗した場合のみ
+  set_idからの逐次個別取得にフォールバックする（無駄にAPIリクエスト回数を
+  増やさない）」という順序になっていないという指摘を受け、spec.mdの
+  User Story・Requirements・Edge Cases・Assumptionsを全面的に修正した。
+  修正前は「常に逐次取得モード」であるかのような記述になっていたが、
+  正しくは「一括取得が今日と同じく主経路であり、逐次取得（プレースホルダー
+  投入＋`set(id:)`による個別取得）は一括取得が失敗した場合にのみ発動する
+  フォールバックである」という設計に訂正した（FR-001〜FR-004、SC-001が
+  この訂正を反映）。
+- 別件として、`scripts/fetch/download.py`の既存バグ（`download_all_
+  tournaments`が`finish_date`到達時に早期returnしており、skip報告書き出し
+  処理に到達できず、large-event-skip issueが実運用で一度も発火していな
+  かった）を発見し、修正済み。この修正は本フィーチャーとは独立しており
+  既に適用済み。FR-013がlarge-event-skip経路自体を廃止するため
+  large-event-skipという観点では意味を失うが、`download_all_tournaments`
+  側の制御フロー修正自体は残る。

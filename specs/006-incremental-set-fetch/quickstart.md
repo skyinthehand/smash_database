@@ -25,35 +25,73 @@ python -m unittest scripts.test.test_backfill_schema_version -v
 期待結果: 全てpass。これは憲法Principle IIIのゲートであり、最低限以下を
 カバーすること:
 
-- setの詳細を取得する前に、既知の全setについて1件ずつプレースホルダー
-  （`set_id`のみ）レコードで`matches.json`が投入される（FR-002）。
-- プレースホルダーと完了済みレコードが混在するイベントへの後続の実行では、
-  まだプレースホルダーのままの`set_id`のみ詳細を取得し（FR-006/FR-007）、
-  既にレコードが存在する`set_id`に対して重複レコードを追記することは無い
-  （FR-008）。
+- **一括取得が成功する（小〜中規模の）イベントでは、`set_id`は一括クエリの
+  レスポンスから直接抽出され、プレースホルダーは一切生成されず、set一覧
+  取得クエリも`set(id:)`個別取得クエリも一切呼ばれない**（FR-001/FR-002。
+  本フィーチャー導入前と比べてAPIリクエスト数が増えないことの直接的な
+  裏付け——SC-001）。
+- 一括取得が失敗した場合にのみ、setの詳細を取得する前に、既知の全setに
+  ついて1件ずつプレースホルダー（`set_id`のみ）レコードで`matches.json`が
+  投入される（FR-003）。
+- `matches.json`は既に存在するが`attr.json`がまだ無いイベント（＝前回
+  フォールバックに入ったイベント）を後続の実行で処理する場合、一括取得は
+  再試行されず、まだプレースホルダーのままの`set_id`のみ詳細を取得する
+  （FR-004/FR-007/FR-008）。既にレコードが存在する`set_id`に対して重複
+  レコードを追記することは無い（FR-009）。
 - `attr.json`（`archive_status: "completed"`付き）が書き込まれるのは、
-  プレースホルダーレコードが1件も残っていない場合に限る（FR-009）。
-- set/マッチ詳細取得のどのコードパスからも、もはや`MaxPagesExceededError`
-  は発生し得ず、`large-event-skip`ラベル付きの成果物も生成されない
-  （FR-012/FR-013）。
+  プレースホルダーレコードが1件も残っていない場合に限る（FR-010）。
+- large-event-skipの自動issue作成と`fetch_large_event`ワークフローに
+  関するコード・ワークフロー定義がもはや存在しない（FR-013/FR-014）。
+  （`MaxPagesExceededError`自体は一括取得の失敗検知として引き続き発生し
+  得る——research.md §6の「注記」参照。）
 - `backfill_schema_version.py`は、`attr.json.event_data_version`が新しい
   `EVENT_DATA_VERSION`を下回るイベント（または`attr.json`が完全に存在しない
-  イベント）を検出し、逐次取得経路で再取得する（FR-010/FR-011）。
+  イベント）を検出し、一括優先・失敗時のみ逐次取得の経路で再取得する
+  （FR-011/FR-012）。
 
-## 2. ライブAPIシナリオ: 中断された取得がデータを失わないこと（User Story 1）
+## 2. ライブAPIシナリオ 0: 小規模イベントは今日と同じ経路のまま（回帰確認）
 
-`STARTGG_TOKEN`が必要。実在する大規模な大会（あるいは本機能の調査で既に
-特定済みのもの——「第１９回グランドスラム」「渋谷大乱 第一陣」。spec.mdの
-User Story 1参照）とその`tournament_id`を選ぶ。
+`STARTGG_TOKEN`が必要。既に問題なく取得できている小〜中規模の大会
+（`tournament_id`）を1件選ぶ。
 
 ```bash
 python scripts/fetch/download.py --token "$STARTGG_TOKEN" \
-  --tournament_ids <TOURNAMENT_ID> --country_code JP
-# しばらく実行させ、大規模イベントのset詳細取得フェーズの途中で中断する
-# （Ctrl-C）
+  --tournament_ids <SMALL_TOURNAMENT_ID> --country_code JP
 ```
 
-**確認事項**（User Story 1 / SC-001）:
+**確認事項**（SC-001）:
+
+```bash
+python3 -c "
+import json
+d = json.load(open('<event_dir>/matches.json'))
+placeholders = [r for r in d['data'] if 'winner_id' not in r]
+assert len(placeholders) == 0, '一括取得が成功したイベントにプレースホルダーは残らないはず'
+assert all('set_id' in r for r in d['data']), '全レコードがset_idを持つべき'
+print('OK: 一括取得のみで完了、プレースホルダー無し')
+"
+ls <event_dir>/attr.json  # 直後に存在するはず——今日と同じ挙動
+```
+
+併せて、実行ログ（標準出力）にID専用のset一覧クエリや`set(id:)`個別取得
+クエリのリクエストログが**出ていない**ことを目視で確認する——これが
+「無駄にクエリ実行回数を増やさない」ことの直接的な確認になる。
+
+## 3. ライブAPIシナリオ 1: 中断された取得がデータを失わないこと（User Story 1）
+
+実在する大規模な大会（あるいは本機能の調査で既に特定済みのもの——
+「第１９回グランドスラム」「渋谷大乱 第一陣」。spec.mdのUser Story 1参照）
+とその`tournament_id`を選ぶ。一括取得が実際に失敗し、逐次取得モードへ
+フォールバックすることを前提としたシナリオである。
+
+```bash
+python scripts/fetch/download.py --token "$STARTGG_TOKEN" \
+  --tournament_ids <LARGE_TOURNAMENT_ID> --country_code JP
+# 一括取得が失敗してフォールバックし、逐次取得（プレースホルダーの詳細取得）
+# フェーズの途中で中断する（Ctrl-C）
+```
+
+**確認事項**（User Story 1 / SC-002）:
 
 ```bash
 python3 -c "
@@ -67,13 +105,16 @@ assert not any(r for r in d['data'] if 'set_id' not in r), '全レコードがse
 ls <event_dir>/attr.json  # まだ存在しないはず——イベントは未完了
 ```
 
-同じ`download.py`コマンドを再実行する。**確認事項**（User Story 1 / FR-006,
-SC-002）: `complete`の件数のみが増加し、既に完了していたレコードは1バイトも
-変化せず、`set_id`が2回以上出現することも無い。`attr.json`が現れるまでこれを
-繰り返す——これにより、手動ワークフローを一切使わず、通常のコマンドの
-再実行だけで完了に到達できることが証明される（User Story 2 / SC-005）。
+同じ`download.py`コマンドを再実行する。**確認事項**（User Story 1 /
+FR-004/FR-007, SC-003）: 実行ログに一括取得の再試行（`event.sets`/
+`phaseGroup.sets`への大量ページングリクエスト）が出ておらず、既存の
+プレースホルダーの詳細取得から直接始まっていること。`complete`の件数のみが
+増加し、既に完了していたレコードは1バイトも変化せず、`set_id`が2回以上
+出現することも無い。`attr.json`が現れるまでこれを繰り返す——これにより、
+手動ワークフローを一切使わず、通常のコマンドの再実行だけで完了に到達
+できることが証明される（User Story 2 / SC-006）。
 
-## 3. トレーサビリティの確認（User Story 4）
+## 4. トレーサビリティの確認（User Story 4）
 
 ```bash
 python3 -c "
@@ -85,7 +126,7 @@ print(f'{len(set_ids)} 件のset_idが全て一意')
 "
 ```
 
-## 4. バックフィルの確認（FR-010/FR-011）
+## 5. バックフィルの確認（FR-011/FR-012）
 
 既にコミット済みの、本機能導入前のイベントディレクトリ（`attr.json`の
 `event_data_version`が新しい値未満のもの）を1件選ぶ:
@@ -98,14 +139,14 @@ python scripts/fetch/backfill_schema_version.py --token "$STARTGG_TOKEN" --max_e
 `matches.json`の全レコードに`set_id`が付与され、プレースホルダーが1件も
 残っていないこと。
 
-## 5. 廃止の確認（FR-012/FR-013）
+## 6. 廃止の確認（FR-013/FR-014）
 
 ```bash
 test ! -f .github/workflows/fetch_large_event.yml && echo "削除済み: OK"
 grep -L "large-event-skip" .github/workflows/data_gap_check.yml && echo "large-event-skipステップ無し: OK"
 ```
 
-## 6. ドキュメント同期の確認（憲法Principle I）
+## 7. ドキュメント同期の確認（憲法Principle I）
 
 `docs/data_model.md`にプレースホルダーレコード形状と新しい
 `EVENT_DATA_VERSION`が記載されていること、`docs/fix.md`に「set ID一覧取得

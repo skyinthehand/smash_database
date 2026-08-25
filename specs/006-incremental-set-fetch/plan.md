@@ -9,20 +9,25 @@
 大規模なstart.ggイベント（数百人規模、数千set規模）は現在、単一の一括ページング
 クエリ（`event.sets`）がページ/complexity上限を超えると、`matches.json`と
 `attr.json`が一切保存されないまま失敗する。`standings.json`/`seeds.json`は既に
-成功しているにもかかわらずである。この修正では、その一発勝負の一括取得を、
-逐次的でレジューム可能な方式に置き換える。まず新設する軽量なID専用の
-`event.sets`クエリで、set詳細を取得する前に`matches.json`をset1件につき
-プレースホルダーレコード（`set_id`のみ）1件で埋めておく。その後、未取得の各set
-について詳細をIDで直接取得し（`set(id: ID!)`。start.gg APIに実在することを確認
-済み）、プレースホルダーをその場で置き換えていく。これにより、1リクエストあたりの
-complexityはイベント規模に関係なく一定に保たれ、部分的に取得済みのイベントは
-中断されてもデータを失わず、スケジュール実行をまたいで再開できる。さらに
-`matches.json`自体（プレースホルダーと完了済みレコードの混在状態）が、未取得分の
-追跡役を兼ねるため、別の中間ファイルは不要になる。あわせて、不要になった
-max_pagesベースのlarge-event-skip issue／`fetch_large_event`手動リカバリ経路を
-廃止し（FR-012/013）、既存の`event_data_version`駆動の巡回バックフィルサイクル
-経由で、過去分の`matches.json`レコードにも`set_id`をバックフィルする
-（FR-010/011）。
+成功しているにもかかわらずである。この修正では、既存の一括取得を主経路として
+維持したまま（無駄にAPIリクエスト回数を増やさないため。大多数のイベントは
+今日と同じく1回の一括クエリで完了する）、一括取得が実際に失敗した場合にのみ、
+逐次的でレジューム可能な方式にフォールバックする。フォールバック時は、まず
+新設する軽量なID専用の`event.sets`クエリで、set詳細を取得する前に
+`matches.json`をset1件につきプレースホルダーレコード（`set_id`のみ）1件で
+埋めておく。その後、未取得の各setについて詳細をIDで直接取得し
+（`set(id: ID!)`。start.gg APIに実在することを確認済み）、プレースホルダーを
+その場で置き換えていく。一度フォールバックしたイベント（`matches.json`は
+存在するが`attr.json`がまだ無い状態）は、以後の実行で一括取得を再試行せず、
+直接プレースホルダーの詳細取得に進む。これにより、フォールバック時の
+1リクエストあたりのcomplexityはイベント規模に関係なく一定に保たれ、部分的に
+取得済みのイベントは中断されてもデータを失わず、スケジュール実行をまたいで
+再開できる。さらに`matches.json`自体（プレースホルダーと完了済みレコードの
+混在状態）が、未取得分の追跡役を兼ねるため、別の中間ファイルは不要になる。
+あわせて、不要になったmax_pagesベースのlarge-event-skip issue／
+`fetch_large_event`手動リカバリ経路を廃止し（FR-013/014）、既存の
+`event_data_version`駆動の巡回バックフィルサイクル経由で、過去分の
+`matches.json`レコードにも`set_id`をバックフィルする（FR-011/012）。
 
 ## Technical Context（技術的コンテキスト）
 
@@ -81,8 +86,8 @@ spec.mdのUser Story 1参照。週次gap-check（`data_gap_check.yml`）は直�
 
 | 原則 | チェック内容 | 判定 |
 |---|---|---|
-| I. データスキーマの整合性とバージョニング | `matches.json`に新しいプレースホルダーレコード形状が加わる → `EVENT_DATA_VERSION`を5→6に上げ、同一PRで`docs/data_model.md`を更新し、既存データは*既存の*`backfill_schema_version.py`の巡回サイクル（FR-010/011）で移行する。独自の移行スクリプトは作らない。 | PASS（設計として確約） |
-| II. 冪等でインクリメンタルな収集 | プレースホルダー/完了済みレコードが混在するイベントへの再実行は、プレースホルダーのみを再取得する（FR-006/007/008）。`done.csv`/`tournament_events_complete()`は既に「`attr.json`が無いイベントは未完了」として扱っているため、取得中の大規模イベントは自然に再訪される——新しい「完了」管理は不要。 | PASS |
+| I. データスキーマの整合性とバージョニング | `matches.json`に新しいプレースホルダーレコード形状が加わる → `EVENT_DATA_VERSION`を5→6に上げ、同一PRで`docs/data_model.md`を更新し、既存データは*既存の*`backfill_schema_version.py`の巡回サイクル（FR-011/012）で移行する。独自の移行スクリプトは作らない。 | PASS（設計として確約） |
+| II. 冪等でインクリメンタルな収集 | 一括取得は常に主経路として維持し、実際に失敗した場合にのみフォールバックする（FR-001〜FR-004）。プレースホルダー/完了済みレコードが混在するイベントへの再実行は、プレースホルダーのみを再取得し、一括取得を再試行しない（FR-004/007/008/009）。`done.csv`/`tournament_events_complete()`は既に「`attr.json`が無いイベントは未完了」として扱っているため、取得中の大規模イベントは自然に再訪される——新しい「完了」管理は不要。 | PASS |
 | III. マージ前の検証ゲート | `scripts/test/`に新規テストが必要: プレースホルダーの投入、未取得setの検出、set_id重複の禁止、プレースホルダー0件による完了判定、large-event-skip廃止。`scripts.test.test_validate_data`は引き続きpassさせる（Phase 1の`validate_data.py`に関する注記参照）。 | PASS（タスクとして計画） |
 | IV. ブランチとオートメーションの規律 | `data_gap_check.yml`等が使っている、`main`への直接commit／concurrency group／push競合時のrebaseリトライという既存パターンには変更なし。本機能は新しい自動化を追加するのではなく、既存ワークフロー内で`download.py`が行う処理を変更するだけ。`fetch_large_event.yml`の削除は既存自動化の削除であり、新規自動化経路の追加ではない。 | PASS |
 | V. 外部APIへの耐障害アクセス | 新規クエリ（イベントのset ID一覧取得、`set(id:)`による単体/バッチ詳細取得）は、それぞれ`fetch_all_nodes()`/`fetch_data_with_retries()`を経由すること——独自のリトライループは書かない。`set(id: ID!): Set`がstart.ggのスキーマに実在することを確認済み（research.md参照）。 | PASS（設計として確約） |
@@ -127,10 +132,12 @@ specs/006-incremental-set-fetch/
 ```text
 scripts/
 ├── fetch/
-│   ├── download.py                 # 変更: プレースホルダー投入＋setごとの逐次
-│   │                                #   取得が既存の一括download_all_set()経路を
-│   │                                #   置き換える。FR-012/013によりmax_pagesベース
-│   │                                #   のlarge-event-skipロジックを削除
+│   ├── download.py                 # 変更: 既存の一括download_all_set()経路は
+│   │                                #   主経路として維持し、失敗時のみプレース
+│   │                                #   ホルダー投入＋setごとの逐次取得へフォール
+│   │                                #   バックする（FR-001〜FR-004）。FR-013/014
+│   │                                #   によりmax_pagesベースのlarge-event-skip
+│   │                                #   issue化ロジックのみ削除（max_pages自体は残る）
 │   ├── backfill_schema_version.py  # 変更（download.pyの関数に完全委譲していれば
 │   │                                #   影響なしの可能性あり）: EVENT_DATA_VERSION
 │   │                                #   の引き上げにより、set_idを持たないイベント
@@ -143,7 +150,9 @@ scripts/
 │                                    #   プレースホルダーレコードが残っていないことを
 │                                    #   検証する強化を追加してもよい
 ├── test/
-│   ├── test_download.py            # 変更: FR-001〜FR-009, FR-014の新規テスト
+│   ├── test_download.py            # 変更: FR-001〜FR-010, FR-015の新規テスト
+│   │                                #   （一括成功時にプレースホルダーが一切
+│   │                                #   生成されないことの確認を含む）
 │   └── test_validate_data.py       # 引き続きpassさせる必要あり（憲法Principle III）
 ├── queries.py                      # 変更: 軽量なID専用event.setsクエリと、
 │                                    #   set(id:)による詳細取得クエリを追加
@@ -152,7 +161,7 @@ scripts/
 .github/workflows/
 ├── data_gap_check.yml              # 変更なし（download.pyの新しい取得戦略の
 │                                    #   副次効果として挙動が改善する）
-└── fetch_large_event.yml           # 削除（FR-012）
+└── fetch_large_event.yml           # 削除（FR-013）
 
 docs/
 ├── data_model.md                   # 変更: matches.jsonのプレースホルダー形状、
