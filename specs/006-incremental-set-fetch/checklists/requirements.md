@@ -33,6 +33,14 @@
 
 - All 3 clarification questions were resolved with the user on 2026-08-25: (1)
   backfill existing `matches.json` via the existing version-based rolling backfill
-  mechanism, (2) commit the intermediate set ID list under `data/startgg/`, (3) keep
-  the large-event-skip manual path as a fallback (noting its auto-issue-creation step
-  is separately, pre-existingly unreliable and out of this feature's scope).
+  mechanism, (2) commit the intermediate set ID list under `data/startgg/`, (3)
+  **retire** the large-event-skip auto-issue-creation step and the manual
+  `fetch_large_event` recovery workflow entirely (revised from an initial "keep as
+  fallback" draft) — incremental per-set fetching becomes the sole recovery mechanism
+  for large events (User Story 2, FR-012, FR-013, SC-005).
+- Separately, a pre-existing bug was found and fixed in `scripts/fetch/download.py`
+  (`download_all_tournaments` returned early on reaching `finish_date`, bypassing the
+  skip-report-writing code, so the large-event-skip issue had in practice never fired).
+  That fix is independent of this feature and already applied; it becomes moot for the
+  large-event-skip path once FR-012 removes that path, but the corrected control flow
+  itself remains.

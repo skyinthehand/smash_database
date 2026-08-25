@@ -50,7 +50,40 @@ not discarded.
 
 ---
 
-### User Story 2 - Track which sets remain to be fetched (Priority: P2)
+### User Story 2 - Large events complete without manual recovery (Priority: P2)
+
+As the maintainer, I want large events to reach full completion automatically through
+the pipeline's normal scheduled runs, so that I no longer need to notice a GitHub issue
+and manually trigger a separate recovery workflow just because an event was too big for
+a single bulk fetch.
+
+**Why this priority**: This retires the operational workaround (a GitHub issue plus a
+manually-triggered `fetch_large_event` workflow run) that exists specifically because
+today's bulk, single-pass sets fetch cannot handle large events. Once incremental
+per-set fetching and cross-run resumption (User Stories 1 and 3) exist, that workaround
+no longer has a reason to exist — large events just complete like any other event,
+across however many runs it takes.
+
+**Independent Test**: Can be fully tested by fetching a large event (one that
+previously would have exceeded the bulk-fetch page limit) end-to-end using only the
+pipeline's normal scheduled invocation, with no manual workflow trigger, and confirming
+it reaches the same completed state (`matches.json` + `attr.json` present) as a small
+event.
+
+**Acceptance Scenarios**:
+
+1. **Given** a large event that would have previously exceeded the bulk sets-fetch page
+   limit, **When** the pipeline runs its normal scheduled processing (possibly across
+   several runs), **Then** the event reaches full completion without any manual
+   workflow being triggered and without a "large event" issue being filed.
+2. **Given** this feature is in place, **When** the pipeline encounters an event too
+   large to fetch in one pass, **Then** it is treated the same as any other in-progress
+   event (tracked via its Event Set List and resumed on subsequent runs) rather than
+   being specially flagged for manual intervention.
+
+---
+
+### User Story 3 - Track which sets remain to be fetched (Priority: P3)
 
 As the maintainer, I want an intermediate record of the set IDs that belong to an
 event, saved separately from (and before) the full match details, so that the pipeline
@@ -76,7 +109,7 @@ matches the number of sets start.gg reports for that event.
 
 ---
 
-### User Story 3 - Match records are traceable to their source set (Priority: P3)
+### User Story 4 - Match records are traceable to their source set (Priority: P4)
 
 As the maintainer, I want every match record in `matches.json` to carry the start.gg
 `set_id` it came from, so I can cross-reference a record against start.gg directly and
@@ -117,6 +150,13 @@ start.gg set for that event.
 - What happens if the same `set_id` is fetched twice (e.g. due to a retry racing with a
   resumed run) — must the resulting `matches.json` still contain exactly one record for
   that set?
+- What happens if even fetching an event's `set_id` list (the one remaining paginated
+  query in this design) cannot complete for a pathologically large event? Since the
+  existing max_pages-based safety net (large-event-skip issue + manual
+  `fetch_large_event` workflow) is being retired rather than kept as a narrower
+  fallback, such an event has no dedicated manual escape hatch under this feature — it
+  relies on incremental per-set fetching and repeated scheduled runs to eventually
+  converge, same as any other event.
 
 ## Requirements *(mandatory)*
 
@@ -162,6 +202,14 @@ start.gg set for that event.
   their match data through the same incremental per-set approach used for new events,
   following the existing rolling/cyclic backfill process rather than requiring a
   separate one-off migration run.
+- **FR-012**: The system MUST retire the existing max_pages-based large-event
+  detection used for sets fetching, along with its dependent recovery path (the
+  automatic "large event skipped" issue creation and the manually-triggered
+  `fetch_large_event` recovery workflow), since incremental per-set fetching and
+  cross-run resumption supersede it as the way large events reach completion.
+- **FR-013**: The system MUST NOT require any manual trigger or human intervention for
+  a large event to reach full completion; reaching completion MUST be possible purely
+  through the pipeline's normal scheduled runs, however many are needed.
 
 ### Key Entities *(include if feature involves data)*
 
@@ -194,6 +242,9 @@ start.gg set for that event.
 - **SC-004**: The proportion of large events that end up with zero match data due to
   being interrupted mid-fetch drops to 0%, down from the current all-or-nothing
   behavior.
+- **SC-005**: Zero large events require a maintainer to manually trigger a separate
+  recovery workflow to reach completion; all events, regardless of size, complete
+  through the pipeline's normal scheduled runs alone.
 
 ## Assumptions
 
@@ -227,9 +278,19 @@ start.gg set for that event.
   the new file's shape must be documented in `docs/data_model.md` and carry a
   `version` field like the other event files.
 - The existing "large-event-skip" GitHub issue + manual `fetch_large_event` workflow
-  recovery path remains in place as a fallback, for the rare event that still cannot
-  complete even with per-set incremental fetching (e.g. a set that persistently
-  errors). This feature does not assume that fallback path is exercised often, and
-  does not depend on its automatic issue-creation step working — that step has been
-  observed not to reliably fire in practice; investigating/fixing it is a separate,
-  pre-existing concern outside this feature's scope.
+  recovery path is retired by this feature, not kept as a parallel fallback.
+  Incremental per-set fetching plus cross-run resumption becomes the sole mechanism by
+  which large events reach completion — a large event is no longer a special case that
+  needs a human to notice an issue and manually re-run a workflow with a larger page
+  limit; it is just an event that takes more scheduled runs than a small one. (A
+  pre-existing, independent bug — where the skip report was never written because
+  `download_all_tournaments` returned early upon reaching `finish_date`, bypassing the
+  report-writing code — was already fixed separately from this feature; that fix is
+  now moot for the large-event-skip path specifically, since this feature removes that
+  path, but the corrected control flow in `download_all_tournaments` remains in place
+  regardless.)
+- Fetching an event's `set_id` list remains a paginated query, but is assumed to stay
+  lightweight enough (being IDs only, not full set detail) that it does not hit the
+  same page/complexity ceilings that motivated the old max_pages safety net. This
+  feature does not define a manual escape hatch for the case where even that listing
+  step cannot complete — see the corresponding Edge Case.
