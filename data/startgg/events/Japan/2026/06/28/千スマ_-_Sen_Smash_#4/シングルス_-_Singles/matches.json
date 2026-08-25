@@ -4681,110 +4681,6 @@
       ]
     },
     {
-      "winner_id": 3291114,
-      "loser_id": 2166405,
-      "winner_score": 3,
-      "loser_score": 1,
-      "round_text": "Round 1",
-      "round": 1,
-      "phase": "1",
-      "phase_order": 2,
-      "wave": null,
-      "dq": false,
-      "cancel": false,
-      "state": 3,
-      "details": [
-        {
-          "game_id": 39087235,
-          "order_num": 1,
-          "winner_id": 2166405,
-          "entrant1_score": null,
-          "entrant2_score": 0,
-          "stage": "Small Battlefield",
-          "selections": [
-            {
-              "user_id": 2166405,
-              "selection_id": 58408817,
-              "character_id": 1337,
-              "character_name": "Wolf"
-            },
-            {
-              "user_id": 3291114,
-              "selection_id": 58408818,
-              "character_id": 1408,
-              "character_name": "Dark Samus"
-            }
-          ]
-        },
-        {
-          "game_id": 39087236,
-          "order_num": 2,
-          "winner_id": 3291114,
-          "entrant1_score": 0,
-          "entrant2_score": null,
-          "stage": "Battlefield",
-          "selections": [
-            {
-              "user_id": 2166405,
-              "selection_id": 58408819,
-              "character_id": 1337,
-              "character_name": "Wolf"
-            },
-            {
-              "user_id": 3291114,
-              "selection_id": 58408820,
-              "character_id": 1408,
-              "character_name": "Dark Samus"
-            }
-          ]
-        },
-        {
-          "game_id": 39087237,
-          "order_num": 3,
-          "winner_id": 3291114,
-          "entrant1_score": 0,
-          "entrant2_score": null,
-          "stage": "Small Battlefield",
-          "selections": [
-            {
-              "user_id": 2166405,
-              "selection_id": 58408821,
-              "character_id": 1337,
-              "character_name": "Wolf"
-            },
-            {
-              "user_id": 3291114,
-              "selection_id": 58408822,
-              "character_id": 1408,
-              "character_name": "Dark Samus"
-            }
-          ]
-        },
-        {
-          "game_id": 39087238,
-          "order_num": 4,
-          "winner_id": 3291114,
-          "entrant1_score": 0,
-          "entrant2_score": null,
-          "stage": "Small Battlefield",
-          "selections": [
-            {
-              "user_id": 2166405,
-              "selection_id": 58408823,
-              "character_id": 1795,
-              "character_name": "Pyra & Mythra"
-            },
-            {
-              "user_id": 3291114,
-              "selection_id": 58408824,
-              "character_id": 1408,
-              "character_name": "Dark Samus"
-            }
-          ]
-        }
-      ]
-    },
-    {
       "winner_id": 880624,
       "loser_id": 1469223,
       "winner_score": 3,
@@ -4883,6 +4779,110 @@
               "selection_id": 58406279,
               "character_id": 1318,
               "character_name": "Pichu"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "winner_id": 3291114,
+      "loser_id": 2166405,
+      "winner_score": 3,
+      "loser_score": 1,
+      "round_text": "Round 1",
+      "round": 1,
+      "phase": "1",
+      "phase_order": 2,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": [
+        {
+          "game_id": 39087235,
+          "order_num": 1,
+          "winner_id": 2166405,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": "Small Battlefield",
+          "selections": [
+            {
+              "user_id": 2166405,
+              "selection_id": 58408817,
+              "character_id": 1337,
+              "character_name": "Wolf"
+            },
+            {
+              "user_id": 3291114,
+              "selection_id": 58408818,
+              "character_id": 1408,
+              "character_name": "Dark Samus"
+            }
+          ]
+        },
+        {
+          "game_id": 39087236,
+          "order_num": 2,
+          "winner_id": 3291114,
+          "entrant1_score": 0,
+          "entrant2_score": null,
+          "stage": "Battlefield",
+          "selections": [
+            {
+              "user_id": 2166405,
+              "selection_id": 58408819,
+              "character_id": 1337,
+              "character_name": "Wolf"
+            },
+            {
+              "user_id": 3291114,
+              "selection_id": 58408820,
+              "character_id": 1408,
+              "character_name": "Dark Samus"
+            }
+          ]
+        },
+        {
+          "game_id": 39087237,
+          "order_num": 3,
+          "winner_id": 3291114,
+          "entrant1_score": 0,
+          "entrant2_score": null,
+          "stage": "Small Battlefield",
+          "selections": [
+            {
+              "user_id": 2166405,
+              "selection_id": 58408821,
+              "character_id": 1337,
+              "character_name": "Wolf"
+            },
+            {
+              "user_id": 3291114,
+              "selection_id": 58408822,
+              "character_id": 1408,
+              "character_name": "Dark Samus"
+            }
+          ]
+        },
+        {
+          "game_id": 39087238,
+          "order_num": 4,
+          "winner_id": 3291114,
+          "entrant1_score": 0,
+          "entrant2_score": null,
+          "stage": "Small Battlefield",
+          "selections": [
+            {
+              "user_id": 2166405,
+              "selection_id": 58408823,
+              "character_id": 1795,
+              "character_name": "Pyra & Mythra"
+            },
+            {
+              "user_id": 3291114,
+              "selection_id": 58408824,
+              "character_id": 1408,
+              "character_name": "Dark Samus"
             }
           ]
         }
