@@ -31,13 +31,23 @@
 
 ## Notes
 
-- All 3 clarification questions were resolved with the user on 2026-08-25: (1)
-  backfill existing `matches.json` via the existing version-based rolling backfill
-  mechanism, (2) commit the intermediate set ID list under `data/startgg/`, (3)
-  **retire** the large-event-skip auto-issue-creation step and the manual
-  `fetch_large_event` recovery workflow entirely (revised from an initial "keep as
-  fallback" draft) — incremental per-set fetching becomes the sole recovery mechanism
-  for large events (User Story 2, FR-012, FR-013, SC-005).
+- Pre-`/speckit-clarify` round (2026-08-25): 3 clarification questions resolved during
+  `/speckit-specify` — (1) backfill existing `matches.json` via the existing
+  version-based rolling backfill mechanism, (2) persist the set_id tracking under
+  `data/startgg/` alongside the event's other files, (3) **retire** the
+  large-event-skip auto-issue-creation step and the manual `fetch_large_event`
+  recovery workflow entirely (revised from an initial "keep as fallback" draft) —
+  incremental per-set fetching becomes the sole recovery mechanism for large events
+  (User Story 2, FR-012, FR-013, SC-005).
+- `/speckit-clarify` round (2026-08-25, logged in spec.md's `## Clarifications`
+  section): 2 further questions resolved — (1) the set_id list is left untouched
+  during normal incremental fetching once known, and is only reconciled against
+  start.gg via the existing `event_data_version`-driven backfill cycle, not on every
+  run (FR-014); (2) there is no separate intermediate file at all — `matches.json`
+  itself is pre-seeded with placeholder records (`set_id` only) for every set, each
+  replaced in place as that set's detail is fetched (Key Entities, FR-001–FR-009).
+  This second answer superseded the earlier "commit a separate intermediate file"
+  resolution from the `/speckit-specify` round.
 - Separately, a pre-existing bug was found and fixed in `scripts/fetch/download.py`
   (`download_all_tournaments` returned early on reaching `finish_date`, bypassing the
   skip-report-writing code, so the large-event-skip issue had in practice never fired).
