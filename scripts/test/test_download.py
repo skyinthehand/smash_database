@@ -1202,6 +1202,94 @@ class DownloadTests(unittest.TestCase):
         event_dir = updated[1]["events"][0]["path"]
         self.assertFalse(os.path.isfile(os.path.join(event_dir, "attr.json")))
 
+    @patch("scripts.fetch.download.read_set", return_value=set())
+    @patch("scripts.fetch.download.read_users_jsonl", return_value={})
+    @patch("scripts.fetch.download.fetch_latest_tournaments_by_game")
+    @patch("scripts.fetch.download.fetch_event_ids_from_tournament")
+    @patch("scripts.fetch.download.download_all_set")
+    @patch("scripts.fetch.download.download_standings")
+    @patch("scripts.fetch.download.download_seeds")
+    @patch("scripts.fetch.download.extend_user_info")
+    def test_download_all_tournaments_writes_skip_report_after_reaching_finish_date(
+        self,
+        _mock_extend_user_info,
+        _mock_download_seeds,
+        mock_download_standings,
+        mock_download_all_set,
+        mock_fetch_event_ids,
+        mock_fetch_tournaments,
+        _mock_read_users,
+        _mock_read_set,
+    ):
+        # 走査が finish_date に達して打ち切られた回でも、その前に記録された
+        # skipped_events (大規模イベントのスキップ報告) が失われないことを確認する
+        # 回帰テスト。以前は finish_date 到達時に関数が早期 return しており、末尾の
+        # skip_report_path 書き出し処理に到達できていなかった。
+        mock_fetch_tournaments.return_value = (
+            [
+                {
+                    "id": 1,
+                    "name": "Large Tournament",
+                    "startAt": 1714780800,
+                    "endAt": 1714784400,
+                    "countryCode": "JP",
+                    "city": "Tokyo",
+                    "lat": None,
+                    "lng": None,
+                    "venueName": None,
+                    "timezone": "Asia/Tokyo",
+                    "postalCode": None,
+                    "venueAddress": None,
+                    "mapsPlaceId": None,
+                    "url": "https://example.com",
+                },
+                {
+                    "id": 2,
+                    "name": "Older Tournament",
+                    "startAt": 1600000000,
+                    "endAt": 1600003600,
+                    "countryCode": "JP",
+                    "city": "Tokyo",
+                    "lat": None,
+                    "lng": None,
+                    "venueName": None,
+                    "timezone": "Asia/Tokyo",
+                    "postalCode": None,
+                    "venueAddress": None,
+                    "mapsPlaceId": None,
+                    "url": "https://example.com",
+                },
+            ],
+            1,
+        )
+        mock_fetch_event_ids.return_value = [(10, "Singles", False, "COMPLETED", 1)]
+        mock_download_standings.return_value = ([], [], {})
+        mock_download_all_set.side_effect = MaxPagesExceededError(total_pages=999, max_pages=10, per_page=10)
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            tournament_file_path = f"{tmpdir}/tournaments.jsonl"
+            skip_report_path = f"{tmpdir}/skipped_events.json"
+            download_all_tournaments(
+                "1386",
+                "JP",
+                datetime(2024, 5, 4, 23, 59, 59),
+                datetime(2024, 5, 4, 0, 0, 0),
+                f"{tmpdir}",
+                f"{tmpdir}/done.csv",
+                f"{tmpdir}/users.jsonl",
+                tournament_file_path,
+                max_pages=10,
+                skip_report_path=skip_report_path,
+            )
+
+            mock_fetch_event_ids.assert_called_once()
+
+            self.assertTrue(os.path.isfile(skip_report_path))
+            skipped = read_json(skip_report_path)
+            self.assertEqual(len(skipped), 1)
+            self.assertEqual(skipped[0]["tournament_id"], 1)
+            self.assertEqual(skipped[0]["event_id"], 10)
+
 
 if __name__ == "__main__":
     unittest.main()

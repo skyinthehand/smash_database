@@ -277,6 +277,7 @@ def download_all_tournaments(
     skipped_events = []
 
     page = 1
+    reached_finish_date = False
     while True:
         try:
             tournaments_info, total_pages = fetch_latest_tournaments_by_game(game_id, country_code=country_code, limit=TOURNAMENTS_PER_PAGE, page=page)
@@ -342,7 +343,8 @@ def download_all_tournaments(
 
                 if tournament_dt < finish_date:
                     print("!!!downloaded all!!!")
-                    return
+                    reached_finish_date = True
+                    break
 
                 if tournament_id in tournaments:
                     tournaments[tournament_id]["name"] = tournament_name
@@ -423,6 +425,9 @@ def download_all_tournaments(
             except FetchError as e:
                 print(f"Tournament {tournament_id}: fetch failed, skipping. Error: {e}")
                 continue
+
+        if reached_finish_date:
+            break
 
         if page >= total_pages:
             break
