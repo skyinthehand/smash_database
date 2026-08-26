@@ -8,22 +8,36 @@ from datetime import datetime
 from unittest.mock import patch
 
 from scripts.fetch.download import (
+    _continue_incremental_fetch,
+    _start_incremental_fetch,
+    SET_IDS_PER_PAGE_FALLBACKS,
+    build_match_data_from_node,
     build_match_dedupe_key,
     configure_fetch_behavior,
     count_guest_entrants,
     dedupe_set_nodes,
+    download_all_set,
     download_all_tournaments,
     download_by_ids,
+    event_in_fallback_mode,
     fetch_all_phase_groups,
     fetch_all_sets,
     fetch_event_ids_from_tournament,
+    fetch_set_details_by_ids,
+    fetch_set_ids_for_event,
     get_event_directory,
+    is_placeholder_record,
     load_excluded_phase_ids,
+    merge_matches_records,
+    outstanding_set_ids,
+    read_matches_data,
     record_event_path,
     should_skip_tournament,
     write_event_attributes,
     write_matches,
+    write_matches_data,
 )
+from scripts.queries import get_phase_group_set_ids_query
 from scripts.utils import (
     EVENT_DATA_VERSION,
     FetchError,
@@ -32,6 +46,30 @@ from scripts.utils import (
     read_json,
     read_tournaments_jsonl,
 )
+
+
+def _make_set_node(set_id, winner_entrant=11, loser_entrant=22):
+    """テスト用に、write_matches/build_match_data_from_node に渡せる最小限の
+    start.gg setノードを組み立てる(winner_entrant側がスコア2、loser_entrant側が
+    スコア0で勝敗が決まる、gamesの無いシンプルな1セット)。"""
+    return {
+        "id": set_id,
+        "slots": [
+            {
+                "entrant": {"id": winner_entrant},
+                "standing": {"stats": {"score": {"value": 2}}},
+            },
+            {
+                "entrant": {"id": loser_entrant},
+                "standing": {"stats": {"score": {"value": 0}}},
+            },
+        ],
+        "games": None,
+        "phaseGroup": None,
+        "fullRoundText": "Winners Round 1",
+        "round": 1,
+        "state": 3,
+    }
 
 
 class DownloadTests(unittest.TestCase):
@@ -446,6 +484,234 @@ class DownloadTests(unittest.TestCase):
 
         self.assertEqual(len(payload["data"]), 1)
 
+    def test_write_matches_includes_set_id_on_bulk_success(self):
+        node = _make_set_node(501)
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            write_matches([node], {11: 2716511, 22: 2962327}, tmpdir)
+            with open(f"{tmpdir}/matches.json", encoding="utf-8") as fh:
+                payload = json.load(fh)
+
+        self.assertEqual(payload["data"][0]["set_id"], 501)
+        self.assertFalse(is_placeholder_record(payload["data"][0]))
+
+    def test_write_matches_replaces_existing_record_in_place_by_set_id(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            write_matches_data([{"set_id": 501}, {"set_id": 502}], tmpdir)
+
+            write_matches([_make_set_node(501)], {11: 2716511, 22: 2962327}, tmpdir)
+
+            with open(f"{tmpdir}/matches.json", encoding="utf-8") as fh:
+                payload = json.load(fh)
+
+        self.assertEqual(len(payload["data"]), 2)
+        by_set_id = {record["set_id"]: record for record in payload["data"]}
+        self.assertFalse(is_placeholder_record(by_set_id[501]))
+        self.assertTrue(is_placeholder_record(by_set_id[502]))
+
+    def test_is_placeholder_record_detects_missing_winner_id(self):
+        self.assertTrue(is_placeholder_record({"set_id": 1}))
+        self.assertFalse(is_placeholder_record({"set_id": 1, "winner_id": None}))
+
+    def test_outstanding_set_ids_returns_placeholders_and_missing_ids(self):
+        matches_data = [
+            {"set_id": 1, "winner_id": 11},
+            {"set_id": 2},
+        ]
+        self.assertEqual(outstanding_set_ids(matches_data, [1, 2, 3]), [2, 3])
+
+    def test_merge_matches_records_replaces_in_place_without_duplicating(self):
+        existing = [{"set_id": 1}, {"set_id": 2}]
+        merged = merge_matches_records(existing, [{"set_id": 1, "winner_id": 11}])
+
+        self.assertEqual(len(merged), 2)
+        self.assertEqual(merged[0], {"set_id": 1, "winner_id": 11})
+        self.assertEqual(merged[1], {"set_id": 2})
+
+    def test_event_in_fallback_mode_true_only_when_matches_json_exists_without_attr(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            self.assertFalse(event_in_fallback_mode(tmpdir))
+
+            write_matches_data([{"set_id": 1}], tmpdir)
+            self.assertTrue(event_in_fallback_mode(tmpdir))
+
+            with open(os.path.join(tmpdir, "attr.json"), "w", encoding="utf-8") as f:
+                f.write("{}")
+            self.assertFalse(event_in_fallback_mode(tmpdir))
+
+    @patch("scripts.fetch.download.fetch_set_details_by_ids")
+    @patch("scripts.fetch.download.fetch_set_ids_for_event")
+    @patch("scripts.fetch.download.fetch_all_sets")
+    def test_download_all_set_falls_back_to_placeholders_when_bulk_fetch_fails(
+        self, mock_fetch_all_sets, mock_fetch_set_ids, mock_fetch_set_details
+    ):
+        mock_fetch_all_sets.side_effect = MaxPagesExceededError(total_pages=999, max_pages=10, per_page=10)
+        mock_fetch_set_ids.return_value = [101, 102, 103]
+        mock_fetch_set_details.return_value = []  # 中断: 1件も詳細取得できなかった
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            still_incomplete = download_all_set(10, {}, tmpdir)
+            with open(os.path.join(tmpdir, "matches.json"), encoding="utf-8") as f:
+                payload = json.load(f)
+
+        self.assertTrue(still_incomplete)
+        self.assertEqual(len(payload["data"]), 3)
+        self.assertTrue(all(is_placeholder_record(r) for r in payload["data"]))
+        self.assertEqual({r["set_id"] for r in payload["data"]}, {101, 102, 103})
+
+    @patch("scripts.fetch.download.fetch_set_details_by_ids")
+    @patch("scripts.fetch.download.fetch_set_ids_for_event")
+    @patch("scripts.fetch.download.fetch_all_sets")
+    def test_download_all_set_does_not_use_fallback_when_bulk_fetch_succeeds(
+        self, mock_fetch_all_sets, mock_fetch_set_ids, mock_fetch_set_details
+    ):
+        # SC-001: 一括取得が成功する経路では、逐次取得フォールバック専用の関数
+        # (set一覧取得・set(id:)バッチ取得)が一切呼ばれないこと=無駄にAPIリクエスト
+        # 回数を増やさないことを確認する。
+        mock_fetch_all_sets.return_value = [_make_set_node(501)]
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            still_incomplete = download_all_set(10, {11: 1, 22: 2}, tmpdir)
+            with open(os.path.join(tmpdir, "matches.json"), encoding="utf-8") as f:
+                payload = json.load(f)
+
+        self.assertFalse(still_incomplete)
+        mock_fetch_set_ids.assert_not_called()
+        mock_fetch_set_details.assert_not_called()
+        self.assertEqual(len(payload["data"]), 1)
+        self.assertEqual(payload["data"][0]["set_id"], 501)
+        self.assertFalse(is_placeholder_record(payload["data"][0]))
+
+    @patch("scripts.fetch.download.fetch_set_details_by_ids")
+    @patch("scripts.fetch.download.fetch_set_ids_for_event")
+    @patch("scripts.fetch.download.fetch_all_sets")
+    def test_download_all_set_skips_bulk_retry_when_already_in_fallback_mode(
+        self, mock_fetch_all_sets, mock_fetch_set_ids, mock_fetch_set_details
+    ):
+        mock_fetch_set_details.return_value = []
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            write_matches_data([{"set_id": 1}], tmpdir)
+
+            download_all_set(10, {}, tmpdir)
+
+        mock_fetch_all_sets.assert_not_called()
+        mock_fetch_set_ids.assert_not_called()
+
+    def test_continue_incremental_fetch_keeps_already_completed_records_on_interruption(self):
+        def fake_fetch_set_details(set_ids):
+            yield [_make_set_node(1)]
+            raise FetchError("boom")
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            write_matches_data([{"set_id": 1}, {"set_id": 2}], tmpdir)
+
+            with patch(
+                "scripts.fetch.download.fetch_set_details_by_ids",
+                side_effect=fake_fetch_set_details,
+            ):
+                with self.assertRaises(FetchError):
+                    _continue_incremental_fetch(10, {11: 2716511, 22: 2962327}, tmpdir)
+
+            with open(os.path.join(tmpdir, "matches.json"), encoding="utf-8") as f:
+                payload = json.load(f)
+
+        by_set_id = {record["set_id"]: record for record in payload["data"]}
+        self.assertFalse(is_placeholder_record(by_set_id[1]))
+        self.assertTrue(is_placeholder_record(by_set_id[2]))
+
+    def test_continue_incremental_fetch_only_refetches_placeholder_set_ids(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            write_matches_data(
+                [{"set_id": 1, "winner_id": 11, "loser_id": 22, "winner_score": 2,
+                  "loser_score": 0, "round_text": "R1", "round": 1, "phase": None,
+                  "phase_order": None, "wave": None, "dq": False, "cancel": False,
+                  "state": 3, "details": []},
+                 {"set_id": 2}],
+                tmpdir,
+            )
+
+            with patch("scripts.fetch.download.fetch_set_details_by_ids") as mock_fetch_details:
+                mock_fetch_details.return_value = [[_make_set_node(2)]]
+                still_incomplete = _continue_incremental_fetch(10, {11: 1, 22: 2}, tmpdir)
+
+            mock_fetch_details.assert_called_once_with([2])
+
+            with open(os.path.join(tmpdir, "matches.json"), encoding="utf-8") as f:
+                payload = json.load(f)
+
+        self.assertFalse(still_incomplete)
+        by_set_id = {record["set_id"]: record for record in payload["data"]}
+        self.assertFalse(is_placeholder_record(by_set_id[1]))
+        self.assertFalse(is_placeholder_record(by_set_id[2]))
+        self.assertEqual(by_set_id[1]["winner_score"], 2)
+
+    def test_continue_incremental_fetch_does_not_duplicate_records_on_retry(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            write_matches_data([{"set_id": 1}], tmpdir)
+
+            with patch("scripts.fetch.download.fetch_set_details_by_ids") as mock_fetch_details:
+                mock_fetch_details.return_value = [[_make_set_node(1)]]
+                _continue_incremental_fetch(10, {11: 1, 22: 2}, tmpdir)
+                _continue_incremental_fetch(10, {11: 1, 22: 2}, tmpdir)
+
+            with open(os.path.join(tmpdir, "matches.json"), encoding="utf-8") as f:
+                payload = json.load(f)
+
+        self.assertEqual(len(payload["data"]), 1)
+
+    @patch("scripts.fetch.download.fetch_with_page_fallback")
+    @patch("scripts.fetch.download.load_excluded_phase_ids", return_value={})
+    def test_fetch_set_ids_for_event_uses_light_event_level_query(
+        self, _mock_load_excluded, mock_fetch_with_page_fallback
+    ):
+        mock_fetch_with_page_fallback.return_value = [{"id": 3}, {"id": 1}, {"id": 2}]
+
+        set_ids = fetch_set_ids_for_event(10)
+
+        self.assertEqual(set_ids, [1, 2, 3])
+
+    @patch("scripts.fetch.download.fetch_with_page_fallback")
+    @patch("scripts.fetch.download.fetch_all_phase_groups")
+    @patch("scripts.fetch.download.load_excluded_phase_ids")
+    def test_fetch_set_ids_for_event_excludes_known_problematic_phase_groups(
+        self, mock_load_excluded, mock_fetch_all_phase_groups, mock_fetch_with_page_fallback
+    ):
+        # T010/FR-010: excluded_phases.json に登録済みのphaseGroupは、set一覧取得の
+        # 時点でプレースホルダー投入対象から除外されること(fetch_all_sets()の
+        # 既存の除外パターンと同じ挙動)。
+        mock_load_excluded.return_value = {436192: {731718}}
+        mock_fetch_all_phase_groups.return_value = [
+            (731718, 111, "Bad Pool"),
+            (731719, 222, "Good Pool"),
+        ]
+        mock_fetch_with_page_fallback.return_value = [{"id": 1}, {"id": 2}]
+
+        set_ids = fetch_set_ids_for_event(436192)
+
+        self.assertEqual(set_ids, [1, 2])
+        mock_fetch_with_page_fallback.assert_called_once_with(
+            get_phase_group_set_ids_query(),
+            {"phaseGroupId": 222},
+            ["phaseGroup", "sets"],
+            SET_IDS_PER_PAGE_FALLBACKS,
+            "set ids",
+            436192,
+        )
+
+    def test_write_event_attributes_not_called_while_placeholders_remain(self):
+        # FR-010: matches.json にプレースホルダーが残っている間は attr.json が
+        # 書き込まれないこと(=download_all_tournaments 側のゲーティング)を
+        # download_all_set の戻り値から確認する。
+        with patch("scripts.fetch.download.fetch_all_sets") as mock_fetch_all_sets:
+            mock_fetch_all_sets.side_effect = MaxPagesExceededError(total_pages=999, max_pages=10, per_page=10)
+            with patch("scripts.fetch.download.fetch_set_ids_for_event", return_value=[1, 2]):
+                with patch("scripts.fetch.download.fetch_set_details_by_ids", return_value=[]):
+                    with tempfile.TemporaryDirectory() as tmpdir:
+                        still_incomplete = download_all_set(10, {}, tmpdir)
+                        self.assertTrue(still_incomplete)
+                        self.assertFalse(os.path.exists(os.path.join(tmpdir, "attr.json")))
+
     def test_should_skip_tournament_when_done_and_complete(self):
         tournaments = {
             1: {
@@ -700,6 +966,7 @@ class DownloadTests(unittest.TestCase):
         )
         mock_fetch_event_ids.return_value = [(10, "Singles", False, "COMPLETED", 1)]
         mock_download_standings.return_value = ([], [], {})
+        _mock_download_all_set.return_value = False
 
         with tempfile.TemporaryDirectory() as tmpdir:
             old_event_dir = get_event_directory(tmpdir, "JP", "2025", "08", "16", "Test Tournament", "Singles")
@@ -960,6 +1227,7 @@ class DownloadTests(unittest.TestCase):
         }
         mock_fetch_event_ids.return_value = [(10, "Singles", False, "COMPLETED", 1)]
         mock_download_standings.return_value = ([], [], {})
+        _mock_download_all_set.return_value = False
 
         with tempfile.TemporaryDirectory() as tmpdir:
             old_event_dir = get_event_directory(tmpdir, "JP", "2025", "08", "16", "Test Tournament", "Singles")
@@ -1180,7 +1448,10 @@ class DownloadTests(unittest.TestCase):
         )
         mock_fetch_event_ids.return_value = [(10, "Singles", False, "COMPLETED", 1)]
         mock_download_standings.return_value = ([], [], {})
-        mock_download_all_set.side_effect = MaxPagesExceededError(total_pages=999, max_pages=10, per_page=10)
+        # download_all_set() は complexity/ページ上限による失敗を内部で捕捉し逐次取得
+        # フォールバックへ切り替えるため、もはや MaxPagesExceededError を送出しない
+        # (FR-003/FR-004)。呼び出し元からは「まだ未完了」を示す True が返ってくる。
+        mock_download_all_set.return_value = True
 
         with tempfile.TemporaryDirectory() as tmpdir:
             tournament_file_path = f"{tmpdir}/tournaments.jsonl"
@@ -1201,6 +1472,122 @@ class DownloadTests(unittest.TestCase):
         self.assertEqual(updated[1]["events"][0]["event_id"], 10)
         event_dir = updated[1]["events"][0]["path"]
         self.assertFalse(os.path.isfile(os.path.join(event_dir, "attr.json")))
+
+    @patch("scripts.fetch.download.read_set", return_value=set())
+    @patch("scripts.fetch.download.read_users_jsonl", return_value={})
+    @patch("scripts.fetch.download.fetch_latest_tournaments_by_game")
+    @patch("scripts.fetch.download.fetch_event_ids_from_tournament")
+    @patch("scripts.fetch.download.download_all_set")
+    @patch("scripts.fetch.download.download_standings")
+    @patch("scripts.fetch.download.download_seeds")
+    @patch("scripts.fetch.download.extend_user_info")
+    def test_download_all_tournaments_rewrites_tournaments_jsonl_after_reaching_finish_date(
+        self,
+        _mock_extend_user_info,
+        _mock_download_seeds,
+        mock_download_standings,
+        mock_download_all_set,
+        mock_fetch_event_ids,
+        mock_fetch_tournaments,
+        _mock_read_users,
+        _mock_read_set,
+    ):
+        # 走査が finish_date に達して打ち切られた回でも、その前に発生した
+        # tournaments.jsonl の書き換え(rewrite_tournaments)が失われないことを
+        # 確認する回帰テスト。以前は finish_date 到達時に関数が早期 return して
+        # おり、末尾の書き出し処理に到達できていなかった
+        # (当時は skip_report_path の書き出しが失われる形で顕在化していたが、
+        # その仕組み自体はFR-013で廃止されたため、本テストは tournaments.jsonl の
+        # 書き換えという別の tail-of-function 処理で同じ制御フローを検証する)。
+        mock_download_all_set.return_value = False
+        new_start = calendar.timegm((2026, 5, 4, 9, 0, 0, 0, 0, 0))
+        new_end = calendar.timegm((2026, 5, 4, 12, 0, 0, 0, 0, 0))
+        mock_fetch_tournaments.return_value = (
+            [
+                {
+                    "id": 1,
+                    "name": "Relocated Tournament",
+                    "startAt": new_start,
+                    "endAt": new_end,
+                    "countryCode": "JP",
+                    "city": "Tokyo",
+                    "lat": None,
+                    "lng": None,
+                    "venueName": None,
+                    "timezone": "Asia/Tokyo",
+                    "postalCode": None,
+                    "venueAddress": None,
+                    "mapsPlaceId": None,
+                    "url": "https://example.com",
+                },
+                {
+                    "id": 2,
+                    "name": "Older Tournament",
+                    "startAt": 1600000000,
+                    "endAt": 1600003600,
+                    "countryCode": "JP",
+                    "city": "Tokyo",
+                    "lat": None,
+                    "lng": None,
+                    "venueName": None,
+                    "timezone": "Asia/Tokyo",
+                    "postalCode": None,
+                    "venueAddress": None,
+                    "mapsPlaceId": None,
+                    "url": "https://example.com",
+                },
+            ],
+            1,
+        )
+        mock_fetch_event_ids.return_value = [(10, "Singles", False, "COMPLETED", 1)]
+        mock_download_standings.return_value = ([], [], {})
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            old_event_dir = get_event_directory(tmpdir, "JP", "2025", "08", "16", "Relocated Tournament", "Singles")
+            os.makedirs(old_event_dir, exist_ok=True)
+
+            tournament_file_path = f"{tmpdir}/tournaments.jsonl"
+            with open(tournament_file_path, "w", encoding="utf-8") as f:
+                json.dump(
+                    {
+                        "tournament_id": 1,
+                        "name": "Relocated Tournament",
+                        "events": [{"event_id": 10, "event_name": "Singles", "path": old_event_dir}],
+                        "version": "1.0",
+                    },
+                    f,
+                )
+                f.write("\n")
+
+            new_event_dir = get_event_directory(tmpdir, "JP", "2026", "05", "04", "Relocated Tournament", "Singles")
+            os.makedirs(new_event_dir, exist_ok=True)
+            with open(os.path.join(new_event_dir, "attr.json"), "w", encoding="utf-8") as f:
+                f.write("{}")
+            with open(os.path.join(new_event_dir, "matches.json"), "w", encoding="utf-8") as f:
+                f.write("{}")
+            with open(os.path.join(new_event_dir, "standings.json"), "w", encoding="utf-8") as f:
+                f.write("{}")
+            with open(os.path.join(new_event_dir, "seeds.json"), "w", encoding="utf-8") as f:
+                f.write("{}")
+
+            download_all_tournaments(
+                "1386",
+                "JP",
+                datetime(2026, 5, 4, 23, 59, 59),
+                datetime(2024, 5, 4, 0, 0, 0),
+                f"{tmpdir}",
+                f"{tmpdir}/done.csv",
+                f"{tmpdir}/users.jsonl",
+                tournament_file_path,
+                force_refresh=True,
+            )
+
+            mock_fetch_event_ids.assert_called_once()
+            updated = read_tournaments_jsonl(tournament_file_path)
+
+        # rewrite_tournaments による書き換えが、finish_date到達によるループ終了後の
+        # tail-of-function コード(write_jsonl)まで到達して反映されていること。
+        self.assertEqual(updated[1]["events"][0]["path"], new_event_dir)
 
 
 if __name__ == "__main__":

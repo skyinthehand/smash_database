@@ -1,6 +1,5 @@
 import os
 import argparse
-import json
 import shutil
 import sys
 import time
@@ -17,6 +16,7 @@ from scripts.queries import (
     get_tournament_events_query, get_phase_groups_query, get_tournaments_by_game_query,
     get_tournament_by_id_query,
     get_phase_group_sets_query, get_phase_group_sets_light_query,
+    get_event_set_ids_query, get_phase_group_set_ids_query, get_sets_by_ids_query,
 )
 from scripts.utils import (
     country_code2region, get_date_parts, get_event_directory,
@@ -47,6 +47,9 @@ SEEDS_PER_PAGE_FALLBACKS = (200, 100, 50, 25, 10)
 SETS_PER_PAGE_FALLBACKS = (50, 25, 10, 5, 3, 1)
 LIGHTWEIGHT_SETS_PER_PAGE_FALLBACKS = (25, 10, 5, 2)
 ENTRANTS_PER_PAGE_FALLBACKS = (200, 100, 50, 25, 10)
+# 逐次取得モード(一括setsクエリが失敗した場合のフォールバック)で使うページ/バッチサイズ。
+SET_IDS_PER_PAGE_FALLBACKS = (200, 100, 50, 25, 10)
+SET_BATCH_SIZE_FALLBACKS = (25, 10, 5, 1)
 PHASE_GROUPS_PER_PAGE = 100
 MAX_PHASE_GROUPS_FETCH_ITERATIONS = 50
 EXCLUDED_PHASES_PATH = "data/startgg/excluded_phases.json"
@@ -120,12 +123,12 @@ def main():
         "--max_pages",
         type=int,
         default=None,
-        help="Skip events whose page count exceeds this value at the minimum per_page (10). Skipped events are logged with SKIP_LARGE_EVENT prefix.",
-    )
-    parser.add_argument(
-        "--skip_report_path",
-        default=None,
-        help="Path to write a JSON report of skipped large events.",
+        help=(
+            "Bound standings/seeds pagination and the bulk sets fetch attempt at this many "
+            "pages (minimum per_page). Exceeding it for standings/seeds skips the event for "
+            "this run; exceeding it for the bulk sets fetch triggers incremental per-set "
+            "fallback fetching instead of skipping."
+        ),
     )
     parser.add_argument(
         "--tournament_ids",
@@ -166,7 +169,6 @@ def main():
         force_refresh=args.force_refresh,
         matches_only=args.matches_only,
         max_pages=args.max_pages,
-        skip_report_path=args.skip_report_path,
     )
 
 def event_files_complete(event_dir):
@@ -234,24 +236,6 @@ def record_event_path(tournaments, tournament_id, event_id, event_name, event_di
         print(f"Removed stale directory after relocation: {old_path}")
     return True
 
-def _record_skip(skipped_events, tournament_id, tournament_name, event_id, event_name, exc):
-    record = {
-        "tournament_id": tournament_id,
-        "tournament_name": tournament_name,
-        "event_id": event_id,
-        "event_name": event_name,
-        "total_pages": exc.total_pages,
-        "max_pages": exc.max_pages,
-        "per_page": exc.per_page,
-    }
-    skipped_events.append(record)
-    print(
-        f"SKIP_LARGE_EVENT tournament_id={tournament_id} name={tournament_name} "
-        f"event_id={event_id} event_name={event_name} "
-        f"total_pages={exc.total_pages} max_pages={exc.max_pages}"
-    )
-
-
 def download_all_tournaments(
     game_id,
     country_code,
@@ -264,7 +248,6 @@ def download_all_tournaments(
     force_refresh=False,
     matches_only=False,
     max_pages=None,
-    skip_report_path=None,
 ):
     done_tournaments = read_set(done_file_path, as_int=True)
     users = read_users_jsonl(users_file_path)
@@ -274,9 +257,9 @@ def download_all_tournaments(
     print(f"tournaments: {len(tournaments)}")
     rewrite_tournaments = False
     existing_tournament_ids = set(tournaments.keys())
-    skipped_events = []
 
     page = 1
+    reached_finish_date = False
     while True:
         try:
             tournaments_info, total_pages = fetch_latest_tournaments_by_game(game_id, country_code=country_code, limit=TOURNAMENTS_PER_PAGE, page=page)
@@ -342,7 +325,8 @@ def download_all_tournaments(
 
                 if tournament_dt < finish_date:
                     print("!!!downloaded all!!!")
-                    return
+                    reached_finish_date = True
+                    break
 
                 if tournament_id in tournaments:
                     tournaments[tournament_id]["name"] = tournament_name
@@ -383,7 +367,7 @@ def download_all_tournaments(
                         try:
                             user_data, player_data, entrant2user = download_standings(event_id, event_dir, max_pages=max_pages)
                         except MaxPagesExceededError as e:
-                            _record_skip(skipped_events, tournament_id, tournament_name, event_id, event_name, e)
+                            print(f"Tournament {tournament_id}: event {event_id} standings exceeded max_pages ({e}); skipping this run.")
                             continue
                         num_entrants = len(user_data)
                         try:
@@ -392,13 +376,15 @@ def download_all_tournaments(
                             print(f"No phase found for event {event_name}. Skipping.")
                             continue
                         except MaxPagesExceededError as e:
-                            _record_skip(skipped_events, tournament_id, tournament_name, event_id, event_name, e)
+                            print(f"Tournament {tournament_id}: event {event_id} seeds exceeded max_pages ({e}); skipping this run.")
                             continue
                         extend_user_info(user_data, player_data, users, users_file_path)
-                        try:
-                            download_all_set(event_id, entrant2user, event_dir, max_pages=max_pages)
-                        except MaxPagesExceededError as e:
-                            _record_skip(skipped_events, tournament_id, tournament_name, event_id, event_name, e)
+                        still_incomplete = download_all_set(event_id, entrant2user, event_dir, max_pages=max_pages)
+                        if still_incomplete:
+                            print(
+                                f"Tournament {tournament_id}: event {event_id} ({event_name}) still has outstanding "
+                                "sets; will resume on a later run."
+                            )
                             continue
                         labels = {}
                         guest_entrant_count = count_guest_entrants(user_data)
@@ -424,6 +410,9 @@ def download_all_tournaments(
                 print(f"Tournament {tournament_id}: fetch failed, skipping. Error: {e}")
                 continue
 
+        if reached_finish_date:
+            break
+
         if page >= total_pages:
             break
         page += 1
@@ -431,22 +420,223 @@ def download_all_tournaments(
     if rewrite_tournaments:
         write_jsonl(list(tournaments.values()), tournament_file_path, with_version=True)
 
-    if skipped_events:
-        print(f"Skipped {len(skipped_events)} event(s) due to max_pages={max_pages}.")
-        if skip_report_path:
-            with open(skip_report_path, "w", encoding="utf-8") as f:
-                json.dump(skipped_events, f, ensure_ascii=False, indent=2)
-            print(f"Skip report written to {skip_report_path}")
+
+# --- 未取得setの追跡・プレースホルダー関連ヘルパー ---------------------------------
+
+def is_placeholder_record(record):
+    """マッチレコードがプレースホルダー(set_idのみが投入された状態)かどうかを返す。
+    完了済みレコードは必ず winner_id を持つため、そのキーの有無で判定する
+    (winner_id の値が None になり得る完了済みレコード(doubles/crew等)と
+    区別できるよう、値ではなくキーの存在で判定する)。"""
+    return "winner_id" not in record
+
+
+def read_matches_data(event_dir):
+    """既存の matches.json の "data" リストを返す。存在しない/壊れている場合は空リスト。"""
+    path = os.path.join(event_dir, "matches.json")
+    if not os.path.exists(path):
+        return []
+    try:
+        payload = read_json(path)
+    except (OSError, ValueError):
+        return []
+    return payload.get("data") or []
+
+
+def outstanding_set_ids(matches_data, known_set_ids):
+    """known_set_ids のうち、matches_data 内でまだ完了済みレコードになっていない
+    (=存在しない、またはプレースホルダーのままの) set_id を、known_set_ids の順序を
+    保ったまま返す。"""
+    complete_set_ids = {
+        record["set_id"]
+        for record in matches_data
+        if "set_id" in record and not is_placeholder_record(record)
+    }
+    return [set_id for set_id in known_set_ids if set_id not in complete_set_ids]
+
+
+def merge_matches_records(existing_data, new_records):
+    """existing_data に new_records をマージする。同じ set_id のレコードが既に
+    存在すればその場で置き換え、無ければ末尾に追加する(重複追記はしない)。"""
+    merged = list(existing_data)
+    index_by_set_id = {
+        record["set_id"]: i for i, record in enumerate(merged) if "set_id" in record
+    }
+    for record in new_records:
+        set_id = record.get("set_id")
+        if set_id is not None and set_id in index_by_set_id:
+            merged[index_by_set_id[set_id]] = record
+        else:
+            if set_id is not None:
+                index_by_set_id[set_id] = len(merged)
+            merged.append(record)
+    return merged
+
+
+def write_matches_data(matches_data, event_dir):
+    write_json({"data": matches_data}, f"{event_dir}/matches.json", with_version=True)
+
+
+def event_in_fallback_mode(event_dir):
+    """このイベントが既に(前回の一括取得失敗により)逐次取得モードに入っているかどうか。
+    matches.json は存在するが attr.json がまだ存在しない状態を指す。"""
+    return (
+        os.path.exists(os.path.join(event_dir, "matches.json"))
+        and not os.path.exists(os.path.join(event_dir, "attr.json"))
+    )
+
+
+def fetch_set_ids_for_event(event_id):
+    """イベントに属する全setの set_id 一覧を、詳細を伴わない軽量なクエリで取得する
+    (逐次取得モードでプレースホルダーを投入するために使う)。excluded_phases.json に
+    登録された既知の問題phaseGroupは、fetch_all_sets() と同様に除外する。"""
+    excluded_phase_ids = load_excluded_phase_ids().get(event_id)
+    if excluded_phase_ids:
+        phase_groups = fetch_all_phase_groups(event_id)
+        included = [pg for pg in phase_groups if pg[0] not in excluded_phase_ids]
+        if not included:
+            raise FetchError(
+                f"Event {event_id}: no phase groups remain after excluding {excluded_phase_ids}."
+            )
+        nodes = []
+        for phase_id, phase_group_id, display_identifier in included:
+            nodes.extend(
+                fetch_with_page_fallback(
+                    get_phase_group_set_ids_query(),
+                    {"phaseGroupId": phase_group_id},
+                    ["phaseGroup", "sets"],
+                    SET_IDS_PER_PAGE_FALLBACKS,
+                    "set ids",
+                    event_id,
+                )
+            )
+    else:
+        nodes = fetch_with_page_fallback(
+            get_event_set_ids_query(),
+            {"eventId": event_id},
+            ["event", "sets"],
+            SET_IDS_PER_PAGE_FALLBACKS,
+            "set ids",
+            event_id,
+        )
+    return sorted({node["id"] for node in nodes if node.get("id") is not None})
+
+
+def fetch_set_details_by_ids(set_ids):
+    """未取得の set_id をバッチ単位で set(id:) により直接取得するジェネレータ。
+    1リクエストのcomplexityはバッチサイズに応じて一定であり、イベントの総set数には
+    依存しない。complexity超過時はバッチサイズを縮小してリトライする。
+
+    取得できたバッチごとに(そのバッチのnodeリストを)yieldする——呼び出し元は
+    各バッチを受け取るたびにmatches.jsonへ反映することで、途中で例外が発生しても
+    それまでに取得できた分を失わずに済む(FR-006)。"""
+    set_ids = list(set_ids)
+    index = 0
+    while index < len(set_ids):
+        remaining = set_ids[index:]
+        fetched_this_round = False
+        for batch_size in SET_BATCH_SIZE_FALLBACKS:
+            batch = remaining[:batch_size]
+            query = get_sets_by_ids_query(batch)
+            variables = {f"id{i}": set_id for i, set_id in enumerate(batch)}
+            try:
+                response_data = fetch_data_with_retries(query, variables)
+            except FetchError as exc:
+                message = str(exc).lower()
+                if "query complexity is too high" not in message or batch_size == SET_BATCH_SIZE_FALLBACKS[-1]:
+                    raise
+                print(
+                    f"Set batch fetch hit complexity limits with batch_size={batch_size}. "
+                    "Retrying with a smaller batch."
+                )
+                continue
+            data = (response_data or {}).get("data") or {}
+            batch_nodes = [data.get(f"s{i}") for i in range(len(batch))]
+            batch_nodes = [node for node in batch_nodes if node is not None]
+            index += len(batch)
+            fetched_this_round = True
+            yield batch_nodes
+            time.sleep(get_page_delay())
+            break
+        if not fetched_this_round:
+            raise FetchError(f"Failed to fetch set batch starting at set_id={remaining[0]}.")
+
+
+def _start_incremental_fetch(event_id, entrant2user, event_dir):
+    """一括取得が失敗したイベントを逐次取得(フォールバック)モードへ移行させる。
+    set_id一覧を取得して matches.json にプレースホルダーを投入した上で、
+    _continue_incremental_fetch に処理を委ねる。"""
+    set_ids = fetch_set_ids_for_event(event_id)
+    os.makedirs(event_dir, exist_ok=True)
+    existing_data = read_matches_data(event_dir)
+    placeholders = [
+        {"set_id": set_id} for set_id in outstanding_set_ids(existing_data, set_ids)
+    ]
+    merged = merge_matches_records(existing_data, placeholders)
+    write_matches_data(merged, event_dir)
+    return _continue_incremental_fetch(event_id, entrant2user, event_dir)
+
+
+def _continue_incremental_fetch(event_id, entrant2user, event_dir):
+    """逐次取得モードに入っているイベントについて、matches.json内でまだ
+    プレースホルダーのままの set_id のみを set(id:) で取得し、その場で置き換える。
+    start.gg側のset一覧の再チェックは行わない(FR-015)。
+
+    戻り値: 処理後も matches.json にプレースホルダーが1件以上残っていれば True
+    (まだ未完了)、全て完了済みレコードに置き換わっていれば False。"""
+    existing_data = read_matches_data(event_dir)
+    known_set_ids = [record["set_id"] for record in existing_data if "set_id" in record]
+    pending = outstanding_set_ids(existing_data, known_set_ids)
+    for batch_nodes in fetch_set_details_by_ids(pending):
+        new_records = [
+            match_data
+            for match_data in (build_match_data_from_node(node, entrant2user) for node in batch_nodes)
+            if match_data is not None
+        ]
+        existing_data = merge_matches_records(existing_data, new_records)
+        write_matches_data(existing_data, event_dir)
+
+    return any(is_placeholder_record(record) for record in existing_data)
 
 
 # イベントのセットデータを保存する関数
 def download_all_set(event_id, entrant2user, event_dir, lightweight=False, max_pages=None):
-    all_sets = fetch_all_sets(event_id, lightweight=lightweight, max_pages=max_pages)
-    if not all_sets:
-        return
+    """イベントのマッチデータを取得・保存する。
+
+    まず既存の一括取得(fetch_all_sets)を試みる。成功すればプレースホルダーを経由せず
+    直接 complete 状態で書き込む(set_idは一括クエリのレスポンスから無償で得られる)。
+    一括取得が失敗した場合、またはこのイベントが既に前回の失敗によって逐次取得
+    (フォールバック)モードに入っている場合(matches.jsonは存在するがattr.jsonが
+    存在しない)は、setのID一覧を取得してmatches.jsonにプレースホルダーを投入した上で、
+    未取得分をset(id:)によるバッチ取得でその場で置き換える。
+
+    戻り値: 呼び出し元がFR-010(attr.jsonの完了ゲーティング)を実装できるよう、
+    このイベントのmatches.jsonにまだプレースホルダーが残っている(=未完了)場合は
+    True、一括取得が成功した場合や逐次取得が完了した場合は False を返す。
+    lightweight=True (matches_only) の場合はこの完了判定の対象外として常に False。
+    """
+    if lightweight:
+        all_sets = fetch_all_sets(event_id, lightweight=True, max_pages=max_pages)
+        if all_sets:
+            os.makedirs(event_dir, exist_ok=True)
+            write_matches(all_sets, entrant2user, event_dir)
+        return False
+
+    if event_in_fallback_mode(event_dir):
+        # 同じイベントに対して失敗するとわかっている一括取得を実行のたびに繰り返す
+        # ことによる、無駄なAPIリクエスト増加を避ける(FR-004)。
+        return _continue_incremental_fetch(event_id, entrant2user, event_dir)
+
+    try:
+        all_sets = fetch_all_sets(event_id, lightweight=False, max_pages=max_pages)
+    except (MaxPagesExceededError, FetchError):
+        print(f"Event {event_id}: bulk sets fetch failed; falling back to incremental per-set fetching.")
+        return _start_incremental_fetch(event_id, entrant2user, event_dir)
 
     os.makedirs(event_dir, exist_ok=True)
-    write_matches(all_sets, entrant2user, event_dir)
+    if all_sets:
+        write_matches(all_sets, entrant2user, event_dir)
+    return False
 
 def dedupe_set_nodes(all_sets, event_id=None):
     unique_sets = []
@@ -719,95 +909,107 @@ def build_match_dedupe_key(match_data):
         match_data.get("state"),
     )
 
+def build_match_data_from_node(node, entrant2user):
+    """start.ggのsetノード1件から、matches.json用の完了済みマッチレコード(dict)を
+    組み立てる。slots が不正(不完全なセット等)な場合は None を返す。"""
+    set_id = node.get("id")
+    slots = node.get('slots')
+    if slots is None or len(slots) != 2:
+        return None
+
+    slot0 = slots[0]
+    slot1 = slots[1]
+    if slot0.get('entrant') is None or slot1.get('entrant') is None or slot0.get('standing') is None or slot1.get('standing') is None:
+        return None
+
+    # スコアがNoneの場合は0を設定
+    score0 = slot0['standing']['stats']['score']['value'] if slot0['standing']['stats']['score']['value'] is not None else 0
+    score1 = slot1['standing']['stats']['score']['value'] if slot1['standing']['stats']['score']['value'] is not None else 0
+
+    winner_slot = slot0 if score0 > score1 else slot1
+    loser_slot = slot1 if winner_slot == slot0 else slot0
+    winner_score = score0 if winner_slot == slot0 else score1
+    loser_score = score1 if winner_slot == slot0 else score0
+
+    dq = (score0 < 0 or score1 < 0)
+    cancel = score0 == 0 and score1 == 0
+
+    games = node.get('games')
+    details = [
+                {
+                    "game_id": game.get('id'),
+                    "order_num": game.get('orderNum'),
+                    "winner_id": entrant2user[game['winnerId']] if game.get('winnerId') in entrant2user else None,
+                    "entrant1_score": game.get('entrant1Score'),
+                    "entrant2_score": game.get('entrant2Score'),
+                    "stage": game['stage']['name'] if game.get('stage') else None,
+                    "selections": [
+                        {
+                            "user_id": entrant2user[selection['entrant']['id']] if selection['entrant']['id'] in entrant2user else None,
+                            "selection_id": selection['id'],
+                            "character_id": selection['character']['id'],
+                            "character_name": selection['character']['name']
+                        }
+                        for i, selection in enumerate(game.get('selections') or [])
+                        if selection.get('entrant') is not None and selection.get('character') is not None
+                    ]
+                }
+                for game in games
+            ] if games is not None else []
+
+    phase = None
+    phase_order = None
+    wave = None
+    phase_group = node.get('phaseGroup')
+    if phase_group is not None:
+        phase = phase_group.get('displayIdentifier')
+        phase_info = phase_group.get('phase')
+        if phase_info is not None:
+            phase_order = phase_info.get('phaseOrder')
+        wave_info = phase_group.get('wave')
+        if wave_info is not None:
+            wave = wave_info.get('identifier')
+    return {
+            "set_id": set_id,
+            "winner_id": entrant2user[winner_slot['entrant']['id']] if winner_slot['entrant']['id'] in entrant2user else None,
+            "loser_id": entrant2user[loser_slot['entrant']['id']] if loser_slot['entrant']['id'] in entrant2user else None,
+            "winner_score": winner_score,
+            "loser_score": loser_score,
+            "round_text": node.get('fullRoundText'),
+            "round": node.get('round'),
+            "phase": phase,
+            "phase_order": phase_order,
+            "wave": wave,
+            "dq": dq,
+            "cancel": cancel,
+            "state": node.get('state'),
+            "details": details
+        }
+
 def write_matches(all_nodes, entrant2user, event_dir):
-    """マッチデータを保存する関数"""
-    json_data = {"data": []}
+    """一括取得経路のマッチデータを保存する関数。既存の matches.json があれば
+    読み込んでset_idをキーにその場で置き換え、無ければ新規作成する。"""
     seen_set_ids = set()
     seen_match_keys = set()
+    new_records = []
     for node in all_nodes:
         set_id = node.get("id")
         if set_id is not None:
             if set_id in seen_set_ids:
                 continue
             seen_set_ids.add(set_id)
-        slots = node.get('slots')
-        if slots is None or len(slots) != 2:
+        match_data = build_match_data_from_node(node, entrant2user)
+        if match_data is None:
             continue
-
-        slot0 = slots[0]
-        slot1 = slots[1]
-        if slot0.get('entrant') is None or slot1.get('entrant') is None or slot0.get('standing') is None or slot1.get('standing') is None:
-            continue
-        
-        # スコアがNoneの場合は0を設定
-        score0 = slot0['standing']['stats']['score']['value'] if slot0['standing']['stats']['score']['value'] is not None else 0
-        score1 = slot1['standing']['stats']['score']['value'] if slot1['standing']['stats']['score']['value'] is not None else 0
-        
-        winner_slot = slot0 if score0 > score1 else slot1
-        loser_slot = slot1 if winner_slot == slot0 else slot0
-        winner_score = score0 if winner_slot == slot0 else score1
-        loser_score = score1 if winner_slot == slot0 else score0
-        
-        dq = (score0 < 0 or score1 < 0)
-        cancel = score0 == 0 and score1 == 0
-        
-        games = node.get('games')
-        details = [
-                    {
-                        "game_id": game.get('id'),
-                        "order_num": game.get('orderNum'),
-                        "winner_id": entrant2user[game['winnerId']] if game.get('winnerId') in entrant2user else None,
-                        "entrant1_score": game.get('entrant1Score'),
-                        "entrant2_score": game.get('entrant2Score'),
-                        "stage": game['stage']['name'] if game.get('stage') else None,
-                        "selections": [
-                            {
-                                "user_id": entrant2user[selection['entrant']['id']] if selection['entrant']['id'] in entrant2user else None,
-                                "selection_id": selection['id'],
-                                "character_id": selection['character']['id'],
-                                "character_name": selection['character']['name']
-                            }
-                            for i, selection in enumerate(game.get('selections') or [])
-                            if selection.get('entrant') is not None and selection.get('character') is not None
-                        ]
-                    }
-                    for game in games
-                ] if games is not None else []
-
-        phase = None
-        phase_order = None
-        wave = None
-        phase_group = node.get('phaseGroup')
-        if phase_group is not None:
-            phase = phase_group.get('displayIdentifier')
-            phase_info = phase_group.get('phase')
-            if phase_info is not None:
-                phase_order = phase_info.get('phaseOrder')
-            wave_info = phase_group.get('wave')
-            if wave_info is not None:
-                wave = wave_info.get('identifier')
-        match_data = {
-                "winner_id": entrant2user[winner_slot['entrant']['id']] if winner_slot['entrant']['id'] in entrant2user else None,
-                "loser_id": entrant2user[loser_slot['entrant']['id']] if loser_slot['entrant']['id'] in entrant2user else None,
-                "winner_score": winner_score,
-                "loser_score": loser_score,
-                "round_text": node.get('fullRoundText'),
-                "round": node.get('round'),
-                "phase": phase,
-                "phase_order": phase_order,
-                "wave": wave,
-                "dq": dq,
-                "cancel": cancel,
-                "state": node.get('state'),
-                "details": details
-            }
         match_key = build_match_dedupe_key(match_data)
         if match_key in seen_match_keys:
             continue
         seen_match_keys.add(match_key)
-        json_data["data"].append(match_data)
-        
-    write_json(json_data, f"{event_dir}/matches.json", with_version=True)
+        new_records.append(match_data)
+
+    existing_data = read_matches_data(event_dir)
+    merged = merge_matches_records(existing_data, new_records)
+    write_matches_data(merged, event_dir)
 
 def count_guest_entrants(user_data):
     """user_data (download_standings が返す user 辞書のリスト) のうち、
@@ -1127,9 +1329,15 @@ def download_by_ids(
             extend_user_info(user_data, player_data, users, users_file_path)
 
             try:
-                download_all_set(event_id, entrant2user, event_dir)
+                still_incomplete = download_all_set(event_id, entrant2user, event_dir)
             except FetchError as e:
                 print(f"Tournament {tournament_id}: event {event_id} sets failed, skipping. Error: {e}")
+                continue
+            if still_incomplete:
+                print(
+                    f"Tournament {tournament_id}: event {event_id} ({event_name}) still has outstanding "
+                    "sets; will resume on a later run."
+                )
                 continue
 
             labels = {}

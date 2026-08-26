@@ -9,10 +9,14 @@
   (旧: `chore-update` ブランチへ集約し PR 経由の rebase auto-merge で `main` に反映していたが、
   `main` への直接コミットが `chore-update` ベースの自動化から見えず、古い状態のまま処理が
   継続する実害が確認されたため廃止した。詳細は憲法 Principle IV を参照。)
-- `data_backfill.yml` / `data_force_refresh_backfill.yml` / `data_gap_check.yml` /
-  `fetch_large_event.yml` は上記とは別系統で、実行ごとに専用ブランチを作成し `main` への
-  PR を経由するパターンを引き続き使う(大規模・破壊的になりうる手動実行のため、レビューを
-  挟む設計を意図的に維持している)。
+- `data_backfill.yml` / `data_force_refresh_backfill.yml` / `data_gap_check.yml` は
+  上記とは別系統で、実行ごとに専用ブランチを作成し `main` への PR を経由するパターンを
+  引き続き使う(大規模・破壊的になりうる手動実行のため、レビューを挟む設計を意図的に
+  維持している)。
+  (旧: 大規模イベントが一括取得の上限を超えて失敗した場合の専用リカバリ手段として
+  `fetch_large_event.yml` を用意していたが、`scripts/fetch/download.py` が一括取得の
+  失敗を検知して自動的に逐次(set単位)取得へフォールバックし、実行回をまたいで
+  再開できるようになったため、手動でのリカバリ手段自体が不要になり削除した。)
 - 大会データの取得状況は `docs/chore-tornament/README.md` に日付単位で記録する。
 - 記録対象の日付範囲は `2018-12-29` から当日まで。
 

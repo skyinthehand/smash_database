@@ -193,7 +193,14 @@ def backfill_one_event(
     except NoPhaseError as exc:
         print(f"[{event_id}] seeds not available: {exc}", file=sys.stderr)
     extend_user_info(user_data, player_data, users, users_file_path)
-    download_all_set(event_id, entrant2user, str(event_dir))
+    still_incomplete = download_all_set(event_id, entrant2user, str(event_dir))
+    if still_incomplete:
+        # 一括取得が失敗し逐次取得(フォールバック)モードに入った場合、プレースホルダーが
+        # 残っている間は attr.json を書いてはならない(FR-010)。書いてしまうと
+        # event_data_version が最新になり、このイベントが以後の巡回スキャン対象から
+        # 外れてしまい、二度と完了できなくなる。
+        print(f"[{event_id}] still has outstanding sets after this backfill pass; will resume on a later run.")
+        return True
 
     place = build_place_dict(tournament)
     write_event_attributes(

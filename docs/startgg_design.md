@@ -203,11 +203,55 @@
 }
 ```
 
+### set一覧（ID専用・逐次取得モードのプレースホルダー投入用）
+- クエリ: `get_event_set_ids_query` / `get_phase_group_set_ids_query`
+- 目的: 上記の`sets`一括クエリが失敗した(ページ/complexity上限などにより)イベント
+  でのみ使う、フォールバック用の軽量な取得。`id`のみを要求し、`slots`/`games`等は
+  一切含めないため、1ノードあたりのcomplexityコストが小さく、イベント総set数に
+  対して1ページに収まる件数が大幅に増える。`excluded_phases.json`に登録された
+  イベントでは`get_phase_group_set_ids_query`をphaseGroup単位で使う(通常の
+  `get_phase_group_sets_query`と同じ除外パターン)。
+- 主なレスポンス（抜粋）
+```json
+{
+  "data": {
+    "event": {
+      "sets": {
+        "pageInfo": {"total": 512, "totalPages": 3},
+        "nodes": [{"id": 888}, {"id": 889}]
+      }
+    }
+  }
+}
+```
+
+### set詳細のバッチ取得（逐次取得モード）
+- クエリ: `get_sets_by_ids_query(set_ids)`
+- 目的: 上記のID一覧で判明した未取得の`set_id`を、ルートの`set(id: ID!)`
+  フィールドに対するGraphQLエイリアス（`s0: set(id: $id0) { ... } s1: set(id:
+  $id1) { ... }`）でバッチ化して直接取得する。フィールド選択は`get_event_sets_query`
+  と同じ`_SET_NODE_FIELDS`を再利用する。1リクエストのcomplexityはバッチサイズ×
+  1setあたりの固定コストで決まり、イベントの総set数には依存しない——これが、
+  一括取得の失敗が「イベント規模に比例してcomplexityが増大する」ことに起因する
+  問題への対処になっている。
+- 主なレスポンス（抜粋、`set_ids=[888, 889]`の場合）
+```json
+{
+  "data": {
+    "s0": {"id": 888, "state": 3, "winnerId": 555, "...": "..."},
+    "s1": {"id": 889, "state": 3, "winnerId": 556, "...": "..."}
+  }
+}
+```
+
 ## ページングとリトライ
 - ページングは `fetch_all_nodes()` が担当。`page` を増やしながら `nodes` を全取得。
 - API失敗時は `fetch_data_with_retries()` がリトライ。
   - 429 は待機時間を延長。
   - 5xx は指数的に待機時間を増加。
+- 逐次取得モードのset詳細バッチ取得(`fetch_set_details_by_ids`)も
+  `fetch_data_with_retries()`を経由し、独自のリトライ実装は行わない
+  (憲法Principle V)。
 
 ## 保存先
 - 取得結果は `docs/data_model.md` に記載の形式で `data/startgg/` に保存される。

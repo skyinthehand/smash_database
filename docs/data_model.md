@@ -68,11 +68,15 @@
   "archive_status": "completed",
   "state": "COMPLETED",
   "type": 1,
-  "event_data_version": 5,
+  "event_data_version": 6,
   "guest_entrant_count": 0
 }
 ```
 - `archive_status`: このスクリプトによるデータ取得処理自体が完了したことを表すマーカー(常に`"completed"`)。
+  `event_data_version >= 6` では、そのイベントの`matches.json`に**プレースホルダー
+  レコード(後述)が1件も残っていない場合にのみ**`attr.json`自体が書き込まれる
+  ため、`attr.json`が存在すること自体がこの完了条件を満たしたことの証左になる
+  (「matches」節参照)。
 - `state`: start.gg API の `event.state`(`ACTIVE`/`COMPLETED`など、大会イベント自体の進行状況)。
   `event_data_version < 4` の既存データには存在しない(`null`扱い)。
   以前は`status`という紛らわしい名前のフィールドが`archive_status`の意味で使われていたが、
@@ -109,11 +113,27 @@
 ## matches
 
 ### `data/startgg/events/.../matches.json`
+`data`配列内の各レコードは、**完了済み(complete)**または**プレースホルダー
+(placeholder)**のいずれかの状態を取る(`event_data_version >= 6`)。
+
+- 完了済みレコード: そのsetの結果一式(下記フル形状)を持つ。
+- プレースホルダーレコード: `set_id`のみを持ち、他のキーは一切存在しない
+  (`winner_id`キーの有無で区別する。値が`null`の完了済みレコードと混同しない
+  ため、値ではなくキーの存在で判定すること)。
+
+一括取得(`event.sets`/`phaseGroup.sets`)が成功したイベントでは、プレースホルダーは
+一切生成されず、全レコードが最初から完了済みの状態で書き込まれる。一括取得が
+ページ/complexity上限などで失敗したイベントについてのみ、まずそのイベントの
+全`set_id`についてプレースホルダーを投入し、`set(id: ID!)`によるset単位の取得で
+順次完了済みレコードへ置き換えていく(「イベント属性」節の`archive_status`の
+説明も参照)。同じ`set_id`のレコードが2件以上存在することはない。
+
 ```json
 {
   "version": "1.0",
   "data": [
     {
+      "set_id": 888,
       "winner_id": 111,
       "loser_id": 112,
       "winner_score": 2,
@@ -143,10 +163,18 @@
           ]
         }
       ]
+    },
+    {
+      "set_id": 889
     }
   ]
 }
 ```
+上記の2件目(`{"set_id": 889}`のみ)がプレースホルダーの例。
+
+- `set_id`: start.gg上のset ID。`event_data_version < 6`の既存データには存在しない
+  (`null`相当)。既存イベントは`scripts/fetch/backfill_schema_version.py`の巡回
+  バックフィルにより順次付与される。
 
 ## 注意点
 - doubles/crew などは user_id が取得できず `null` になる場合がある。

@@ -178,7 +178,7 @@ class BackfillSchemaVersionTests(unittest.TestCase):
         with patch.object(bsv, "fetch_event_details", return_value=(event, tournament)), \
              patch.object(bsv, "download_standings", return_value=([], [], {})), \
              patch.object(bsv, "download_seeds"), \
-             patch.object(bsv, "download_all_set"), \
+             patch.object(bsv, "download_all_set", return_value=False), \
              patch.object(bsv, "extend_user_info"), \
              patch.object(bsv, "write_event_attributes") as mocked_write:
             result = bsv.backfill_one_event(event_dir, {}, self.users_file_path)
@@ -200,7 +200,7 @@ class BackfillSchemaVersionTests(unittest.TestCase):
         with patch.object(bsv, "fetch_event_details", return_value=(event, tournament)), \
              patch.object(bsv, "download_standings", return_value=([], [], {})), \
              patch.object(bsv, "download_seeds"), \
-             patch.object(bsv, "download_all_set"), \
+             patch.object(bsv, "download_all_set", return_value=False), \
              patch.object(bsv, "extend_user_info"):
             summary = bsv.run_backfill(
                 self.events_root, self.users_file_path, self.cursor_path, max_events=0
@@ -210,6 +210,43 @@ class BackfillSchemaVersionTests(unittest.TestCase):
         attr_after = json.loads((event_dir / "attr.json").read_text(encoding="utf-8"))
         self.assertEqual(attr_after["end_at"], 1710086400)
         self.assertEqual(attr_after["event_data_version"], EVENT_DATA_VERSION)
+
+    def test_backfill_one_event_does_not_write_attr_json_while_sets_still_incomplete(self):
+        # FR-010/FR-012: download_all_set() が「まだプレースホルダーが残っている」
+        # (=一括取得が失敗し逐次取得モードに入ったまま完了していない)ことを示す True を
+        # 返した場合、backfill_one_event は attr.json を書いてはならない。書いてしまうと
+        # event_data_version が最新になり、このイベントが以後の巡回スキャン対象から
+        # 外れて二度と完了できなくなる(以前に発見した回帰)。
+        event_dir = make_partial_event_dir(self.events_root, "Japan/tournament_large/event_large")
+
+        tournaments = {
+            1: {
+                "tournament_id": 1,
+                "events": [{"event_id": 999, "event_name": "event_large", "path": str(event_dir)}],
+            }
+        }
+        event = {"name": "Event", "startAt": 1710001000, "isOnline": True}
+        tournament = {"name": "Tournament", "url": "https://example.com", "endAt": 1710086400}
+
+        with patch.object(bsv, "fetch_event_details", return_value=(event, tournament)), \
+             patch.object(bsv, "download_standings", return_value=([], [], {})), \
+             patch.object(bsv, "download_seeds"), \
+             patch.object(bsv, "download_all_set", return_value=True), \
+             patch.object(bsv, "extend_user_info"), \
+             patch.object(bsv, "write_event_attributes") as mocked_write:
+            result = bsv.backfill_one_event(event_dir, {}, self.users_file_path, tournaments=tournaments)
+
+        self.assertTrue(result)
+        mocked_write.assert_not_called()
+        self.assertFalse((event_dir / "attr.json").exists())
+
+    def test_event_left_incomplete_by_backfill_remains_eligible_next_cycle(self):
+        # 上のテストで書かれなかった attr.json の不在により、read_event_data_version() は
+        # 0 を返し続け、このイベントは次回の巡回でも再度対象になる。
+        event_dir = make_partial_event_dir(self.events_root, "Japan/tournament_large/event_large")
+
+        self.assertEqual(bsv.read_event_data_version(event_dir), 0)
+        self.assertLess(bsv.read_event_data_version(event_dir), EVENT_DATA_VERSION)
 
     # -- US2: attr.json が欠落したディレクトリも発見・補完される ----------------
 
@@ -235,7 +272,7 @@ class BackfillSchemaVersionTests(unittest.TestCase):
         with patch.object(bsv, "fetch_event_details", return_value=(event, tournament)) as mocked_fetch, \
              patch.object(bsv, "download_standings", return_value=([], [], {})), \
              patch.object(bsv, "download_seeds"), \
-             patch.object(bsv, "download_all_set"), \
+             patch.object(bsv, "download_all_set", return_value=False), \
              patch.object(bsv, "extend_user_info"), \
              patch.object(bsv, "write_event_attributes") as mocked_write:
             result = bsv.backfill_one_event(event_dir, {}, self.users_file_path, tournaments=tournaments)
