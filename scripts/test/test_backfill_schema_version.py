@@ -52,6 +52,24 @@ class BackfillSchemaVersionTests(unittest.TestCase):
         self.assertLess(japan_index, europe_index)
         self.assertLess(japan_index, north_america_index)
 
+    def test_recent_events_are_scanned_before_older_ones_within_region(self):
+        # 直近のイベント(直近のバグ・スキーマ変更の影響を最も受けやすい)を
+        # 優先して先にバックフィルできるよう、リージョン内は日付が新しい順に
+        # 走査する。トレードオフ(古いイベントが構造的に後回しになり続ける懸念)
+        # は承知の上でのユーザーの判断による変更。
+        make_event_dir(
+            self.events_root, "Japan/2020/01/01/old_tournament/old_event", event_data_version=0
+        )
+        make_event_dir(
+            self.events_root, "Japan/2026/08/15/new_tournament/new_event", event_data_version=0
+        )
+
+        order = [str(p) for p in bsv.iter_event_dirs(self.events_root)]
+        new_index = next(i for i, p in enumerate(order) if "new_event" in p)
+        old_index = next(i for i, p in enumerate(order) if "old_event" in p)
+
+        self.assertLess(new_index, old_index)
+
     # -- US1: 対象検出 -------------------------------------------------
 
     def test_detects_outdated_and_missing_version_events(self):
