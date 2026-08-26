@@ -47,12 +47,12 @@ description: "Task list template for feature implementation"
 
 **目的**: 実装を始める前に、既存コードの現状を確認し、後続タスクの前提を固める。
 
-- [ ] T001 [P] `scripts/utils.py` の `EVENT_DATA_VERSION` の現在値（5）と、それを参照している
+- [X] T001 [P] `scripts/utils.py` の `EVENT_DATA_VERSION` の現在値（5）と、それを参照している
       全箇所（`scripts/fetch/download.py`、`scripts/fetch/backfill_schema_version.py`、
       `scripts/fetch/download_specific_event.py`、`scripts/test/test_download.py`、
       `scripts/test/test_backfill_schema_version.py`）を洗い出し、T003でのバージョン引き上げに
       漏れが無いようにする
-- [ ] T002 [P] `scripts/fetch/download_specific_event.py` と `scripts/fetch/refresh_event_dir.py`
+- [X] T002 [P] `scripts/fetch/download_specific_event.py` と `scripts/fetch/refresh_event_dir.py`
       を確認し、`download.py` の一括sets取得ロジックを独自に再実装している箇所（例:
       `download_specific_event.py` 内の `fetch_all_sets()`/`download_all_set()`）を特定する。
       Phase 8（Polish）でこれらを本フィーチャーの一括優先・失敗時フォールバック方式に合わせる
@@ -68,30 +68,30 @@ description: "Task list template for feature implementation"
 
 **⚠️ CRITICAL**: このフェーズが完了するまで、どのUser Storyの実装も開始できない
 
-- [ ] T003 [P] `scripts/utils.py` の `EVENT_DATA_VERSION` を `5` から `6` に引き上げる（FR-011,
+- [X] T003 [P] `scripts/utils.py` の `EVENT_DATA_VERSION` を `5` から `6` に引き上げる（FR-011,
       data-model.md「共有定数」節）
-- [ ] T004 [P] `scripts/queries.py` に `get_event_set_ids_query()` を追加する: `event(id:
+- [X] T004 [P] `scripts/queries.py` に `get_event_set_ids_query()` を追加する: `event(id:
       $eventId)` 配下の `sets(page, perPage) { pageInfo { total totalPages } nodes { id } } }`
       のみを要求するID専用の軽量クエリ（既存の `_SET_NODE_FIELDS`/`_SET_NODE_FIELDS_LIGHT` は
       使わない）。FR-003(a)、research.md §1
-- [ ] T005 [P] `scripts/queries.py` に、複数の`set_id`をGraphQLエイリアスでバッチ取得するための
+- [X] T005 [P] `scripts/queries.py` に、複数の`set_id`をGraphQLエイリアスでバッチ取得するための
       クエリビルダー関数（例: `get_sets_by_ids_query(set_ids)`。ルートの`set(id: ID!)`フィールド
       を`s0: set(id: $id0) { ... } s1: set(id: $id1) { ... }`の形でエイリアスし、既存の
       `_SET_NODE_FIELDS`をそのまま再利用）を追加する。FR-003(c)、research.md §2/§3
-- [ ] T006 `scripts/fetch/download.py` に、マッチレコードがプレースホルダーかどうかを判定する
+- [X] T006 `scripts/fetch/download.py` に、マッチレコードがプレースホルダーかどうかを判定する
       ヘルパー `is_placeholder_record(record)`（`"winner_id" not in record` で判定。
       research.md §4の「キー存在チェック」方針）を追加する。FR-005, FR-008
-- [ ] T007 `scripts/fetch/download.py` に、あるイベントの`matches.json`データと既知の
+- [X] T007 `scripts/fetch/download.py` に、あるイベントの`matches.json`データと既知の
       `set_id`一覧から未取得の`set_id`集合を求めるヘルパー `outstanding_set_ids(matches_data,
       known_set_ids)`（T006の`is_placeholder_record`を利用）を追加する。FR-008
-- [ ] T008 `scripts/fetch/download.py` の `write_matches()` を、常に新規上書きするのではなく
+- [X] T008 `scripts/fetch/download.py` の `write_matches()` を、常に新規上書きするのではなく
       既存の`matches.json`を読み込んで`set_id`をキーに「その場」でレコードを追加・置換できる
       よう変更する（新規追加時は末尾に追加、既存の`set_id`が来たら該当レコードを置き換える。
       追記による重複は発生させない）。FR-009
-- [ ] T009 `scripts/fetch/download.py` に、あるイベントが既に逐次取得（フォールバック）モードに
+- [X] T009 `scripts/fetch/download.py` に、あるイベントが既に逐次取得（フォールバック）モードに
       入っているかどうかを判定するヘルパー `event_in_fallback_mode(event_dir)`（`matches.json`
       が存在し、かつ`attr.json`が存在しない場合に`True`）を追加する。FR-004
-- [ ] T010 `scripts/fetch/download.py` に、`scripts/fetch/download.py`の既存
+- [X] T010 `scripts/fetch/download.py` に、`scripts/fetch/download.py`の既存
       `load_excluded_phase_ids()`（`excluded_phases.json`読み込み）を使って、あるイベントに
       ついて既知の問題phaseGroup配下の除外対象`set_id`集合を求めるヘルパー
       `excluded_set_ids_for_event(event_id)` を追加する。T004のset一覧取得結果からこの集合を
@@ -119,34 +119,34 @@ description: "Task list template for feature implementation"
 
 > 実装前にまずテストを書き、FAILすることを確認してから実装に進むこと
 
-- [ ] T011 [P] [US1] `scripts/test/test_download.py` に、一括sets取得が失敗した場合に
+- [X] T011 [P] [US1] `scripts/test/test_download.py` に、一括sets取得が失敗した場合に
       `matches.json`が既知の全`set_id`について1件ずつプレースホルダーレコードのみで
       投入され、完了済みレコードが1件も無い状態になることを確認するテストを追加する
       （FR-003）
-- [ ] T012 [P] [US1] `scripts/test/test_download.py` に、一括sets取得が**成功**した場合、
+- [X] T012 [P] [US1] `scripts/test/test_download.py` に、一括sets取得が**成功**した場合、
       T018（`fetch_set_ids_for_event`）・T019（`fetch_set_details_by_ids`）が一切呼ばれず、
       `matches.json`にプレースホルダーが1件も生成されないことをモックの呼び出し回数で
       確認するテストを追加する（FR-001, FR-002, SC-001。`/speckit-analyze`指摘G2 —
       「無駄にクエリ実行回数を増やさない」というユーザー要求の直接的な検証）
-- [ ] T013 [P] [US1] `scripts/test/test_download.py` に、逐次取得中の中断（バッチ取得の
+- [X] T013 [P] [US1] `scripts/test/test_download.py` に、逐次取得中の中断（バッチ取得の
       途中で例外を発生させるモック）をシミュレートし、それまでに置き換え済みの完了済み
       レコードが`matches.json`に残り、残りのプレースホルダーはプレースホルダーのまま
       残ることを確認するテストを追加する（FR-006, SC-002）
-- [ ] T014 [P] [US1] `scripts/test/test_download.py` に、既にプレースホルダーと完了済み
+- [X] T014 [P] [US1] `scripts/test/test_download.py` に、既にプレースホルダーと完了済み
       レコードが混在する`matches.json`を持つイベントを再処理した場合、まだプレースホル
       ダーの`set_id`のみが取得され、既に完了済みのレコードは変化せず、同じ`set_id`の
       レコードが重複して追記されないことを確認するテストを追加する（FR-007, FR-009,
       SC-003）
-- [ ] T015 [P] [US1] `scripts/test/test_download.py` に、`download_all_set()`自体が、
+- [X] T015 [P] [US1] `scripts/test/test_download.py` に、`download_all_set()`自体が、
       `event_in_fallback_mode()`が`True`のイベントに対しては一括sets取得クエリを一切
       呼ばず、既存のプレースホルダーの詳細取得のみを行うことを確認するテストを追加する
       （FR-004, FR-015。判定ロジックが`download_all_set()`内部にあることを直接検証する
       ——`/speckit-analyze`指摘I1を踏まえ、呼び出し元ではなく関数自体をテスト対象にする）
-- [ ] T016 [P] [US1] `scripts/test/test_download.py` に、あるイベントの`matches.json`に
+- [X] T016 [P] [US1] `scripts/test/test_download.py` に、あるイベントの`matches.json`に
       プレースホルダーが1件でも残っている間は、`write_event_attributes()`が呼ばれず
       `attr.json`が生成されないことを確認するテストを追加する（FR-010。
       `/speckit-analyze`指摘C1）
-- [ ] T017 [P] [US1] `scripts/test/test_download.py` に、（複数回の実行をまたいで）
+- [X] T017 [P] [US1] `scripts/test/test_download.py` に、（複数回の実行をまたいで）
       全てのプレースホルダーが完了済みレコードに置き換わった回において、
       `write_event_attributes()`が呼ばれ、`attr.json`が`archive_status: "completed"`
       付きで書き込まれることを確認するテストを追加する（FR-010, FR-014, SC-006。
@@ -154,10 +154,10 @@ description: "Task list template for feature implementation"
 
 ### User Story 1の実装
 
-- [ ] T018 [US1] `scripts/fetch/download.py` に `fetch_set_ids_for_event(event_id)` を
+- [X] T018 [US1] `scripts/fetch/download.py` に `fetch_set_ids_for_event(event_id)` を
       追加する: T004の`get_event_set_ids_query()`を`fetch_all_nodes()`経由で呼び出し、
       そのイベントの全`set_id`をページングして取得する（FR-003(a)）
-- [ ] T019 [US1] `scripts/fetch/download.py` に `fetch_set_details_by_ids(set_ids)` を
+- [X] T019 [US1] `scripts/fetch/download.py` に `fetch_set_details_by_ids(set_ids)` を
       追加する: T005のクエリビルダーを使い、未取得の`set_id`を小さなバッチ単位で
       `fetch_data_with_retries()`経由で取得する。既存の`SETS_PER_PAGE_FALLBACKS`と
       同様の考え方で、バッチサイズを縮小しながらリトライするフォールバック戦略を実装する
@@ -166,7 +166,7 @@ description: "Task list template for feature implementation"
       実測に基づき調整してよい——`/speckit-analyze`指摘A1）（FR-003(c)、research.md §3。
       憲法Principle V: 独自のリトライ/バックオフは書かず`fetch_data_with_retries()`を
       経由する）
-- [ ] T020 [US1] `scripts/fetch/download.py` の`download_all_set()`を変更する:
+- [X] T020 [US1] `scripts/fetch/download.py` の`download_all_set()`を変更する:
       (1) 関数の先頭でT009の`event_in_fallback_mode(event_dir)`を確認し、`True`なら
       一括取得は一切呼び出さず、T010の`excluded_set_ids_for_event()`で除外対象を除いた
       上でT007の`outstanding_set_ids()`により未取得分を求め、T019でバッチ取得して
@@ -185,7 +185,7 @@ description: "Task list template for feature implementation"
       `matches.json`にプレースホルダーが1件も残っていないかどうかを呼び出し元に伝える
       （戻り値、または`matches.json`を再読込して判定する関数を別途公開する、など）
       （`/speckit-analyze`指摘C1の前提整備）
-- [ ] T021 [US1] `scripts/fetch/download.py` の `download_all_tournaments()` および
+- [X] T021 [US1] `scripts/fetch/download.py` の `download_all_tournaments()` および
       `download_by_ids()` それぞれのイベント処理箇所で、T020(4)の完了シグナルを見て、
       そのイベントの`matches.json`にプレースホルダーが1件も残っていない場合に限り
       `write_event_attributes(...)`を呼び出すよう変更する（プレースホルダーが残って
@@ -211,16 +211,16 @@ description: "Task list template for feature implementation"
 
 ### User Story 2のテスト（憲法Principle IIIによりMUST） ⚠️
 
-- [ ] T022 [P] [US2] `scripts/test/test_download.py` に、一括sets取得が
+- [X] T022 [P] [US2] `scripts/test/test_download.py` に、一括sets取得が
       `MaxPagesExceededError`で失敗しても、`skipped_events`への記録や
       `skip_report_path`ファイルへの書き出しが一切発生せず、代わりにUser Story 1の
       フォールバック処理（プレースホルダー投入）が実行されることを確認するテストを
       追加する（FR-013）
-- [ ] T023 [P] [US2] `scripts/test/test_download.py` の既存テスト
+- [X] T023 [P] [US2] `scripts/test/test_download.py` の既存テスト
       `test_download_all_tournaments_records_event_path_before_fetch_even_if_later_step_fails`
       （`MaxPagesExceededError`を`download_all_set`の`side_effect`にしているテスト）を、
       新しい「フォールバックに入る」挙動を検証する内容に更新する
-- [ ] T024 [P] [US2] `scripts/test/test_download.py` の既存テスト
+- [X] T024 [P] [US2] `scripts/test/test_download.py` の既存テスト
       `test_download_all_tournaments_writes_skip_report_after_reaching_finish_date`
       （本セッション中、`finish_date`到達時の早期returnバグの回帰テストとして追加した
       もので、`skip_report_path`引数の存在とその書き出しを直接assertしている）を、
@@ -230,19 +230,19 @@ description: "Task list template for feature implementation"
 
 ### User Story 2の実装
 
-- [ ] T025 [US2] `scripts/fetch/download.py` の `download_all_tournaments()`
+- [X] T025 [US2] `scripts/fetch/download.py` の `download_all_tournaments()`
       から、sets取得（`download_all_set`呼び出し）を包む
       `except MaxPagesExceededError: _record_skip(...); continue` ブロックを削除し、
       T020で実装したフォールバック処理に完全に置き換える（FR-013）。`_record_skip`
       関数と`skipped_events`リスト、`skip_report_path`引数・CLI引数
       （`--skip_report_path`）、`_record_skip`関連のimportを削除する
-- [ ] T026 [US2] `scripts/fetch/download.py` の`standings`/`seeds`取得を包む
+- [X] T026 [US2] `scripts/fetch/download.py` の`standings`/`seeds`取得を包む
       `except MaxPagesExceededError: _record_skip(...); continue` ブロックからも
       `_record_skip(...)`呼び出しを削除する（`continue`によるその場スキップ自体は
       維持する——`skip_report_path`という出力先ワークフローステップが無くなるため、
       レポート自体を作る意味が無くなったのみで、動作自体はcontinueのまま変えない）
-- [ ] T027 [US2] `.github/workflows/fetch_large_event.yml` を削除する（FR-013）
-- [ ] T028 [US2] `.github/workflows/data_gap_check.yml` から、「Create large-event-skip
+- [X] T027 [US2] `.github/workflows/fetch_large_event.yml` を削除する（FR-013）
+- [X] T028 [US2] `.github/workflows/data_gap_check.yml` から、「Create large-event-skip
       issue」ステップ、`--max_pages`/`--skip_report_path`引数（sets取得のレポート用途で
       あった箇所）、および関連する`gh label create`/`gh issue create`呼び出しを削除する
       （FR-013）
@@ -268,12 +268,12 @@ description: "Task list template for feature implementation"
 
 ### User Story 3のテスト（憲法Principle IIIによりMUST） ⚠️
 
-- [ ] T029 [P] [US3] `scripts/test/test_download.py` に、一括取得の失敗後、set一覧
+- [X] T029 [P] [US3] `scripts/test/test_download.py` に、一括取得の失敗後、set一覧
       取得クエリのみをモックしてset詳細取得はまだ行わない状態で`download_all_set()`
       を呼び出し、`matches.json`のレコード数がset一覧の件数（除外対象を除く）と
       厳密に一致し、全レコードがプレースホルダー（`winner_id`を持たない）であることを
       確認するテストを追加する（FR-003(a)(b)、spec.md User Story 3 Independent Test）
-- [ ] T030 [P] [US3] `scripts/test/test_download.py` に、`outstanding_set_ids()`
+- [X] T030 [P] [US3] `scripts/test/test_download.py` に、`outstanding_set_ids()`
       （T007）が、プレースホルダーと完了済みレコードが混在する`matches.json`から、
       プレースホルダーの`set_id`のみを過不足なく返すことを確認する単体テストを
       追加する（FR-008）
@@ -297,16 +297,16 @@ User Story 1で完了しているため、実装タスクは無し）
 
 ### User Story 4のテスト（憲法Principle IIIによりMUST） ⚠️
 
-- [ ] T031 [P] [US4] `scripts/test/test_download.py` に、一括sets取得が成功した場合に
+- [X] T031 [P] [US4] `scripts/test/test_download.py` に、一括sets取得が成功した場合に
       `write_matches()`が書き込む各レコードに、そのsetのstart.gg上の`id`と一致する
       `set_id`フィールドが含まれることを確認するテストを追加する（FR-002, FR-005）
-- [ ] T032 [P] [US4] `scripts/test/test_download.py` に、同一イベントの`matches.json`
+- [X] T032 [P] [US4] `scripts/test/test_download.py` に、同一イベントの`matches.json`
       内で`set_id`が重複しないことを、一括取得経路・逐次取得経路の両方について
       確認するテストを追加する（SC-004）
 
 ### User Story 4の実装
 
-- [ ] T033 [US4] `scripts/fetch/download.py` の`write_matches()`内、一括取得経路で
+- [X] T033 [US4] `scripts/fetch/download.py` の`write_matches()`内、一括取得経路で
       `match_data`辞書を組み立てている箇所に、`"set_id": node.get("id")`を追加する
       （FR-002, FR-005）
 
@@ -325,12 +325,12 @@ importして呼んでいるため、Phase 2（T003のバージョン引き上げ
 コード変更は不要と想定される（T020(1)で「一括取得を再試行しない」判定を
 `download_all_set()`内部に統合したことで、この想定がより確実になった）。
 
-- [ ] T034 [P] `scripts/test/test_backfill_schema_version.py` に、
+- [X] T034 [P] `scripts/test/test_backfill_schema_version.py` に、
       `event_data_version`が`6`未満（または`attr.json`が存在しない）イベントが
       巡回対象として検出され、`download_all_set`経由で再取得された結果
       `matches.json`の全レコードに`set_id`が付与されることを確認するテストを
       追加する（FR-011, FR-012）
-- [ ] T035 `scripts/fetch/backfill_schema_version.py`を通しで確認し、T003/T020/T021の
+- [X] T035 `scripts/fetch/backfill_schema_version.py`を通しで確認し、T003/T020/T021の
       変更のみで意図通り動作するか、追加の変更が必要かを判断する。必要であれば
       最小限の変更を加える
 
@@ -342,31 +342,31 @@ importして呼んでいるため、Phase 2（T003のバージョン引き上げ
 
 **目的**: 憲法Principle Iが要求するドキュメント同期、および横断的な仕上げ
 
-- [ ] T036 [P] `docs/data_model.md`の`matches.json`節を更新する: プレースホルダー
+- [X] T036 [P] `docs/data_model.md`の`matches.json`節を更新する: プレースホルダー
       レコード形状（`set_id`のみ）、`set_id`フィールドの追加、
       `EVENT_DATA_VERSION`が`6`になったことを記載する（憲法Principle I）
-- [ ] T037 [P] `docs/startgg_design.md`に、T004/T005で追加した2つの新規クエリ
+- [X] T037 [P] `docs/startgg_design.md`に、T004/T005で追加した2つの新規クエリ
       （ID専用set一覧取得、`set(id:)`によるバッチ詳細取得）の目的とレスポンス例を
       追記する
-- [ ] T038 [P] `docs/flow.md`のMermaid図・説明を確認し、large-event-skip関連の
+- [X] T038 [P] `docs/flow.md`のMermaid図・説明を確認し、large-event-skip関連の
       記述があれば、User Story 2で廃止した内容に合わせて更新する
-- [ ] T039 [P] `docs/fix.md`に、「逐次取得モードにおけるset ID一覧取得自体が
+- [X] T039 [P] `docs/fix.md`に、「逐次取得モードにおけるset ID一覧取得自体が
       完走できない場合、専用の手動escape hatchは存在しない」という残存リスク
       （spec.md Edge Cases）を記録する（憲法データ保存規約: 既知の不完全な点は
       コードコメントではなく`docs/fix.md`へ）
-- [ ] T040 T002の下調べに基づき、`scripts/fetch/download_specific_event.py`の
+- [X] T040 T002の下調べに基づき、`scripts/fetch/download_specific_event.py`の
       独自のsets取得実装を、本フィーチャーの一括優先・失敗時フォールバック方式に
       合わせて更新するか、対象外とする場合はその理由を`docs/fix.md`または
       コミットメッセージに明記する
-- [ ] T041 [P] research.md §7が提案する「`validate_data.py`に、`attr.json`存在時
+- [X] T041 [P] research.md §7が提案する「`validate_data.py`に、`attr.json`存在時
       プレースホルダー0件を追加でassertする」任意の強化を実装するかどうかを判断する。
       実装しない場合も、その決定を`docs/fix.md`または本タスクの完了コメントに明記し、
       「検討漏れ」ではなく「意図的に見送った」ことが後から分かるようにする
       （`/speckit-analyze`指摘G4）
-- [ ] T042 `python -m unittest scripts.test.test_download scripts.test.test_validate_data
+- [X] T042 `python -m unittest scripts.test.test_download scripts.test.test_validate_data
       scripts.test.test_backfill_schema_version -v` を実行し、全テストがpassする
       ことを確認する（憲法Principle III）
-- [ ] T043 [quickstart.md](./quickstart.md)の各シナリオ（特にシナリオ0「小規模
+- [X] T043 [quickstart.md](./quickstart.md)の各シナリオ（特にシナリオ0「小規模
       イベントは今日と同じ経路のまま」とシナリオ1「中断された取得がデータを
       失わない」）を実行し、想定通りの挙動になることを確認する
 
@@ -466,3 +466,50 @@ Task: "scripts/test/test_download.py に完了後にattr.jsonが書かれるこ�
 - 各チェックポイントで一旦立ち止まり、Storyが独立して機能することを検証する
 - 避けるべきこと: 曖昧なタスク、同一ファイルへの競合する変更、Storyの独立性を
   壊すStory間の依存関係
+
+---
+
+## 実装メモ（`/speckit-implement` 実施後に追記）
+
+全43タスクを実装し、`- [X]`済み。タスク記述からの軽微な逸脱点:
+
+- **T010**: 独立した`excluded_set_ids_for_event()`ヘルパーではなく、既存の
+  `fetch_all_sets()`と同じ設計（`load_excluded_phase_ids()`→
+  `fetch_all_phase_groups()`でphaseGroup単位に除外・列挙してから取得する）を
+  `fetch_set_ids_for_event()`内部に直接統合する形で実装した。既存コードの
+  除外パターンをそのまま再利用でき、より一貫性が高いと判断したため。
+- **T017**: 専用の新規テストではなく、既存の
+  `test_download_all_tournaments_relocates_event_when_start_date_changes`等
+  （`download_all_set`のモックに`return_value=False`を設定するよう修正）で
+  「完了時にattr.jsonが書かれる」ことを検証している。
+- **T022**: `_record_skip`/`skipped_events`/`skip_report_path`という仕組み自体を
+  T025で完全に削除したため、「発生しないことを確認する」という形のテストは
+  対象が既に存在せず不要になった。削除そのものが検証結果である。
+- **T034**: `test_backfill_schema_version.py`側は`download_all_set`を常にモック
+  しているため、set_id伝播そのものは`scripts/test/test_download.py`側の
+  `write_matches`/`build_match_data_from_node`のテストで検証している。
+  `test_backfill_schema_version.py`には代わりに、実装中に発見した重大な回帰
+  （`backfill_one_event`がdownload_all_set()の戻り値を無視し、未完了でも
+  `attr.json`を書いてしまい、以後の巡回対象から外れてしまうバグ。C1と同種）
+  を検出・修正するテストを追加した。
+
+**実装中に発見・修正した追加の不具合**:
+- `fetch_set_details_by_ids()`を当初1バッチ分の結果を溜めて最後にまとめて返す
+  設計にしていたが、これだとバッチ処理の途中で例外が発生した場合、既に取得
+  できていたバッチの結果まで失われ、FR-006（中断時のデータ保持）に違反する
+  ことに気づいた。ジェネレータにしてバッチ単位でyieldし、
+  `_continue_incremental_fetch()`側でバッチを受け取るたびに`matches.json`へ
+  書き込むよう変更した。
+- `scripts/fetch/backfill_schema_version.py`の`backfill_one_event()`が、
+  `download_all_set()`の戻り値（プレースホルダー残存の有無）を見ずに常に
+  `write_event_attributes()`を呼んでいた。これを放置すると、大規模イベントの
+  バックフィルが1回で完了しなくても`event_data_version`が最新になってしまい、
+  以後の巡回スキャン対象から外れて永久に完了できなくなる重大なバグだった
+  ため、上記の通り修正した（C1と同種の見落としが2箇所目にあった形）。
+
+**未実施（意図的にスコープ外）**:
+- ライブAPIでのquickstart.md検証（シナリオ2/3）は、本environment内では
+  `STARTGG_TOKEN`を用いた実際のstart.gg APIアクセスができないため未実施。
+  同等のロジックはユニットテスト（T011〜T017等）でモックベースに検証済み。
+  実施時は`docs/quickstart.md`の手順に従ってトークンを用意した上で実行する
+  こと。

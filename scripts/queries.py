@@ -107,6 +107,67 @@ _SET_NODE_FIELDS_LIGHT = """id
               }
             }"""
 
+def get_event_set_ids_query():
+    """setの詳細(slots/games/selections等)を一切要求せず、idのみを取得する軽量クエリ。
+    一括取得(event.sets)が失敗したイベントで、逐次取得モードのプレースホルダー投入に
+    使う set_id 一覧を、低いcomplexityコストで取得するためのもの。"""
+    return """query EventSetIds($eventId: ID!, $page: Int!, $perPage: Int!) {
+      event(id: $eventId) {
+        id
+        sets(
+          page: $page
+          perPage: $perPage
+          sortType: STANDARD
+        ) {
+          pageInfo {
+            total
+            totalPages
+          }
+          nodes {
+            id
+          }
+        }
+      }
+    }"""
+
+def get_phase_group_set_ids_query():
+    """get_event_set_ids_query() の phaseGroup 単位版。excluded_phases.json により
+    既知の問題phaseGroupを除外する必要があるイベントで使う。"""
+    return """query PhaseGroupSetIds($phaseGroupId: ID!, $page: Int!, $perPage: Int!) {
+      phaseGroup(id: $phaseGroupId) {
+        id
+        sets(
+          page: $page
+          perPage: $perPage
+          sortType: STANDARD
+        ) {
+          pageInfo {
+            total
+            totalPages
+          }
+          nodes {
+            id
+          }
+        }
+      }
+    }"""
+
+def get_sets_by_ids_query(set_ids):
+    """複数のset_idを、ルートの set(id: ID!) フィールドをGraphQLエイリアスで
+    バッチ化して直接取得するクエリを組み立てる。1リクエストのcomplexityは
+    set_idsの件数×_SET_NODE_FIELDSの固定コストで決まり、イベントの総set数には
+    依存しない。"""
+    variable_defs = ", ".join(f"$id{i}: ID!" for i in range(len(set_ids)))
+    fields = "\n".join(
+        f"""s{i}: set(id: $id{i}) {{
+            {_SET_NODE_FIELDS}
+          }}"""
+        for i in range(len(set_ids))
+    )
+    return f"""query SetsByIds({variable_defs}) {{
+      {fields}
+    }}"""
+
 def get_event_sets_query():
     return f"""query EventSets($eventId: ID!, $page: Int!, $perPage: Int!) {{
       event(id: $eventId) {{
