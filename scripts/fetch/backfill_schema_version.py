@@ -3,10 +3,11 @@
 scripts.utils.EVENT_DATA_VERSION より古いものを、安定ソート順の循環スキャンで
 少しずつ再取得し、最新のスキーマへ収束させるツール。
 
-data/startgg/events 以下のイベントディレクトリをパス文字列の昇順で列挙し、
-カーソルファイル(--cursor_path)に保存された「直近に確認したディレクトリ」の
-次から走査を再開する。1回の実行で実際に再取得する件数は --max_events で
-上限を設定できる。既に最新バージョンのイベントは API を呼ばずスキップする。
+data/startgg/events 以下のイベントディレクトリを、Japanリージョンを優先しつつ
+各リージョン内はパス文字列の降順(=日付が新しい順)で列挙し、カーソルファイル
+(--cursor_path)に保存された「直近に確認したディレクトリ」の次から走査を
+再開する。1回の実行で実際に再取得する件数は --max_events で上限を設定できる。
+既に最新バージョンのイベントは API を呼ばずスキップする。
 
 使い方:
     python3 scripts/fetch/backfill_schema_version.py --token <TOKEN>
@@ -52,22 +53,33 @@ from scripts.utils import (  # noqa: E402
 
 def iter_event_dirs(events_root: Path) -> list[Path]:
     """events_root 以下の、attr.json または standings.json を持つディレクトリ
-    (=取得が試みられたイベントディレクトリ)を、Japanリージョンを優先しつつ
-    パス文字列の昇順(安定ソート)で返す。standings.json はパイプライン中で
-    最初に書き込まれるファイルのため、attr.json 単独では発見できない(取得が
-    途中で打ち切られた)ディレクトリも、standings.json 経由で網羅的に発見できる。"""
+    (=取得が試みられたイベントディレクトリ)を、Japanリージョンを優先しつつ、
+    各リージョン内ではパス文字列の降順(=ディレクトリ構成上の日付が新しい順)で
+    返す。直近のイベント(直近に修正されたバグ・スキーマ変更の影響を最も受け
+    やすい)を優先して先にバックフィルできるようにするため。standings.json は
+    パイプライン中で最初に書き込まれるファイルのため、attr.json 単独では発見
+    できない(取得が途中で打ち切られた)ディレクトリも、standings.json 経由で
+    網羅的に発見できる。
 
-    def sort_key(event_dir: Path) -> tuple[int, str]:
+    新しい順にする代償として、スキーマバージョンが上がるたびに毎回「直近の
+    イベントから片付く」偏りが生まれ、最も古いイベント群は毎回一番後回しに
+    なる(1周にかかる時間より短い間隔でバージョンが上がり続けると、古い
+    イベントの追従が構造的に遅れ続ける)。それでも直近のデータを優先したい、
+    という判断のもとで採用している。"""
+
+    def region_of(event_dir: Path) -> str:
         try:
-            region = event_dir.relative_to(events_root).parts[0]
+            return event_dir.relative_to(events_root).parts[0]
         except (ValueError, IndexError):
-            region = ""
-        is_not_japan = 0 if region == "Japan" else 1
-        return (is_not_japan, str(event_dir))
+            return ""
 
     candidates = {p.parent for p in events_root.rglob("attr.json")}
     candidates.update(p.parent for p in events_root.rglob("standings.json"))
-    return sorted(candidates, key=sort_key)
+
+    # 安定ソートを2段階に分けることで、「リージョン(日本優先)は昇順、リージョン内は
+    # パス文字列の降順」という異なる向きの複合キーを表現する。
+    by_recency = sorted(candidates, key=lambda event_dir: str(event_dir), reverse=True)
+    return sorted(by_recency, key=lambda event_dir: 0 if region_of(event_dir) == "Japan" else 1)
 
 
 def read_event_data_version(event_dir: Path) -> int:

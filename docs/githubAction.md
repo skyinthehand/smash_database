@@ -74,9 +74,12 @@
   - `workflow_dispatch`(`max_events` 入力で1回あたりの処理件数を上書き可能)
 - 実行内容:
   - `scripts/fetch/backfill_schema_version.py` を実行し、`attr.json` の
-    `event_data_version`(`scripts/utils.py` の `EVENT_DATA_VERSION`)が古い既存イベントを
-    安定ソート順で循環スキャンし、`schema_backfill_cursor.txt` に保存されたカーソルの
-    続きから、1回につき `--max_events`(既定200件)まで再取得する
+    `event_data_version`(`scripts/utils.py` の `EVENT_DATA_VERSION`)が古い既存イベントを、
+    日本リージョン優先・各リージョン内は日付が新しい順(直近のイベントを優先)で
+    循環スキャンし、`schema_backfill_cursor.txt` に保存されたカーソルの続きから、
+    1回につき `--max_events`(既定200件)まで再取得する。
+    (直近優先のトレードオフ: バージョンアップが1周にかかる時間より頻繁に起きると、
+    2018年頃などの最も古いイベント群は毎回後回しになり続ける。)
   - `python -m unittest scripts.test.test_validate_data` /
     `scripts.test.test_backfill_schema_version` を実行
   - 差分があれば `main` ブランチへ直接 push(バッチごとに commit / push を繰り返す)
