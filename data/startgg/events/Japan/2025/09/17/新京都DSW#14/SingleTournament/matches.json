@@ -1511,6 +1511,1571 @@
       "cancel": false,
       "state": 3,
       "details": []
+    },
+    {
+      "set_id": 93977286,
+      "winner_id": 1974326,
+      "loser_id": 842610,
+      "winner_score": 2,
+      "loser_score": 0,
+      "round_text": "Grand Final",
+      "round": 6,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": [
+        {
+          "game_id": 32655772,
+          "order_num": 1,
+          "winner_id": 1974326,
+          "entrant1_score": 0,
+          "entrant2_score": null,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 842610,
+              "selection_id": 48154395,
+              "character_id": 1289,
+              "character_name": "Greninja"
+            },
+            {
+              "user_id": 1974326,
+              "selection_id": 48154396,
+              "character_id": 1413,
+              "character_name": "Isabelle"
+            }
+          ]
+        },
+        {
+          "game_id": 32655773,
+          "order_num": 2,
+          "winner_id": 1974326,
+          "entrant1_score": 0,
+          "entrant2_score": null,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 842610,
+              "selection_id": 48154397,
+              "character_id": 1289,
+              "character_name": "Greninja"
+            },
+            {
+              "user_id": 1974326,
+              "selection_id": 48154398,
+              "character_id": 1413,
+              "character_name": "Isabelle"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "set_id": 93977287,
+      "winner_id": 1974326,
+      "loser_id": 842610,
+      "winner_score": 2,
+      "loser_score": 0,
+      "round_text": "Grand Final Reset",
+      "round": 6,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": [
+        {
+          "game_id": 32655789,
+          "order_num": 1,
+          "winner_id": 1974326,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 842610,
+              "selection_id": 48154431,
+              "character_id": 1289,
+              "character_name": "Greninja"
+            },
+            {
+              "user_id": 1974326,
+              "selection_id": 48154432,
+              "character_id": 1413,
+              "character_name": "Isabelle"
+            }
+          ]
+        },
+        {
+          "game_id": 32655790,
+          "order_num": 2,
+          "winner_id": 1974326,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 842610,
+              "selection_id": 48154433,
+              "character_id": 1289,
+              "character_name": "Greninja"
+            },
+            {
+              "user_id": 1974326,
+              "selection_id": 48154434,
+              "character_id": 1413,
+              "character_name": "Isabelle"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "set_id": 93977285,
+      "winner_id": 842610,
+      "loser_id": 2159261,
+      "winner_score": 2,
+      "loser_score": 1,
+      "round_text": "Winners Final",
+      "round": 5,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": [
+        {
+          "game_id": 32655667,
+          "order_num": 1,
+          "winner_id": 842610,
+          "entrant1_score": 0,
+          "entrant2_score": null,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2159261,
+              "selection_id": 48154217,
+              "character_id": 1441,
+              "character_name": "Piranha Plant"
+            },
+            {
+              "user_id": 842610,
+              "selection_id": 48154218,
+              "character_id": 1289,
+              "character_name": "Greninja"
+            }
+          ]
+        },
+        {
+          "game_id": 32655668,
+          "order_num": 2,
+          "winner_id": 2159261,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2159261,
+              "selection_id": 48154219,
+              "character_id": 1441,
+              "character_name": "Piranha Plant"
+            },
+            {
+              "user_id": 842610,
+              "selection_id": 48154220,
+              "character_id": 1289,
+              "character_name": "Greninja"
+            }
+          ]
+        },
+        {
+          "game_id": 32655669,
+          "order_num": 3,
+          "winner_id": 842610,
+          "entrant1_score": 0,
+          "entrant2_score": null,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2159261,
+              "selection_id": 48154221,
+              "character_id": 1441,
+              "character_name": "Piranha Plant"
+            },
+            {
+              "user_id": 842610,
+              "selection_id": 48154222,
+              "character_id": 1289,
+              "character_name": "Greninja"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "set_id": 93977349,
+      "winner_id": 1974326,
+      "loser_id": 2159261,
+      "winner_score": 2,
+      "loser_score": 1,
+      "round_text": "Losers Final",
+      "round": -10,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": [
+        {
+          "game_id": 32655746,
+          "order_num": 1,
+          "winner_id": 1974326,
+          "entrant1_score": 0,
+          "entrant2_score": null,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2159261,
+              "selection_id": 48154343,
+              "character_id": 1441,
+              "character_name": "Piranha Plant"
+            },
+            {
+              "user_id": 1974326,
+              "selection_id": 48154344,
+              "character_id": 1413,
+              "character_name": "Isabelle"
+            }
+          ]
+        },
+        {
+          "game_id": 32655747,
+          "order_num": 2,
+          "winner_id": 2159261,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2159261,
+              "selection_id": 48154345,
+              "character_id": 1441,
+              "character_name": "Piranha Plant"
+            },
+            {
+              "user_id": 1974326,
+              "selection_id": 48154346,
+              "character_id": 1413,
+              "character_name": "Isabelle"
+            }
+          ]
+        },
+        {
+          "game_id": 32655748,
+          "order_num": 3,
+          "winner_id": 1974326,
+          "entrant1_score": 0,
+          "entrant2_score": null,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2159261,
+              "selection_id": 48154347,
+              "character_id": 1441,
+              "character_name": "Piranha Plant"
+            },
+            {
+              "user_id": 1974326,
+              "selection_id": 48154348,
+              "character_id": 1413,
+              "character_name": "Isabelle"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "set_id": 93977348,
+      "winner_id": 1974326,
+      "loser_id": 770694,
+      "winner_score": 2,
+      "loser_score": 0,
+      "round_text": "Losers Semi-Final",
+      "round": -9,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": [
+        {
+          "game_id": 32676483,
+          "order_num": 1,
+          "winner_id": 1974326,
+          "entrant1_score": 0,
+          "entrant2_score": null,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 770694,
+              "selection_id": 48183525,
+              "character_id": 1319,
+              "character_name": "Pikachu"
+            },
+            {
+              "user_id": 1974326,
+              "selection_id": 48183526,
+              "character_id": 1413,
+              "character_name": "Isabelle"
+            }
+          ]
+        },
+        {
+          "game_id": 32676484,
+          "order_num": 2,
+          "winner_id": 1974326,
+          "entrant1_score": 0,
+          "entrant2_score": null,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 770694,
+              "selection_id": 48183527,
+              "character_id": 1319,
+              "character_name": "Pikachu"
+            },
+            {
+              "user_id": 1974326,
+              "selection_id": 48183528,
+              "character_id": 1413,
+              "character_name": "Isabelle"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "set_id": 93977283,
+      "winner_id": 2159261,
+      "loser_id": 1974326,
+      "winner_score": 2,
+      "loser_score": 1,
+      "round_text": "Winners Semi-Final",
+      "round": 4,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": [
+        {
+          "game_id": 32655547,
+          "order_num": 1,
+          "winner_id": 1974326,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2159261,
+              "selection_id": 48154087,
+              "character_id": 1441,
+              "character_name": "Piranha Plant"
+            },
+            {
+              "user_id": 1974326,
+              "selection_id": 48154088,
+              "character_id": 1405,
+              "character_name": "Mr. Game & Watch"
+            }
+          ]
+        },
+        {
+          "game_id": 32655548,
+          "order_num": 2,
+          "winner_id": 2159261,
+          "entrant1_score": 0,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2159261,
+              "selection_id": 48154089,
+              "character_id": 1441,
+              "character_name": "Piranha Plant"
+            },
+            {
+              "user_id": 1974326,
+              "selection_id": 48154090,
+              "character_id": 1405,
+              "character_name": "Mr. Game & Watch"
+            }
+          ]
+        },
+        {
+          "game_id": 32655549,
+          "order_num": 3,
+          "winner_id": 2159261,
+          "entrant1_score": 0,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2159261,
+              "selection_id": 48154091,
+              "character_id": 1441,
+              "character_name": "Piranha Plant"
+            },
+            {
+              "user_id": 1974326,
+              "selection_id": 48154092,
+              "character_id": 1405,
+              "character_name": "Mr. Game & Watch"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "set_id": 93977284,
+      "winner_id": 842610,
+      "loser_id": 2268173,
+      "winner_score": 2,
+      "loser_score": 1,
+      "round_text": "Winners Semi-Final",
+      "round": 4,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": [
+        {
+          "game_id": 32655618,
+          "order_num": 1,
+          "winner_id": 842610,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2268173,
+              "selection_id": 48154151,
+              "character_id": 1292,
+              "character_name": "Inkling"
+            },
+            {
+              "user_id": 842610,
+              "selection_id": 48154152,
+              "character_id": 1289,
+              "character_name": "Greninja"
+            }
+          ]
+        },
+        {
+          "game_id": 32655619,
+          "order_num": 2,
+          "winner_id": 2268173,
+          "entrant1_score": 0,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2268173,
+              "selection_id": 48154153,
+              "character_id": 1292,
+              "character_name": "Inkling"
+            },
+            {
+              "user_id": 842610,
+              "selection_id": 48154154,
+              "character_id": 1289,
+              "character_name": "Greninja"
+            }
+          ]
+        },
+        {
+          "game_id": 32655620,
+          "order_num": 3,
+          "winner_id": 842610,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2268173,
+              "selection_id": 48154155,
+              "character_id": 1292,
+              "character_name": "Inkling"
+            },
+            {
+              "user_id": 842610,
+              "selection_id": 48154156,
+              "character_id": 1289,
+              "character_name": "Greninja"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "set_id": 93977346,
+      "winner_id": 770694,
+      "loser_id": 2268173,
+      "winner_score": 2,
+      "loser_score": 1,
+      "round_text": "Losers Quarter-Final",
+      "round": -8,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "set_id": 93977347,
+      "winner_id": 1974326,
+      "loser_id": 1917965,
+      "winner_score": 2,
+      "loser_score": 0,
+      "round_text": "Losers Quarter-Final",
+      "round": -8,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": [
+        {
+          "game_id": 32655702,
+          "order_num": 1,
+          "winner_id": 1974326,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 1917965,
+              "selection_id": 48154269,
+              "character_id": 1329,
+              "character_name": "Sheik"
+            },
+            {
+              "user_id": 1974326,
+              "selection_id": 48154270,
+              "character_id": 1405,
+              "character_name": "Mr. Game & Watch"
+            }
+          ]
+        },
+        {
+          "game_id": 32655703,
+          "order_num": 2,
+          "winner_id": 1974326,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 1917965,
+              "selection_id": 48154271,
+              "character_id": 1329,
+              "character_name": "Sheik"
+            },
+            {
+              "user_id": 1974326,
+              "selection_id": 48154272,
+              "character_id": 1405,
+              "character_name": "Mr. Game & Watch"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "set_id": 93977344,
+      "winner_id": 770694,
+      "loser_id": 2473547,
+      "winner_score": 2,
+      "loser_score": 0,
+      "round_text": "Losers Round 5",
+      "round": -7,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "set_id": 93977345,
+      "winner_id": 1917965,
+      "loser_id": 1984881,
+      "winner_score": 2,
+      "loser_score": 0,
+      "round_text": "Losers Round 5",
+      "round": -7,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "set_id": 93977279,
+      "winner_id": 1974326,
+      "loser_id": 393835,
+      "winner_score": 2,
+      "loser_score": 0,
+      "round_text": "Winners Quarter-Final",
+      "round": 3,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": [
+        {
+          "game_id": 32676475,
+          "order_num": 1,
+          "winner_id": 1974326,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 393835,
+              "selection_id": 48183513,
+              "character_id": 1290,
+              "character_name": "Ice Climbers"
+            },
+            {
+              "user_id": 1974326,
+              "selection_id": 48183514,
+              "character_id": 1336,
+              "character_name": "Wii Fit Trainer"
+            }
+          ]
+        },
+        {
+          "game_id": 32676476,
+          "order_num": 2,
+          "winner_id": 1974326,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 393835,
+              "selection_id": 48183515,
+              "character_id": 1290,
+              "character_name": "Ice Climbers"
+            },
+            {
+              "user_id": 1974326,
+              "selection_id": 48183516,
+              "character_id": 1336,
+              "character_name": "Wii Fit Trainer"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "set_id": 93977280,
+      "winner_id": 2159261,
+      "loser_id": 998485,
+      "winner_score": 2,
+      "loser_score": 0,
+      "round_text": "Winners Quarter-Final",
+      "round": 3,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "set_id": 93977281,
+      "winner_id": 842610,
+      "loser_id": 1984881,
+      "winner_score": 2,
+      "loser_score": 0,
+      "round_text": "Winners Quarter-Final",
+      "round": 3,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "set_id": 93977282,
+      "winner_id": 2268173,
+      "loser_id": 1917965,
+      "winner_score": 2,
+      "loser_score": 1,
+      "round_text": "Winners Quarter-Final",
+      "round": 3,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": [
+        {
+          "game_id": 32655375,
+          "order_num": 1,
+          "winner_id": 1917965,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2268173,
+              "selection_id": 48153958,
+              "character_id": 1292,
+              "character_name": "Inkling"
+            },
+            {
+              "user_id": 1917965,
+              "selection_id": 48153959,
+              "character_id": 1329,
+              "character_name": "Sheik"
+            }
+          ]
+        },
+        {
+          "game_id": 32655376,
+          "order_num": 2,
+          "winner_id": 2268173,
+          "entrant1_score": 0,
+          "entrant2_score": null,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2268173,
+              "selection_id": 48153960,
+              "character_id": 1292,
+              "character_name": "Inkling"
+            },
+            {
+              "user_id": 1917965,
+              "selection_id": 48153961,
+              "character_id": 1329,
+              "character_name": "Sheik"
+            }
+          ]
+        },
+        {
+          "game_id": 32655377,
+          "order_num": 3,
+          "winner_id": 2268173,
+          "entrant1_score": 0,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2268173,
+              "selection_id": 48153962,
+              "character_id": 1292,
+              "character_name": "Inkling"
+            },
+            {
+              "user_id": 1917965,
+              "selection_id": 48153963,
+              "character_id": 1329,
+              "character_name": "Sheik"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "set_id": 93977340,
+      "winner_id": 770694,
+      "loser_id": 998485,
+      "winner_score": 0,
+      "loser_score": -1,
+      "round_text": "Losers Round 4",
+      "round": -6,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": true,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "set_id": 93977341,
+      "winner_id": 2473547,
+      "loser_id": 393835,
+      "winner_score": 2,
+      "loser_score": 1,
+      "round_text": "Losers Round 4",
+      "round": -6,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "set_id": 93977342,
+      "winner_id": 1917965,
+      "loser_id": 1827584,
+      "winner_score": 2,
+      "loser_score": 0,
+      "round_text": "Losers Round 4",
+      "round": -6,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "set_id": 93977343,
+      "winner_id": 1984881,
+      "loser_id": 1864512,
+      "winner_score": 2,
+      "loser_score": 0,
+      "round_text": "Losers Round 4",
+      "round": -6,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "set_id": 93977336,
+      "winner_id": 770694,
+      "loser_id": 2733216,
+      "winner_score": 2,
+      "loser_score": 0,
+      "round_text": "Losers Round 3",
+      "round": -5,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "set_id": 93977337,
+      "winner_id": 2473547,
+      "loser_id": 2266544,
+      "winner_score": 2,
+      "loser_score": 0,
+      "round_text": "Losers Round 3",
+      "round": -5,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "set_id": 93977338,
+      "winner_id": 1827584,
+      "loser_id": 3064083,
+      "winner_score": 2,
+      "loser_score": 0,
+      "round_text": "Losers Round 3",
+      "round": -5,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "set_id": 93977339,
+      "winner_id": 1864512,
+      "loser_id": 1825446,
+      "winner_score": 2,
+      "loser_score": 0,
+      "round_text": "Losers Round 3",
+      "round": -5,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "set_id": 93977271,
+      "winner_id": 1974326,
+      "loser_id": 1825446,
+      "winner_score": 2,
+      "loser_score": 0,
+      "round_text": "Winners Round 2",
+      "round": 2,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "set_id": 93977272,
+      "winner_id": 393835,
+      "loser_id": 1864512,
+      "winner_score": 2,
+      "loser_score": 0,
+      "round_text": "Winners Round 2",
+      "round": 2,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "set_id": 93977273,
+      "winner_id": 998485,
+      "loser_id": 3064083,
+      "winner_score": 2,
+      "loser_score": 0,
+      "round_text": "Winners Round 2",
+      "round": 2,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "set_id": 93977274,
+      "winner_id": 2159261,
+      "loser_id": 2176309,
+      "winner_score": 2,
+      "loser_score": 0,
+      "round_text": "Winners Round 2",
+      "round": 2,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": [
+        {
+          "game_id": 32676487,
+          "order_num": 1,
+          "winner_id": 2159261,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2176309,
+              "selection_id": 48183533,
+              "character_id": 1323,
+              "character_name": "R.O.B."
+            },
+            {
+              "user_id": 2159261,
+              "selection_id": 48183534,
+              "character_id": 1441,
+              "character_name": "Piranha Plant"
+            }
+          ]
+        },
+        {
+          "game_id": 32676488,
+          "order_num": 2,
+          "winner_id": 2159261,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2176309,
+              "selection_id": 48183535,
+              "character_id": 1323,
+              "character_name": "R.O.B."
+            },
+            {
+              "user_id": 2159261,
+              "selection_id": 48183536,
+              "character_id": 1441,
+              "character_name": "Piranha Plant"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "set_id": 93977275,
+      "winner_id": 842610,
+      "loser_id": 2614362,
+      "winner_score": 2,
+      "loser_score": 0,
+      "round_text": "Winners Round 2",
+      "round": 2,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "set_id": 93977276,
+      "winner_id": 1984881,
+      "loser_id": 2473547,
+      "winner_score": 2,
+      "loser_score": 1,
+      "round_text": "Winners Round 2",
+      "round": 2,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "set_id": 93977277,
+      "winner_id": 1917965,
+      "loser_id": 1048278,
+      "winner_score": 2,
+      "loser_score": 0,
+      "round_text": "Winners Round 2",
+      "round": 2,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "set_id": 93977278,
+      "winner_id": 2268173,
+      "loser_id": 770694,
+      "winner_score": 2,
+      "loser_score": 1,
+      "round_text": "Winners Round 2",
+      "round": 2,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "set_id": 93977328,
+      "winner_id": 770694,
+      "loser_id": 2836674,
+      "winner_score": 2,
+      "loser_score": 0,
+      "round_text": "Losers Round 2",
+      "round": -4,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "set_id": 93977329,
+      "winner_id": 2733216,
+      "loser_id": 1048278,
+      "winner_score": 2,
+      "loser_score": 0,
+      "round_text": "Losers Round 2",
+      "round": -4,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "set_id": 93977330,
+      "winner_id": 2473547,
+      "loser_id": 2779056,
+      "winner_score": 2,
+      "loser_score": 0,
+      "round_text": "Losers Round 2",
+      "round": -4,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "set_id": 93977331,
+      "winner_id": 2266544,
+      "loser_id": 2614362,
+      "winner_score": 2,
+      "loser_score": 0,
+      "round_text": "Losers Round 2",
+      "round": -4,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "set_id": 93977332,
+      "winner_id": 1827584,
+      "loser_id": 2176309,
+      "winner_score": 2,
+      "loser_score": 0,
+      "round_text": "Losers Round 2",
+      "round": -4,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "set_id": 93977333,
+      "winner_id": 3064083,
+      "loser_id": 3128217,
+      "winner_score": 2,
+      "loser_score": 1,
+      "round_text": "Losers Round 2",
+      "round": -4,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "set_id": 93977334,
+      "winner_id": 1864512,
+      "loser_id": 461394,
+      "winner_score": 2,
+      "loser_score": 1,
+      "round_text": "Losers Round 2",
+      "round": -4,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "set_id": 93977335,
+      "winner_id": 1825446,
+      "loser_id": 1815239,
+      "winner_score": 2,
+      "loser_score": 1,
+      "round_text": "Losers Round 2",
+      "round": -4,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "set_id": 93977321,
+      "winner_id": 2733216,
+      "loser_id": 1819576,
+      "winner_score": 2,
+      "loser_score": 0,
+      "round_text": "Losers Round 1",
+      "round": -3,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "set_id": 93977325,
+      "winner_id": 3128217,
+      "loser_id": 842670,
+      "winner_score": 2,
+      "loser_score": 1,
+      "round_text": "Losers Round 1",
+      "round": -3,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "set_id": 93977327,
+      "winner_id": 1815239,
+      "loser_id": 1853608,
+      "winner_score": 2,
+      "loser_score": 0,
+      "round_text": "Losers Round 1",
+      "round": -3,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "set_id": 93977256,
+      "winner_id": 1825446,
+      "loser_id": 2836674,
+      "winner_score": 2,
+      "loser_score": 0,
+      "round_text": "Winners Round 1",
+      "round": 1,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "set_id": 93977257,
+      "winner_id": 1864512,
+      "loser_id": 2733216,
+      "winner_score": 2,
+      "loser_score": 1,
+      "round_text": "Winners Round 1",
+      "round": 1,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "set_id": 93977258,
+      "winner_id": 393835,
+      "loser_id": 1819576,
+      "winner_score": 2,
+      "loser_score": 0,
+      "round_text": "Winners Round 1",
+      "round": 1,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": [
+        {
+          "game_id": 32654922,
+          "order_num": 1,
+          "winner_id": 393835,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 393835,
+              "selection_id": 48153748,
+              "character_id": 1290,
+              "character_name": "Ice Climbers"
+            },
+            {
+              "user_id": 1819576,
+              "selection_id": 48153749,
+              "character_id": 1332,
+              "character_name": "Sonic"
+            }
+          ]
+        },
+        {
+          "game_id": 32654923,
+          "order_num": 2,
+          "winner_id": 393835,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 393835,
+              "selection_id": 48153750,
+              "character_id": 1290,
+              "character_name": "Ice Climbers"
+            },
+            {
+              "user_id": 1819576,
+              "selection_id": 48153751,
+              "character_id": 1332,
+              "character_name": "Sonic"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "set_id": 93977260,
+      "winner_id": 3064083,
+      "loser_id": 2779056,
+      "winner_score": 2,
+      "loser_score": 1,
+      "round_text": "Winners Round 1",
+      "round": 1,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": [
+        {
+          "game_id": 32676479,
+          "order_num": 1,
+          "winner_id": 3064083,
+          "entrant1_score": 0,
+          "entrant2_score": null,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 3064083,
+              "selection_id": 48183519,
+              "character_id": 1280,
+              "character_name": "Donkey Kong"
+            },
+            {
+              "user_id": 2779056,
+              "selection_id": 48183520,
+              "character_id": 1294,
+              "character_name": "King Dedede"
+            }
+          ]
+        },
+        {
+          "game_id": 32676480,
+          "order_num": 2,
+          "winner_id": 2779056,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 3064083,
+              "selection_id": 48183521,
+              "character_id": 1280,
+              "character_name": "Donkey Kong"
+            },
+            {
+              "user_id": 2779056,
+              "selection_id": 48183522,
+              "character_id": 1294,
+              "character_name": "King Dedede"
+            }
+          ]
+        },
+        {
+          "game_id": 32676481,
+          "order_num": 3,
+          "winner_id": 3064083,
+          "entrant1_score": 0,
+          "entrant2_score": null,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 3064083,
+              "selection_id": 48183523,
+              "character_id": 1280,
+              "character_name": "Donkey Kong"
+            },
+            {
+              "user_id": 2779056,
+              "selection_id": 48183524,
+              "character_id": 1294,
+              "character_name": "King Dedede"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "set_id": 93977262,
+      "winner_id": 2176309,
+      "loser_id": 2266544,
+      "winner_score": 2,
+      "loser_score": 0,
+      "round_text": "Winners Round 1",
+      "round": 1,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "set_id": 93977264,
+      "winner_id": 2614362,
+      "loser_id": 1827584,
+      "winner_score": 2,
+      "loser_score": 1,
+      "round_text": "Winners Round 1",
+      "round": 1,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "set_id": 93977265,
+      "winner_id": 1984881,
+      "loser_id": 842670,
+      "winner_score": 2,
+      "loser_score": 0,
+      "round_text": "Winners Round 1",
+      "round": 1,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "set_id": 93977266,
+      "winner_id": 2473547,
+      "loser_id": 3128217,
+      "winner_score": 2,
+      "loser_score": 0,
+      "round_text": "Winners Round 1",
+      "round": 1,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "set_id": 93977268,
+      "winner_id": 1048278,
+      "loser_id": 461394,
+      "winner_score": 2,
+      "loser_score": 0,
+      "round_text": "Winners Round 1",
+      "round": 1,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "set_id": 93977269,
+      "winner_id": 770694,
+      "loser_id": 1815239,
+      "winner_score": 2,
+      "loser_score": 0,
+      "round_text": "Winners Round 1",
+      "round": 1,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "set_id": 93977270,
+      "winner_id": 2268173,
+      "loser_id": 1853608,
+      "winner_score": 2,
+      "loser_score": 0,
+      "round_text": "Winners Round 1",
+      "round": 1,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
     }
   ],
   "version": "1.0"
