@@ -70,6 +70,15 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--indent_num", type=int, default=2, help="Indentation level for JSON output")
     parser.add_argument("--start_page", type=int, default=1, help="Tournament list page to start from (for resuming).")
     parser.add_argument(
+        "--max_pages",
+        type=int,
+        default=None,
+        help=(
+            "Stop after scanning this many tournament-list pages (useful for a quick smoke "
+            "test, including with --dry-run). Default: unlimited (scans full history)."
+        ),
+    )
+    parser.add_argument(
         "--dry-run",
         action="store_true",
         help="Report what would be added without writing tournaments.jsonl.",
@@ -83,10 +92,12 @@ def scan_and_fill(
     startgg_dir: str,
     tournament_file_path: str,
     start_page: int = 1,
+    max_pages: int | None = None,
     dry_run: bool = False,
 ) -> dict:
     """全期間のトーナメント履歴を走査し、既にローカルに存在するが tournaments.jsonl に
-    未登録のイベントを追加する。
+    未登録のイベントを追加する。max_pages を指定すると、start_page からその件数分の
+    ページを走査した時点で打ち切る(--dry-run での動作確認用)。
 
     戻り値: {"tournaments_scanned": int, "events_added": int, "tournaments_added": int,
              "pages": int}
@@ -176,6 +187,10 @@ def scan_and_fill(
             write_jsonl(list(tournaments.values()), tournament_file_path, with_version=True)
             rewrite_tournaments = False
 
+        if max_pages is not None and (page - start_page + 1) >= max_pages:
+            print(f"Reached --max_pages={max_pages}; stopping.")
+            break
+
         if page >= total_pages:
             break
         page += 1
@@ -204,6 +219,7 @@ def main() -> int:
         args.startgg_dir,
         args.tournament_file_path,
         start_page=args.start_page,
+        max_pages=args.max_pages,
         dry_run=args.dry_run,
     )
 

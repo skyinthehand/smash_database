@@ -114,6 +114,24 @@ class BackfillTournamentIndexTests(unittest.TestCase):
         self.assertEqual(summary["events_added"], 1)
         self.assertEqual(read_jsonl(self.tournament_file_path), [])
 
+    def test_max_pages_stops_scan_early(self):
+        # total_pages=5 だが max_pages=2 を指定した場合、3ページ目以降は
+        # 問い合わせない(--dry-run での動作確認を短時間で終わらせるため)。
+        def fake_fetch(game_id, country_code, limit, page):
+            return ([self._tournament(page, f"Tournament{page}")], 5)
+
+        with patch.object(
+            bti, "fetch_latest_tournaments_by_game", side_effect=fake_fetch
+        ) as mocked_pages, patch.object(
+            bti, "fetch_event_ids_from_tournament", return_value=[]
+        ):
+            summary = bti.scan_and_fill(
+                "1386", "", str(self.events_root), str(self.tournament_file_path), max_pages=2
+            )
+
+        self.assertEqual(mocked_pages.call_count, 2)
+        self.assertEqual(summary["pages"], 2)
+
     def test_adds_missing_event_to_already_registered_tournament(self):
         self.make_local_event_dir("Japan", "1970", "01", "01", "ExistingTournament", "Doubles")
         existing = {
