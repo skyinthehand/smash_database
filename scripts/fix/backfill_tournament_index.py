@@ -9,7 +9,8 @@ tournaments.jsonl に未登録の場合のみ追加する。まだダウンロ�
 イベントは対象外(そちらは通常のクロールに任せる)。
 
 イベント自体のデータ(attr/matches/standings/seeds)は一切取得・更新しない。
-更新するのは tournaments.jsonl のみ。
+既に登録済みのイベントのパス書き換えやディレクトリ削除も一切行わない(add_event_if_missing
+参照)。行うのは未登録イベントの追加のみで、--dry-run 時はそれすら書き込まない。
 
 使い方:
     python3 scripts/fix/backfill_tournament_index.py --token <TOKEN>
@@ -30,7 +31,6 @@ from scripts.fetch.download import (  # noqa: E402
     TOURNAMENTS_PER_PAGE,
     fetch_event_ids_from_tournament,
     fetch_latest_tournaments_by_game,
-    record_event_path,
 )
 from scripts.utils import (  # noqa: E402
     FetchError,
@@ -44,6 +44,22 @@ from scripts.utils import (  # noqa: E402
     set_retry_parameters,
     write_jsonl,
 )
+
+
+def add_event_if_missing(tournaments, tournament_id, event_id, event_name, event_dir) -> bool:
+    """event_id が tournaments[tournament_id]["events"] に未登録の場合のみ追加する。
+
+    このツールは「抜けている登録を追加するだけ」が役目であり、既存の登録済みイベントの
+    パスを書き換えたり、ディスク上のディレクトリを削除したりは一切行わない(それは通常の
+    クロール側の record_event_path 相当の責務であり、意図的にここには持ち込まない)。
+
+    戻り値: 新規追加した場合 True、既に登録済みだった場合 False。
+    """
+    events = tournaments[tournament_id]["events"]
+    if any(e.get("event_id") == event_id for e in events):
+        return False
+    events.append({"event_id": event_id, "event_name": event_name, "path": event_dir})
+    return True
 
 
 def parse_args() -> argparse.Namespace:
@@ -170,7 +186,7 @@ def scan_and_fill(
                         "events": [],
                     }
 
-                changed = record_event_path(tournaments, tournament_id, event_id, event_name, event_dir)
+                changed = add_event_if_missing(tournaments, tournament_id, event_id, event_name, event_dir)
                 if changed:
                     events_added += 1
                     print(f"[ADD] tournament_id={tournament_id} event_id={event_id} path={event_dir}")

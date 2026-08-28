@@ -13,6 +13,7 @@ from scripts.fetch.download import (
     SET_IDS_PER_PAGE_FALLBACKS,
     build_match_data_from_node,
     build_match_dedupe_key,
+    cleanup_relocated_directory,
     configure_fetch_behavior,
     count_guest_entrants,
     dedupe_set_nodes,
@@ -31,8 +32,8 @@ from scripts.fetch.download import (
     merge_matches_records,
     outstanding_set_ids,
     read_matches_data,
-    record_event_path,
     should_skip_tournament,
+    update_event_registration,
     write_event_attributes,
     write_matches,
     write_matches_data,
@@ -828,39 +829,47 @@ class DownloadTests(unittest.TestCase):
             [(10, "Singles", False, "COMPLETED", 1)],
         )
 
-    # -- record_event_path (US1/US3 共有ヘルパー) ---------------------------
+    # -- update_event_registration / cleanup_relocated_directory (US1/US3 共有ヘルパー) --
+    # 「登録の更新(メモリ操作のみ)」と「古いディレクトリの削除(ディスク操作)」は
+    # 意図的に別関数に分離されている。呼び出し元が明示的に cleanup_relocated_directory()
+    # を呼ばない限り、ディスク上のファイルは一切変更されないことを確認する。
 
-    def test_record_event_path_appends_new_entry(self):
+    def test_update_event_registration_appends_new_entry(self):
         tournaments = {1: {"tournament_id": 1, "name": "T", "events": []}}
 
-        changed = record_event_path(tournaments, 1, 10, "Singles", "new-dir")
+        changed, stale_old_path = update_event_registration(tournaments, 1, 10, "Singles", "new-dir")
 
         self.assertTrue(changed)
+        self.assertIsNone(stale_old_path)
         self.assertEqual(
             tournaments[1]["events"],
             [{"event_id": 10, "event_name": "Singles", "path": "new-dir"}],
         )
 
-    def test_record_event_path_does_not_append_when_matches_only(self):
+    def test_update_event_registration_does_not_append_when_matches_only(self):
         tournaments = {1: {"tournament_id": 1, "name": "T", "events": []}}
 
-        changed = record_event_path(tournaments, 1, 10, "Singles", "new-dir", matches_only=True)
+        changed, stale_old_path = update_event_registration(
+            tournaments, 1, 10, "Singles", "new-dir", matches_only=True
+        )
 
         self.assertFalse(changed)
+        self.assertIsNone(stale_old_path)
         self.assertEqual(tournaments[1]["events"], [])
 
-    def test_record_event_path_is_noop_when_path_unchanged(self):
+    def test_update_event_registration_is_noop_when_path_unchanged(self):
         tournaments = {
             1: {"tournament_id": 1, "name": "T", "events": [{"event_id": 10, "event_name": "Singles", "path": "same-dir"}]}
         }
 
         with patch("scripts.fetch.download.event_files_complete", return_value=True) as mock_complete:
-            changed = record_event_path(tournaments, 1, 10, "Singles", "same-dir")
+            changed, stale_old_path = update_event_registration(tournaments, 1, 10, "Singles", "same-dir")
 
         self.assertFalse(changed)
+        self.assertIsNone(stale_old_path)
         mock_complete.assert_not_called()
 
-    def test_record_event_path_relocates_when_new_directory_is_complete(self):
+    def test_update_event_registration_relocates_without_touching_disk(self):
         with tempfile.TemporaryDirectory() as tmpdir:
             old_dir = os.path.join(tmpdir, "old")
             new_dir = os.path.join(tmpdir, "new")
@@ -873,13 +882,16 @@ class DownloadTests(unittest.TestCase):
             }
 
             with patch("scripts.fetch.download.event_files_complete", return_value=True):
-                changed = record_event_path(tournaments, 1, 10, "Singles", new_dir)
+                changed, stale_old_path = update_event_registration(tournaments, 1, 10, "Singles", new_dir)
 
             self.assertTrue(changed)
+            self.assertEqual(stale_old_path, old_dir)
             self.assertEqual(tournaments[1]["events"][0]["path"], new_dir)
-            self.assertFalse(os.path.isdir(old_dir))
+            # update_event_registration 自体はディスクに一切触れない: 呼び出し元が
+            # cleanup_relocated_directory() を呼ぶまで古いディレクトリは残る。
+            self.assertTrue(os.path.isdir(old_dir))
 
-    def test_record_event_path_keeps_old_directory_when_new_directory_incomplete(self):
+    def test_update_event_registration_keeps_old_directory_when_new_directory_incomplete(self):
         with tempfile.TemporaryDirectory() as tmpdir:
             old_dir = os.path.join(tmpdir, "old")
             new_dir = os.path.join(tmpdir, "new")
@@ -890,13 +902,14 @@ class DownloadTests(unittest.TestCase):
             }
 
             with patch("scripts.fetch.download.event_files_complete", return_value=False):
-                changed = record_event_path(tournaments, 1, 10, "Singles", new_dir)
+                changed, stale_old_path = update_event_registration(tournaments, 1, 10, "Singles", new_dir)
 
             self.assertFalse(changed)
+            self.assertIsNone(stale_old_path)
             self.assertEqual(tournaments[1]["events"][0]["path"], old_dir)
             self.assertTrue(os.path.isdir(old_dir))
 
-    def test_record_event_path_does_not_touch_unrelated_event_id(self):
+    def test_update_event_registration_does_not_touch_unrelated_event_id(self):
         # FR-008: たまたま別イベントが記録されていても、異なる event_id は重複とみなさない。
         tournaments = {
             1: {
@@ -907,9 +920,10 @@ class DownloadTests(unittest.TestCase):
         }
 
         with patch("scripts.fetch.download.event_files_complete", return_value=True):
-            changed = record_event_path(tournaments, 1, 100, "Doubles", "another-dir")
+            changed, stale_old_path = update_event_registration(tournaments, 1, 100, "Doubles", "another-dir")
 
         self.assertTrue(changed)
+        self.assertIsNone(stale_old_path)
         self.assertEqual(
             tournaments[1]["events"],
             [
@@ -917,6 +931,21 @@ class DownloadTests(unittest.TestCase):
                 {"event_id": 100, "event_name": "Doubles", "path": "another-dir"},
             ],
         )
+
+    def test_cleanup_relocated_directory_removes_old_directory(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            old_dir = os.path.join(tmpdir, "old")
+            os.makedirs(old_dir, exist_ok=True)
+
+            cleanup_relocated_directory(old_dir)
+
+            self.assertFalse(os.path.isdir(old_dir))
+
+    def test_cleanup_relocated_directory_is_noop_for_missing_path(self):
+        # 存在しないパスや None を渡してもエラーにならない(呼び出し元が
+        # stale_old_path=None のときに無条件で呼んでも安全)。
+        cleanup_relocated_directory(None)
+        cleanup_relocated_directory("/nonexistent/path/for/sure")
 
     @patch("scripts.fetch.download.event_files_complete", return_value=True)
     @patch("scripts.fetch.download.read_set", return_value=set())
