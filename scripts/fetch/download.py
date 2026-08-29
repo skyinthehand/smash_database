@@ -867,6 +867,28 @@ def fetch_all_sets(event_id, lightweight=False, max_pages=None):
         return _fetch_all_sets_by_phase_group(event_id, set(), lightweight=lightweight, max_pages=max_pages)
 
 
+def resolve_entrant_user_id(participant):
+    """entrant.participants[0] からユーザーIDを解決する。
+
+    participant.user が null でも、招待されたゲストエントラント等では
+    participant.player.user 経由で同じ紐付けアカウントのIDだけ取得できる場合が
+    あるため、直接の user が無ければ player.user.id にフォールバックする。
+    (プロフィール情報は取得しない: このフォールバックは既に別イベント経由で
+    users.jsonl に登録済みのアカウントである前提で、IDの解決のみを目的とする。)
+    """
+    if participant is None:
+        return None
+    user = participant.get("user")
+    if user is not None:
+        return user.get("id")
+    player = participant.get("player")
+    if player is not None:
+        fallback_user = player.get("user")
+        if fallback_user is not None:
+            return fallback_user.get("id")
+    return None
+
+
 def fetch_entrant_user_map(event_id):
     query = get_event_entrants_query()
     variables = {"eventId": event_id}
@@ -884,12 +906,11 @@ def fetch_entrant_user_map(event_id):
         participants = entrant.get("participants") or []
         if not participants:
             continue
-        user = participants[0].get("user")
-        if user is None:
+        user_id = resolve_entrant_user_id(participants[0])
+        if user_id is None:
             continue
         entrant_id = entrant.get("id")
-        user_id = user.get("id")
-        if entrant_id is not None and user_id is not None:
+        if entrant_id is not None:
             entrant2user[entrant_id] = user_id
     return entrant2user
 
@@ -1088,10 +1109,12 @@ def download_standings(event_id, event_dir, max_pages=None):
     entrant2user = {}
     for node in standings_data:
         if node['entrant']['participants'] is not None:
-            user_data.append(node['entrant']['participants'][0]['user'])
-            player_data.append(node['entrant']['participants'][0]['player'])
-            if node['entrant']['participants'][0]['user'] is not None and node['entrant']['participants'][0]['player'] is not None:
-                entrant2user[node['entrant']['id']] = node['entrant']['participants'][0]['user']['id']
+            participant = node['entrant']['participants'][0]
+            user_data.append(participant['user'])
+            player_data.append(participant['player'])
+            user_id = resolve_entrant_user_id(participant)
+            if user_id is not None and participant['player'] is not None:
+                entrant2user[node['entrant']['id']] = user_id
 
     placements = [
         (node['placement'], entrant2user[node['entrant']['id']] if node['entrant']['id'] in entrant2user else None)
@@ -1129,10 +1152,12 @@ def download_seeds(event_id, user_data, player_data, entrant2user, event_dir, ma
     for seed in seeds_data:
         if seed['entrant']['participants'] is not None:
             if seed['entrant']['id'] not in entrant2user:
-                user_data.append(seed['entrant']['participants'][0]['user'])
-                player_data.append(seed['entrant']['participants'][0]['player'])
-                if seed['entrant']['participants'][0]['user'] is not None and seed['entrant']['participants'][0]['player'] is not None:
-                    entrant2user[seed['entrant']['id']] = seed['entrant']['participants'][0]['user']['id']
+                participant = seed['entrant']['participants'][0]
+                user_data.append(participant['user'])
+                player_data.append(participant['player'])
+                user_id = resolve_entrant_user_id(participant)
+                if user_id is not None and participant['player'] is not None:
+                    entrant2user[seed['entrant']['id']] = user_id
 
     seeds_numbers = [(seed['seedNum'], entrant2user[seed['entrant']['id']] if seed['entrant']['id'] in entrant2user else None) for seed in seeds_data]
     seeds_numbers.sort(key=lambda x: x[0])

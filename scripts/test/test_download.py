@@ -20,9 +20,12 @@ from scripts.fetch.download import (
     download_all_set,
     download_all_tournaments,
     download_by_ids,
+    download_seeds,
+    download_standings,
     event_in_fallback_mode,
     fetch_all_phase_groups,
     fetch_all_sets,
+    fetch_entrant_user_map,
     fetch_event_ids_from_tournament,
     fetch_set_details_by_ids,
     fetch_set_ids_for_event,
@@ -32,6 +35,7 @@ from scripts.fetch.download import (
     merge_matches_records,
     outstanding_set_ids,
     read_matches_data,
+    resolve_entrant_user_id,
     should_skip_tournament,
     update_event_registration,
     write_event_attributes,
@@ -1617,6 +1621,95 @@ class DownloadTests(unittest.TestCase):
         # rewrite_tournaments による書き換えが、finish_date到達によるループ終了後の
         # tail-of-function コード(write_jsonl)まで到達して反映されていること。
         self.assertEqual(updated[1]["events"][0]["path"], new_event_dir)
+
+    # -- resolve_entrant_user_id: participant.user が null でも player.user に
+    #    フォールバックしてゲスト招待された既知アカウントのuser_idを解決する ------
+
+    def test_resolve_entrant_user_id_prefers_direct_user(self):
+        participant = {"user": {"id": 1}, "player": {"id": 2, "user": {"id": 3}}}
+        self.assertEqual(resolve_entrant_user_id(participant), 1)
+
+    def test_resolve_entrant_user_id_falls_back_to_player_user(self):
+        participant = {"user": None, "player": {"id": 2, "user": {"id": 3}}}
+        self.assertEqual(resolve_entrant_user_id(participant), 3)
+
+    def test_resolve_entrant_user_id_none_when_both_unlinked(self):
+        # 本当にstart.ggアカウントにリンクされていないゲスト参加者(doubles/crew等)は
+        # 引き続き None のまま。
+        participant = {"user": None, "player": {"id": 2, "user": None}}
+        self.assertIsNone(resolve_entrant_user_id(participant))
+
+    def test_resolve_entrant_user_id_none_when_player_missing(self):
+        participant = {"user": None, "player": None}
+        self.assertIsNone(resolve_entrant_user_id(participant))
+
+    def test_resolve_entrant_user_id_none_for_none_participant(self):
+        self.assertIsNone(resolve_entrant_user_id(None))
+
+    # -- download_standings: 同じフォールバックが実際の保存結果に反映されること -----
+
+    def test_download_standings_uses_player_user_fallback_for_guest_invite(self):
+        standings_nodes = [
+            {
+                "placement": 1,
+                "entrant": {
+                    "id": 100,
+                    "name": "Entrant A",
+                    "participants": [
+                        {"user": {"id": 111}, "player": {"id": 211, "gamerTag": "A"}}
+                    ],
+                },
+            },
+            {
+                "placement": 2,
+                "entrant": {
+                    "id": 101,
+                    "name": "Entrant B (guest invite)",
+                    "participants": [
+                        {
+                            "user": None,
+                            "player": {"id": 212, "gamerTag": "B", "user": {"id": 1855664}},
+                        }
+                    ],
+                },
+            },
+        ]
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            with patch(
+                "scripts.fetch.download.fetch_with_page_fallback", return_value=standings_nodes
+            ):
+                user_data, player_data, entrant2user = download_standings(999, tmpdir)
+
+            with open(os.path.join(tmpdir, "standings.json"), encoding="utf-8") as f:
+                saved = json.load(f)
+
+        self.assertEqual(entrant2user, {100: 111, 101: 1855664})
+        self.assertEqual(
+            saved["data"],
+            [{"placement": 1, "user_id": 111}, {"placement": 2, "user_id": 1855664}],
+        )
+
+    # -- fetch_entrant_user_map: matches_only 経路でも同じフォールバックが効くこと ---
+
+    def test_fetch_entrant_user_map_uses_player_user_fallback(self):
+        entrants_nodes = [
+            {"id": 100, "participants": [{"user": {"id": 111}, "player": {"id": 211}}]},
+            {
+                "id": 101,
+                "participants": [
+                    {"user": None, "player": {"id": 212, "user": {"id": 1855664}}}
+                ],
+            },
+            {"id": 102, "participants": [{"user": None, "player": {"id": 213, "user": None}}]},
+        ]
+
+        with patch(
+            "scripts.fetch.download.fetch_with_page_fallback", return_value=entrants_nodes
+        ):
+            entrant2user = fetch_entrant_user_map(999)
+
+        self.assertEqual(entrant2user, {100: 111, 101: 1855664})
 
 
 if __name__ == "__main__":

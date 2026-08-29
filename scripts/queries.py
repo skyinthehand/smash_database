@@ -277,6 +277,9 @@ def get_standings_query():
                   id
                   gamerTag
                   prefix
+                  user {
+                    id
+                  }
                 }
               }
             }
@@ -317,6 +320,9 @@ def get_seeds_query():
                   id
                   gamerTag
                   prefix
+                  user {
+                    id
+                  }
                 }
               }
             }
@@ -386,6 +392,12 @@ def get_event_entrants_query():
             participants {
               user {
                 id
+              }
+              player {
+                id
+                user {
+                  id
+                }
               }
             }
           }

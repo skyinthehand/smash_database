@@ -68,7 +68,7 @@
   "archive_status": "completed",
   "state": "COMPLETED",
   "type": 1,
-  "event_data_version": 6,
+  "event_data_version": 7,
   "guest_entrant_count": 0
 }
 ```
@@ -177,7 +177,16 @@
   バックフィルにより順次付与される。
 
 ## 注意点
-- doubles/crew などは user_id が取得できず `null` になる場合がある。
+- doubles/crew や、start.gg アカウントに一切リンクされていない参加者は user_id が
+  取得できず `null` になる場合がある。
+- `standings.json`/`seeds.json`/`matches.json` の user_id 解決は、`entrant.participants[0].user`
+  が `null` の場合でも `entrant.participants[0].player.user` にフォールバックする
+  (`event_data_version >= 7`)。招待されたゲストエントラントなど、`participants[0].user`
+  自体は `null` でも同じ start.gg アカウントに `player.user` 経由でリンクされている
+  ケースがあるため。`event_data_version < 7` の既存データは、このフォールバックが
+  適用される前に取得されたため、本来解決できたはずの user_id が `null` のまま残って
+  いる場合があり、`scripts/fetch/backfill_schema_version.py`の巡回バックフィルにより
+  順次再取得・修正される。
 - `labels` は OpenAI による推定であり、正確性は保証されない。
 - `event_data_version` は「イベントごとに取得されるべきデータの内容(スキーマ世代)」を
   表す整数値であり、ファイル形式全体を表す `version` とは別物(`scripts/utils.py` の
@@ -186,8 +195,11 @@
 - `guest_entrant_count` は、start.gg アカウントにリンクされていない(ゲスト)参加者数。
   `download_standings()` が `standings` クエリから取得した参加者一覧のうち、
   `participants[0].user` が `null` だったエントラント数をそのまま数えており、
-  追加のAPI呼び出しは発生しない。本機能導入前に取得された既存イベントには
-  存在しない(`null`)。
+  追加のAPI呼び出しは発生しない。上記の `player.user` フォールバックとは独立した
+  カウントのため、`event_data_version >= 7` では「`guest_entrant_count` に含まれる
+  =`standings.json`/`seeds.json`上のuser_idが`null`」とは限らない点に注意
+  (`participants[0].user`は`null`でも`player.user`経由で解決できるケースがあるため)。
+  本機能導入前に取得された既存イベントには存在しない(`null`)。
 - `end_at` は大会(トーナメント)全体の終了日時(UNIXタイムスタンプ、`timestamp` と
   同じ形式)。イベント(種目)ごとの個別の終了日時ではない。start.gg 側で終了日時が
   未確定の場合は `null`。`event_data_version` が `3` 未満の既存イベントには
