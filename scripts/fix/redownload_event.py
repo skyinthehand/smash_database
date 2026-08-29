@@ -29,11 +29,13 @@ if ROOT_DIR not in sys.path:
 
 from scripts.fetch.download import (  # noqa: E402
     count_guest_entrants,
+    disambiguated_dir,
     download_all_set,
     download_seeds,
     download_standings,
     extend_user_info,
     load_excluded_event_ids,
+    path_occupied_by_different_event,
     write_event_attributes,
 )
 from scripts.queries import get_event_details_by_id_query  # noqa: E402
@@ -148,6 +150,14 @@ def redownload_event(
                 str(events_root), country_code, year, month, day, tournament_name, event_name
             )
         )
+        if path_occupied_by_different_event(str(event_dir), event_id):
+            shifted_dir = Path(disambiguated_dir(str(event_dir), tournament.get("id")))
+            print(
+                f"[{event_id}] target directory {event_dir} already holds a different event's "
+                f"data; shifting this event's own destination to {shifted_dir} instead "
+                "(the other event's data is left untouched)."
+            )
+            event_dir = shifted_dir
 
     before_matches = count_data_entries(event_dir / "matches.json") if existing_dir is not None else 0
     before_standings = count_data_entries(event_dir / "standings.json") if existing_dir is not None else 0

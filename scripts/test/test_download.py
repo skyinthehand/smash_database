@@ -15,10 +15,13 @@ from scripts.fetch.download import (
     SET_IDS_PER_PAGE_FALLBACKS,
     build_match_data_from_node,
     build_match_dedupe_key,
+    build_path_index,
     cleanup_relocated_directory,
     configure_fetch_behavior,
     count_guest_entrants,
     dedupe_set_nodes,
+    disambiguate_event_name,
+    disambiguated_dir,
     download_all_set,
     download_all_tournaments,
     download_by_ids,
@@ -37,7 +40,9 @@ from scripts.fetch.download import (
     load_excluded_phase_ids,
     merge_matches_records,
     outstanding_set_ids,
+    path_occupied_by_different_event,
     read_matches_data,
+    resolve_path_collision,
     resolve_player_user_id,
     should_skip_tournament,
     update_event_registration,
@@ -1010,6 +1015,192 @@ class DownloadTests(unittest.TestCase):
         cleanup_relocated_directory(None)
         cleanup_relocated_directory("/nonexistent/path/for/sure")
 
+    # --- 保存先パス衝突の検出・解決(specs/008-tournament-path-collision) ------------
+
+    def test_disambiguate_event_name_appends_tournament_id(self):
+        self.assertEqual(disambiguate_event_name("新京都DSW#34", 823456), "新京都DSW#34_(823456)")
+
+    def test_disambiguate_event_name_sanitizes_spaces_and_slashes(self):
+        self.assertEqual(disambiguate_event_name("Foo Bar/Baz", 1), "Foo_Bar-Baz_(1)")
+
+    def test_disambiguated_dir_replaces_tournament_name_segment(self):
+        event_dir = "data/startgg/events/Japan/2026/03/20/新京都DSW#34/SingleTournament"
+        self.assertEqual(
+            disambiguated_dir(event_dir, 823456),
+            "data/startgg/events/Japan/2026/03/20/新京都DSW#34_(823456)/SingleTournament",
+        )
+
+    def test_build_path_index_maps_path_to_tournament_and_event(self):
+        tournaments = {
+            1: {"tournament_id": 1, "events": [{"event_id": 10, "path": "a/b"}]},
+            2: {"tournament_id": 2, "events": [{"event_id": 20, "path": "c/d"}, {"event_id": 21, "path": "e/f"}]},
+        }
+        index = build_path_index(tournaments)
+        self.assertEqual(index, {"a/b": (1, 10), "c/d": (2, 20), "e/f": (2, 21)})
+
+    def test_build_path_index_ignores_events_without_path(self):
+        tournaments = {1: {"tournament_id": 1, "events": [{"event_id": 10}]}}
+        self.assertEqual(build_path_index(tournaments), {})
+
+    def test_resolve_path_collision_locked_existing_always_adjusts_new_side(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            naive_dir = os.path.join(tmpdir, "Japan", "2026", "01", "01", "T", "Singles")
+            tentative_dir = os.path.join(tmpdir, "Japan", "2026", "01", "01", "T_(2)", "Singles")
+            os.makedirs(naive_dir, exist_ok=True)
+            os.makedirs(tentative_dir, exist_ok=True)
+            existing_event = {"event_id": 1, "path": naive_dir}
+            tournaments = {1: {"tournament_id": 1, "events": [existing_event]}}
+
+            result = resolve_path_collision(
+                naive_dir, tentative_dir, new_num_entrants=999, new_tournament_id=2,
+                existing_tournament_id=1, existing_event=existing_event,
+                tournaments=tournaments, settled_tournament_ids={1},
+            )
+
+            self.assertEqual(result, tentative_dir)
+            self.assertEqual(existing_event["path"], naive_dir)
+            self.assertTrue(os.path.isdir(naive_dir))
+            self.assertTrue(os.path.isdir(tentative_dir))
+
+    def test_resolve_path_collision_new_side_wins_promotes_and_evicts_existing(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            naive_dir = os.path.join(tmpdir, "Japan", "2026", "01", "01", "T", "Singles")
+            tentative_dir = os.path.join(tmpdir, "Japan", "2026", "01", "01", "T_(2)", "Singles")
+            os.makedirs(naive_dir, exist_ok=True)
+            with open(os.path.join(naive_dir, "attr.json"), "w", encoding="utf-8") as f:
+                json.dump({"num_entrants": 4}, f)
+            os.makedirs(tentative_dir, exist_ok=True)
+            with open(os.path.join(tentative_dir, "standings.json"), "w", encoding="utf-8") as f:
+                json.dump({"data": []}, f)
+
+            existing_event = {"event_id": 1, "path": naive_dir}
+            tournaments = {1: {"tournament_id": 1, "events": [existing_event]}}
+
+            result = resolve_path_collision(
+                naive_dir, tentative_dir, new_num_entrants=10, new_tournament_id=2,
+                existing_tournament_id=1, existing_event=existing_event,
+                tournaments=tournaments, settled_tournament_ids=set(),
+            )
+
+            expected_existing_dir = os.path.join(tmpdir, "Japan", "2026", "01", "01", "T_(1)", "Singles")
+            self.assertEqual(result, naive_dir)
+            self.assertEqual(existing_event["path"], expected_existing_dir)
+            self.assertTrue(os.path.isdir(expected_existing_dir))
+            self.assertTrue(os.path.isfile(os.path.join(naive_dir, "standings.json")))
+            self.assertFalse(os.path.isdir(tentative_dir))
+
+    def test_resolve_path_collision_existing_side_wins_new_side_stays_tentative(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            naive_dir = os.path.join(tmpdir, "Japan", "2026", "01", "01", "T", "Singles")
+            tentative_dir = os.path.join(tmpdir, "Japan", "2026", "01", "01", "T_(2)", "Singles")
+            os.makedirs(naive_dir, exist_ok=True)
+            with open(os.path.join(naive_dir, "attr.json"), "w", encoding="utf-8") as f:
+                json.dump({"num_entrants": 100}, f)
+            os.makedirs(tentative_dir, exist_ok=True)
+
+            existing_event = {"event_id": 1, "path": naive_dir}
+            tournaments = {1: {"tournament_id": 1, "events": [existing_event]}}
+
+            result = resolve_path_collision(
+                naive_dir, tentative_dir, new_num_entrants=3, new_tournament_id=2,
+                existing_tournament_id=1, existing_event=existing_event,
+                tournaments=tournaments, settled_tournament_ids=set(),
+            )
+
+            self.assertEqual(result, tentative_dir)
+            self.assertEqual(existing_event["path"], naive_dir)
+            self.assertTrue(os.path.isdir(naive_dir))
+            self.assertTrue(os.path.isdir(tentative_dir))
+
+    def test_resolve_path_collision_tie_break_prefers_smaller_tournament_id(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            naive_dir = os.path.join(tmpdir, "Japan", "2026", "01", "01", "T", "Singles")
+            tentative_dir = os.path.join(tmpdir, "Japan", "2026", "01", "01", "T_(5)", "Singles")
+            os.makedirs(naive_dir, exist_ok=True)
+            with open(os.path.join(naive_dir, "attr.json"), "w", encoding="utf-8") as f:
+                json.dump({"num_entrants": 8}, f)
+            os.makedirs(tentative_dir, exist_ok=True)
+
+            existing_event = {"event_id": 1, "path": naive_dir}
+            tournaments = {9: {"tournament_id": 9, "events": [existing_event]}}
+
+            # 同数(8 == 8)、new_tournament_id=5 < existing_tournament_id=9 なので新規側が勝つ。
+            result = resolve_path_collision(
+                naive_dir, tentative_dir, new_num_entrants=8, new_tournament_id=5,
+                existing_tournament_id=9, existing_event=existing_event,
+                tournaments=tournaments, settled_tournament_ids=set(),
+            )
+            self.assertEqual(result, naive_dir)
+
+    def test_resolve_path_collision_missing_attr_json_defaults_existing_to_zero(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            naive_dir = os.path.join(tmpdir, "Japan", "2026", "01", "01", "T", "Singles")
+            tentative_dir = os.path.join(tmpdir, "Japan", "2026", "01", "01", "T_(2)", "Singles")
+            os.makedirs(naive_dir, exist_ok=True)  # attr.json無し
+            os.makedirs(tentative_dir, exist_ok=True)
+
+            existing_event = {"event_id": 1, "path": naive_dir}
+            tournaments = {1: {"tournament_id": 1, "events": [existing_event]}}
+
+            result = resolve_path_collision(
+                naive_dir, tentative_dir, new_num_entrants=1, new_tournament_id=2,
+                existing_tournament_id=1, existing_event=existing_event,
+                tournaments=tournaments, settled_tournament_ids=set(),
+            )
+            # 既存側は0扱いとなり、参加者数1の新規側が勝つ。
+            self.assertEqual(result, naive_dir)
+
+    def test_resolve_path_collision_resuming_after_move_is_safe(self):
+        # 憲法Principle II: リネームが実行済みの状態から再度同じ解決処理を呼んでも
+        # 安全に収束する(既に勝者側がnaive_dirを占有しているため、暫定ディレクトリが
+        # 既に存在しなくても例外を出さない)。
+        with tempfile.TemporaryDirectory() as tmpdir:
+            naive_dir = os.path.join(tmpdir, "Japan", "2026", "01", "01", "T", "Singles")
+            tentative_dir = os.path.join(tmpdir, "Japan", "2026", "01", "01", "T_(2)", "Singles")
+            os.makedirs(naive_dir, exist_ok=True)
+            with open(os.path.join(naive_dir, "attr.json"), "w", encoding="utf-8") as f:
+                json.dump({"num_entrants": 4}, f)
+            os.makedirs(tentative_dir, exist_ok=True)
+
+            existing_event = {"event_id": 1, "path": naive_dir}
+            tournaments = {1: {"tournament_id": 1, "events": [existing_event]}}
+
+            first = resolve_path_collision(
+                naive_dir, tentative_dir, new_num_entrants=10, new_tournament_id=2,
+                existing_tournament_id=1, existing_event=existing_event,
+                tournaments=tournaments, settled_tournament_ids=set(),
+            )
+            self.assertEqual(first, naive_dir)
+
+            # 再実行(resume): 同じtentative_dirは既に無いが、クラッシュしなければ良い。
+            second = resolve_path_collision(
+                naive_dir, tentative_dir, new_num_entrants=10, new_tournament_id=2,
+                existing_tournament_id=1, existing_event=existing_event,
+                tournaments=tournaments, settled_tournament_ids=set(),
+            )
+            self.assertEqual(second, naive_dir)
+
+    def test_path_occupied_by_different_event_true_for_different_event_id(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            with open(os.path.join(tmpdir, "attr.json"), "w", encoding="utf-8") as f:
+                json.dump({"event_id": 999}, f)
+            self.assertTrue(path_occupied_by_different_event(tmpdir, 1))
+
+    def test_path_occupied_by_different_event_false_for_same_event_id(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            with open(os.path.join(tmpdir, "attr.json"), "w", encoding="utf-8") as f:
+                json.dump({"event_id": 1}, f)
+            self.assertFalse(path_occupied_by_different_event(tmpdir, 1))
+
+    def test_path_occupied_by_different_event_false_when_dir_missing(self):
+        self.assertFalse(path_occupied_by_different_event("/nonexistent/for/sure", 1))
+
+    def test_path_occupied_by_different_event_true_for_fallback_mode_without_attr(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            with open(os.path.join(tmpdir, "matches.json"), "w", encoding="utf-8") as f:
+                json.dump({"data": []}, f)
+            self.assertTrue(path_occupied_by_different_event(tmpdir, 1))
+
     @patch("scripts.fetch.download.event_files_complete", return_value=True)
     @patch("scripts.fetch.download.read_set", return_value=set())
     @patch("scripts.fetch.download.read_users_jsonl", return_value={})
@@ -1821,6 +2012,322 @@ class DownloadTests(unittest.TestCase):
         # rewrite_tournaments による書き換えが、finish_date到達によるループ終了後の
         # tail-of-function コード(write_jsonl)まで到達して反映されていること。
         self.assertEqual(updated[1]["events"][0]["path"], new_event_dir)
+
+    # -- 保存先パス衝突の統合テスト(specs/008-tournament-path-collision) -------------
+
+    def _tournament_info(self, tournament_id, name, start, end, country_code="JP"):
+        return {
+            "id": tournament_id,
+            "name": name,
+            "startAt": start,
+            "endAt": end,
+            "countryCode": country_code,
+            "city": "Tokyo",
+            "lat": None,
+            "lng": None,
+            "venueName": None,
+            "timezone": "Asia/Tokyo",
+            "postalCode": None,
+            "venueAddress": None,
+            "mapsPlaceId": None,
+            "url": "https://example.com",
+        }
+
+    @patch("scripts.fetch.download.read_set", return_value=set())
+    @patch("scripts.fetch.download.read_users_jsonl", return_value={})
+    @patch("scripts.fetch.download.fetch_latest_tournaments_by_game")
+    @patch("scripts.fetch.download.fetch_event_ids_from_tournament")
+    @patch("scripts.fetch.download.download_all_set", return_value=False)
+    @patch("scripts.fetch.download.download_standings")
+    @patch("scripts.fetch.download.download_seeds")
+    @patch("scripts.fetch.download.extend_user_info")
+    def test_download_all_tournaments_resolves_collision_favoring_more_entrants(
+        self,
+        _mock_extend_user_info,
+        _mock_download_seeds,
+        mock_download_standings,
+        _mock_download_all_set,
+        mock_fetch_event_ids,
+        mock_fetch_tournaments,
+        _mock_read_users,
+        _mock_read_set,
+    ):
+        start = calendar.timegm((2026, 3, 20, 9, 0, 0, 0, 0, 0))
+        end = calendar.timegm((2026, 3, 20, 12, 0, 0, 0, 0, 0))
+        mock_fetch_tournaments.return_value = (
+            [
+                self._tournament_info(1, "Collide Test", start, end),
+                self._tournament_info(2, "Collide Test", start, end),
+            ],
+            1,
+        )
+        mock_fetch_event_ids.side_effect = [
+            [(10, "Singles", False, "COMPLETED", 1)],
+            [(20, "Singles", False, "COMPLETED", 1)],
+        ]
+
+        def _standings(event_id, event_dir, max_pages=None):
+            os.makedirs(event_dir, exist_ok=True)
+            count = 3 if event_id == 10 else 10
+            return ([None] * count, [None] * count, {})
+
+        mock_download_standings.side_effect = _standings
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            tournament_file_path = f"{tmpdir}/tournaments.jsonl"
+            download_all_tournaments(
+                "1386", "JP",
+                datetime(2026, 3, 20, 23, 59, 59), datetime(2026, 3, 20, 0, 0, 0),
+                f"{tmpdir}", f"{tmpdir}/done.csv", f"{tmpdir}/users.jsonl", tournament_file_path,
+            )
+
+            naive_dir = get_event_directory(tmpdir, "JP", "2026", "03", "20", "Collide Test", "Singles")
+            adjusted_dir_for_loser = get_event_directory(tmpdir, "JP", "2026", "03", "20", "Collide Test_(1)", "Singles")
+
+            updated = read_tournaments_jsonl(tournament_file_path)
+            self.assertEqual(updated[2]["events"][0]["path"], naive_dir)
+            self.assertEqual(updated[1]["events"][0]["path"], adjusted_dir_for_loser)
+
+            self.assertEqual(read_json(os.path.join(naive_dir, "attr.json"))["event_id"], 20)
+            self.assertEqual(read_json(os.path.join(adjusted_dir_for_loser, "attr.json"))["event_id"], 10)
+
+    @patch("scripts.fetch.download.read_set", return_value=set())
+    @patch("scripts.fetch.download.read_users_jsonl", return_value={})
+    @patch("scripts.fetch.download.fetch_latest_tournaments_by_game")
+    @patch("scripts.fetch.download.fetch_event_ids_from_tournament")
+    @patch("scripts.fetch.download.download_all_set", return_value=False)
+    @patch("scripts.fetch.download.download_standings")
+    @patch("scripts.fetch.download.download_seeds")
+    @patch("scripts.fetch.download.extend_user_info")
+    def test_download_all_tournaments_same_run_reevaluates_for_third_larger_arrival(
+        self,
+        _mock_extend_user_info,
+        _mock_download_seeds,
+        mock_download_standings,
+        _mock_download_all_set,
+        mock_fetch_event_ids,
+        mock_fetch_tournaments,
+        _mock_read_users,
+        _mock_read_set,
+    ):
+        # Edge Cases: 同一の取得処理内でA(3人)→B(5人)→C(9人)の順に検出された場合、
+        # 最終的にCのみが元の名前を維持し、A・Bはどちらも調整される
+        # (「最初の2件だけ比較する」設計に戻らないことの回帰テスト)。
+        start = calendar.timegm((2026, 3, 20, 9, 0, 0, 0, 0, 0))
+        end = calendar.timegm((2026, 3, 20, 12, 0, 0, 0, 0, 0))
+        mock_fetch_tournaments.return_value = (
+            [
+                self._tournament_info(1, "Three Way", start, end),
+                self._tournament_info(2, "Three Way", start, end),
+                self._tournament_info(3, "Three Way", start, end),
+            ],
+            1,
+        )
+        mock_fetch_event_ids.side_effect = [
+            [(10, "Singles", False, "COMPLETED", 1)],
+            [(20, "Singles", False, "COMPLETED", 1)],
+            [(30, "Singles", False, "COMPLETED", 1)],
+        ]
+        counts = {10: 3, 20: 5, 30: 9}
+
+        def _standings(event_id, event_dir, max_pages=None):
+            os.makedirs(event_dir, exist_ok=True)
+            count = counts[event_id]
+            return ([None] * count, [None] * count, {})
+
+        mock_download_standings.side_effect = _standings
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            tournament_file_path = f"{tmpdir}/tournaments.jsonl"
+            download_all_tournaments(
+                "1386", "JP",
+                datetime(2026, 3, 20, 23, 59, 59), datetime(2026, 3, 20, 0, 0, 0),
+                f"{tmpdir}", f"{tmpdir}/done.csv", f"{tmpdir}/users.jsonl", tournament_file_path,
+            )
+
+            naive_dir = get_event_directory(tmpdir, "JP", "2026", "03", "20", "Three Way", "Singles")
+            updated = read_tournaments_jsonl(tournament_file_path)
+
+            self.assertEqual(updated[3]["events"][0]["path"], naive_dir)
+            self.assertNotEqual(updated[1]["events"][0]["path"], naive_dir)
+            self.assertNotEqual(updated[2]["events"][0]["path"], naive_dir)
+            self.assertEqual(read_json(os.path.join(naive_dir, "attr.json"))["event_id"], 30)
+
+    @patch("scripts.fetch.download.read_set", return_value=set())
+    @patch("scripts.fetch.download.read_users_jsonl", return_value={})
+    @patch("scripts.fetch.download.fetch_latest_tournaments_by_game")
+    @patch("scripts.fetch.download.fetch_event_ids_from_tournament")
+    @patch("scripts.fetch.download.download_all_set", return_value=False)
+    @patch("scripts.fetch.download.download_standings")
+    @patch("scripts.fetch.download.download_seeds")
+    @patch("scripts.fetch.download.extend_user_info")
+    def test_download_all_tournaments_does_not_revisit_settled_winner_from_earlier_run(
+        self,
+        _mock_extend_user_info,
+        _mock_download_seeds,
+        mock_download_standings,
+        _mock_download_all_set,
+        mock_fetch_event_ids,
+        mock_fetch_tournaments,
+        _mock_read_users,
+        _mock_read_set,
+    ):
+        # FR-005: tournament_id=1 は「別の(先に完了した)取得処理」で既に確定・保存済み
+        # (=このテストのdownload_all_tournaments呼び出しが始まる前からtournaments.jsonl
+        # に存在する)。今回の取得処理で、より参加者数の多いtournament_id=2が検出されても、
+        # tournament_id=1の保存先は変更されず、tournament_id=2側のみが調整される。
+        start = calendar.timegm((2026, 3, 20, 9, 0, 0, 0, 0, 0))
+        end = calendar.timegm((2026, 3, 20, 12, 0, 0, 0, 0, 0))
+        mock_fetch_tournaments.return_value = (
+            [self._tournament_info(2, "Locked Test", start, end)],
+            1,
+        )
+        mock_fetch_event_ids.return_value = [(20, "Singles", False, "COMPLETED", 1)]
+        def _standings(event_id, event_dir, max_pages=None):
+            os.makedirs(event_dir, exist_ok=True)
+            return ([None] * 999, [None] * 999, {})
+
+        mock_download_standings.side_effect = _standings
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            naive_dir = get_event_directory(tmpdir, "JP", "2026", "03", "20", "Locked Test", "Singles")
+            os.makedirs(naive_dir, exist_ok=True)
+            with open(os.path.join(naive_dir, "attr.json"), "w", encoding="utf-8") as f:
+                json.dump({"event_id": 10, "num_entrants": 1}, f)
+
+            tournament_file_path = f"{tmpdir}/tournaments.jsonl"
+            with open(tournament_file_path, "w", encoding="utf-8") as f:
+                json.dump(
+                    {
+                        "tournament_id": 1,
+                        "name": "Locked Test",
+                        "events": [{"event_id": 10, "event_name": "Singles", "path": naive_dir}],
+                        "version": "1.0",
+                    },
+                    f,
+                )
+                f.write("\n")
+
+            download_all_tournaments(
+                "1386", "JP",
+                datetime(2026, 3, 20, 23, 59, 59), datetime(2026, 3, 20, 0, 0, 0),
+                f"{tmpdir}", f"{tmpdir}/done.csv", f"{tmpdir}/users.jsonl", tournament_file_path,
+                force_refresh=True,
+            )
+
+            updated = read_tournaments_jsonl(tournament_file_path)
+            self.assertEqual(updated[1]["events"][0]["path"], naive_dir)
+            self.assertNotEqual(updated[2]["events"][0]["path"], naive_dir)
+            self.assertEqual(read_json(os.path.join(naive_dir, "attr.json"))["event_id"], 10)
+
+    @patch("scripts.fetch.download.event_files_complete", return_value=True)
+    @patch("scripts.fetch.download.read_set", return_value=set())
+    @patch("scripts.fetch.download.read_users_jsonl", return_value={})
+    @patch("scripts.fetch.download.fetch_latest_tournaments_by_game")
+    @patch("scripts.fetch.download.fetch_event_ids_from_tournament")
+    @patch("scripts.fetch.download.download_standings")
+    def test_download_all_tournaments_defers_registration_until_standings_known_on_collision(
+        self,
+        mock_download_standings,
+        mock_fetch_event_ids,
+        mock_fetch_tournaments,
+        _mock_read_users,
+        _mock_read_set,
+        _mock_event_files_complete,
+    ):
+        # FR-003: 衝突が検出された新規イベントは、standings取得が完了する(参加者数が
+        # 判明する)まで tournaments.jsonl への本登録を行わない。
+        start = calendar.timegm((2026, 3, 20, 9, 0, 0, 0, 0, 0))
+        end = calendar.timegm((2026, 3, 20, 12, 0, 0, 0, 0, 0))
+        mock_fetch_tournaments.return_value = (
+            [self._tournament_info(2, "Defer Test", start, end)],
+            1,
+        )
+        mock_fetch_event_ids.return_value = [(20, "Singles", False, "COMPLETED", 1)]
+        mock_download_standings.side_effect = MaxPagesExceededError(total_pages=999, max_pages=1, per_page=200)
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            naive_dir = get_event_directory(tmpdir, "JP", "2026", "03", "20", "Defer Test", "Singles")
+            os.makedirs(naive_dir, exist_ok=True)
+            with open(os.path.join(naive_dir, "attr.json"), "w", encoding="utf-8") as f:
+                json.dump({"event_id": 10, "num_entrants": 1}, f)
+
+            tournament_file_path = f"{tmpdir}/tournaments.jsonl"
+            with open(tournament_file_path, "w", encoding="utf-8") as f:
+                json.dump(
+                    {
+                        "tournament_id": 1,
+                        "name": "Defer Test",
+                        "events": [{"event_id": 10, "event_name": "Singles", "path": naive_dir}],
+                        "version": "1.0",
+                    },
+                    f,
+                )
+                f.write("\n")
+
+            download_all_tournaments(
+                "1386", "JP",
+                datetime(2026, 3, 20, 23, 59, 59), datetime(2026, 3, 20, 0, 0, 0),
+                f"{tmpdir}", f"{tmpdir}/done.csv", f"{tmpdir}/users.jsonl", tournament_file_path,
+                force_refresh=True,
+            )
+
+            updated = read_tournaments_jsonl(tournament_file_path)
+            # tournament_id=2 はstandings取得が(max_pages超過で)失敗したため、
+            # 一度も登録されていない(早期登録がスキップされたまま)。
+            self.assertNotIn(2, updated)
+            self.assertEqual(updated[1]["events"][0]["path"], naive_dir)
+
+    @patch("scripts.fetch.download.read_set", return_value=set())
+    @patch("scripts.fetch.download.read_users_jsonl", return_value={})
+    @patch("scripts.fetch.download.fetch_tournament_by_id")
+    @patch("scripts.fetch.download.fetch_event_ids_from_tournament")
+    @patch("scripts.fetch.download.download_all_set", return_value=False)
+    @patch("scripts.fetch.download.download_standings")
+    @patch("scripts.fetch.download.download_seeds")
+    @patch("scripts.fetch.download.extend_user_info")
+    def test_download_by_ids_resolves_collision_favoring_more_entrants(
+        self,
+        _mock_extend_user_info,
+        _mock_download_seeds,
+        mock_download_standings,
+        _mock_download_all_set,
+        mock_fetch_event_ids,
+        mock_fetch_tournament_by_id,
+        _mock_read_users,
+        _mock_read_set,
+    ):
+        start = calendar.timegm((2026, 3, 20, 9, 0, 0, 0, 0, 0))
+        end = calendar.timegm((2026, 3, 20, 12, 0, 0, 0, 0, 0))
+
+        def _tournament_by_id(tournament_id):
+            return self._tournament_info(tournament_id, "Collide By Ids", start, end)
+
+        mock_fetch_tournament_by_id.side_effect = _tournament_by_id
+        mock_fetch_event_ids.side_effect = [
+            [(10, "Singles", False, "COMPLETED", 1)],
+            [(20, "Singles", False, "COMPLETED", 1)],
+        ]
+
+        def _standings(event_id, event_dir):
+            os.makedirs(event_dir, exist_ok=True)
+            count = 2 if event_id == 10 else 40
+            return ([None] * count, [None] * count, {})
+
+        mock_download_standings.side_effect = _standings
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            tournament_file_path = f"{tmpdir}/tournaments.jsonl"
+            download_by_ids(
+                [1, 2], "1386", "JP", f"{tmpdir}", f"{tmpdir}/done.csv", f"{tmpdir}/users.jsonl", tournament_file_path,
+            )
+
+            naive_dir = get_event_directory(tmpdir, "JP", "2026", "03", "20", "Collide By Ids", "Singles")
+            adjusted_dir_for_loser = get_event_directory(tmpdir, "JP", "2026", "03", "20", "Collide By Ids_(1)", "Singles")
+
+            updated = read_tournaments_jsonl(tournament_file_path)
+            self.assertEqual(updated[2]["events"][0]["path"], naive_dir)
+            self.assertEqual(updated[1]["events"][0]["path"], adjusted_dir_for_loser)
 
     # -- resolve_player_user_id: participant.user が null だった参加者だけ、
     #    player(id:) を個別に引き直して同じアカウントへのリンクを解決する -----------
