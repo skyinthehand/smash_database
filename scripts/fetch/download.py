@@ -12,7 +12,7 @@ if ROOT_DIR not in sys.path:
 
 from scripts.queries import (
     get_event_sets_query, get_event_sets_light_query, get_standings_query, get_seeds_query,
-    get_event_entrants_query,
+    get_event_entrants_query, get_player_user_query,
     get_tournament_events_query, get_phase_groups_query, get_tournaments_by_game_query,
     get_tournament_by_id_query,
     get_phase_group_sets_query, get_phase_group_sets_light_query,
@@ -202,39 +202,52 @@ def should_skip_tournament(tournament_id, tournaments, done_tournaments, force_r
                 return False
     return True
 
-def record_event_path(tournaments, tournament_id, event_id, event_name, event_dir, matches_only=False):
-    """tournaments[tournament_id]["events"] を実体に合わせて更新する。
+def update_event_registration(tournaments, tournament_id, event_id, event_name, event_dir, matches_only=False):
+    """tournaments[tournament_id]["events"] を実体に合わせて更新する(メモリ上の辞書操作の
+    みで、ディスクへの書き込み・削除は一切行わない)。
 
-    既知の event_id が記録済みと異なるパスで再取得された場合(大会の延期等)、新しい
-    ディレクトリの必須ファイル一式が揃っていることを確認できてから初めてパスを更新し、
-    ディスク上に残る古いディレクトリを削除する(揃うまでは両方を残し、データを失わない)。
+    既知の event_id が記録済みと異なるパスで見つかった場合(大会の延期・改名等)、新しい
+    ディレクトリの必須ファイル一式が揃っていることを確認できた場合のみパスを更新する。
+    その場合、不要になった古いディレクトリのパスを stale_old_path として返すので、実際に
+    ディスクから削除するかどうかは呼び出し元が cleanup_relocated_directory() を使って
+    明示的に判断すること。パスの登録更新と実ディレクトリの削除を1つの関数に混在させると、
+    「登録だけしたいだけの呼び出し元」が意図せず削除まで発生させてしまう事故につながるため、
+    ここでは意図的に分離している。
 
-    戻り値: エントリの内容が変化した(呼び出し元が保存処理を行うべき)場合 True。
+    戻り値: (entry_changed, stale_old_path)
+    - entry_changed: エントリの内容が変化した(呼び出し元が保存処理を行うべき)場合 True。
+    - stale_old_path: 古いディレクトリが不要になった場合そのパス、それ以外は None。
     """
     existing_events = tournaments[tournament_id]["events"]
     existing_entry = next((e for e in existing_events if e.get("event_id") == event_id), None)
 
     if existing_entry is None:
         if matches_only:
-            return False
+            return False, None
         existing_events.append({
             "event_id": event_id,
             "event_name": event_name,
             "path": event_dir,
         })
-        return True
+        return True, None
 
     old_path = existing_entry.get("path")
     if old_path == event_dir:
-        return False
+        return False, None
     if matches_only or not event_files_complete(event_dir):
-        return False
+        return False, None
 
     existing_entry["path"] = event_dir
+    return True, old_path
+
+
+def cleanup_relocated_directory(old_path):
+    """update_event_registration() が返した stale_old_path を実際にディスクから削除する。
+    ディレクトリを削除する唯一の箇所であり、呼び出し元が明示的に呼んだ場合のみ実行される
+    (dry-runモードなど、削除を行いたくない呼び出し元はこの関数を呼ばなければよい)。"""
     if old_path and os.path.isdir(old_path):
         shutil.rmtree(old_path)
         print(f"Removed stale directory after relocation: {old_path}")
-    return True
 
 def download_all_tournaments(
     game_id,
@@ -351,7 +364,12 @@ def download_all_tournaments(
                     # event_id とディレクトリの対応関係は、取得処理が始まる前の時点で
                     # 判明しているため、その後の取得(seeds/matches/attr.json)が途中で
                     # 失敗しても記録が残るよう、ここで先に記録しておく。
-                    if record_event_path(tournaments, tournament_id, event_id, event_name, event_dir, matches_only=matches_only):
+                    changed, stale_old_path = update_event_registration(
+                        tournaments, tournament_id, event_id, event_name, event_dir, matches_only=matches_only
+                    )
+                    if stale_old_path:
+                        cleanup_relocated_directory(stale_old_path)
+                    if changed:
                         if tournament_id in existing_tournament_ids:
                             rewrite_tournaments = True
 
@@ -393,7 +411,12 @@ def download_all_tournaments(
                         f"Tournament {tournament_id}: finished event {event_id} ({event_name})."
                     )
 
-                    if record_event_path(tournaments, tournament_id, event_id, event_name, event_dir, matches_only=matches_only):
+                    changed, stale_old_path = update_event_registration(
+                        tournaments, tournament_id, event_id, event_name, event_dir, matches_only=matches_only
+                    )
+                    if stale_old_path:
+                        cleanup_relocated_directory(stale_old_path)
+                    if changed:
                         if tournament_id in existing_tournament_ids:
                             rewrite_tournaments = True
                 # ファイルを保存
@@ -844,6 +867,26 @@ def fetch_all_sets(event_id, lightweight=False, max_pages=None):
         return _fetch_all_sets_by_phase_group(event_id, set(), lightweight=lightweight, max_pages=max_pages)
 
 
+def resolve_player_user_id(player_id):
+    """participant.user が null だった参加者について、player(id:) を個別に引き直し、
+    player.user.id 経由で同じ start.gg アカウントへのリンクが解決できないか確認する。
+    招待されたゲストエントラント等では participant.user 自体は null でも、
+    player.user 経由でリンク済みのアカウントが見つかる場合がある(ただし、start.gg側の
+    データが後から変わっていれば、こちらも null のままのことがある)。
+
+    通常のページ取得クエリには含めず、null だった分だけ個別に呼ぶことで、
+    大多数の(既にparticipant.userで解決できる)参加者のクエリコストを増やさない。"""
+    response_data = fetch_data_with_retries(get_player_user_query(), {"playerId": player_id})
+    data = (response_data or {}).get("data") or {}
+    player = data.get("player")
+    if player is None:
+        return None
+    user = player.get("user")
+    if user is None:
+        return None
+    return user.get("id")
+
+
 def fetch_entrant_user_map(event_id):
     query = get_event_entrants_query()
     variables = {"eventId": event_id}
@@ -857,16 +900,25 @@ def fetch_entrant_user_map(event_id):
         event_id,
     )
     entrant2user = {}
+    pending_fallback = []
     for entrant in entrants:
         participants = entrant.get("participants") or []
         if not participants:
             continue
-        user = participants[0].get("user")
-        if user is None:
-            continue
+        participant = participants[0]
+        user = participant.get("user")
         entrant_id = entrant.get("id")
-        user_id = user.get("id")
-        if entrant_id is not None and user_id is not None:
+        if user is not None and user.get("id") is not None:
+            if entrant_id is not None:
+                entrant2user[entrant_id] = user["id"]
+            continue
+        player = participant.get("player")
+        if entrant_id is not None and player is not None and player.get("id") is not None:
+            pending_fallback.append((entrant_id, player["id"]))
+
+    for entrant_id, player_id in pending_fallback:
+        user_id = resolve_player_user_id(player_id)
+        if user_id is not None:
             entrant2user[entrant_id] = user_id
     return entrant2user
 
@@ -1063,22 +1115,41 @@ def download_standings(event_id, event_dir, max_pages=None):
     user_data = []
     player_data = []
     entrant2user = {}
+    entrant2player_id = {}
+    pending_fallback = []
     for node in standings_data:
         if node['entrant']['participants'] is not None:
-            user_data.append(node['entrant']['participants'][0]['user'])
-            player_data.append(node['entrant']['participants'][0]['player'])
-            if node['entrant']['participants'][0]['user'] is not None and node['entrant']['participants'][0]['player'] is not None:
-                entrant2user[node['entrant']['id']] = node['entrant']['participants'][0]['user']['id']
+            participant = node['entrant']['participants'][0]
+            user = participant['user']
+            player = participant['player']
+            user_data.append(user)
+            player_data.append(player)
+            entrant_id = node['entrant']['id']
+            if player is not None and player.get('id') is not None:
+                entrant2player_id[entrant_id] = player['id']
+            if user is not None and player is not None:
+                entrant2user[entrant_id] = user['id']
+            elif player is not None and player.get('id') is not None:
+                pending_fallback.append((entrant_id, player['id']))
+
+    for entrant_id, player_id in pending_fallback:
+        user_id = resolve_player_user_id(player_id)
+        if user_id is not None:
+            entrant2user[entrant_id] = user_id
 
     placements = [
-        (node['placement'], entrant2user[node['entrant']['id']] if node['entrant']['id'] in entrant2user else None)
+        (
+            node['placement'],
+            entrant2user.get(node['entrant']['id']),
+            entrant2player_id.get(node['entrant']['id']),
+        )
         for node in standings_data
         if node['entrant']['participants'] is not None
     ]
     placements.sort(key=lambda x: x[0])
     placements_dicts = [
-        {"placement": placement, "user_id": user_id}
-        for placement, user_id in placements
+        {"placement": placement, "user_id": user_id, "player_id": player_id}
+        for placement, user_id, player_id in placements
     ]
     
     os.makedirs(event_dir, exist_ok=True)
@@ -1103,19 +1174,41 @@ def download_seeds(event_id, user_data, player_data, entrant2user, event_dir, ma
         max_pages=max_pages,
     )
 
+    entrant2player_id = {}
+    pending_fallback = []
     for seed in seeds_data:
         if seed['entrant']['participants'] is not None:
-            if seed['entrant']['id'] not in entrant2user:
-                user_data.append(seed['entrant']['participants'][0]['user'])
-                player_data.append(seed['entrant']['participants'][0]['player'])
-                if seed['entrant']['participants'][0]['user'] is not None and seed['entrant']['participants'][0]['player'] is not None:
-                    entrant2user[seed['entrant']['id']] = seed['entrant']['participants'][0]['user']['id']
+            participant = seed['entrant']['participants'][0]
+            player = participant['player']
+            entrant_id = seed['entrant']['id']
+            if player is not None and player.get('id') is not None:
+                entrant2player_id[entrant_id] = player['id']
+            if entrant_id not in entrant2user:
+                user = participant['user']
+                user_data.append(user)
+                player_data.append(player)
+                if user is not None and player is not None:
+                    entrant2user[entrant_id] = user['id']
+                elif player is not None and player.get('id') is not None:
+                    pending_fallback.append((entrant_id, player['id']))
 
-    seeds_numbers = [(seed['seedNum'], entrant2user[seed['entrant']['id']] if seed['entrant']['id'] in entrant2user else None) for seed in seeds_data]
+    for entrant_id, player_id in pending_fallback:
+        user_id = resolve_player_user_id(player_id)
+        if user_id is not None:
+            entrant2user[entrant_id] = user_id
+
+    seeds_numbers = [
+        (
+            seed['seedNum'],
+            entrant2user.get(seed['entrant']['id']),
+            entrant2player_id.get(seed['entrant']['id']),
+        )
+        for seed in seeds_data
+    ]
     seeds_numbers.sort(key=lambda x: x[0])
     seeds_dicts = [
-        {"seed_num": seed_num, "user_id": user_id}
-        for seed_num, user_id in seeds_numbers
+        {"seed_num": seed_num, "user_id": user_id, "player_id": player_id}
+        for seed_num, user_id, player_id in seeds_numbers
     ]
     json_data = {
         "data": seeds_dicts
@@ -1308,7 +1401,9 @@ def download_by_ids(
             # event_id とディレクトリの対応関係は、取得処理が始まる前の時点で判明している
             # ため、その後の取得(seeds/matches/attr.json)が途中で失敗しても記録が残るよう、
             # ここで先に記録しておく。
-            record_event_path(tournaments, tournament_id, event_id, event_name, event_dir)
+            _, stale_old_path = update_event_registration(tournaments, tournament_id, event_id, event_name, event_dir)
+            if stale_old_path:
+                cleanup_relocated_directory(stale_old_path)
 
             try:
                 user_data, player_data, entrant2user = download_standings(event_id, event_dir)
@@ -1345,7 +1440,9 @@ def download_by_ids(
             write_event_attributes(num_entrants, event_id, event_name, tournament_name, timestamp, place, url, labels, is_online, event_dir, guest_entrant_count=guest_entrant_count, end_at=end_timestamp, state=state, event_type=event_type)
             print(f"Tournament {tournament_id}: finished event {event_id} ({event_name}).")
 
-            record_event_path(tournaments, tournament_id, event_id, event_name, event_dir)
+            _, stale_old_path = update_event_registration(tournaments, tournament_id, event_id, event_name, event_dir)
+            if stale_old_path:
+                cleanup_relocated_directory(stale_old_path)
 
         if tournaments[tournament_id]["events"]:
             extend_tournament_info(tournaments[tournament_id], tournament_file_path)

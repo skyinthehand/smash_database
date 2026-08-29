@@ -68,7 +68,7 @@
   "archive_status": "completed",
   "state": "COMPLETED",
   "type": 1,
-  "event_data_version": 6,
+  "event_data_version": 7,
   "guest_entrant_count": 0
 }
 ```
@@ -91,11 +91,17 @@
 {
   "version": "1.0",
   "data": [
-    {"placement": 1, "user_id": 111},
-    {"placement": 2, "user_id": 112}
+    {"placement": 1, "user_id": 111, "player_id": 211},
+    {"placement": 2, "user_id": 112, "player_id": 212}
   ]
 }
 ```
+- `player_id`: start.gg上のplayer ID。`user_id`が`null`の参加者でも、`player_id`は
+  取得できていれば保存される(`event_data_version >= 7`。`player.user`への個別
+  フォールバック解決と同じバージョンで導入したため専用のバージョン番号は割り当てて
+  いない)。start.ggアカウントにリンクされていない/リンクが解除された参加者を
+  後から特定するためのフォールバック識別子。`event_data_version < 7`の既存データ
+  には存在しない(`null`相当)。
 
 ## seeds
 
@@ -104,11 +110,12 @@
 {
   "version": "1.0",
   "data": [
-    {"seed_num": 1, "user_id": 111},
-    {"seed_num": 2, "user_id": 112}
+    {"seed_num": 1, "user_id": 111, "player_id": 211},
+    {"seed_num": 2, "user_id": 112, "player_id": 212}
   ]
 }
 ```
+- `player_id`: standingsと同様(上記参照)。
 
 ## matches
 
@@ -177,7 +184,22 @@
   バックフィルにより順次付与される。
 
 ## 注意点
-- doubles/crew などは user_id が取得できず `null` になる場合がある。
+- doubles/crew や、start.gg アカウントに一切リンクされていない参加者は user_id が
+  取得できず `null` になる場合がある。
+- `standings.json`/`seeds.json`/`matches.json` の user_id 解決は、`entrant.participants[0].user`
+  が `null` の場合に限り、`player(id:)` を個別に引き直して `player.user.id` への
+  フォールバックを試みる(`event_data_version >= 7`)。招待されたゲストエントラント等、
+  `participants[0].user` 自体は `null` でも `player.user` 経由で同じ start.gg アカウント
+  にリンクされているケースがあるため。この個別ルックアップは `participants[0].user`
+  が `null` だった参加者の分だけ発生し(通常の標準/seeds取得のページクエリ自体には
+  含めていない。全参加者分のフィールドを足すとページ取得のクエリコストが底上げされ、
+  complexity上限に当たりやすくなるため)、大多数の(既に`participants[0].user`で
+  解決できる)参加者には追加のAPI呼び出しは発生しない。`player.user`もnullだった場合や、
+  start.gg側でリンクが後から解除されていた場合は、従来通り`user_id`は`null`のまま。
+  `event_data_version < 7` の既存データはこのフォールバックが適用される前に取得された
+  ため、本来解決できたはずの user_id が `null` のまま残っている場合があり、
+  `scripts/fetch/backfill_schema_version.py`の巡回バックフィルにより順次再取得・修正
+  される。
 - `labels` は OpenAI による推定であり、正確性は保証されない。
 - `event_data_version` は「イベントごとに取得されるべきデータの内容(スキーマ世代)」を
   表す整数値であり、ファイル形式全体を表す `version` とは別物(`scripts/utils.py` の
@@ -186,8 +208,11 @@
 - `guest_entrant_count` は、start.gg アカウントにリンクされていない(ゲスト)参加者数。
   `download_standings()` が `standings` クエリから取得した参加者一覧のうち、
   `participants[0].user` が `null` だったエントラント数をそのまま数えており、
-  追加のAPI呼び出しは発生しない。本機能導入前に取得された既存イベントには
-  存在しない(`null`)。
+  追加のAPI呼び出しは発生しない。上記の `player.user` フォールバックとは独立した
+  カウントのため、`event_data_version >= 7` では「`guest_entrant_count` に含まれる
+  =`standings.json`/`seeds.json`上のuser_idが`null`」とは限らない点に注意
+  (`participants[0].user`は`null`でも`player.user`経由で解決できるケースがあるため)。
+  本機能導入前に取得された既存イベントには存在しない(`null`)。
 - `end_at` は大会(トーナメント)全体の終了日時(UNIXタイムスタンプ、`timestamp` と
   同じ形式)。イベント(種目)ごとの個別の終了日時ではない。start.gg 側で終了日時が
   未確定の場合は `null`。`event_data_version` が `3` 未満の既存イベントには

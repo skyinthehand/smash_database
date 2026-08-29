@@ -13,15 +13,19 @@ from scripts.fetch.download import (
     SET_IDS_PER_PAGE_FALLBACKS,
     build_match_data_from_node,
     build_match_dedupe_key,
+    cleanup_relocated_directory,
     configure_fetch_behavior,
     count_guest_entrants,
     dedupe_set_nodes,
     download_all_set,
     download_all_tournaments,
     download_by_ids,
+    download_seeds,
+    download_standings,
     event_in_fallback_mode,
     fetch_all_phase_groups,
     fetch_all_sets,
+    fetch_entrant_user_map,
     fetch_event_ids_from_tournament,
     fetch_set_details_by_ids,
     fetch_set_ids_for_event,
@@ -31,8 +35,9 @@ from scripts.fetch.download import (
     merge_matches_records,
     outstanding_set_ids,
     read_matches_data,
-    record_event_path,
+    resolve_player_user_id,
     should_skip_tournament,
+    update_event_registration,
     write_event_attributes,
     write_matches,
     write_matches_data,
@@ -828,39 +833,47 @@ class DownloadTests(unittest.TestCase):
             [(10, "Singles", False, "COMPLETED", 1)],
         )
 
-    # -- record_event_path (US1/US3 共有ヘルパー) ---------------------------
+    # -- update_event_registration / cleanup_relocated_directory (US1/US3 共有ヘルパー) --
+    # 「登録の更新(メモリ操作のみ)」と「古いディレクトリの削除(ディスク操作)」は
+    # 意図的に別関数に分離されている。呼び出し元が明示的に cleanup_relocated_directory()
+    # を呼ばない限り、ディスク上のファイルは一切変更されないことを確認する。
 
-    def test_record_event_path_appends_new_entry(self):
+    def test_update_event_registration_appends_new_entry(self):
         tournaments = {1: {"tournament_id": 1, "name": "T", "events": []}}
 
-        changed = record_event_path(tournaments, 1, 10, "Singles", "new-dir")
+        changed, stale_old_path = update_event_registration(tournaments, 1, 10, "Singles", "new-dir")
 
         self.assertTrue(changed)
+        self.assertIsNone(stale_old_path)
         self.assertEqual(
             tournaments[1]["events"],
             [{"event_id": 10, "event_name": "Singles", "path": "new-dir"}],
         )
 
-    def test_record_event_path_does_not_append_when_matches_only(self):
+    def test_update_event_registration_does_not_append_when_matches_only(self):
         tournaments = {1: {"tournament_id": 1, "name": "T", "events": []}}
 
-        changed = record_event_path(tournaments, 1, 10, "Singles", "new-dir", matches_only=True)
+        changed, stale_old_path = update_event_registration(
+            tournaments, 1, 10, "Singles", "new-dir", matches_only=True
+        )
 
         self.assertFalse(changed)
+        self.assertIsNone(stale_old_path)
         self.assertEqual(tournaments[1]["events"], [])
 
-    def test_record_event_path_is_noop_when_path_unchanged(self):
+    def test_update_event_registration_is_noop_when_path_unchanged(self):
         tournaments = {
             1: {"tournament_id": 1, "name": "T", "events": [{"event_id": 10, "event_name": "Singles", "path": "same-dir"}]}
         }
 
         with patch("scripts.fetch.download.event_files_complete", return_value=True) as mock_complete:
-            changed = record_event_path(tournaments, 1, 10, "Singles", "same-dir")
+            changed, stale_old_path = update_event_registration(tournaments, 1, 10, "Singles", "same-dir")
 
         self.assertFalse(changed)
+        self.assertIsNone(stale_old_path)
         mock_complete.assert_not_called()
 
-    def test_record_event_path_relocates_when_new_directory_is_complete(self):
+    def test_update_event_registration_relocates_without_touching_disk(self):
         with tempfile.TemporaryDirectory() as tmpdir:
             old_dir = os.path.join(tmpdir, "old")
             new_dir = os.path.join(tmpdir, "new")
@@ -873,13 +886,16 @@ class DownloadTests(unittest.TestCase):
             }
 
             with patch("scripts.fetch.download.event_files_complete", return_value=True):
-                changed = record_event_path(tournaments, 1, 10, "Singles", new_dir)
+                changed, stale_old_path = update_event_registration(tournaments, 1, 10, "Singles", new_dir)
 
             self.assertTrue(changed)
+            self.assertEqual(stale_old_path, old_dir)
             self.assertEqual(tournaments[1]["events"][0]["path"], new_dir)
-            self.assertFalse(os.path.isdir(old_dir))
+            # update_event_registration 自体はディスクに一切触れない: 呼び出し元が
+            # cleanup_relocated_directory() を呼ぶまで古いディレクトリは残る。
+            self.assertTrue(os.path.isdir(old_dir))
 
-    def test_record_event_path_keeps_old_directory_when_new_directory_incomplete(self):
+    def test_update_event_registration_keeps_old_directory_when_new_directory_incomplete(self):
         with tempfile.TemporaryDirectory() as tmpdir:
             old_dir = os.path.join(tmpdir, "old")
             new_dir = os.path.join(tmpdir, "new")
@@ -890,13 +906,14 @@ class DownloadTests(unittest.TestCase):
             }
 
             with patch("scripts.fetch.download.event_files_complete", return_value=False):
-                changed = record_event_path(tournaments, 1, 10, "Singles", new_dir)
+                changed, stale_old_path = update_event_registration(tournaments, 1, 10, "Singles", new_dir)
 
             self.assertFalse(changed)
+            self.assertIsNone(stale_old_path)
             self.assertEqual(tournaments[1]["events"][0]["path"], old_dir)
             self.assertTrue(os.path.isdir(old_dir))
 
-    def test_record_event_path_does_not_touch_unrelated_event_id(self):
+    def test_update_event_registration_does_not_touch_unrelated_event_id(self):
         # FR-008: たまたま別イベントが記録されていても、異なる event_id は重複とみなさない。
         tournaments = {
             1: {
@@ -907,9 +924,10 @@ class DownloadTests(unittest.TestCase):
         }
 
         with patch("scripts.fetch.download.event_files_complete", return_value=True):
-            changed = record_event_path(tournaments, 1, 100, "Doubles", "another-dir")
+            changed, stale_old_path = update_event_registration(tournaments, 1, 100, "Doubles", "another-dir")
 
         self.assertTrue(changed)
+        self.assertIsNone(stale_old_path)
         self.assertEqual(
             tournaments[1]["events"],
             [
@@ -917,6 +935,21 @@ class DownloadTests(unittest.TestCase):
                 {"event_id": 100, "event_name": "Doubles", "path": "another-dir"},
             ],
         )
+
+    def test_cleanup_relocated_directory_removes_old_directory(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            old_dir = os.path.join(tmpdir, "old")
+            os.makedirs(old_dir, exist_ok=True)
+
+            cleanup_relocated_directory(old_dir)
+
+            self.assertFalse(os.path.isdir(old_dir))
+
+    def test_cleanup_relocated_directory_is_noop_for_missing_path(self):
+        # 存在しないパスや None を渡してもエラーにならない(呼び出し元が
+        # stale_old_path=None のときに無条件で呼んでも安全)。
+        cleanup_relocated_directory(None)
+        cleanup_relocated_directory("/nonexistent/path/for/sure")
 
     @patch("scripts.fetch.download.event_files_complete", return_value=True)
     @patch("scripts.fetch.download.read_set", return_value=set())
@@ -1588,6 +1621,160 @@ class DownloadTests(unittest.TestCase):
         # rewrite_tournaments による書き換えが、finish_date到達によるループ終了後の
         # tail-of-function コード(write_jsonl)まで到達して反映されていること。
         self.assertEqual(updated[1]["events"][0]["path"], new_event_dir)
+
+    # -- resolve_player_user_id: participant.user が null だった参加者だけ、
+    #    player(id:) を個別に引き直して同じアカウントへのリンクを解決する -----------
+
+    def test_resolve_player_user_id_returns_user_id_when_linked(self):
+        response = {"data": {"player": {"id": 212, "user": {"id": 1855664}}}}
+        with patch("scripts.fetch.download.fetch_data_with_retries", return_value=response) as mocked:
+            self.assertEqual(resolve_player_user_id(212), 1855664)
+        mocked.assert_called_once()
+
+    def test_resolve_player_user_id_none_when_player_has_no_user(self):
+        response = {"data": {"player": {"id": 212, "user": None}}}
+        with patch("scripts.fetch.download.fetch_data_with_retries", return_value=response):
+            self.assertIsNone(resolve_player_user_id(212))
+
+    def test_resolve_player_user_id_none_when_player_missing(self):
+        response = {"data": {"player": None}}
+        with patch("scripts.fetch.download.fetch_data_with_retries", return_value=response):
+            self.assertIsNone(resolve_player_user_id(212))
+
+    # -- download_standings: 通常経路の参加者は追加API呼び出し無しで解決し、
+    #    participant.user が null だった参加者だけ個別に player(id:) へフォールバックする --
+
+    def test_download_standings_only_falls_back_for_null_user_participants(self):
+        standings_nodes = [
+            {
+                "placement": 1,
+                "entrant": {
+                    "id": 100,
+                    "name": "Entrant A",
+                    "participants": [
+                        {"user": {"id": 111}, "player": {"id": 211, "gamerTag": "A"}}
+                    ],
+                },
+            },
+            {
+                "placement": 2,
+                "entrant": {
+                    "id": 101,
+                    "name": "Entrant B (guest invite)",
+                    "participants": [
+                        {"user": None, "player": {"id": 212, "gamerTag": "B"}}
+                    ],
+                },
+            },
+            {
+                "placement": 3,
+                "entrant": {
+                    "id": 102,
+                    "name": "Entrant C (fully unlinked)",
+                    "participants": [
+                        {"user": None, "player": {"id": 213, "gamerTag": "C"}}
+                    ],
+                },
+            },
+        ]
+
+        def fake_fetch_player(query, variables):
+            player_id = variables["playerId"]
+            if player_id == 212:
+                return {"data": {"player": {"id": 212, "user": {"id": 1855664}}}}
+            return {"data": {"player": {"id": player_id, "user": None}}}
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            with patch(
+                "scripts.fetch.download.fetch_with_page_fallback", return_value=standings_nodes
+            ), patch(
+                "scripts.fetch.download.fetch_data_with_retries", side_effect=fake_fetch_player
+            ) as mocked_player_lookup:
+                user_data, player_data, entrant2user = download_standings(999, tmpdir)
+
+            with open(os.path.join(tmpdir, "standings.json"), encoding="utf-8") as f:
+                saved = json.load(f)
+
+        # 直接 participant.user が取れている entrant 100 では個別ルックアップは発生しない。
+        # フォールバックが必要だったのは entrant 101・102 の2件のみ。
+        self.assertEqual(mocked_player_lookup.call_count, 2)
+        self.assertEqual(entrant2user, {100: 111, 101: 1855664})
+        self.assertEqual(
+            saved["data"],
+            [
+                {"placement": 1, "user_id": 111, "player_id": 211},
+                {"placement": 2, "user_id": 1855664, "player_id": 212},
+                {"placement": 3, "user_id": None, "player_id": 213},
+            ],
+        )
+
+    # -- fetch_entrant_user_map: matches_only 経路でも同じフォールバックが効くこと ---
+
+    def test_fetch_entrant_user_map_falls_back_for_null_user_participants(self):
+        entrants_nodes = [
+            {"id": 100, "participants": [{"user": {"id": 111}, "player": {"id": 211}}]},
+            {"id": 101, "participants": [{"user": None, "player": {"id": 212}}]},
+        ]
+
+        def fake_fetch_player(query, variables):
+            return {"data": {"player": {"id": variables["playerId"], "user": {"id": 1855664}}}}
+
+        with patch(
+            "scripts.fetch.download.fetch_with_page_fallback", return_value=entrants_nodes
+        ), patch(
+            "scripts.fetch.download.fetch_data_with_retries", side_effect=fake_fetch_player
+        ):
+            entrant2user = fetch_entrant_user_map(999)
+
+        self.assertEqual(entrant2user, {100: 111, 101: 1855664})
+
+    # -- download_seeds: standingsと同様、player_idもseeds.jsonに保存されること ------
+
+    def test_download_seeds_saves_player_id(self):
+        seeds_nodes = [
+            {
+                "seedNum": 1,
+                "entrant": {
+                    "id": 100,
+                    "participants": [
+                        {"user": {"id": 111}, "player": {"id": 211}}
+                    ],
+                },
+            },
+            {
+                "seedNum": 2,
+                "entrant": {
+                    "id": 101,
+                    "participants": [
+                        {"user": None, "player": {"id": 212}}
+                    ],
+                },
+            },
+        ]
+
+        def fake_fetch_player(query, variables):
+            return {"data": {"player": {"id": variables["playerId"], "user": None}}}
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            with patch(
+                "scripts.fetch.download.fetch_phase_id", return_value=1
+            ), patch(
+                "scripts.fetch.download.fetch_with_page_fallback", return_value=seeds_nodes
+            ), patch(
+                "scripts.fetch.download.fetch_data_with_retries", side_effect=fake_fetch_player
+            ):
+                download_seeds(999, [], [], {}, tmpdir)
+
+            with open(os.path.join(tmpdir, "seeds.json"), encoding="utf-8") as f:
+                saved = json.load(f)
+
+        self.assertEqual(
+            saved["data"],
+            [
+                {"seed_num": 1, "user_id": 111, "player_id": 211},
+                {"seed_num": 2, "user_id": None, "player_id": 212},
+            ],
+        )
 
 
 if __name__ == "__main__":
