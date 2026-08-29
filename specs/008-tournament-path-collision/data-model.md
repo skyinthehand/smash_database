@@ -55,3 +55,9 @@
 - `disambiguate_event_name(tournament_name: str, tournament_id: int) -> str`:
   `f"{tournament_name}_({tournament_id})"`(既存の空白/スラッシュ置換を
   適用した上で)。
+- `path_occupied_by_different_event(event_dir, expected_event_id) -> bool`
+  (`redownload_event.py`用、US5/FR-012): `event_dir`が実際にディスク上に
+  存在し、かつその`attr.json`(読めない場合は他のデータファイルの存在)
+  が`expected_event_id`とは異なるevent_idのものである場合に`True`を返す。
+  `redownload_event.py`はこれが`True`の場合、`disambiguate_event_name()`
+  を使って自分自身の保存先だけをずらす(参加者数比較は行わない)。

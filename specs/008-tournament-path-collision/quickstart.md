@@ -55,13 +55,31 @@ python3 scripts/fix/fix_path_collision.py --token <TOKEN> \
   参加者数が多い方の保存先名が変更されていないこと、`tournaments.jsonl`
   の両方のパスが実体と一致していることを確認する。
 
-## 5. 自動テスト
+## 5. `redownload_event.py`自身の衝突回避を確認する(US5, FR-012)
+
+```bash
+# 既に別のevent_idのデータが存在するディレクトリと同じ保存先に
+# 解決される、無関係なevent_idを指定して再取得する。
+python3 scripts/fix/redownload_event.py --token <TOKEN> --event-id <対象のevent_id> --yes
+```
+
+- 既存の(別event_idの)ディレクトリの内容が一切変更されていないことを
+  確認する。
+- 指定したevent_id側は、`大会名_(tournament_id)`の形式に調整された、
+  別のディレクトリに保存されていることを確認する。
+- 衝突しない通常のevent_idを指定した場合は、従来通りの挙動(名前調整
+  なし)であることを確認する。
+- 同じevent_idで再度実行し、調整後の保存先が前回と同じであることを
+  確認する(FR-012)。
+
+## 6. 自動テスト
 
 ```bash
 python3 -m unittest discover -s scripts/test
 ```
 
 衝突検出・命名調整ロジック(`build_path_index`/`resolve_path_collision`/
-`disambiguate_event_name`)、`download_all_tournaments`/`download_by_ids`
-への統合、`find_path_collisions.py`/`fix_path_collision.py`の新規テストを
+`disambiguate_event_name`/`path_occupied_by_different_event`)、
+`download_all_tournaments`/`download_by_ids`/`redownload_event.py`への
+統合、`find_path_collisions.py`/`fix_path_collision.py`の新規テストを
 含め、リポジトリ全体のテストが通ることを確認する(憲法Principle III)。

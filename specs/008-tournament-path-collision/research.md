@@ -148,12 +148,43 @@ API呼び出しを追加せずに済む。一方で、standings.jsonの書き込
 再取得し、`tournaments.jsonl`を更新する。
 
 **Rationale**: `redownload_event.py`本体は、通常の「1件のevent_idを
-指定して再取得する」ツールとしての役割を保つ(Clarifications: 本フィー
-チャーの衝突検出対象外)。衝突修復は「2件のevent_idを、決定した別々の
-保存先へ振り分けて再取得する」という異なる責務であるため、既存ツールを
-拡張するのではなく、新しい専用ツールとして分離する(scripts/fix/内の
-既存の1ツール=1責務という設計方針を踏襲)。同じ低レベルの取得関数群を
-再利用することで、動作の一貫性を保ちつつコードの重複を避ける。
+指定して再取得する」ツールとしての役割を保つ(Decision 7で追加する衝突
+回避チェックはあくまで自分自身をずらすだけの単純なガードであり、
+FR-002のような参加者数比較や、相手側を動かす判断は持たせない)。衝突
+「修復」(2件を意図的に組で扱い、必要なら参加者数比較に基づき相手側も
+動かしうる)は異なる責務であるため、既存ツールを拡張するのではなく、
+新しい専用ツールとして分離する(scripts/fix/内の既存の1ツール=1責務と
+いう設計方針を踏襲)。同じ低レベルの取得関数群を再利用することで、動作
+の一貫性を保ちつつコードの重複を避ける。
+
+## Decision 7: `redownload_event.py`自身の衝突回避(User Story 5、FR-012)
+
+**Decision**: `redownload_event.py`の`redownload_event()`内、計算済みの
+`event_dir`が確定した時点(既存ディレクトリの探索・削除より前)で、その
+`event_dir`が実際にディスク上に存在し、かつその`attr.json`
+(または`matches.json`等)が**指定されたevent_idとは異なる**event_idの
+ものである場合、`disambiguate_event_name()`(Decision 4と共通)を使って
+自分自身(指定されたevent_id)の保存先だけをずらす。相手側のディレクト
+リ・`tournaments.jsonl`のエントリは一切変更しない。
+
+判定は`tournaments.jsonl`のインデックス(Decision 1)ではなく、ディスク
+上の実際のディレクトリを直接調べる方式にする
+(`check_events_in_tournaments.py`の`read_attr()`と同様、対象ディレク
+トリの`attr.json`を読んで`event_id`フィールドを比較する)。
+
+**Rationale**: `redownload_event.py`は`tournaments.jsonl`全体を
+インデックス化せずに単発で実行されるツールであり、通常のクロールと同じ
+`tournaments`辞書ベースの仕組みをそのまま持ち込む必要はない。目的
+(「ディレクトリを上書きしない」)を満たすだけなら、対象ディレクトリの
+`attr.json`を直接確認する方が単純で、通常のクロールのフローに変更を
+加えずに済む。同じevent_idへの繰り返し実行で結果が安定すること
+(FR-012)は、Decision 4のtournament_idベースの決定的な命名により自然に
+満たされる。
+
+**Alternatives considered**:
+- 通常のクロールと同じ参加者数比較ロジックを適用する: 却下(ユーザー
+  からの明示的な指示)。1件のevent_idのみを対象とする個別ツールに、
+  無関係な既存データ側を動かす判断まで持たせないため。
 
 **Alternatives considered**:
 - `redownload_event.py`に `--pair`のようなオプションを追加して拡張する:

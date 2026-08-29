@@ -10,15 +10,17 @@
 存在する場合、現在の保存先ディレクトリ計算(`get_event_directory()`、
 地域/開催日/大会名/イベント名の文字列のみに基づく)では両者が同じ
 パスに解決され、データが混在・上書きされてしまう。通常のクロール
-(`download_all_tournaments`/`download_by_ids`。個別イベント再取得
-`redownload_event.py`は対象外、Clarifications参照)に、メモリ上の
+(`download_all_tournaments`/`download_by_ids`)に、メモリ上の
 `tournaments`辞書を用いたO(1)の衝突検出を追加し、衝突時は参加者数
 (`num_entrants`)が多い方の保存先名を維持し、少ない方だけを
 `大会名_(tournament_id)`という決定的な形式にリネームする。参加者数が
 新規イベント側でまだ判明していない場合は、standings取得(既存フロー内で
-いずれ実行されるステップ)が完了するまで最終確定を遅延させる。また、
-過去に発生した未検出の衝突を洗い出す監査ツールと、人間の確認・実行
-指示のもとで衝突を分離する専用の修復ツールを新設する。
+いずれ実行されるステップ)が完了するまで最終確定を遅延させる。個別
+イベント再取得(`redownload_event.py`)にも、同じ命名形式を使った、
+より単純な片方向の衝突回避(常に自分自身をずらし、参加者数比較は
+行わない)を追加する。また、過去に発生した未検出の衝突を洗い出す監査
+ツールと、人間の確認・実行指示のもとで衝突を分離する専用の修復ツールを
+新設する。
 
 ## Technical Context
 
@@ -98,15 +100,19 @@ scripts/
 │                             #   の event_dir 確定直後(既存の除外チェックと
 │                             #   同じ挿入点)に衝突検出・解決を追加
 ├── fix/
+│   ├── redownload_event.py      # event_dir 確定後、自分自身の衝突回避
+│   │                             #   チェックを追加(US5, FR-012)。
+│   │                             #   disambiguate_event_name() をimportして再利用
 │   ├── find_path_collisions.py  # 新規: US3 監査ツール(read-only)
 │   └── fix_path_collision.py    # 新規: US4 修復ツール
-│       # (redownload_event.py と同じ低レベル取得関数群を再利用するが、
-│       #  redownload_event.py 自体は変更しない)
+│       # (redownload_event.py と同じ低レベル取得関数群を再利用する)
 └── test/
     ├── test_download.py             # build_path_index/resolve_path_collision/
     │                                 #   disambiguate_event_name の単体テスト、
     │                                 #   download_all_tournaments/download_by_ids
     │                                 #   への統合テストを追加
+    ├── test_redownload_event.py     # 既存(spec 007由来)にUS5の衝突回避
+    │                                 #   テストを追加
     ├── test_find_path_collisions.py # 新規
     └── test_fix_path_collision.py   # 新規
 ```

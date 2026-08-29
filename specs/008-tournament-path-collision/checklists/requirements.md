@@ -45,3 +45,6 @@
 - `/speckit-clarify`(2026-08-29): 衝突検出・命名調整ロジックの適用範囲を
   「通常のクロールのみ」に確定し、`redownload_event.py`を明示的にスコープ
   外とした(FR-001・Assumptions更新)。
+- `/speckit-plan`後のユーザーフィードバック(2026-08-29): 上記の判断を
+  訂正し、`redownload_event.py`も対象に含めることにした。ただし判定基準は
+  FR-002/FR-004とは異なる単純な片方向ルール(User Story 5、FR-012)。
