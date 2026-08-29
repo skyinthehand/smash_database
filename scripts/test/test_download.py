@@ -1702,9 +1702,9 @@ class DownloadTests(unittest.TestCase):
         self.assertEqual(
             saved["data"],
             [
-                {"placement": 1, "user_id": 111},
-                {"placement": 2, "user_id": 1855664},
-                {"placement": 3, "user_id": None},
+                {"placement": 1, "user_id": 111, "player_id": 211},
+                {"placement": 2, "user_id": 1855664, "player_id": 212},
+                {"placement": 3, "user_id": None, "player_id": 213},
             ],
         )
 
@@ -1727,6 +1727,54 @@ class DownloadTests(unittest.TestCase):
             entrant2user = fetch_entrant_user_map(999)
 
         self.assertEqual(entrant2user, {100: 111, 101: 1855664})
+
+    # -- download_seeds: standingsと同様、player_idもseeds.jsonに保存されること ------
+
+    def test_download_seeds_saves_player_id(self):
+        seeds_nodes = [
+            {
+                "seedNum": 1,
+                "entrant": {
+                    "id": 100,
+                    "participants": [
+                        {"user": {"id": 111}, "player": {"id": 211}}
+                    ],
+                },
+            },
+            {
+                "seedNum": 2,
+                "entrant": {
+                    "id": 101,
+                    "participants": [
+                        {"user": None, "player": {"id": 212}}
+                    ],
+                },
+            },
+        ]
+
+        def fake_fetch_player(query, variables):
+            return {"data": {"player": {"id": variables["playerId"], "user": None}}}
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            with patch(
+                "scripts.fetch.download.fetch_phase_id", return_value=1
+            ), patch(
+                "scripts.fetch.download.fetch_with_page_fallback", return_value=seeds_nodes
+            ), patch(
+                "scripts.fetch.download.fetch_data_with_retries", side_effect=fake_fetch_player
+            ):
+                download_seeds(999, [], [], {}, tmpdir)
+
+            with open(os.path.join(tmpdir, "seeds.json"), encoding="utf-8") as f:
+                saved = json.load(f)
+
+        self.assertEqual(
+            saved["data"],
+            [
+                {"seed_num": 1, "user_id": 111, "player_id": 211},
+                {"seed_num": 2, "user_id": None, "player_id": 212},
+            ],
+        )
 
 
 if __name__ == "__main__":

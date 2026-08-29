@@ -91,11 +91,17 @@
 {
   "version": "1.0",
   "data": [
-    {"placement": 1, "user_id": 111},
-    {"placement": 2, "user_id": 112}
+    {"placement": 1, "user_id": 111, "player_id": 211},
+    {"placement": 2, "user_id": 112, "player_id": 212}
   ]
 }
 ```
+- `player_id`: start.gg上のplayer ID。`user_id`が`null`の参加者でも、`player_id`は
+  取得できていれば保存される(`event_data_version >= 7`。`player.user`への個別
+  フォールバック解決と同じバージョンで導入したため専用のバージョン番号は割り当てて
+  いない)。start.ggアカウントにリンクされていない/リンクが解除された参加者を
+  後から特定するためのフォールバック識別子。`event_data_version < 7`の既存データ
+  には存在しない(`null`相当)。
 
 ## seeds
 
@@ -104,11 +110,12 @@
 {
   "version": "1.0",
   "data": [
-    {"seed_num": 1, "user_id": 111},
-    {"seed_num": 2, "user_id": 112}
+    {"seed_num": 1, "user_id": 111, "player_id": 211},
+    {"seed_num": 2, "user_id": 112, "player_id": 212}
   ]
 }
 ```
+- `player_id`: standingsと同様(上記参照)。
 
 ## matches
 

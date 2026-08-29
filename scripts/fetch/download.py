@@ -1115,6 +1115,7 @@ def download_standings(event_id, event_dir, max_pages=None):
     user_data = []
     player_data = []
     entrant2user = {}
+    entrant2player_id = {}
     pending_fallback = []
     for node in standings_data:
         if node['entrant']['participants'] is not None:
@@ -1123,10 +1124,13 @@ def download_standings(event_id, event_dir, max_pages=None):
             player = participant['player']
             user_data.append(user)
             player_data.append(player)
+            entrant_id = node['entrant']['id']
+            if player is not None and player.get('id') is not None:
+                entrant2player_id[entrant_id] = player['id']
             if user is not None and player is not None:
-                entrant2user[node['entrant']['id']] = user['id']
+                entrant2user[entrant_id] = user['id']
             elif player is not None and player.get('id') is not None:
-                pending_fallback.append((node['entrant']['id'], player['id']))
+                pending_fallback.append((entrant_id, player['id']))
 
     for entrant_id, player_id in pending_fallback:
         user_id = resolve_player_user_id(player_id)
@@ -1134,14 +1138,18 @@ def download_standings(event_id, event_dir, max_pages=None):
             entrant2user[entrant_id] = user_id
 
     placements = [
-        (node['placement'], entrant2user[node['entrant']['id']] if node['entrant']['id'] in entrant2user else None)
+        (
+            node['placement'],
+            entrant2user.get(node['entrant']['id']),
+            entrant2player_id.get(node['entrant']['id']),
+        )
         for node in standings_data
         if node['entrant']['participants'] is not None
     ]
     placements.sort(key=lambda x: x[0])
     placements_dicts = [
-        {"placement": placement, "user_id": user_id}
-        for placement, user_id in placements
+        {"placement": placement, "user_id": user_id, "player_id": player_id}
+        for placement, user_id, player_id in placements
     ]
     
     os.makedirs(event_dir, exist_ok=True)
@@ -1166,30 +1174,41 @@ def download_seeds(event_id, user_data, player_data, entrant2user, event_dir, ma
         max_pages=max_pages,
     )
 
+    entrant2player_id = {}
     pending_fallback = []
     for seed in seeds_data:
         if seed['entrant']['participants'] is not None:
-            if seed['entrant']['id'] not in entrant2user:
-                participant = seed['entrant']['participants'][0]
+            participant = seed['entrant']['participants'][0]
+            player = participant['player']
+            entrant_id = seed['entrant']['id']
+            if player is not None and player.get('id') is not None:
+                entrant2player_id[entrant_id] = player['id']
+            if entrant_id not in entrant2user:
                 user = participant['user']
-                player = participant['player']
                 user_data.append(user)
                 player_data.append(player)
                 if user is not None and player is not None:
-                    entrant2user[seed['entrant']['id']] = user['id']
+                    entrant2user[entrant_id] = user['id']
                 elif player is not None and player.get('id') is not None:
-                    pending_fallback.append((seed['entrant']['id'], player['id']))
+                    pending_fallback.append((entrant_id, player['id']))
 
     for entrant_id, player_id in pending_fallback:
         user_id = resolve_player_user_id(player_id)
         if user_id is not None:
             entrant2user[entrant_id] = user_id
 
-    seeds_numbers = [(seed['seedNum'], entrant2user[seed['entrant']['id']] if seed['entrant']['id'] in entrant2user else None) for seed in seeds_data]
+    seeds_numbers = [
+        (
+            seed['seedNum'],
+            entrant2user.get(seed['entrant']['id']),
+            entrant2player_id.get(seed['entrant']['id']),
+        )
+        for seed in seeds_data
+    ]
     seeds_numbers.sort(key=lambda x: x[0])
     seeds_dicts = [
-        {"seed_num": seed_num, "user_id": user_id}
-        for seed_num, user_id in seeds_numbers
+        {"seed_num": seed_num, "user_id": user_id, "player_id": player_id}
+        for seed_num, user_id, player_id in seeds_numbers
     ]
     json_data = {
         "data": seeds_dicts
