@@ -16,9 +16,13 @@
 `load_excluded_phase_ids()`と同じ「呼び出し側が明示的にファイルを
 読んでチェックする」スタイルを踏襲し、通常のクロール
 (`download_all_tournaments`/`download_by_ids`)、個別イベント再取得
-(`redownload_event.py`)、`tournaments.jsonl`補完(`backfill_tournament_index.py`)
-の各エントリポイントで、イベントディレクトリパスを計算した直後に
-イベント全体除外のチェックを追加する。
+(`redownload_event.py`)、`tournaments.jsonl`の抜け補完・検証系ツール
+(`backfill_tournament_index.py`/`check_events_in_tournaments.py`/
+`fix_missing_tournaments.py`)の各エントリポイントで、イベント
+ディレクトリパスまたはevent_idが判明した直後にイベント全体除外の
+チェックを追加する(`check_events_in_tournaments.py`/
+`fix_missing_tournaments.py`は`/speckit-analyze`によるレビューで
+対象に追加)。
 
 ## Technical Context
 
@@ -104,19 +108,25 @@ scripts/
                               #   download_all_tournaments() / download_by_ids()
                               #   の該当箇所に除外チェックを追加
 ├── fix/
-│   ├── redownload_event.py         # 除外チェックを追加
-│   └── backfill_tournament_index.py # 除外チェックを追加
+│   ├── redownload_event.py             # 除外チェックを追加
+│   ├── backfill_tournament_index.py    # 除外チェックを追加
+│   ├── check_events_in_tournaments.py  # 除外チェックを追加(/speckit-analyze指摘)
+│   └── fix_missing_tournaments.py      # 除外チェックを追加(/speckit-analyze指摘)
 └── test/
-    └── test_download.py     # load_excluded_event_ids()・修正後の
-                              #   load_excluded_phase_ids()・各エントリ
-                              #   ポイントでのスキップ挙動のテストを追加
-    # backfill_tournament_index.py 側の除外挙動テストは
-    # test_backfill_tournament_index.py に追加
+    ├── test_download.py                    # load_excluded_event_ids()・修正後の
+                                             #   load_excluded_phase_ids()・
+                                             #   download_all_tournaments()/
+                                             #   download_by_ids()のスキップ挙動テスト
+    ├── test_backfill_tournament_index.py   # 除外挙動テストを追加
+    ├── test_check_events_in_tournaments.py # 新規作成、除外挙動テスト
+    └── test_fix_missing_tournaments.py     # 新規作成、除外挙動テスト
 
 docs/
-└── data_model.md または startgg_design.md
-                              # excluded_events.json のスキーマ(2種類の
-                              #   エントリ形状)を追記
+├── data_model.md          # 「管理ファイル」節に excluded_events.json の
+│                           #   スキーマ(2種類のエントリ形状)を新規追記
+├── fix.md                 # excluded_phases.json への言及を
+│                           #   excluded_events.json に更新
+└── startgg_design.md      # 同上
 ```
 
 **Structure Decision**: 新規プロジェクト/新規ディレクトリは作らず、

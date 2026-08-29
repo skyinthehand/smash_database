@@ -91,11 +91,21 @@ NEEDS CLARIFICATIONは残っていない。
 - `scripts/fix/backfill_tournament_index.py`の`scan_and_fill()`
   (`tournaments.jsonl`の抜け補完、`os.path.isdir(event_dir)`チェックの
   近く)
+- `scripts/fix/check_events_in_tournaments.py`の`main()`(attr.json
+  ベースの`tournaments.jsonl`抜け補完、`event_id = attr.get("event_id")`
+  で event_id が判明した直後。`/speckit-analyze`指摘により追加:
+  このツールを対象外のままにすると、除外後もディレクトリが残存する
+  既存イベントが誤って`tournaments.jsonl`へ再登録されうる)
+- `scripts/fix/fix_missing_tournaments.py`の`clean_tournaments()`
+  (`tournaments.jsonl`のエントリ検証・削除、`event.get("event_id")`
+  取得直後・`check_event()`呼び出しの前。除外対象のevent_idは検証・
+  削除判定の対象から外し、既存のエントリがあればそのまま残す)
 
-**Rationale**: いずれも`get_event_directory()`でパスを計算した直後という
-共通の構造を持つため、同じ判定ロジック(`load_excluded_event_ids()`で
-読み込んだ辞書にevent_idが含まれるか)を、各エントリポイントの先頭付近に
-挿入するだけで済む。`excluded_phases.json`の`load_excluded_phase_ids()`が
+**Rationale**: いずれも`get_event_directory()`でパスを計算した直後、
+または`event_id`が判明した直後という共通の構造を持つため、同じ判定
+ロジック(`load_excluded_event_ids()`で読み込んだ辞書にevent_idが
+含まれるか)を、各エントリポイントの先頭付近に挿入するだけで済む。
+`excluded_phases.json`の`load_excluded_phase_ids()`が
 `fetch_set_ids_for_event()`/`fetch_all_sets()`の内部で個別に呼ばれている
 のと同じ「呼び出し側が明示的にチェックする」スタイルを踏襲する(共通の
 デコレータやミドルウェアは導入しない)。
@@ -122,9 +132,16 @@ NEEDS CLARIFICATIONは残っていない。
 
 ## Decision 4: 個別ツール側での報告方法(FR-006)
 
-**Decision**: `redownload_event.py`/`backfill_tournament_index.py`は、
-除外されたevent_idをスキップした際、各ファイルの既存の`print(f"[{event_id}] ...")`
-(`redownload_event.py`)/`print(f"[ADD] ...")`(`backfill_tournament_index.py`)
-という接頭辞スタイルに倣い、それぞれ`print(f"[{event_id}] excluded: ...")`
-/`print(f"[SKIP-EXCLUDED] ...")`のような1行を出力する。戻り値としては
-「失敗」ではなく「除外によりスキップ」を呼び出し元が区別できるようにする。
+**Decision**: 対象4ツールは、除外されたevent_idをスキップした際、
+各ファイルの既存の接頭辞スタイルに倣って1行報告する:
+- `redownload_event.py`: 既存の`print(f"[{event_id}] ...")`に倣い
+  `print(f"[{event_id}] excluded: ...")`。
+- `backfill_tournament_index.py`: 既存の`print(f"[ADD] ...")`に倣い
+  `print(f"[SKIP-EXCLUDED] ...")`。
+- `check_events_in_tournaments.py`: 既存の`print(f"[SKIP] ...")`に倣い
+  `print(f"[SKIP-EXCLUDED] {event_dir}: ...")`。
+- `fix_missing_tournaments.py`: 既存の`report_lines.append(f"[OK] ...")`/
+  `f"[REMOVE] ...")`に倣い、`report_lines.append(f"[EXCLUDED] ...")`。
+
+戻り値としては「失敗」ではなく「除外によりスキップ」を呼び出し元が
+区別できるようにする。

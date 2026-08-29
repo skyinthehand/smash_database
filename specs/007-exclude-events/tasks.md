@@ -51,8 +51,11 @@
   イベント全体除外エントリ(dict形状)を無視し、従来通りphase単位の
   エントリのみを返すこと、(b) `load_excluded_event_ids()`が、dict形状の
   イベント全体除外エントリのみを返し、配列形状のphase除外エントリを
-  無視すること、(c) いずれもファイル未存在時は空辞書を返すこと
-  (依存: T003, T004)。
+  無視すること、(c) いずれもファイル未存在時は空辞書を返すこと、
+  (d) 【FR-008回帰テスト】あるevent_idのエントリをファイルから削除した
+  状態で`load_excluded_event_ids()`を呼び直すと、そのevent_idがもはや
+  結果に含まれないこと(除外解除がエントリ削除のみで即座に反映される
+  ことの確認。`/speckit-analyze`指摘 U1)(依存: T003, T004)。
 
 **Checkpoint**: この時点で `load_excluded_event_ids()` が正しく動作し、
 以降のUser Storyから利用できる状態になっている。
@@ -125,12 +128,18 @@ Constitution Principle Iに従ったドキュメント更新のみを行う。
 
 ## Phase 5: User Story 3 - どの取得経路から実行しても除外が有効である (Priority: P3)
 
-**Goal**: 個別イベント手動取得ツール・`tournaments.jsonl`補完ツールも、
-除外リストに登録されたevent_idをスキップする。
+**Goal**: 個別イベント手動取得ツール、および`tournaments.jsonl`の抜け
+補完・検証系ツール(計4ツール)も、除外リストに登録されたevent_idを
+スキップする。
 
 **Independent Test**: 除外リストに登録済みのevent_idを、個別イベント
 取得ツールに明示的に指定して実行し、そのツールが除外されていることを
 検知して取得をスキップすることを確認する。
+
+**Note**: `check_events_in_tournaments.py`・`fix_missing_tournaments.py`
+は、`/speckit-analyze`によるレビュー(指摘U2)で対象に追加された
+(Assumptions参照: これらを対象外のままにすると、除外後もディレクトリが
+残存する既存イベントが誤って`tournaments.jsonl`へ再登録されうる)。
 
 ### Implementation for User Story 3
 
@@ -145,18 +154,43 @@ Constitution Principle Iに従ったドキュメント更新のみを行う。
   同様の除外チェックを追加する。除外対象であれば、そのevent_idを
   `tournaments`辞書への追加対象から除外し、既存の`print(f"[ADD] ...")`
   に倣ったスタイルで除外の旨を報告する(FR-006)(依存: T004)。
-- [ ] T014 [P] [US3] 新規ファイル `scripts/test/test_redownload_event.py`
+- [ ] T014 [P] [US3] `scripts/fix/check_events_in_tournaments.py` の
+  `main()` 内、`event_id = attr.get("event_id")` で event_id が判明した
+  直後に、同様の除外チェックを追加する。除外対象であれば、
+  `missing_events` への追加を行わずスキップし、既存の
+  `print(f"[SKIP] ...")` に倣って `print(f"[SKIP-EXCLUDED] {event_dir}: ...")`
+  のような1行を出力する(FR-006)(依存: T004)。
+- [ ] T015 [P] [US3] `scripts/fix/fix_missing_tournaments.py` の
+  `clean_tournaments()` を修正し、`excluded_event_ids`(集合)を引数に
+  追加する。`for event in events:` ループ内、`check_event()` 呼び出しの
+  前に、`event.get("event_id")` が除外対象かどうかを確認し、除外対象で
+  あれば `check_event()` を呼ばずそのまま `kept_events` に含める(検証・
+  削除判定の対象から除外する)。既存の `report_lines.append(f"[OK] ...")`/
+  `f"[REMOVE] ...")` に倣って `report_lines.append(f"[EXCLUDED] ...")` を
+  追加する。`main()` 側で `load_excluded_event_ids()` を呼び出し
+  `clean_tournaments()` に渡すよう更新する(FR-006)(依存: T004)。
+- [ ] T016 [P] [US3] 新規ファイル `scripts/test/test_redownload_event.py`
   を作成し、T012の除外スキップ挙動(除外対象event_idに対して
   `redownload_event()` がAPI呼び出し・ディレクトリ削除/作成を一切
   行わないこと、除外の旨を報告すること)を検証するテストを追加する
   (依存: T012)。
-- [ ] T015 [P] [US3] `scripts/test/test_backfill_tournament_index.py` に、
+- [ ] T017 [P] [US3] `scripts/test/test_backfill_tournament_index.py` に、
   T013の除外スキップ挙動(除外対象event_idに対応するディレクトリが
   ローカルに存在していても、`tournaments`への追加対象として扱われない
   こと)を検証するテストを追加する(依存: T013)。
+- [ ] T018 [P] [US3] 新規ファイル `scripts/test/test_check_events_in_tournaments.py`
+  を作成し、T014の除外スキップ挙動(除外対象event_idに対応するディレク
+  トリ(attr.json含む)が存在していても、`missing_events`に含まれない
+  こと)を検証するテストを追加する(依存: T014)。
+- [ ] T019 [P] [US3] 新規ファイル `scripts/test/test_fix_missing_tournaments.py`
+  を作成し、T015の除外スキップ挙動(除外対象event_idのエントリが
+  `tournaments.jsonl`に存在する場合、ファイル完全性チェックの対象になら
+  ずそのまま`kept_events`に残ること)を検証するテストを追加する
+  (依存: T015)。
 
 **Checkpoint**: 全ての対象エントリポイント(通常クロール・個別手動取得・
-`tournaments.jsonl`補完)で除外が一貫して機能する。
+`tournaments.jsonl`補完2種・`tournaments.jsonl`検証削除)で除外が
+一貫して機能する。
 
 ---
 
@@ -164,10 +198,10 @@ Constitution Principle Iに従ったドキュメント更新のみを行う。
 
 **Purpose**: 全体の整合性確認
 
-- [ ] T016 `python3 -m unittest discover -s scripts/test` を実行し、
+- [ ] T020 `python3 -m unittest discover -s scripts/test` を実行し、
   リポジトリ全体のテストが通ることを確認する(憲法Principle III)。
-- [ ] T017 `quickstart.md` の手順1〜7を通しで実施し、エンドツーエンドの
-  動作(除外の追加・各エントリポイントでのスキップ・可読性・解除・
+- [ ] T021 `quickstart.md` の手順1〜7を通しで実施し、エンドツーエンドの
+  動作(除外の追加・全4エントリポイントでのスキップ・可読性・解除・
   既存phase除外の回帰確認)を確認する。
 
 ---
@@ -194,14 +228,15 @@ Constitution Principle Iに従ったドキュメント更新のみを行う。
   ため逐次)。T005はT003・T004の後。
 - Phase 3: T006 → T007(同一ファイル)。T008は両方の後。
 - Phase 4: T009・T010・T011は互いに独立(別ファイル)。
-- Phase 5: T012・T013は互いに独立(別ファイル)。T014はT012の後、T015は
-  T013の後(ただしT014とT015自体は互いに独立)。
+- Phase 5: T012・T013・T014・T015は互いに独立(いずれも別ファイル)。
+  T016はT012の後、T017はT013の後、T018はT014の後、T019はT015の後
+  (ただしT016〜T019自体は互いに独立)。
 
 ### Parallel Opportunities
 
 - Phase 4のT009・T010・T011は並行実施可能。
-- Phase 5のT012とT013は並行実施可能。それぞれの直後のテスト(T014は
-  T012の後、T015はT013の後)も、互いには並行実施可能。
+- Phase 5のT012・T013・T014・T015(実装4件)は並行実施可能。それぞれの
+  直後のテスト(T016〜T019)も、互いには並行実施可能。
 - User Story 1・2・3は、Foundational完了後であれば互いに並行して着手
   可能(担当を分けられる場合)。
 
@@ -210,13 +245,17 @@ Constitution Principle Iに従ったドキュメント更新のみを行う。
 ## Parallel Example: Phase 5 (User Story 3)
 
 ```bash
-# T012とT013は別ファイルのため並行実施可能:
+# T012〜T015は別ファイルのため並行実施可能:
 Task: "redownload_event.py の redownload_event() に除外チェックを追加"
 Task: "backfill_tournament_index.py の scan_and_fill() に除外チェックを追加"
+Task: "check_events_in_tournaments.py の main() に除外チェックを追加"
+Task: "fix_missing_tournaments.py の clean_tournaments() に除外チェックを追加"
 
 # それぞれの完了後、対応するテストも並行実施可能:
 Task: "test_redownload_event.py を新規作成し除外スキップのテストを追加"
 Task: "test_backfill_tournament_index.py に除外スキップのテストを追加"
+Task: "test_check_events_in_tournaments.py を新規作成し除外スキップのテストを追加"
+Task: "test_fix_missing_tournaments.py を新規作成し除外スキップのテストを追加"
 ```
 
 ---
@@ -236,7 +275,7 @@ Task: "test_backfill_tournament_index.py に除外スキップのテストを追
 1. Setup + Foundational → 基盤完成
 2. User Story 1 追加 → 単独で検証 → MVP
 3. User Story 2 追加(ドキュメント整備) → 単独で検証
-4. User Story 3 追加(他ツールへの適用) → 単独で検証
+4. User Story 3 追加(他ツール4種への適用) → 単独で検証
 5. Polish(全体テスト・quickstart通し確認)
 
 ---

@@ -54,6 +54,22 @@ python3 scripts/fix/backfill_tournament_index.py --token <TOKEN> --dry-run
 - 対象のevent_idに対応するディレクトリが仮に存在していても、
   `tournaments.jsonl` への追加対象として報告されないことを確認する。
 
+```bash
+python3 scripts/fix/check_events_in_tournaments.py
+```
+
+- 対象のevent_idに対応するディレクトリ(attr.json含む)が仮に存在
+  していても、「登録されていないイベント」として報告されないことを
+  確認する。
+
+```bash
+python3 scripts/fix/fix_missing_tournaments.py --dry-run
+```
+
+- 対象のevent_idのエントリが`tournaments.jsonl`に存在する場合、
+  ファイルの完全性チェック(削除判定)の対象にならず、そのまま
+  残る旨が報告される(または何も報告されない)ことを確認する。
+
 ## 4. 除外理由の可読性を確認する(US2, SC-004)
 
 ```bash
