@@ -24,6 +24,12 @@ tournament_idが小さい方を勝者とする)。勝者は`redownload_event.py`
 0でない敗者が1件でもあれば、単純なテスト大会ではない可能性があるとして
 自動実行を中止する(手動確認を促す)。
 
+ただし、`data/startgg/excluded_events.json`(`load_excluded_event_ids()`)に
+グループ内のちょうど1件だけが登録されている場合は、その1件を無条件に敗者、
+残りの1件を無条件に勝者とする(目視確認済みの人間の判断を、参加者数比較
+より優先する)。この場合、敗者側の参加者数が0であることは要求しない
+(除外理由が「全員ゲスト」等、参加者数が0でないケースもあり得るため)。
+
 `--yes` が無ければ、start.ggへの参加者数取得は行うが、実際の変更(ディレクトリの
 書き込み・`tournaments.jsonl`の更新)は一切行わない(FR-009/FR-010)。
 
@@ -65,6 +71,7 @@ from scripts.fetch.download import (  # noqa: E402
     download_all_set,
     download_seeds,
     download_standings,
+    load_excluded_event_ids,
     write_event_attributes,
 )
 from scripts.fix.find_path_collisions import find_collisions, group_events_by_path  # noqa: E402
@@ -163,6 +170,7 @@ class Target:
         self.naive_path: Optional[Path] = None
         self.fetch_failed = False
         self.num_entrants: Optional[int] = None
+        self.excluded = False
 
 
 def build_event_index(tournaments: List[dict]) -> Dict[int, tuple]:
@@ -258,14 +266,27 @@ def redownload_winner(winner: Target, events_root: Path) -> None:
     winner.event_entry["path"] = str(winner.naive_path)
 
 
-def process_group(event_ids: List[int], tournaments: List[dict], events_root: Path, yes: bool) -> tuple[bool, List[int]]:
+def process_group(
+    event_ids: List[int], tournaments: List[dict], events_root: Path, yes: bool,
+    excluded_event_ids: Optional[Dict[int, dict]] = None,
+) -> tuple[bool, List[int]]:
     """1つの衝突グループ(event_id群)を処理する。
+
+    excluded_event_ids(`data/startgg/excluded_events.json`由来、
+    `load_excluded_event_ids()`の戻り値)に、このグループのうちちょうど1件だけが
+    含まれる場合は、その1件を無条件に敗者、残りの1件を無条件に勝者とする
+    (人間が既に目視確認した除外判断を、参加者数比較より優先する)。この場合、
+    敗者側は参加者数が0であることを要求しない(除外理由が「全員ゲスト」等、
+    参加者数が0でないケースもあり得るため)。
+    それ以外(除外リストに複数、または1件も該当しない)の場合は、従来通り
+    start.ggから取得し直した参加者数の比較で勝者を決める。
 
     戻り値: (success, emptied_tournament_ids)。success=Falseはエラー・安全確認
     失敗による中止(このグループへの変更は一切行われていない)。
     emptied_tournament_ids は yes=True かつ success=True の場合のみ意味を持つ
     (events が空になった tournament_id のリスト)。
     """
+    excluded_event_ids = excluded_event_ids or {}
     try:
         targets = resolve_targets(event_ids, tournaments)
     except RuntimeError as exc:
@@ -273,6 +294,7 @@ def process_group(event_ids: List[int], tournaments: List[dict], events_root: Pa
         return False, []
 
     for target in targets:
+        target.excluded = target.event_id in excluded_event_ids
         try:
             fetch_naive_path(target, events_root)
         except RuntimeError as exc:
@@ -297,13 +319,26 @@ def process_group(event_ids: List[int], tournaments: List[dict], events_root: Pa
                 print(f"[{target.event_id}] 参加者数の取得に失敗しました: {exc}", file=sys.stderr)
                 return False, []
 
-        winner = max(targets, key=lambda t: (t.num_entrants, -t.tournament_id))
-        losers = [t for t in targets if t is not winner]
-        non_zero_losers = [t for t in losers if t.num_entrants != 0]
+        excluded_targets = [t for t in targets if t.excluded]
+        non_excluded_targets = [t for t in targets if not t.excluded]
+        decision_by_exclusion = len(excluded_targets) >= 1 and len(non_excluded_targets) == 1
 
-        print("対象(start.ggから取得し直した現在の参加者数):")
+        if decision_by_exclusion:
+            winner = non_excluded_targets[0]
+            losers = excluded_targets
+            decision_note = "(除外リストによる判定。参加者数比較は行わない)"
+        else:
+            winner = max(targets, key=lambda t: (t.num_entrants, -t.tournament_id))
+            losers = [t for t in targets if t is not winner]
+            decision_note = "(参加者数比較による判定)"
+
+        non_zero_losers = [t for t in losers if not t.excluded and t.num_entrants != 0]
+
+        print(f"対象(start.ggから取得し直した現在の参加者数) {decision_note}:")
         for target in targets:
             role = "維持(元の名前) [勝者]" if target is winner else "登録削除対象 [敗者]"
+            if target.excluded:
+                role += " [除外リスト登録済み]"
             outcome = str(winner.naive_path) if target is winner else "(tournaments.jsonlから登録を削除)"
             print(
                 f"  event_id={target.event_id} tournament_id={target.tournament_id} "
@@ -356,6 +391,7 @@ def main() -> int:
     set_api_parameters(args.url, args.token)
 
     tournaments = load_tournaments(args.tournaments_file)
+    excluded_event_ids = load_excluded_event_ids()
 
     if args.all:
         grouped = group_events_by_path(tournaments)
@@ -377,7 +413,9 @@ def main() -> int:
     for i, event_ids in enumerate(groups, start=1):
         if len(groups) > 1:
             print(f"\n=== グループ {i}/{len(groups)}: event_id={event_ids} ===")
-        success, emptied_tournament_ids = process_group(event_ids, tournaments, args.events_root, args.yes)
+        success, emptied_tournament_ids = process_group(
+            event_ids, tournaments, args.events_root, args.yes, excluded_event_ids
+        )
         if not success:
             any_failed = True
             continue

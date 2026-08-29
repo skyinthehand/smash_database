@@ -51,11 +51,13 @@ class FixPathCollisionTests(unittest.TestCase):
                 json.dump(entry, f, ensure_ascii=False)
                 f.write("\n")
 
-    def _run_main(self, argv_tail):
+    def _run_main(self, argv_tail, excluded_event_ids=None):
         argv = ["fix_path_collision.py", "--token", "TEST"] + argv_tail
         buf = io.StringIO()
         err = io.StringIO()
-        with patch.object(fpc.sys, "argv", argv), redirect_stdout(buf), redirect_stderr(err):
+        with patch.object(fpc.sys, "argv", argv), \
+             patch.object(fpc, "load_excluded_event_ids", return_value=excluded_event_ids or {}), \
+             redirect_stdout(buf), redirect_stderr(err):
             exit_code = fpc.main()
         return exit_code, buf.getvalue() + err.getvalue()
 
@@ -211,6 +213,34 @@ class FixPathCollisionTests(unittest.TestCase):
 
             self.assertEqual(exit_code, 0)
             self.assertIn("見つからず", output)
+            with tournaments_file.open("r", encoding="utf-8") as f:
+                lines = [json.loads(line) for line in f if line.strip()]
+            by_tid = {e["tournament_id"]: e for e in lines}
+            self.assertEqual(by_tid[2]["events"][0]["path"], str(naive_dir))
+            self.assertEqual(by_tid[1]["events"], [])
+
+    def test_excluded_event_id_becomes_loser_regardless_of_participant_count(self):
+        """除外リストに登録済みのevent_idは、参加者数が0でなくても(除外理由が
+        「全員ゲスト」等の場合もあり得るため)無条件に敗者として扱われる。"""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            root = Path(tmpdir)
+            events_root = root / "events"
+            naive_dir = events_root / "Japan" / "2026" / "03" / "25" / "T" / "Singles"
+            tournaments_file = self._setup_tournaments(root, naive_dir, naive_dir)
+
+            # event_id=10 は除外リスト登録済みだが、参加者数(4)は0ではない
+            # (「全員ゲスト」のようなケースを想定)。それでも敗者として扱われ、
+            # 参加者数が実際には多いevent_id=20より優先されず、除外側が
+            # 無条件に敗者になることを確認する。
+            with self._patched({10: 4, 20: 1}):
+                exit_code, output = self._run_main([
+                    "--tournaments-file", str(tournaments_file),
+                    "--events-root", str(events_root), "--event-id", "10", "20", "--yes",
+                ], excluded_event_ids={10: {"reason": "テスト大会、全員ゲスト"}})
+
+            self.assertEqual(exit_code, 0)
+            self.assertIn("除外リストによる判定", output)
+            self.assertNotIn("ABORT", output)
             with tournaments_file.open("r", encoding="utf-8") as f:
                 lines = [json.loads(line) for line in f if line.strip()]
             by_tid = {e["tournament_id"]: e for e in lines}
