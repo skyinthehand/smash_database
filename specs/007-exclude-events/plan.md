@@ -8,14 +8,17 @@
 
 特定のevent_idを、以後の自動取得・`tournaments.jsonl`登録の対象から
 除外できるようにする。除外対象は、既存の`data/startgg/excluded_phases.json`
-(phase_id単位の除外)と並ぶ新しいgit管理ファイル
-`data/startgg/excluded_events.json`(event_id単位、除外日時・除外理由を
-持つ)で管理する。既存の`load_excluded_phase_ids()`と同じ「呼び出し側が
-明示的にファイルを読んでチェックする」スタイルを踏襲し、通常のクロール
+(phase_id単位の除外)を`data/startgg/excluded_events.json`へリネーム・
+拡張した単一のファイルで管理する。同じファイル内で、event_id配下の
+値が配列なら従来通りphase単位の除外、`reason`を直下に持つオブジェクト
+ならイベント全体の除外、という形で2種類の除外を区別する(`type`
+フィールドは追加しない。`research.md` Decision 1参照)。既存の
+`load_excluded_phase_ids()`と同じ「呼び出し側が明示的にファイルを
+読んでチェックする」スタイルを踏襲し、通常のクロール
 (`download_all_tournaments`/`download_by_ids`)、個別イベント再取得
 (`redownload_event.py`)、`tournaments.jsonl`補完(`backfill_tournament_index.py`)
-の各エントリポイントで、イベントディレクトリパスを計算した直後に除外
-チェックを追加する。
+の各エントリポイントで、イベントディレクトリパスを計算した直後に
+イベント全体除外のチェックを追加する。
 
 ## Technical Context
 
@@ -26,9 +29,10 @@
 依存は追加しない。既存の`scripts/utils.py`の`read_json`/`write_json`を
 再利用する。
 
-**Storage**: ファイルベース、git管理(`data/startgg/excluded_events.json`)。
-DBMSは使用しない(既存の`excluded_phases.json`/`tournaments.jsonl`等と
-同じ運用)。
+**Storage**: ファイルベース、git管理(`data/startgg/excluded_phases.json`
+を`data/startgg/excluded_events.json`へリネームして拡張。`git mv`で
+リネームし、既存のphase単位除外エントリは無変換で引き継ぐ)。DBMSは
+使用しない(`tournaments.jsonl`等と同じ運用)。
 
 **Testing**: `unittest`(`scripts/test/`配下、既存パターン踏襲)。
 
@@ -55,9 +59,9 @@ DBMSは使用しない(既存の`excluded_phases.json`/`tournaments.jsonl`等と
 
 | 原則 | 判定 | 根拠 |
 |---|---|---|
-| I. データスキーマの整合性とバージョニング | PASS | `excluded_events.json`は`docs/data_model.md`が`version`必須と定めるイベントデータファイル群(attr/matches/standings/seeds/tournaments.jsonl/users.jsonl)には該当しない、既存の`excluded_phases.json`と同種の設定ファイル。新ファイルは`docs/data_model.md`(または`docs/startgg_design.md`)へ同一PRで記載する。 |
+| I. データスキーマの整合性とバージョニング | PASS | `excluded_events.json`(リネーム後)は`docs/data_model.md`が`version`必須と定めるイベントデータファイル群(attr/matches/standings/seeds/tournaments.jsonl/users.jsonl)には該当しない、既存の`excluded_phases.json`と同種の設定ファイル。リネーム・スキーマ拡張は`docs/data_model.md`(または`docs/startgg_design.md`)へ同一PRで記載する。 |
 | II. 冪等でインクリメンタルな収集 | PASS | 除外チェックは既存の`done.csv`/`should_skip_tournament`等の判定に並行する追加ガードであり、既存の冪等性・再実行安全性を変更しない。 |
-| III. マージ前の検証ゲート(NON-NEGOTIABLE) | PASS(実装時に要対応) | 新しいデータ形状(`excluded_events.json`)を追加するため、`scripts/test`に対応するテストを新設する(`tasks.md`で明記)。 |
+| III. マージ前の検証ゲート(NON-NEGOTIABLE) | PASS(実装時に要対応) | 新しいデータ形状(event全体除外エントリ)を追加し、既存`load_excluded_phase_ids()`の挙動も変更するため、`scripts/test`に両方の対応テストを新設する(`tasks.md`で明記)。 |
 | IV. ブランチとオートメーションの規律 | PASS | GitHub Actions自動化のcommit/push方式・concurrency設計には変更を加えない。除外リストの追加・削除は手動のファイル編集+通常のコミットを前提とする。 |
 | V. 外部APIへの耐障害アクセス | PASS | 除外チェックはローカルファイル読み込みのみで、start.gg APIへの新規呼び出しを一切発生させない。既存のリトライ・ページングロジックには触れない。 |
 | データ保存規約 | PASS | 新ファイルは`data/startgg/`配下に置く。シークレットは扱わない。 |
@@ -88,34 +92,40 @@ specs/007-exclude-events/
 
 ```text
 data/startgg/
-├── excluded_phases.json     # 既存(phase_id単位の除外、変更なし)
-└── excluded_events.json     # 新規: event_id単位の除外(本フィーチャー)
+└── excluded_events.json     # excluded_phases.json からリネーム。
+                              #   event単位・phase単位の除外を1ファイルで扱う
 
 scripts/
 ├── fetch/
-│   └── download.py          # load_excluded_event_ids() を新設し、
-│                             #   download_all_tournaments() / download_by_ids()
-│                             #   の該当箇所に除外チェックを追加
+│   └── download.py          # EXCLUDED_PHASES_PATH → EXCLUDED_EVENTS_PATH に
+                              #   リネーム。load_excluded_phase_ids() を
+                              #   配列形状エントリのみ対象に修正。
+                              #   load_excluded_event_ids() を新設し、
+                              #   download_all_tournaments() / download_by_ids()
+                              #   の該当箇所に除外チェックを追加
 ├── fix/
 │   ├── redownload_event.py         # 除外チェックを追加
 │   └── backfill_tournament_index.py # 除外チェックを追加
 └── test/
-    └── test_download.py     # load_excluded_event_ids() と各エントリ
+    └── test_download.py     # load_excluded_event_ids()・修正後の
+                              #   load_excluded_phase_ids()・各エントリ
                               #   ポイントでのスキップ挙動のテストを追加
     # backfill_tournament_index.py 側の除外挙動テストは
     # test_backfill_tournament_index.py に追加
 
 docs/
-└── data_model.md            # excluded_events.json のスキーマを追記
+└── data_model.md または startgg_design.md
+                              # excluded_events.json のスキーマ(2種類の
+                              #   エントリ形状)を追記
 ```
 
 **Structure Decision**: 新規プロジェクト/新規ディレクトリは作らず、
 既存の`scripts/fetch/`(取得)・`scripts/fix/`(補完・修復)・
 `scripts/test/`という既存の責務分割(憲法「開発ワークフロー」節)に
-そのまま追加する。除外リストの読み込みロジック(`load_excluded_event_ids()`)
-は、同種の`load_excluded_phase_ids()`と同じく`scripts/fetch/download.py`
-に置き、`scripts/fix/`側の各ツールからはそれをimportして利用する
-(既存の`event_files_complete`等、`download.py`から`scripts/fix/`側が
+そのまま追加する。除外リストの読み込みロジック(`load_excluded_event_ids()`、
+および修正後の`load_excluded_phase_ids()`)は、既存と同じく
+`scripts/fetch/download.py`に置き、`scripts/fix/`側の各ツールからは
+それをimportして利用する(既存の`download.py`から`scripts/fix/`側が
 importする既存の依存方向と一貫させる)。
 
 ## Complexity Tracking

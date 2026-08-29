@@ -6,8 +6,10 @@
 ## 前提
 
 - リポジトリのルートで作業する。
-- 除外リストファイルは `data/startgg/excluded_events.json`(実装時の
-  正式なパス名は `research.md` Decision 1 に従う)。
+- 除外リストファイルは `data/startgg/excluded_events.json`(実装の
+  一部として `data/startgg/excluded_phases.json` から `git mv` で
+  リネームされる。既存のphase単位の除外エントリはそのまま引き継がれる。
+  `research.md` Decision 1 参照)。
 
 ## 1. 除外エントリを追加する
 
@@ -18,7 +20,6 @@
 ```json
 {
   "<対象のevent_id>": {
-    "excluded_at": "2026-08-29",
     "reason": "動作確認用の一時的な除外エントリ"
   }
 }
@@ -59,8 +60,9 @@ python3 scripts/fix/backfill_tournament_index.py --token <TOKEN> --dry-run
 cat data/startgg/excluded_events.json
 ```
 
-- 追加のスクリプトやツールを使わずに、event_id・除外日時(`excluded_at`)・
-  除外理由(`reason`)の3項目がそのまま読めることを確認する。
+- 追加のスクリプトやツールを使わずに、event_id・除外理由(`reason`)の
+  2項目がそのまま読めることを確認する。除外日時を知りたい場合は
+  `git log data/startgg/excluded_events.json` で確認する。
 
 ## 5. 除外を解除する(FR-008)
 
@@ -68,7 +70,15 @@ cat data/startgg/excluded_events.json
 以後、そのevent_idは除外リストに未登録のevent_idと同じ扱いになる
 (手順2を再実行し、通常通り取得・登録されることを確認する)。
 
-## 6. 自動テスト
+## 6. リネームによる既存機能への影響が無いことを確認する(回帰確認)
+
+`data/startgg/excluded_events.json` に、既存のphase単位除外エントリ
+(配列形状、例: event_id=436192 / phase_id=731718)が引き続き残っている
+ことを確認し、そのevent_idのsets取得(`fetch_all_sets`/
+`fetch_set_ids_for_event`)が従来通りそのphaseを除外して動作することを
+確認する(FR-002a、リネーム前の既存挙動に対する非破壊性)。
+
+## 7. 自動テスト
 
 ```bash
 python3 -m unittest discover -s scripts/test

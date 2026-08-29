@@ -35,3 +35,7 @@
   限定するか等)は、いずれも既存の`excluded_phases.json`の設計・運用
   慣行に沿った妥当なデフォルトが存在したため、[NEEDS CLARIFICATION]は
   使わず、Assumptions節に明記する形で解決した。
+- `/speckit-clarify`実施後、`/speckit-plan`中のユーザーとの対話で
+  「既存の`excluded_phases.json`を1ファイルに統合・リネームする」
+  という追加の設計判断が確定し、Clarifications/FR-002a/Key Entities/
+  Assumptionsへ反映済み(2026-08-29)。
