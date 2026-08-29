@@ -98,24 +98,30 @@ description: "Task list template for feature implementation"
 
 ### Implementation for User Story 2
 
-- [ ] T009 [US2] `resolve_path_collision(new_event_dir, new_num_entrants, existing_tournament_id, existing_event, tournaments)`
-  を `scripts/fetch/download.py` に実装する。まず既存側が既に
-  `disambiguate_event_name()` 形式の `path` を持つ兄弟イベント(同一
-  地域/開催日/大会名/イベント名で調整名を持つ他のイベント)を持つか
-  `tournaments` 辞書から判定し、存在する場合(=既存側は過去の衝突解決で
-  既にロック済み)は参加者数比較を行わず常に新規側のみを調整する
-  (FR-005優先)。存在しない場合(初回の衝突)のみ、既存側の参加者数を
-  `existing_event["path"]/attr.json` の `num_entrants` から読み取り
+- [ ] T009 [US2] `resolve_path_collision(new_event_dir, new_num_entrants, existing_tournament_id, existing_event, tournaments, settled_tournament_ids)`
+  を `scripts/fetch/download.py` に実装する。`existing_tournament_id` が
+  `settled_tournament_ids`(取得処理の開始時点で確定済みだった
+  tournament_idの集合。T011が構築)に含まれる場合は、参加者数比較を
+  行わず常に新規側のみを調整する(FR-005の恒久ロック)。含まれない場合
+  (=既存側も同一の取得処理内でまだ確定していない)のみ、既存側の参加者数
+  を `existing_event["path"]/attr.json` の `num_entrants` から読み取り
   (読めない場合は `0` 扱い)、参加者数が多い方は無調整、同数の場合は
   `tournament_id` が大きい方を調整対象とする決定的なタイブレークで比較
-  する。`research.md` Decision 3(`/speckit-analyze`指摘R1修正)。
-- [ ] T010 [US2] T009の関数内、初回衝突かつ新規側ではなく既存側が調整
-  対象になる場合の処理を `scripts/fetch/download.py` に実装する(既存
-  イベントのディレクトリを実際にリネームし、`tournaments` 辞書内の該当
-  エントリの `path` を更新する。既存の安全なリロケーションパターン
-  (`cleanup_relocated_directory()`)を踏襲)。
+  する。`research.md` Decision 3(ユーザーフィードバック2026-08-29による
+  再訂正)。
+- [ ] T010 [US2] T009の関数内、`settled_tournament_ids` に含まれない
+  (同一取得処理内でまだ確定していない)既存側が調整対象になる場合の
+  処理を `scripts/fetch/download.py` に実装する(既存イベントのディレク
+  トリを実際にリネームし、`tournaments` 辞書内の該当エントリの `path`
+  を更新する。既に調整名を持っていた場合は本来の名前に戻すのではなく、
+  新規側が無調整の勝者になり既存側が新たに調整名を持つ入れ替えとなる。
+  既存の安全なリロケーションパターン(`cleanup_relocated_directory()`)
+  を踏襲)。
 - [ ] T011 [US2] `download_all_tournaments()`/`download_by_ids()` を、
-  衝突検出時に早期の `update_event_registration()` 呼び出しをスキップし、
+  `read_tournaments_jsonl()` 直後(この取得処理自身がまだ何も新規登録
+  していない時点)に、その時点の `tournaments` 辞書のキー集合を
+  `settled_tournament_ids` としてスナップショットし(T009参照)、衝突
+  検出時には早期の `update_event_registration()` 呼び出しをスキップし、
   計算上の(衝突しうる)`event_dir` へ `download_standings()` を実行した
   上でその戻り値(`len(user_data)`)を使ってT009の
   `resolve_path_collision()` を呼び出し、その結果で本登録するよう
@@ -128,12 +134,18 @@ description: "Task list template for feature implementation"
   `scripts/test/test_download.py` に追加する(参加者数が多い方の維持、
   同数時のタイブレーク、既存側リネームの正しさ、`attr.json` が
   読めない場合に `0` 扱いとなり新規側が優先されることを検証)。
-- [ ] T014 [US2] 確定・保存済みの衝突解決が、後から現れたより参加者数の
-  多い3件目の同日同名イベントによって再度変更されないことを検証する
-  テストを `scripts/test/test_download.py` に追加する(FR-005)。3件目
-  (C)がロック済みの勝者(A)より参加者数が多い場合でも、Aは変更されず
-  Cのみが調整されることを明示的に検証する(`/speckit-analyze`指摘R1、
-  T009の「初回衝突の判定」ロジックの検証)。
+- [ ] T014 [US2] FR-005の「取得処理をまたいだ確定は不変」と、Edge Cases
+  の「同一取得処理内では3件以上でも最多を維持」の両方を検証するテストを
+  `scripts/test/test_download.py` に追加する。(a) 同一の
+  `download_all_tournaments()`/`download_by_ids()` 呼び出しの中でA・B・C
+  が順に検出され、Cが(それまでの暫定勝者Aより)最多の参加者数を持つ場合、
+  最終的にCが元の名前を維持しAが調整されること(`settled_tournament_ids`
+  に未だ含まれない場合の入れ替わり)。(b) Aが**別の**(先に完了した)
+  取得処理で既に確定・保存済み(=次の呼び出し開始時点の
+  `settled_tournament_ids` に含まれる)の場合、その後の取得処理で
+  Aより参加者数の多いDが検出されても、Aは変更されずDのみが調整される
+  こと。ユーザーフィードバック2026-08-29により、`/speckit-analyze`指摘
+  R1時点の「2件目以降は常にロック」という想定から訂正。
 - [ ] T015 [US2] 衝突検出時点で新規側の参加者数が未確定な場合、
   `download_standings()` 完了まで本登録が遅延されることを検証する統合
   テストを `scripts/test/test_download.py` に追加する(FR-003)。
@@ -178,22 +190,27 @@ description: "Task list template for feature implementation"
 ### Implementation for User Story 4
 
 - [ ] T018 [US4] `scripts/fix/fix_path_collision.py` を新規作成する。
-  `--token`・対象2件の `--event-id <A> <B>` を受け取り、`--yes` 無しの
-  デフォルト実行では対象イベント・現在の状態(各`attr.json`の
-  `num_entrants`)・実行後の見込みを表示するのみで、実際の変更は一切
-  行わない(既存の `redownload_event.py` の `--dry-run` 既定動作と同じ
-  パターン。`research.md` Decision 6)。
+  `--token`・対象2件**以上**の `--event-id <id1> <id2> [<id3> ...]` を
+  受け取り、`--yes` 無しのデフォルト実行では対象イベント全員・現在の
+  状態(各`attr.json`の`num_entrants`)・実行後の見込みを表示するのみで、
+  実際の変更は一切行わない(既存の `redownload_event.py` の `--dry-run`
+  既定動作と同じパターン。`research.md` Decision 6)。
 - [ ] T019 [US4] `--yes` 指定時の実行パスを `scripts/fix/fix_path_collision.py`
   に実装する。T009の `resolve_path_collision()` と同じ判定基準(FR-011)を
-  用いて両者の最終的な保存先を決定し、`redownload_event.py` が使っている
-  のと同じ取得用の関数群(`download_standings`/`download_seeds`/
-  `download_all_set`/`write_event_attributes`)を再利用してそれぞれを
-  個別に再取得し、`tournaments.jsonl` を更新する。
+  用いるが、コマンドラインで指定された対象event_id群は互いに対して
+  `settled_tournament_ids` に含めず(=指定された全員を「同一の取得処理
+  内」として扱う)、2件ずつの比較を順に適用して全員の最終的な保存先を
+  決定する(3件以上でも参加者数最多の1件のみ元の名前を維持する。
+  `research.md` Decision 3・Decision 6)。決定した保存先へ、
+  `redownload_event.py` が使っているのと同じ取得用の関数群
+  (`download_standings`/`download_seeds`/`download_all_set`/
+  `write_event_attributes`)を再利用してそれぞれ個別に再取得し、
+  `tournaments.jsonl` を更新する。
 - [ ] T020 [P] [US4] `scripts/test/test_fix_path_collision.py` を新規
   作成し、`--yes` 無しでは一切変更が発生しないこと、`--yes` 付きでは
-  参加者数が多い方の保存先名が変更されず両者が別ディレクトリに分離
-  されること、`tournaments.jsonl` が両方の実際のパスを反映することを
-  検証する。
+  参加者数が最多の1件の保存先名が変更されず残り全員が別ディレクトリに
+  分離されること(2件・3件以上の両方のケースを含む)、`tournaments.jsonl`
+  が全員の実際のパスを反映することを検証する。
 
 **Checkpoint**: 既存の衝突を、人手の確認のもとで安全に修復できる。
 

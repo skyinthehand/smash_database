@@ -19,8 +19,12 @@
 - User Story 3の監査ツール(`find_path_collisions.py`)は、この形の情報を
   `tournaments.jsonl`から算出して一覧表示する(ファイルには書き出さない)。
 - User Story 4の修復ツール(`fix_path_collision.py`)は、この情報を入力
-  として受け取り、`resolved: true`の状態に変換する(=両者を別ディレクトリ
-  に再配置し、`tournaments.jsonl`を更新する)。
+  として受け取り、`resolved: true`の状態に変換する(=全員を別ディレクトリ
+  に再配置し、`tournaments.jsonl`を更新する)。表の`_a`/`_b`は2件の場合の
+  表記例であり、同一パスに3件以上が衝突している場合は同じ形の情報が
+  3件以上分並ぶ(`resolve_path_collision()`は2件ずつの比較を繰り返し
+  適用することで、3件以上のグループ全体を通じた最多1件の維持に収束する。
+  `research.md` Decision 3)。
 
 ## 既存エンティティへの影響
 
@@ -48,16 +52,18 @@
 
 - `build_path_index(tournaments: dict) -> dict[str, tuple[int, int]]`:
   `path -> (tournament_id, event_id)`。
-- `resolve_path_collision(new_event_dir, new_num_entrants, existing_tournament_id, existing_event, tournaments) -> str`:
+- `resolve_path_collision(new_event_dir, new_num_entrants, existing_tournament_id, existing_event, tournaments, settled_tournament_ids) -> str`:
   最終的に使うべき`new_event_dir`(調整後の場合あり)を返す。既存側を
   調整すべき場合は、`tournaments`辞書内の既存エントリの`path`をその場で
   書き換え、対応するディレクトリを実際にリネームする副作用を持つ。
-  内部でまず、既存側が既に`disambiguate_event_name()`形式の`path`を持つ
-  兄弟イベント(同一地域/開催日/大会名/イベント名で調整名を持つ他の
-  イベント)の有無を調べ、存在する場合は既存側が過去の衝突解決で既に
-  確定(ロック)済みと判断して参加者数比較を行わず常に新規側のみを
-  調整する。存在しない場合(初回の衝突)のみ、通常通り参加者数を比較する
-  (`research.md` Decision 3、`/speckit-analyze`指摘R1修正)。
+  `settled_tournament_ids`(呼び出し元が取得処理の開始時点でスナップ
+  ショットした、その時点で既に確定済みのtournament_idの集合。永続化は
+  しない)に`existing_tournament_id`が含まれる場合は、参加者数比較を
+  行わず常に新規側のみを調整する(FR-005の恒久ロック)。含まれない場合
+  (=既存側も同一の取得処理内でまだ確定していない)は、通常通り参加者数
+  を比較し、新規側の方が多ければ既存側を調整する入れ替えを行う
+  (`research.md` Decision 3。ユーザーフィードバック2026-08-29による
+  再訂正)。
 - `disambiguate_event_name(tournament_name: str, tournament_id: int) -> str`:
   `f"{tournament_name}_({tournament_id})"`(既存の空白/スラッシュ置換を
   適用した上で)。
