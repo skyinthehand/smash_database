@@ -52,6 +52,12 @@
   最終的に使うべき`new_event_dir`(調整後の場合あり)を返す。既存側を
   調整すべき場合は、`tournaments`辞書内の既存エントリの`path`をその場で
   書き換え、対応するディレクトリを実際にリネームする副作用を持つ。
+  内部でまず、既存側が既に`disambiguate_event_name()`形式の`path`を持つ
+  兄弟イベント(同一地域/開催日/大会名/イベント名で調整名を持つ他の
+  イベント)の有無を調べ、存在する場合は既存側が過去の衝突解決で既に
+  確定(ロック)済みと判断して参加者数比較を行わず常に新規側のみを
+  調整する。存在しない場合(初回の衝突)のみ、通常通り参加者数を比較する
+  (`research.md` Decision 3、`/speckit-analyze`指摘R1修正)。
 - `disambiguate_event_name(tournament_name: str, tournament_id: int) -> str`:
   `f"{tournament_name}_({tournament_id})"`(既存の空白/スラッシュ置換を
   適用した上で)。

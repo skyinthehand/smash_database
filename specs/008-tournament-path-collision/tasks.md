@@ -99,15 +99,20 @@ description: "Task list template for feature implementation"
 ### Implementation for User Story 2
 
 - [ ] T009 [US2] `resolve_path_collision(new_event_dir, new_num_entrants, existing_tournament_id, existing_event, tournaments)`
-  を `scripts/fetch/download.py` に実装する(既存側の参加者数は
-  `existing_event["path"]/attr.json` の `num_entrants` から読み取り、
-  読めない場合は `0` 扱い。参加者数が多い方は無調整、同数の場合は
-  `tournament_id` が大きい方を調整対象とする決定的なタイブレーク。
-  `research.md` Decision 3)。
-- [ ] T010 [US2] T009の関数内、新規側ではなく既存側が調整対象になる場合の
-  処理を `scripts/fetch/download.py` に実装する(既存イベントの
-  ディレクトリを実際にリネームし、`tournaments` 辞書内の該当エントリの
-  `path` を更新する。既存の安全なリロケーションパターン
+  を `scripts/fetch/download.py` に実装する。まず既存側が既に
+  `disambiguate_event_name()` 形式の `path` を持つ兄弟イベント(同一
+  地域/開催日/大会名/イベント名で調整名を持つ他のイベント)を持つか
+  `tournaments` 辞書から判定し、存在する場合(=既存側は過去の衝突解決で
+  既にロック済み)は参加者数比較を行わず常に新規側のみを調整する
+  (FR-005優先)。存在しない場合(初回の衝突)のみ、既存側の参加者数を
+  `existing_event["path"]/attr.json` の `num_entrants` から読み取り
+  (読めない場合は `0` 扱い)、参加者数が多い方は無調整、同数の場合は
+  `tournament_id` が大きい方を調整対象とする決定的なタイブレークで比較
+  する。`research.md` Decision 3(`/speckit-analyze`指摘R1修正)。
+- [ ] T010 [US2] T009の関数内、初回衝突かつ新規側ではなく既存側が調整
+  対象になる場合の処理を `scripts/fetch/download.py` に実装する(既存
+  イベントのディレクトリを実際にリネームし、`tournaments` 辞書内の該当
+  エントリの `path` を更新する。既存の安全なリロケーションパターン
   (`cleanup_relocated_directory()`)を踏襲)。
 - [ ] T011 [US2] `download_all_tournaments()`/`download_by_ids()` を、
   衝突検出時に早期の `update_event_registration()` 呼び出しをスキップし、
@@ -125,7 +130,10 @@ description: "Task list template for feature implementation"
   読めない場合に `0` 扱いとなり新規側が優先されることを検証)。
 - [ ] T014 [US2] 確定・保存済みの衝突解決が、後から現れたより参加者数の
   多い3件目の同日同名イベントによって再度変更されないことを検証する
-  テストを `scripts/test/test_download.py` に追加する(FR-005)。
+  テストを `scripts/test/test_download.py` に追加する(FR-005)。3件目
+  (C)がロック済みの勝者(A)より参加者数が多い場合でも、Aは変更されず
+  Cのみが調整されることを明示的に検証する(`/speckit-analyze`指摘R1、
+  T009の「初回衝突の判定」ロジックの検証)。
 - [ ] T015 [US2] 衝突検出時点で新規側の参加者数が未確定な場合、
   `download_standings()` 完了まで本登録が遅延されることを検証する統合
   テストを `scripts/test/test_download.py` に追加する(FR-003)。
@@ -238,6 +246,13 @@ description: "Task list template for feature implementation"
   実際に実行し、記載通りに動作することを確認する。
 - [ ] T027 `python3 -m unittest discover -s scripts/test` を実行し、
   リポジトリ全体のテストが通ることを確認する(憲法Principle III)。
+- [ ] T028 衝突解決によるディレクトリリネーム処理(T010の既存側リネーム、
+  T019の修復ツールによる再配置、T022の`redownload_event.py`自己シフト)
+  が処理途中で中断された場合でも、次回実行時に安全に再開・収束する
+  ことを検証するテストを `scripts/test/test_download.py` /
+  `scripts/test/test_fix_path_collision.py` / `scripts/test/test_redownload_event.py`
+  に追加する(憲法Principle II、plan.md Constitution Check「実装時に
+  要注意」への対応。`/speckit-analyze`指摘C1)。
 
 ---
 

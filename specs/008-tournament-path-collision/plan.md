@@ -66,7 +66,7 @@ Alternatives参照)。
 | IV. ブランチとオートメーションの規律 | PASS | 通常のクロールのGitHub Actions自動化(commit/push方式・concurrency)には変更を加えない。衝突解決によるリネームは個々のイベント単位の小規模な操作であり、`docs/*.md`の更新が必要な大規模な破壊的移行には該当しない。 |
 | V. 外部APIへの耐障害アクセス | PASS | 新規のAPI呼び出しパターンを追加しない(既存の`download_standings`等をそのまま利用)。`fetch_data_with_retries`を経由しない独自リトライは実装しない。 |
 | データ保存規約 | PASS | 新規ファイルは追加しない。既存のディレクトリレイアウト規約(`docs/directory.md`)を維持する(パスの構成要素自体は変わらず、大会名部分の文字列だけが調整される)。 |
-| 開発ワークフロー | PASS | 新規ツール(`find_path_collisions.py`/`fix_path_collision.py`)は`scripts/fix/`に配置し、既存の1ツール=1責務の方針を踏襲する(`redownload_event.py`は拡張しない。`research.md` Decision 6)。`docs/directory.md`等への追記が必要かは実装時に確認する。 |
+| 開発ワークフロー | PASS | 新規ツール(`find_path_collisions.py`/`fix_path_collision.py`)は`scripts/fix/`に配置し、既存の1ツール=1責務の方針を踏襲する。`redownload_event.py`には自己衝突回避のみを追加し、参加者数比較のような「相手側を動かす」判断は持たせない(`research.md` Decision 7)。`docs/directory.md`等への追記が必要かは実装時に確認する。 |
 
 違反なし。Complexity Trackingへの記載事項は無い。
 

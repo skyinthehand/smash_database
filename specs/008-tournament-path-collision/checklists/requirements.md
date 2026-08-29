@@ -48,3 +48,14 @@
 - `/speckit-plan`後のユーザーフィードバック(2026-08-29): 上記の判断を
   訂正し、`redownload_event.py`も対象に含めることにした。ただし判定基準は
   FR-002/FR-004とは異なる単純な片方向ルール(User Story 5、FR-012)。
+- `/speckit-analyze`(2026-08-29): 3件の指摘を反映して修正した。
+  (R1・CRITICAL) Edge Casesの「3件以上衝突時は参加者数で毎回順位付け」
+  という記述がFR-005(一度確定した保存先は不変)と矛盾していたため、
+  「最初の2件のみ参加者数比較を行い、以降はロック済み側を常に維持する」
+  に統一(spec.md Edge Cases/FR-002/FR-005、research.md Decision 3、
+  tasks.md T009/T010/T014を修正)。(I2・HIGH) plan.mdのConstitution
+  Check表が`redownload_event.py`拡張なしという旧Decision 6の記述の
+  ままだったため、Decision 7を参照するよう訂正。(C1・HIGH) 憲法
+  Principle II(冪等性)がplan.mdで要求する「リネーム中断時の安全な
+  再開・収束」を検証するテストがtasks.mdに欠けていたため、T028として
+  追加。
