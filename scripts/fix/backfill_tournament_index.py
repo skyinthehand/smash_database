@@ -31,6 +31,7 @@ from scripts.fetch.download import (  # noqa: E402
     TOURNAMENTS_PER_PAGE,
     fetch_event_ids_from_tournament,
     fetch_latest_tournaments_by_game,
+    load_excluded_event_ids,
 )
 from scripts.utils import (  # noqa: E402
     FetchError,
@@ -120,6 +121,7 @@ def scan_and_fill(
     """
     tournaments = read_tournaments_jsonl(tournament_file_path)
     existing_tournament_ids = set(tournaments.keys())
+    excluded_event_ids = load_excluded_event_ids()
     rewrite_tournaments = False
 
     now_timestamp = int(datetime.now().timestamp())
@@ -174,6 +176,10 @@ def scan_and_fill(
                 )
                 if not os.path.isdir(event_dir):
                     # まだダウンロードしていないイベントは対象外(通常のクロールに任せる)。
+                    continue
+
+                if event_id in excluded_event_ids:
+                    print(f"[SKIP-EXCLUDED] tournament_id={tournament_id} event_id={event_id} path={event_dir}")
                     continue
 
                 if tournament_id in tournaments:

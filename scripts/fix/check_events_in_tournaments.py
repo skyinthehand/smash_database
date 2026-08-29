@@ -5,12 +5,19 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import sys
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Dict, List, Optional
 from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
+
+ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+if ROOT_DIR not in sys.path:
+    sys.path.insert(0, ROOT_DIR)
+
+from scripts.fetch.download import load_excluded_event_ids  # noqa: E402
 
 DEFAULT_TOURNAMENTS = Path("data/startgg/tournaments.jsonl")
 DEFAULT_EVENTS_ROOT = Path("data/startgg/events")
@@ -198,6 +205,7 @@ def main() -> int:
 
     tournaments = load_tournaments(tournaments_file)
     event_index = build_event_index(tournaments)
+    excluded_event_ids = load_excluded_event_ids()
 
     missing_events: List[MissingEvent] = []
 
@@ -220,6 +228,10 @@ def main() -> int:
             continue
 
         event_id = attr.get("event_id")
+        if isinstance(event_id, int) and event_id in excluded_event_ids:
+            print(f"[SKIP-EXCLUDED] {event_dir}: event_id={event_id} は除外リストに登録されています。")
+            continue
+
         event_name = attr.get("event_name")
         tournament_name = attr.get("tournament_name")
         reason = "tournaments.jsonl にパスが未登録"

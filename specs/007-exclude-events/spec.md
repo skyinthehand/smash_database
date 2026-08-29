@@ -1,0 +1,273 @@
+# Feature Specification: 取得対象からのイベント除外
+
+**Feature Branch**: `007-exclude-events`
+
+**Created**: 2026-08-29
+
+**Status**: Draft
+
+**Input**: ユーザー記述: "特定のイベントを取得対象から除外するようにしたい。git管理するデータベースを作成し、除外eventId・除外日時・除外理由を残せるようにし、除外された大会は各イベントディレクトリも作成せず、tournaments.jsonlにも記載しない。"
+
+## Clarifications
+
+### Session 2026-08-29
+
+- Q: 除外を解除する場合、除外リストからそのevent_idのエントリを単純に
+  削除すればよいか、それとも「過去に除外されていた」という記録自体を
+  残すべきか? → A: エントリを削除するだけでよい。無効化フラグのような
+  概念は持たず、既存の`excluded_phases.json`と同じ単純なキー値マップ
+  形式とする。git履歴自体が過去の除外/解除の記録を兼ねる。
+- Q: 通常の定期クロールが除外済みイベントに遭遇してスキップした場合、
+  それを可視化(ログ出力等)する必要があるか? → A: 必要。
+  `download_all_tournaments`が他のスキップ理由(取得済み・未終了等)で
+  既に行っているのと同様の1行ログを出力する。
+- Q: 既存の`excluded_phases.json`(phase単位の除外)とは別ファイルで
+  event単位の除外を管理するか、それとも1つのファイルに統合するか?
+  統合する場合、「イベント全体の除外」と「特定phaseのみの除外」をどう
+  区別するか(明示的な`type`フィールドを持たせるべきか)? → A: 1つの
+  ファイルに統合し、既存の`excluded_phases.json`を`excluded_events.json`
+  へリネーム・拡張する。区別には`type`フィールドを追加せず、値の形
+  (JSON配列=phase単位の除外、`reason`を直下に持つJSONオブジェクト=
+  イベント全体の除外)自体で区別する。既存の配列形状のエントリは
+  無変換のまま新形式として通用するため、移行コストが無い。
+- Q: 除外エントリに「除外日時」フィールドをファイル内に持たせる
+  必要があるか? → A: 不要。除外リストはgit管理されているため、
+  いつ除外を追加/変更したかはそのファイルのコミット履歴
+  (`git log`/`git blame`)で確認できる。ファイル内のフィールドとしては
+  event_id・除外理由の2項目のみを持つ。
+- Q(`/speckit-analyze`指摘): `scripts/fix/`配下のうち、
+  `redownload_event.py`/`backfill_tournament_index.py`以外のツールへの
+  適用要否を「実装時に個別に判断する」としていたが、`check_events_in_tournaments.py`
+  (attr.jsonベースの補完ツール)を対象外のままにすると、除外後も
+  ディレクトリが残存する既存イベントがこのツール経由で誤って
+  `tournaments.jsonl`へ再登録されFR-004違反になりうる。対象を広げる
+  べきか? → A: 対象に追加する。`check_events_in_tournaments.py`と
+  `fix_missing_tournaments.py`(`tournaments.jsonl`のエントリ削除ツール)
+  の2つも除外リストを参照する対象に含める(FR-006/Assumptions更新)。
+
+## User Scenarios & Testing *(mandatory)*
+
+### User Story 1 - 問題のあるイベントを自動取得から除外する (Priority: P1)
+
+データベースの保守担当者として、テスト運用のみを目的とした大会や、
+start.gg側のデータが壊れている大会など、明らかに収集対象とすべきでない
+イベントを、通常の自動クロールの対象から除外したい。除外したイベントは、
+クロールが巡回してきても一切取得されず、イベントディレクトリも作られず、
+`tournaments.jsonl`にも登録されないようにしたい。
+
+**Why this priority**: 本セッション中に実際に発見された具体的なニーズ
+(例: 「壁スマ#2　ggテスト運用」のようなテスト目的の重複イベント)。
+除外の仕組みそのものが無いと着手できない、本フィーチャーの核心。
+
+**Independent Test**: あるevent_idを除外リストに登録した状態で通常の
+クロールを実行し、そのevent_idに対応するディレクトリが作成されず、
+`tournaments.jsonl`にも一切記載されないことを確認することで、単独で
+検証できる。
+
+**Acceptance Scenarios**:
+
+1. **Given** 除外リストに登録されているevent_idを含むトーナメント、
+   **When** 通常のクロール処理がそのトーナメントのイベント一覧を取得する、
+   **Then** そのevent_idに対応するイベントディレクトリは作成されない。
+2. **Given** 除外リストに登録されているevent_id、**When** クロール処理が
+   `tournaments.jsonl`へトーナメント情報を記録する、**Then** そのevent_id
+   は`tournaments.jsonl`のいかなるトーナメントの`events`配列にも出現しない。
+3. **Given** 除外リストに登録されていないevent_id、**When** 通常の取得
+   処理が行われる、**Then** 除外機構導入前と同じ挙動(ディレクトリ作成・
+   `tournaments.jsonl`への記載)になる。
+
+---
+
+### User Story 2 - 除外理由を後から確認できる (Priority: P2)
+
+保守担当者として、なぜそのイベントが除外されているのかを後から確認
+できるようにしたい。いつ・誰が判断したかは、ファイル内の専用フィールド
+ではなく、git管理された除外リストファイル自体の変更履歴(コミット
+日時・author)から確認する。
+
+**Why this priority**: 除外リストが単なるIDの羅列だと、時間が経った後に
+「なぜこれが除外されているのか」が分からなくなり、誤って除外を解除して
+しまう、あるいは同種の問題を再度調査してしまうリスクがある。
+
+**Independent Test**: 除外リストにevent_idを1件追加し、そのファイルを
+直接開くことで、event_id・除外理由の2項目が記録されていることを確認
+することで、単独で検証できる。
+
+**Acceptance Scenarios**:
+
+1. **Given** 除外リストが空の状態、**When** あるevent_idを理由付きで
+   除外リストに追加する、**Then** そのevent_idのエントリに除外理由が
+   記録される。
+2. **Given** 除外エントリが既に存在するファイル、**When** そのファイルを
+   直接読む、**Then** 追加のツールやスクリプトを使わずに、除外理由が
+   人間が読める形で確認できる。
+
+---
+
+### User Story 3 - どの取得経路から実行しても除外が有効である (Priority: P3)
+
+保守担当者として、通常の定期クロールだけでなく、個別イベントの手動取得
+ツールや`tournaments.jsonl`の抜けを補完するツールなど、イベントディレクトリ
+や`tournaments.jsonl`への記載を発生させうる他の経路を使った場合でも、
+除外リストに載っているイベントは同じように除外されてほしい。
+
+**Why this priority**: 1つの入口だけ除外を効かせても、別の手動ツール
+経由で同じイベントが復活してしまっては、除外の意味が無くなる。ただし
+P1・P2(通常クロールでの除外・除外理由の記録)が成立していれば単独でも
+価値があるため、P3として独立させる。
+
+**Independent Test**: 除外リストに登録済みのevent_idを、個別イベント
+取得ツールに明示的に指定して実行し、そのツールが除外されていることを
+検知して取得をスキップすることを確認することで、単独で検証できる。
+
+**Acceptance Scenarios**:
+
+1. **Given** 除外リストに登録されているevent_id、**When** 個別イベント
+   取得ツールにそのevent_idを明示的に指定して実行する、**Then** ツールは
+   取得を行わず、除外されている旨を報告する。
+2. **Given** 除外リストに登録されているevent_id、**When**
+   `tournaments.jsonl`の抜けを補完するツール(`backfill_tournament_index.py`
+   または`check_events_in_tournaments.py`)を実行する、**Then** その
+   event_idは補完対象から除外され、`tournaments.jsonl`に追加されない
+   (ローカルにディレクトリが存在していても追加されない)。
+3. **Given** 除外リストに登録されているevent_id、**When**
+   `tournaments.jsonl`のエントリ検証・削除ツール(`fix_missing_tournaments.py`)
+   を実行する、**Then** そのevent_idのエントリは検証・削除判定の対象から
+   除外され(存在すれば残り、存在しなければ追加されない)、通常の
+   ファイル完全性チェックの対象にならない。
+
+---
+
+### Edge Cases
+
+- 既にディレクトリが作成され`tournaments.jsonl`にも記載済みのイベントを
+  後から除外リストに追加した場合: 本フィーチャーは以後の新規取得・新規
+  登録を防止するものであり、既存のディレクトリや`tournaments.jsonl`の
+  既存エントリを自動的に削除・除去することは行わない(Assumptions参照)。
+- 同じevent_idを誤って複数回除外リストに追加しようとした場合: 既存の
+  除外理由を上書きするか、追加を拒否するかは実装判断に委ねるが、
+  いずれの場合もそのevent_idが除外リストから欠落する結果にはならない。
+- 除外リストのファイル自体が存在しない場合: 除外イベントが1件も無い
+  状態として扱い、通常の取得・登録処理は通常通り行われる(既存の
+  `excluded_phases.json`が無い場合の挙動と同様)。
+- 除外を解除したい場合: 除外リストからそのevent_idのエントリを削除する
+  だけでよい(無効化フラグ等は持たない)。以後の取得・登録処理は、除外
+  リストに未登録のevent_idと同じ扱いになる。過去に除外されていたという
+  記録自体は、ファイル内には残らずgit履歴のみに残る。
+- 大会(トーナメント)そのものを丸ごと除外したい場合: 本フィーチャーの
+  対象はevent_id単位の除外のみであり、tournament_id単位での一括除外は
+  スコープ外(Assumptions参照)。トーナメント配下の全イベントを除外したい
+  場合は、各event_idを個別に登録する必要がある。
+
+## Requirements *(mandatory)*
+
+### Functional Requirements
+
+- **FR-001**: システムは、除外対象のevent_id・除外理由を記録する、
+  git管理されたデータベース(ファイル)を提供しなければならない
+  (MUST)。除外を記録した日時は、ファイル内に専用フィールドとして
+  持たせず、git管理された当該ファイルのコミット履歴によって表現する
+  (MUST NOT フィールドとして重複保持しない)。
+- **FR-002**: 除外リストの各**Excluded Event Entry**(イベント全体の
+  除外を表すエントリ)は、少なくとも(a)対象のevent_id、(b)除外理由
+  (自由記述)の2項目を含まなければならない(MUST)。この要件は
+  Excluded Phase Entry(既存の配列形状のphase単位除外エントリ)には
+  適用されない(FR-002a参照)。
+- **FR-002a**: 除外リストは、既存の`data/startgg/excluded_phases.json`
+  (phase単位の除外)をリネーム・拡張した単一のファイルとして提供し
+  なければならない(MUST)。同一event_id配下で、イベント全体の除外と
+  特定phaseのみの除外を、専用の種別フィールドを追加せず、エントリの
+  値の形(配列=phase単位、`reason`を直下に持つオブジェクト=イベント
+  全体)によって区別しなければならない(MUST)。既存の配列形状の
+  エントリは、無変換のまま引き続き有効でなければならない(MUST)。
+- **FR-003**: 通常のクロール処理は、あるイベントのディレクトリを新規に
+  作成する前に、そのevent_idが除外リストに登録されているかどうかを
+  MUST 確認しなければならない。登録されている場合、そのイベントの
+  ディレクトリ・データファイル(attr.json/matches.json/standings.json/
+  seeds.json)は一切作成してはならない(MUST NOT)。
+- **FR-004**: 通常のクロール処理は、除外リストに登録されている
+  event_idを、`tournaments.jsonl`のいかなるトーナメントの`events`配列にも
+  記載してはならない(MUST NOT)。
+- **FR-004a**: 通常のクロール処理は、除外リストに登録されているevent_idに
+  遭遇してスキップした場合、既存の他のスキップ理由(取得済み・未終了等)と
+  同様に、その旨をログへMUST出力しなければならない。
+- **FR-005**: 除外リストにevent_idが登録されていないイベントの
+  取得・登録処理は、本フィーチャー導入前と同じ挙動を MUST 維持しなければ
+  ならない(既存イベントへの副作用が無いこと)。
+- **FR-006**: 以下のツールは、対象のevent_idが除外リストに登録されて
+  いる場合、その取得・登録・削除判定処理をMUSTスキップし、除外されて
+  いる旨をMUST報告しなければならない: 個別イベントの手動取得・再取得
+  ツール(`scripts/fix/redownload_event.py`)、`tournaments.jsonl`の
+  抜けを検出・補完するツール(`scripts/fix/backfill_tournament_index.py`、
+  `scripts/fix/check_events_in_tournaments.py`)、および
+  `tournaments.jsonl`のエントリを検証・削除するツール
+  (`scripts/fix/fix_missing_tournaments.py`)。
+- **FR-007**: 除外リストへのエントリ追加・変更・削除は、リポジトリへの
+  通常のファイル編集・コミットを通じて行うことができなければならない
+  (MUST)。専用の対話的なコマンド・UIの存在を前提としない。
+- **FR-008**: 除外の解除は、除外リストから該当event_idのエントリを削除
+  することのみで行えなければならない(MUST)。無効化フラグ等の追加の
+  状態管理をエントリに持たせてはならない(MUST NOT)。
+
+### Key Entities *(include if feature involves data)*
+
+- **除外イベント登録 (Excluded Event Entry)**: 新規エンティティ。
+  1件のevent_idに対応する、イベント全体の除外の記録。event_id・除外
+  理由を持つ(除外日時はファイル内には持たず、git履歴で表現する)。
+  既存の**除外Phase登録 (Excluded Phase Entry)**
+  (phase_id・除外理由を持つ、既存の`data/startgg/excluded_phases.json`
+  由来のエンティティ)と、リネーム後の同一ファイル
+  (`data/startgg/excluded_events.json`)内で共存する。両者は
+  event_id配下の値の形(オブジェクト=イベント全体除外、配列=phase単位
+  除外)によって区別される。
+
+## Success Criteria *(mandatory)*
+
+### Measurable Outcomes
+
+- **SC-001**: 除外リストに登録されたevent_idについて、通常の
+  クロール実行後もイベントディレクトリが100%作成されない。
+- **SC-002**: 除外リストに登録されたevent_idは、クロール実行後の
+  `tournaments.jsonl`に一切出現しない。
+- **SC-003**: 除外エントリを追加してから次回のクロール実行までの間、
+  コード変更を一切行うことなく除外が有効になる。
+- **SC-004**: 除外リストの任意のエントリについて、event_id・除外理由の
+  2項目を、そのファイル単体を見るだけで(git履歴を遡らずに)確認できる。
+  除外を記録した日時を知りたい場合は、そのファイルに対する
+  `git log`/`git blame`で確認できる。
+
+## Assumptions
+
+- 除外の粒度はevent_id単位とする。tournament_id単位で配下の全イベントを
+  一括除外する機能は本フィーチャーのスコープ外とする(必要になった場合は
+  対象の各event_idを個別に登録する)。
+- 除外はevent_idが除外リストへ登録されて以降の新規取得・新規登録を
+  防止するものであり、追加時点で既にディレクトリが存在し
+  `tournaments.jsonl`にも記載済みのイベントについて、既存のデータ・
+  登録を自動的に削除・除去することは行わない。既存データの後始末が必要な
+  場合は、別途手動での対応(既存の`scripts/fix/`配下のツール等を用いた
+  個別対応)を要する。
+- 除外リストは、既存の`data/startgg/excluded_phases.json`を
+  `data/startgg/excluded_events.json`へリネームした上で拡張する
+  (event単位・phase単位を1ファイルに統合。Clarifications参照)。
+  無効化フラグ等の追加の状態管理は持たない単純なマップとし、エントリの
+  削除がそのまま除外解除を意味する。
+- 除外リストへのエントリ追加・削除は、従来の`excluded_phases.json`と
+  同様、直接のファイル編集(その後の通常のgitコミット)によって行う
+  ことを基本とし、専用の追加・削除コマンドの新設は本フィーチャーの
+  必須要件とはしない。
+- 「通常のクロール処理」に加え、以下4つのツールを同じ除外リストを
+  参照する対象に含める(FR-006): 個別イベントの手動取得ツール
+  (`scripts/fix/redownload_event.py`)、`tournaments.jsonl`の抜け
+  補完ツール2種(`scripts/fix/backfill_tournament_index.py`、
+  `scripts/fix/check_events_in_tournaments.py`)、`tournaments.jsonl`
+  のエントリ削除ツール(`scripts/fix/fix_missing_tournaments.py`)。
+  `/speckit-analyze`によるレビューで、`check_events_in_tournaments.py`
+  (attr.jsonベースでtournaments.jsonl未登録のディレクトリを発見・
+  追加する)を対象外のままにすると、除外後もディレクトリが残存する
+  既存イベント(Edge Cases参照)がこのツール経由で誤って
+  `tournaments.jsonl`へ再登録されうる(FR-004違反)ことが判明したため、
+  対象に追加した。それ以外の`scripts/fix/`配下のツール
+  (`find_empty_events.py`/`prune_empty_events.py`等、新規作成や
+  `tournaments.jsonl`書き込みを伴わないもの)への適用は本フィーチャーの
+  スコープ外とする。

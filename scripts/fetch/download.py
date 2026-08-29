@@ -52,7 +52,7 @@ SET_IDS_PER_PAGE_FALLBACKS = (200, 100, 50, 25, 10)
 SET_BATCH_SIZE_FALLBACKS = (25, 10, 5, 1)
 PHASE_GROUPS_PER_PAGE = 100
 MAX_PHASE_GROUPS_FETCH_ITERATIONS = 50
-EXCLUDED_PHASES_PATH = "data/startgg/excluded_phases.json"
+EXCLUDED_EVENTS_PATH = "data/startgg/excluded_events.json"
 
 def parse_date_or_datetime(value):
     for fmt in ("%Y-%m-%d", "%Y-%m-%dT%H:%M:%S"):
@@ -360,6 +360,10 @@ def download_all_tournaments(
                         f"Tournament {tournament_id}: processing event {event_id} ({event_name}) matches_only={matches_only}."
                     )
                     event_dir = get_event_directory(startgg_dir, country_code, year, month, day, tournament_name, event_name)
+
+                    if event_id in load_excluded_event_ids():
+                        print(f"Tournament {tournament_id}: event {event_id} is excluded. Skipping.")
+                        continue
 
                     # event_id とディレクトリの対応関係は、取得処理が始まる前の時点で
                     # 判明しているため、その後の取得(seeds/matches/attr.json)が途中で
@@ -683,18 +687,37 @@ def dedupe_set_nodes(all_sets, event_id=None):
         )
     return unique_sets
 
-def load_excluded_phase_ids(path=EXCLUDED_PHASES_PATH):
-    """data/startgg/excluded_phases.json を読み込み、event_id -> {phase_id, ...} を返す。
-    ファイルが存在しない場合は空辞書を返す(通常運用ではこのファイルは無くても動く)。"""
+def load_excluded_phase_ids(path=EXCLUDED_EVENTS_PATH):
+    """data/startgg/excluded_events.json を読み込み、event_id -> {phase_id, ...} を返す。
+    ファイルが存在しない場合は空辞書を返す(通常運用ではこのファイルは無くても動く)。
+    このファイルにはevent_id単位の除外エントリ(値がdict形状)も混在するため、
+    値が配列(list)形状のエントリ(phase単位の除外)のみを対象にする。"""
     try:
         raw = read_json(path)
     except (FileNotFoundError, ValueError):
         return {}
     result = {}
     for event_id_str, entries in (raw or {}).items():
+        if not isinstance(entries, list):
+            continue
         phase_ids = {entry["phase_id"] for entry in entries if "phase_id" in entry}
         if phase_ids:
             result[int(event_id_str)] = phase_ids
+    return result
+
+
+def load_excluded_event_ids(path=EXCLUDED_EVENTS_PATH):
+    """data/startgg/excluded_events.json を読み込み、event_id -> {"reason": str} を返す
+    (イベント全体を除外するエントリのみ。値が`reason`を直下に持つdict形状のものが対象で、
+    phase単位の除外エントリ(配列形状)は対象外)。ファイルが存在しない場合は空辞書を返す。"""
+    try:
+        raw = read_json(path)
+    except (FileNotFoundError, ValueError):
+        return {}
+    result = {}
+    for event_id_str, value in (raw or {}).items():
+        if isinstance(value, dict) and "reason" in value:
+            result[int(event_id_str)] = value
     return result
 
 
@@ -1397,6 +1420,10 @@ def download_by_ids(
             print(f"Tournament {tournament_id}: processing event {event_id} ({event_name}).")
             year, month, day = get_date_parts(timestamp)
             event_dir = get_event_directory(startgg_dir, _country_code, year, month, day, tournament_name, event_name)
+
+            if event_id in load_excluded_event_ids():
+                print(f"Tournament {tournament_id}: event {event_id} is excluded. Skipping.")
+                continue
 
             # event_id とディレクトリの対応関係は、取得処理が始まる前の時点で判明している
             # ため、その後の取得(seeds/matches/attr.json)が途中で失敗しても記録が残るよう、

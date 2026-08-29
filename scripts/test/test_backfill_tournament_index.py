@@ -164,6 +164,31 @@ class BackfillTournamentIndexTests(unittest.TestCase):
         event_ids = {ev["event_id"] for ev in records[0]["events"]}
         self.assertEqual(event_ids, {111, 222})
 
+    # -- 除外リスト(FR-006, US3) ----------------------------------------------
+
+    def test_skips_event_registered_in_exclusion_list(self):
+        # ローカルにディレクトリが既に存在していても、除外リストに登録されている
+        # event_idは tournaments.jsonl への追加対象にならない。
+        self.make_local_event_dir("Japan", "1970", "01", "01", "Excluded_Tournament", "Singles")
+
+        with patch.object(
+            bti, "fetch_latest_tournaments_by_game",
+            return_value=([self._tournament(999, "Excluded_Tournament")], 1),
+        ), patch.object(
+            bti, "fetch_event_ids_from_tournament",
+            return_value=[(111, "Singles", False, "COMPLETED", "SINGLES")],
+        ), patch.object(
+            bti, "load_excluded_event_ids",
+            return_value={111: {"reason": "test"}},
+        ):
+            summary = bti.scan_and_fill(
+                "1386", "", str(self.events_root), str(self.tournament_file_path)
+            )
+
+        self.assertEqual(summary["events_added"], 0)
+        self.assertEqual(summary["tournaments_added"], 0)
+        self.assertEqual(read_jsonl(self.tournament_file_path), [])
+
 
 if __name__ == "__main__":
     unittest.main()

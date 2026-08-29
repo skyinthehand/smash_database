@@ -20,6 +20,31 @@
 ```
 - 1行1イベントID（個別取得済み）
 
+### `data/startgg/excluded_events.json`
+```json
+{
+  "436192": [
+    {"phase_id": 731718, "reason": "start.gg側のデータ不整合によりsetsのページネーションが安定しない (2026-08-04確認)"}
+  ],
+  "1359150": {
+    "reason": "テスト運用のみの重複イベント(壁スマ#2 ggテスト運用と同一)"
+  }
+}
+```
+- event_id（文字列キー）ごとに、値の形で2種類のエントリを区別する
+  （専用の`type`フィールドは持たない）。
+  - **値が配列**: phase単位の除外。各要素は`phase_id`・`reason`を持つ。
+    sets取得時のみ、該当phaseGroupを除外する（`load_excluded_phase_ids()`）。
+  - **値が`reason`を直下に持つオブジェクト**: イベント全体の除外。
+    以後の自動取得で、そのevent_idのディレクトリ作成・`tournaments.jsonl`
+    への記載を一切行わない（`load_excluded_event_ids()`）。
+- 除外日時は保持しない。このファイル自体がgit管理されているため、
+  いつ追加・変更・削除されたかは`git log`/`git blame`で確認する。
+- 除外の解除は、該当event_idのキーを削除するだけでよい（無効化フラグ等
+  の中間状態は持たない）。
+- ファイル自体が存在しない場合は、除外イベント・除外phaseともに0件として
+  扱う。
+
 ## 大会索引
 
 ### `data/startgg/tournaments.jsonl`

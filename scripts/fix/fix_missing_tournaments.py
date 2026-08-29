@@ -5,8 +5,16 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
+import sys
 from dataclasses import dataclass
 from pathlib import Path
+
+ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+if ROOT_DIR not in sys.path:
+    sys.path.insert(0, ROOT_DIR)
+
+from scripts.fetch.download import load_excluded_event_ids  # noqa: E402
 
 DEFAULT_TOURNAMENTS = Path("data/startgg/tournaments.jsonl")
 DEFAULT_REQUIRED_FILES = ("attr.json", "matches.json", "standings.json", "seeds.json")
@@ -101,10 +109,15 @@ def build_required_files(args: argparse.Namespace) -> tuple[str, ...]:
 
 
 def clean_tournaments(
-    tournaments: list[dict], repo_root: Path, required_files: tuple[str, ...], verbose: bool
+    tournaments: list[dict],
+    repo_root: Path,
+    required_files: tuple[str, ...],
+    verbose: bool,
+    excluded_event_ids: set[int] | None = None,
 ) -> tuple[list[dict], list[str]]:
     cleaned: list[dict] = []
     report_lines: list[str] = []
+    excluded_event_ids = excluded_event_ids or set()
 
     for entry in tournaments:
         events = entry.get("events", [])
@@ -118,6 +131,14 @@ def clean_tournaments(
         removed_events: list[EventCheckResult] = []
 
         for event in events:
+            if event.get("event_id") in excluded_event_ids:
+                kept_events.append(event)
+                report_lines.append(
+                    f"[EXCLUDED] tournament_id={entry.get('tournament_id')} "
+                    f"event_id={event.get('event_id')} は除外リストに登録されているため検証をスキップします。"
+                )
+                continue
+
             result = check_event(event, repo_root, required_files)
             if result.ok:
                 kept_events.append(event)
@@ -176,7 +197,10 @@ def main() -> None:
     required_files = build_required_files(args)
 
     tournaments = read_jsonl(tournaments_file)
-    cleaned, report_lines = clean_tournaments(tournaments, repo_root, required_files, args.verbose)
+    excluded_event_ids = set(load_excluded_event_ids().keys())
+    cleaned, report_lines = clean_tournaments(
+        tournaments, repo_root, required_files, args.verbose, excluded_event_ids=excluded_event_ids
+    )
 
     if report_lines:
         print("\n".join(report_lines))

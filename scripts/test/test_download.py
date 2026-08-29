@@ -1,9 +1,11 @@
 import calendar
+import io
 import json
 import os
 import tempfile
 import unittest
 from argparse import Namespace
+from contextlib import redirect_stdout
 from datetime import datetime
 from unittest.mock import patch
 
@@ -31,6 +33,7 @@ from scripts.fetch.download import (
     fetch_set_ids_for_event,
     get_event_directory,
     is_placeholder_record,
+    load_excluded_event_ids,
     load_excluded_phase_ids,
     merge_matches_records,
     outstanding_set_ids,
@@ -279,6 +282,62 @@ class DownloadTests(unittest.TestCase):
             path = os.path.join(tmpdir, "does_not_exist.json")
 
             self.assertEqual(load_excluded_phase_ids(path), {})
+
+    def test_load_excluded_phase_ids_ignores_event_level_entries(self):
+        # excluded_events.json への統合後、event全体除外エントリ(dict形状)が
+        # 混在していても、phase単位の除外エントリ(配列形状)のみを返すこと。
+        with tempfile.TemporaryDirectory() as tmpdir:
+            path = os.path.join(tmpdir, "excluded_events.json")
+            with open(path, "w", encoding="utf-8") as f:
+                json.dump(
+                    {
+                        "436192": [{"phase_id": 731718, "reason": "test"}],
+                        "1359150": {"reason": "テスト運用のみの重複イベント"},
+                    },
+                    f,
+                )
+
+            result = load_excluded_phase_ids(path)
+
+            self.assertEqual(result, {436192: {731718}})
+
+    def test_load_excluded_event_ids_reads_event_level_entries(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            path = os.path.join(tmpdir, "excluded_events.json")
+            with open(path, "w", encoding="utf-8") as f:
+                json.dump(
+                    {
+                        "436192": [{"phase_id": 731718, "reason": "test"}],
+                        "1359150": {"reason": "テスト運用のみの重複イベント"},
+                    },
+                    f,
+                )
+
+            result = load_excluded_event_ids(path)
+
+            self.assertEqual(result, {1359150: {"reason": "テスト運用のみの重複イベント"}})
+
+    def test_load_excluded_event_ids_missing_file_returns_empty(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            path = os.path.join(tmpdir, "does_not_exist.json")
+
+            self.assertEqual(load_excluded_event_ids(path), {})
+
+    def test_load_excluded_event_ids_reflects_entry_removal(self):
+        # FR-008回帰テスト: エントリ削除だけで、次回読み込み時に除外が解除されたと
+        # 判定されること(load_excluded_event_ids はステートレスで毎回ファイルを
+        # 読み直すため、キャッシュ等による解除の遅延が無いことを確認する)。
+        with tempfile.TemporaryDirectory() as tmpdir:
+            path = os.path.join(tmpdir, "excluded_events.json")
+            with open(path, "w", encoding="utf-8") as f:
+                json.dump({"1359150": {"reason": "テスト用"}}, f)
+
+            self.assertIn(1359150, load_excluded_event_ids(path))
+
+            with open(path, "w", encoding="utf-8") as f:
+                json.dump({}, f)
+
+            self.assertNotIn(1359150, load_excluded_event_ids(path))
 
     def test_build_match_dedupe_key_ignores_details(self):
         base = {
@@ -1505,6 +1564,147 @@ class DownloadTests(unittest.TestCase):
         self.assertEqual(updated[1]["events"][0]["event_id"], 10)
         event_dir = updated[1]["events"][0]["path"]
         self.assertFalse(os.path.isfile(os.path.join(event_dir, "attr.json")))
+
+    # -- 除外リスト(FR-003/FR-004/FR-004a, US1) -------------------------------
+
+    @patch("scripts.fetch.download.load_excluded_event_ids")
+    @patch("scripts.fetch.download.read_set", return_value=set())
+    @patch("scripts.fetch.download.read_users_jsonl", return_value={})
+    @patch("scripts.fetch.download.fetch_latest_tournaments_by_game")
+    @patch("scripts.fetch.download.fetch_event_ids_from_tournament")
+    @patch("scripts.fetch.download.download_all_set")
+    @patch("scripts.fetch.download.download_standings")
+    @patch("scripts.fetch.download.download_seeds")
+    @patch("scripts.fetch.download.extend_user_info")
+    def test_download_all_tournaments_skips_excluded_event(
+        self,
+        _mock_extend_user_info,
+        _mock_download_seeds,
+        mock_download_standings,
+        mock_download_all_set,
+        mock_fetch_event_ids,
+        mock_fetch_tournaments,
+        _mock_read_users,
+        _mock_read_set,
+        mock_load_excluded,
+    ):
+        mock_fetch_tournaments.return_value = (
+            [
+                {
+                    "id": 1,
+                    "name": "Test Tournament",
+                    "startAt": 1714780800,
+                    "endAt": 1714784400,
+                    "countryCode": "JP",
+                    "city": "Tokyo",
+                    "lat": None,
+                    "lng": None,
+                    "venueName": None,
+                    "timezone": "Asia/Tokyo",
+                    "postalCode": None,
+                    "venueAddress": None,
+                    "mapsPlaceId": None,
+                    "url": "https://example.com",
+                }
+            ],
+            1,
+        )
+        mock_fetch_event_ids.return_value = [
+            (10, "Excluded Event", False, "COMPLETED", 1),
+            (11, "Normal Event", False, "COMPLETED", 1),
+        ]
+        mock_load_excluded.return_value = {10: {"reason": "test"}}
+        mock_download_standings.return_value = ([], [], {})
+        # まだ未完了(逐次取得へフォールバック中)のまま止め、write_event_attributes まで
+        # 到達させない(そのためには実ディレクトリが必要になり本テストの関心から外れる)。
+        mock_download_all_set.return_value = True
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            tournament_file_path = f"{tmpdir}/tournaments.jsonl"
+            buf = io.StringIO()
+            with redirect_stdout(buf):
+                download_all_tournaments(
+                    "1386",
+                    "JP",
+                    datetime(2024, 5, 4, 23, 59, 59),
+                    datetime(2024, 5, 4, 0, 0, 0),
+                    f"{tmpdir}",
+                    f"{tmpdir}/done.csv",
+                    f"{tmpdir}/users.jsonl",
+                    tournament_file_path,
+                )
+
+            updated = read_tournaments_jsonl(tournament_file_path)
+
+        event_ids = {e["event_id"] for e in updated[1]["events"]}
+        self.assertEqual(event_ids, {11})
+        self.assertIn("event 10 is excluded", buf.getvalue())
+        called_event_ids = {call.args[0] for call in mock_download_standings.call_args_list}
+        self.assertNotIn(10, called_event_ids)
+        self.assertIn(11, called_event_ids)
+
+    @patch("scripts.fetch.download.event_files_complete", return_value=True)
+    @patch("scripts.fetch.download.load_excluded_event_ids")
+    @patch("scripts.fetch.download.read_set", return_value=set())
+    @patch("scripts.fetch.download.read_users_jsonl", return_value={})
+    @patch("scripts.fetch.download.fetch_tournament_by_id")
+    @patch("scripts.fetch.download.fetch_event_ids_from_tournament")
+    @patch("scripts.fetch.download.download_all_set")
+    @patch("scripts.fetch.download.download_standings")
+    @patch("scripts.fetch.download.download_seeds")
+    @patch("scripts.fetch.download.extend_user_info")
+    @patch("scripts.fetch.download.write_done_tournaments")
+    def test_download_by_ids_skips_excluded_event(
+        self,
+        _mock_write_done,
+        _mock_extend_user_info,
+        _mock_download_seeds,
+        mock_download_standings,
+        _mock_download_all_set,
+        mock_fetch_event_ids,
+        mock_fetch_tournament_by_id,
+        _mock_read_users,
+        _mock_read_set,
+        mock_load_excluded,
+        _mock_event_files_complete,
+    ):
+        mock_fetch_tournament_by_id.return_value = {
+            "name": "Test Tournament",
+            "startAt": 1714780800,
+            "endAt": 1714784400,
+            "countryCode": "JP",
+            "city": "Tokyo",
+            "lat": None,
+            "lng": None,
+            "venueName": None,
+            "timezone": "Asia/Tokyo",
+            "postalCode": None,
+            "venueAddress": None,
+            "mapsPlaceId": None,
+            "url": "https://example.com",
+        }
+        mock_fetch_event_ids.return_value = [(10, "Excluded Event", False, "COMPLETED", 1)]
+        mock_load_excluded.return_value = {10: {"reason": "test"}}
+        mock_download_standings.return_value = ([], [], {})
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            tournament_file_path = f"{tmpdir}/tournaments.jsonl"
+            buf = io.StringIO()
+            with redirect_stdout(buf):
+                download_by_ids(
+                    [1],
+                    "1386",
+                    "JP",
+                    f"{tmpdir}",
+                    f"{tmpdir}/done.csv",
+                    f"{tmpdir}/users.jsonl",
+                    tournament_file_path,
+                )
+
+            self.assertFalse(os.path.exists(tournament_file_path))
+
+        self.assertIn("event 10 is excluded", buf.getvalue())
+        mock_download_standings.assert_not_called()
 
     @patch("scripts.fetch.download.read_set", return_value=set())
     @patch("scripts.fetch.download.read_users_jsonl", return_value={})

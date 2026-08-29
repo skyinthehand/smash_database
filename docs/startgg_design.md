@@ -208,9 +208,9 @@
 - 目的: 上記の`sets`一括クエリが失敗した(ページ/complexity上限などにより)イベント
   でのみ使う、フォールバック用の軽量な取得。`id`のみを要求し、`slots`/`games`等は
   一切含めないため、1ノードあたりのcomplexityコストが小さく、イベント総set数に
-  対して1ページに収まる件数が大幅に増える。`excluded_phases.json`に登録された
-  イベントでは`get_phase_group_set_ids_query`をphaseGroup単位で使う(通常の
-  `get_phase_group_sets_query`と同じ除外パターン)。
+  対して1ページに収まる件数が大幅に増える。`excluded_events.json`にphase単位で
+  登録されたイベントでは`get_phase_group_set_ids_query`をphaseGroup単位で使う
+  (通常の`get_phase_group_sets_query`と同じ除外パターン)。
 - 主なレスポンス（抜粋）
 ```json
 {
