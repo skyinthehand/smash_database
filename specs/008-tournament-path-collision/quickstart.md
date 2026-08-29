@@ -48,23 +48,43 @@ python3 scripts/fix/find_path_collisions.py
 ## 4. 修復ツールを確認する(US4, FR-009〜FR-011)
 
 ```bash
-# まずは確認のみ(--yes無し): 対象・現状・実行後の見込みが表示され、
-# 実際の変更は一切発生しないことを確認する(2件でも3件以上でも可)。
-# 対象データは全て既にディスク上に存在するため、start.gg への再取得は
-# 行わない(--tokenは不要)。
-python3 scripts/fix/fix_path_collision.py \
+# まずは確認のみ(--yes無し): start.ggへ参加者数を取得し直して比較するが、
+# 実際の変更(ディレクトリの書き込み・tournaments.jsonlの更新)は一切
+# 発生しないことを確認する(2件でも3件以上でも可)。
+python3 scripts/fix/fix_path_collision.py --token <TOKEN> \
   --event-id <衝突当事者1のevent_id> <衝突当事者2のevent_id>
 
 # 実際に修復する
-python3 scripts/fix/fix_path_collision.py \
+python3 scripts/fix/fix_path_collision.py --token <TOKEN> \
   --event-id <衝突当事者1のevent_id> <衝突当事者2のevent_id> --yes
 ```
 
+- ローカルの`attr.json`は、`matches.json`の逐次取得が未完了のまま中断した
+  場合、実際にディレクトリへ入っているデータと食い違い得る(`research.md`
+  Decision 6参照)ため、参加者数の比較は**start.ggへ直接アクセスして取得し
+  直したもの**を用いる(ローカルファイルの内容は信頼しない)。
+- 敗者側(参加者数が少ない、またはstart.gg上で見つからない)は、取得し直した
+  参加者数が必ず0であることを確認する。0でない敗者が1件でもあれば、自動
+  実行を中止し「単純なテスト大会ではない可能性がある」旨を報告することを
+  確認する。
 - `--yes`無しの実行では、`data/startgg/`配下・`tournaments.jsonl`が
   一切変更されていないことを確認する。
-- `--yes`付きの実行後、指定した全event_idがそれぞれ別ディレクトリに
-  分離され、参加者数が最多の1件の保存先名だけが変更されていないこと、
-  `tournaments.jsonl`の全員分のパスが実体と一致していることを確認する。
+- `--yes`付きの実行後、参加者数が最多の1件(勝者)が
+  `redownload_event.py`と同様の手順でstart.ggから改めて完全に再取得され、
+  素直な(衝突していた)保存先に書き込まれること、それ以外の対象は
+  `tournaments.jsonl`の登録のみが削除され、ディレクトリは作成されない
+  ことを確認する。
+- `--event-id`を手動で列挙する代わりに`--all`を指定すると、
+  `find_path_collisions.py`と同じロジックで衝突グループを自動的に洗い出し、
+  見つかった全グループに対して(1グループずつ)同じ処理を行う。あるグループ
+  が安全確認(敗者側の参加者数が0であること)に失敗しても、他のグループの
+  処理は継続され、最後にまとめて`tournaments.jsonl`が更新されることを確認
+  する。
+
+```bash
+python3 scripts/fix/fix_path_collision.py --token <TOKEN> --all
+python3 scripts/fix/fix_path_collision.py --token <TOKEN> --all --yes
+```
 - 同一パスに3件以上が衝突しているケースでは、`--event-id`に3件以上を
   まとめて指定して実行し、参加者数が最多の1件のみが元の名前を維持する
   ことを確認する(ユーザーフィードバック2026-08-29、`research.md`

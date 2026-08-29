@@ -71,3 +71,18 @@
   tasks.md T009-T011/T014/T018-T020、quickstart.md §2・§4を修正)。
   修復ツール(`fix_path_collision.py`)も2件限定から2件以上を一括指定
   できるよう拡張した(FR-010)。
+- 実データ運用(2026-08-30)でユーザーから、`fix_path_collision.py`が
+  ローカルの`attr.json`の`event_id`を信頼して勝敗を判定する設計は不十分
+  (`matches.json`の逐次取得が未完了のまま中断した場合、`attr.json`だけ
+  古いイベントの情報が残り得るため)との指摘を受け、参加者数の比較を
+  start.ggへの直接アクセス(再取得)に基づくものへ変更した。敗者側は
+  取得し直した参加者数が必ず0であることを要求し、0でなければ自動実行を
+  中止する安全確認を追加。勝者は`redownload_event.py`と同様の手順で改めて
+  完全に再取得する(`research.md` Decision 6)。
+- ユーザーフィードバック(2026-08-30): `find_path_collisions.py`で衝突を
+  洗い出してから`--event-id`を手動で列挙するのが面倒との指摘を受け、
+  `fix_path_collision.py`に`--all`オプションを追加した。
+  `find_path_collisions.py`と同じグループ化ロジックで`tournaments.jsonl`
+  内の全衝突を自動的に洗い出し、1グループずつ処理する。あるグループが
+  安全確認(敗者の参加者数≠0)に失敗しても他のグループの処理は継続し、
+  最後にまとめて`tournaments.jsonl`を更新する。
