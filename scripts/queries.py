@@ -277,9 +277,6 @@ def get_standings_query():
                   id
                   gamerTag
                   prefix
-                  user {
-                    id
-                  }
                 }
               }
             }
@@ -320,9 +317,6 @@ def get_seeds_query():
                   id
                   gamerTag
                   prefix
-                  user {
-                    id
-                  }
                 }
               }
             }
@@ -364,6 +358,20 @@ def get_user_player_query():
       }
     }"""
 
+def get_player_user_query():
+    """participant.user が null だった参加者について、player(id:) を個別に引き直し、
+    player.user.id 経由で同じ start.gg アカウントへのリンクが解決できるかを確認する
+    ための軽量クエリ。標準の standings/seeds ページ取得クエリには含めない(全参加者分の
+    コストが底上げされ、complexity上限に当たりやすくなるため)。"""
+    return """query PlayerUser($playerId: ID!) {
+      player(id: $playerId) {
+        id
+        user {
+          id
+        }
+      }
+    }"""
+
 def get_tournament_events_query():
     return """query TournamentEvents($tournamentId: ID!, $gameId: ID!) {
       tournament(id: $tournamentId) {
@@ -395,9 +403,6 @@ def get_event_entrants_query():
               }
               player {
                 id
-                user {
-                  id
-                }
               }
             }
           }

@@ -35,7 +35,7 @@ from scripts.fetch.download import (
     merge_matches_records,
     outstanding_set_ids,
     read_matches_data,
-    resolve_entrant_user_id,
+    resolve_player_user_id,
     should_skip_tournament,
     update_event_registration,
     write_event_attributes,
@@ -1622,33 +1622,29 @@ class DownloadTests(unittest.TestCase):
         # tail-of-function コード(write_jsonl)まで到達して反映されていること。
         self.assertEqual(updated[1]["events"][0]["path"], new_event_dir)
 
-    # -- resolve_entrant_user_id: participant.user が null でも player.user に
-    #    フォールバックしてゲスト招待された既知アカウントのuser_idを解決する ------
+    # -- resolve_player_user_id: participant.user が null だった参加者だけ、
+    #    player(id:) を個別に引き直して同じアカウントへのリンクを解決する -----------
 
-    def test_resolve_entrant_user_id_prefers_direct_user(self):
-        participant = {"user": {"id": 1}, "player": {"id": 2, "user": {"id": 3}}}
-        self.assertEqual(resolve_entrant_user_id(participant), 1)
+    def test_resolve_player_user_id_returns_user_id_when_linked(self):
+        response = {"data": {"player": {"id": 212, "user": {"id": 1855664}}}}
+        with patch("scripts.fetch.download.fetch_data_with_retries", return_value=response) as mocked:
+            self.assertEqual(resolve_player_user_id(212), 1855664)
+        mocked.assert_called_once()
 
-    def test_resolve_entrant_user_id_falls_back_to_player_user(self):
-        participant = {"user": None, "player": {"id": 2, "user": {"id": 3}}}
-        self.assertEqual(resolve_entrant_user_id(participant), 3)
+    def test_resolve_player_user_id_none_when_player_has_no_user(self):
+        response = {"data": {"player": {"id": 212, "user": None}}}
+        with patch("scripts.fetch.download.fetch_data_with_retries", return_value=response):
+            self.assertIsNone(resolve_player_user_id(212))
 
-    def test_resolve_entrant_user_id_none_when_both_unlinked(self):
-        # 本当にstart.ggアカウントにリンクされていないゲスト参加者(doubles/crew等)は
-        # 引き続き None のまま。
-        participant = {"user": None, "player": {"id": 2, "user": None}}
-        self.assertIsNone(resolve_entrant_user_id(participant))
+    def test_resolve_player_user_id_none_when_player_missing(self):
+        response = {"data": {"player": None}}
+        with patch("scripts.fetch.download.fetch_data_with_retries", return_value=response):
+            self.assertIsNone(resolve_player_user_id(212))
 
-    def test_resolve_entrant_user_id_none_when_player_missing(self):
-        participant = {"user": None, "player": None}
-        self.assertIsNone(resolve_entrant_user_id(participant))
+    # -- download_standings: 通常経路の参加者は追加API呼び出し無しで解決し、
+    #    participant.user が null だった参加者だけ個別に player(id:) へフォールバックする --
 
-    def test_resolve_entrant_user_id_none_for_none_participant(self):
-        self.assertIsNone(resolve_entrant_user_id(None))
-
-    # -- download_standings: 同じフォールバックが実際の保存結果に反映されること -----
-
-    def test_download_standings_uses_player_user_fallback_for_guest_invite(self):
+    def test_download_standings_only_falls_back_for_null_user_participants(self):
         standings_nodes = [
             {
                 "placement": 1,
@@ -1666,46 +1662,67 @@ class DownloadTests(unittest.TestCase):
                     "id": 101,
                     "name": "Entrant B (guest invite)",
                     "participants": [
-                        {
-                            "user": None,
-                            "player": {"id": 212, "gamerTag": "B", "user": {"id": 1855664}},
-                        }
+                        {"user": None, "player": {"id": 212, "gamerTag": "B"}}
+                    ],
+                },
+            },
+            {
+                "placement": 3,
+                "entrant": {
+                    "id": 102,
+                    "name": "Entrant C (fully unlinked)",
+                    "participants": [
+                        {"user": None, "player": {"id": 213, "gamerTag": "C"}}
                     ],
                 },
             },
         ]
 
+        def fake_fetch_player(query, variables):
+            player_id = variables["playerId"]
+            if player_id == 212:
+                return {"data": {"player": {"id": 212, "user": {"id": 1855664}}}}
+            return {"data": {"player": {"id": player_id, "user": None}}}
+
         with tempfile.TemporaryDirectory() as tmpdir:
             with patch(
                 "scripts.fetch.download.fetch_with_page_fallback", return_value=standings_nodes
-            ):
+            ), patch(
+                "scripts.fetch.download.fetch_data_with_retries", side_effect=fake_fetch_player
+            ) as mocked_player_lookup:
                 user_data, player_data, entrant2user = download_standings(999, tmpdir)
 
             with open(os.path.join(tmpdir, "standings.json"), encoding="utf-8") as f:
                 saved = json.load(f)
 
+        # 直接 participant.user が取れている entrant 100 では個別ルックアップは発生しない。
+        # フォールバックが必要だったのは entrant 101・102 の2件のみ。
+        self.assertEqual(mocked_player_lookup.call_count, 2)
         self.assertEqual(entrant2user, {100: 111, 101: 1855664})
         self.assertEqual(
             saved["data"],
-            [{"placement": 1, "user_id": 111}, {"placement": 2, "user_id": 1855664}],
+            [
+                {"placement": 1, "user_id": 111},
+                {"placement": 2, "user_id": 1855664},
+                {"placement": 3, "user_id": None},
+            ],
         )
 
     # -- fetch_entrant_user_map: matches_only 経路でも同じフォールバックが効くこと ---
 
-    def test_fetch_entrant_user_map_uses_player_user_fallback(self):
+    def test_fetch_entrant_user_map_falls_back_for_null_user_participants(self):
         entrants_nodes = [
             {"id": 100, "participants": [{"user": {"id": 111}, "player": {"id": 211}}]},
-            {
-                "id": 101,
-                "participants": [
-                    {"user": None, "player": {"id": 212, "user": {"id": 1855664}}}
-                ],
-            },
-            {"id": 102, "participants": [{"user": None, "player": {"id": 213, "user": None}}]},
+            {"id": 101, "participants": [{"user": None, "player": {"id": 212}}]},
         ]
+
+        def fake_fetch_player(query, variables):
+            return {"data": {"player": {"id": variables["playerId"], "user": {"id": 1855664}}}}
 
         with patch(
             "scripts.fetch.download.fetch_with_page_fallback", return_value=entrants_nodes
+        ), patch(
+            "scripts.fetch.download.fetch_data_with_retries", side_effect=fake_fetch_player
         ):
             entrant2user = fetch_entrant_user_map(999)
 

@@ -180,13 +180,19 @@
 - doubles/crew や、start.gg アカウントに一切リンクされていない参加者は user_id が
   取得できず `null` になる場合がある。
 - `standings.json`/`seeds.json`/`matches.json` の user_id 解決は、`entrant.participants[0].user`
-  が `null` の場合でも `entrant.participants[0].player.user` にフォールバックする
-  (`event_data_version >= 7`)。招待されたゲストエントラントなど、`participants[0].user`
-  自体は `null` でも同じ start.gg アカウントに `player.user` 経由でリンクされている
-  ケースがあるため。`event_data_version < 7` の既存データは、このフォールバックが
-  適用される前に取得されたため、本来解決できたはずの user_id が `null` のまま残って
-  いる場合があり、`scripts/fetch/backfill_schema_version.py`の巡回バックフィルにより
-  順次再取得・修正される。
+  が `null` の場合に限り、`player(id:)` を個別に引き直して `player.user.id` への
+  フォールバックを試みる(`event_data_version >= 7`)。招待されたゲストエントラント等、
+  `participants[0].user` 自体は `null` でも `player.user` 経由で同じ start.gg アカウント
+  にリンクされているケースがあるため。この個別ルックアップは `participants[0].user`
+  が `null` だった参加者の分だけ発生し(通常の標準/seeds取得のページクエリ自体には
+  含めていない。全参加者分のフィールドを足すとページ取得のクエリコストが底上げされ、
+  complexity上限に当たりやすくなるため)、大多数の(既に`participants[0].user`で
+  解決できる)参加者には追加のAPI呼び出しは発生しない。`player.user`もnullだった場合や、
+  start.gg側でリンクが後から解除されていた場合は、従来通り`user_id`は`null`のまま。
+  `event_data_version < 7` の既存データはこのフォールバックが適用される前に取得された
+  ため、本来解決できたはずの user_id が `null` のまま残っている場合があり、
+  `scripts/fetch/backfill_schema_version.py`の巡回バックフィルにより順次再取得・修正
+  される。
 - `labels` は OpenAI による推定であり、正確性は保証されない。
 - `event_data_version` は「イベントごとに取得されるべきデータの内容(スキーマ世代)」を
   表す整数値であり、ファイル形式全体を表す `version` とは別物(`scripts/utils.py` の
