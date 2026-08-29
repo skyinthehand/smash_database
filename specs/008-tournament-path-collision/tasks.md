@@ -35,14 +35,14 @@ description: "Task list template for feature implementation"
 **⚠️ CRITICAL**: このフェーズが完了するまで、いずれのUser Storyの実装も
 開始できない。
 
-- [ ] T001 `disambiguate_event_name(tournament_name: str, tournament_id: int) -> str`
+- [X] T001 `disambiguate_event_name(tournament_name: str, tournament_id: int) -> str`
   を `scripts/fetch/download.py` に実装する(`research.md` Decision 4:
   `f"{tournament_name}_({tournament_id})"` に既存の空白/スラッシュ置換
   ルールを適用)。
-- [ ] T002 `build_path_index(tournaments: dict) -> dict[str, tuple[int, int]]`
+- [X] T002 `build_path_index(tournaments: dict) -> dict[str, tuple[int, int]]`
   を `scripts/fetch/download.py` に実装する(`path -> (tournament_id, event_id)`
   の逆引き辞書、`research.md` Decision 1)。
-- [ ] T003 T001・T002の単体テストを `scripts/test/test_download.py` に追加する
+- [X] T003 T001・T002の単体テストを `scripts/test/test_download.py` に追加する
   (通常の名前変換、`tournament_id`を含む調整後の名前の形式、逆引き辞書の
   構築結果を検証)。
 
@@ -62,20 +62,20 @@ description: "Task list template for feature implementation"
 
 ### Implementation for User Story 1
 
-- [ ] T004 [US1] `download_all_tournaments()` 内、`event_dir = get_event_directory(...)`
+- [X] T004 [US1] `download_all_tournaments()` 内、`event_dir = get_event_directory(...)`
   直後(既存の `load_excluded_event_ids()` チェックと同じ挿入点)に、
   T002の `build_path_index()` を用いた衝突検出を `scripts/fetch/download.py`
   に追加する。
-- [ ] T005 [US1] `download_by_ids()` にも同じ衝突検出を `scripts/fetch/download.py`
+- [X] T005 [US1] `download_by_ids()` にも同じ衝突検出を `scripts/fetch/download.py`
   に追加する。
-- [ ] T006 [US1] 衝突が検出された場合、新たに見つかった側の保存先を
+- [X] T006 [US1] 衝突が検出された場合、新たに見つかった側の保存先を
   T001の `disambiguate_event_name()` で調整してから
   `update_event_registration()` による登録を行うベースラインの分岐を
   `scripts/fetch/download.py` に実装する(参加者数比較はUS2で追加)。
-- [ ] T007 [P] [US1] 衝突検出・ベースライン調整の単体テストを
+- [X] T007 [P] [US1] 衝突検出・ベースライン調整の単体テストを
   `scripts/test/test_download.py` に追加する(衝突時は新規側が調整され、
   衝突が無い場合は従来通り無調整であることを検証)。
-- [ ] T008 [US1] `download_all_tournaments()`/`download_by_ids()` への統合
+- [X] T008 [US1] `download_all_tournaments()`/`download_by_ids()` への統合
   テストを `scripts/test/test_download.py` に追加する(衝突を再現した
   2大会分のデータを流し、両者が別ディレクトリに保存され、
   `tournaments.jsonl` の記載パスが実体と一致することを検証。FR-007の
@@ -98,8 +98,13 @@ description: "Task list template for feature implementation"
 
 ### Implementation for User Story 2
 
-- [ ] T009 [US2] `resolve_path_collision(new_event_dir, new_num_entrants, existing_tournament_id, existing_event, tournaments, settled_tournament_ids)`
-  を `scripts/fetch/download.py` に実装する。`existing_tournament_id` が
+- [X] T009 [US2] `resolve_path_collision(naive_event_dir, tentative_new_dir, new_num_entrants, new_tournament_id, existing_tournament_id, existing_event, tournaments, settled_tournament_ids)`
+  を `scripts/fetch/download.py` に実装する(呼び出し元は衝突検出時点で
+  `tentative_new_dir = disambiguate_event_name()`適用済みの暫定ディレク
+  トリを先に計算し、`download_standings()`以降の書き込みはすべてそこへ
+  行っておく。既存データが置かれた`naive_event_dir`へ書き込む前に比較
+  結果を確定させるため。`research.md` Decision 2の実装時訂正)。
+  `existing_tournament_id` が
   `settled_tournament_ids`(取得処理の開始時点で確定済みだった
   tournament_idの集合。T011が構築)に含まれる場合は、参加者数比較を
   行わず常に新規側のみを調整する(FR-005の恒久ロック)。含まれない場合
@@ -109,7 +114,7 @@ description: "Task list template for feature implementation"
   `tournament_id` が大きい方を調整対象とする決定的なタイブレークで比較
   する。`research.md` Decision 3(ユーザーフィードバック2026-08-29による
   再訂正)。
-- [ ] T010 [US2] T009の関数内、`settled_tournament_ids` に含まれない
+- [X] T010 [US2] T009の関数内、`settled_tournament_ids` に含まれない
   (同一取得処理内でまだ確定していない)既存側が調整対象になる場合の
   処理を `scripts/fetch/download.py` に実装する(既存イベントのディレク
   トリを実際にリネームし、`tournaments` 辞書内の該当エントリの `path`
@@ -117,24 +122,27 @@ description: "Task list template for feature implementation"
   新規側が無調整の勝者になり既存側が新たに調整名を持つ入れ替えとなる。
   既存の安全なリロケーションパターン(`cleanup_relocated_directory()`)
   を踏襲)。
-- [ ] T011 [US2] `download_all_tournaments()`/`download_by_ids()` を、
+- [X] T011 [US2] `download_all_tournaments()`/`download_by_ids()` を、
   `read_tournaments_jsonl()` 直後(この取得処理自身がまだ何も新規登録
   していない時点)に、その時点の `tournaments` 辞書のキー集合を
   `settled_tournament_ids` としてスナップショットし(T009参照)、衝突
   検出時には早期の `update_event_registration()` 呼び出しをスキップし、
-  計算上の(衝突しうる)`event_dir` へ `download_standings()` を実行した
-  上でその戻り値(`len(user_data)`)を使ってT009の
-  `resolve_path_collision()` を呼び出し、その結果で本登録するよう
-  `scripts/fetch/download.py` を変更する(`research.md` Decision 2、
-  参加者数が未確定な場合の最終確定の遅延)。
-- [ ] T012 [US2] Phase 2(US1)のベースライン分岐(T006)を
+  `tentative_new_dir`(T001の`disambiguate_event_name()`適用済みの
+  暫定ディレクトリ)へ `download_standings()` を実行した上でその戻り値
+  (`len(user_data)`)を使ってT009の `resolve_path_collision()` を呼び出し、
+  その結果(`event_dir`)で以降のseeds/sets/attr書き込みと本登録を行う
+  よう `scripts/fetch/download.py` を変更する(`research.md` Decision 2、
+  参加者数が未確定な場合の最終確定の遅延)。既存側がリネームされた場合、
+  `tournaments.jsonl`を直ちに(この取得処理の終了を待たず)書き込み、
+  中断時の不整合の窓を最小化する(憲法Principle II、T028参照)。
+- [X] T012 [US2] Phase 2(US1)のベースライン分岐(T006)を
   `resolve_path_collision()` の呼び出しに置き換え、T004・T005の両方の
   統合ポイントに反映する(`scripts/fetch/download.py`)。
-- [ ] T013 [P] [US2] `resolve_path_collision()` の単体テストを
+- [X] T013 [P] [US2] `resolve_path_collision()` の単体テストを
   `scripts/test/test_download.py` に追加する(参加者数が多い方の維持、
   同数時のタイブレーク、既存側リネームの正しさ、`attr.json` が
   読めない場合に `0` 扱いとなり新規側が優先されることを検証)。
-- [ ] T014 [US2] FR-005の「取得処理をまたいだ確定は不変」と、Edge Cases
+- [X] T014 [US2] FR-005の「取得処理をまたいだ確定は不変」と、Edge Cases
   の「同一取得処理内では3件以上でも最多を維持」の両方を検証するテストを
   `scripts/test/test_download.py` に追加する。(a) 同一の
   `download_all_tournaments()`/`download_by_ids()` 呼び出しの中でA・B・C
@@ -146,7 +154,7 @@ description: "Task list template for feature implementation"
   Aより参加者数の多いDが検出されても、Aは変更されずDのみが調整される
   こと。ユーザーフィードバック2026-08-29により、`/speckit-analyze`指摘
   R1時点の「2件目以降は常にロック」という想定から訂正。
-- [ ] T015 [US2] 衝突検出時点で新規側の参加者数が未確定な場合、
+- [X] T015 [US2] 衝突検出時点で新規側の参加者数が未確定な場合、
   `download_standings()` 完了まで本登録が遅延されることを検証する統合
   テストを `scripts/test/test_download.py` に追加する(FR-003)。
 
@@ -166,11 +174,11 @@ description: "Task list template for feature implementation"
 
 ### Implementation for User Story 3
 
-- [ ] T016 [US3] `scripts/fix/find_path_collisions.py` を新規作成する
+- [X] T016 [US3] `scripts/fix/find_path_collisions.py` を新規作成する
   (`tournaments.jsonl` を読み込み、全イベントの `path` でグルーピングし、
   同一 `path` に異なる `tournament_id` が2件以上紐づく組み合わせを標準
   出力に一覧表示する。read-only、API呼び出し無し。`research.md` Decision 5)。
-- [ ] T017 [P] [US3] `scripts/test/test_find_path_collisions.py` を新規
+- [X] T017 [P] [US3] `scripts/test/test_find_path_collisions.py` を新規
   作成し、衝突を再現したテストデータで衝突が報告されること、衝突が無い
   データでは何も報告されないことを検証する。
 
@@ -189,24 +197,26 @@ description: "Task list template for feature implementation"
 
 ### Implementation for User Story 4
 
-- [ ] T018 [US4] `scripts/fix/fix_path_collision.py` を新規作成する。
-  `--token`・対象2件**以上**の `--event-id <id1> <id2> [<id3> ...]` を
-  受け取り、`--yes` 無しのデフォルト実行では対象イベント全員・現在の
-  状態(各`attr.json`の`num_entrants`)・実行後の見込みを表示するのみで、
-  実際の変更は一切行わない(既存の `redownload_event.py` の `--dry-run`
-  既定動作と同じパターン。`research.md` Decision 6)。
-- [ ] T019 [US4] `--yes` 指定時の実行パスを `scripts/fix/fix_path_collision.py`
+- [X] T018 [US4] `scripts/fix/fix_path_collision.py` を新規作成する。
+  対象2件**以上**の `--event-id <id1> <id2> [<id3> ...]` を受け取り、
+  `--yes` 無しのデフォルト実行では対象イベント全員・現在の状態(各
+  `attr.json`の`num_entrants`)・実行後の見込みを表示するのみで、実際の
+  変更は一切行わない(既存の `redownload_event.py` の `--dry-run` 既定
+  動作と同じパターン。`research.md` Decision 6)。対象データは全て既に
+  ディスク上に存在するため`--token`(API呼び出し)は不要とした
+  (実装時の判断。下記T019参照)。
+- [X] T019 [US4] `--yes` 指定時の実行パスを `scripts/fix/fix_path_collision.py`
   に実装する。T009の `resolve_path_collision()` と同じ判定基準(FR-011)を
   用いるが、コマンドラインで指定された対象event_id群は互いに対して
   `settled_tournament_ids` に含めず(=指定された全員を「同一の取得処理
   内」として扱う)、2件ずつの比較を順に適用して全員の最終的な保存先を
   決定する(3件以上でも参加者数最多の1件のみ元の名前を維持する。
-  `research.md` Decision 3・Decision 6)。決定した保存先へ、
-  `redownload_event.py` が使っているのと同じ取得用の関数群
-  (`download_standings`/`download_seeds`/`download_all_set`/
-  `write_event_attributes`)を再利用してそれぞれ個別に再取得し、
+  `research.md` Decision 3・Decision 6)。対象データは全て既にディスク上
+  に存在するため、start.gg への再取得は行わず、各対象の`attr.json`から
+  再計算した本来の(衝突していない)保存先へ既存ディレクトリを移動する
+  だけで分離する(不要なAPI呼び出しを避ける。憲法Principle V)。
   `tournaments.jsonl` を更新する。
-- [ ] T020 [P] [US4] `scripts/test/test_fix_path_collision.py` を新規
+- [X] T020 [P] [US4] `scripts/test/test_fix_path_collision.py` を新規
   作成し、`--yes` 無しでは一切変更が発生しないこと、`--yes` 付きでは
   参加者数が最多の1件の保存先名が変更されず残り全員が別ディレクトリに
   分離されること(2件・3件以上の両方のケースを含む)、`tournaments.jsonl`
@@ -229,20 +239,20 @@ description: "Task list template for feature implementation"
 
 ### Implementation for User Story 5
 
-- [ ] T021 [US5] `path_occupied_by_different_event(event_dir, expected_event_id) -> bool`
+- [X] T021 [US5] `path_occupied_by_different_event(event_dir, expected_event_id) -> bool`
   を `scripts/fetch/download.py` に実装する(ディスク上の対象ディレクトリの
   `attr.json`(読めない場合は他のデータファイルの存在)を確認し、
   `expected_event_id` と異なるevent_idのものであれば `True` を返す。
   `research.md` Decision 7)。
-- [ ] T022 [US5] `scripts/fix/redownload_event.py` の `redownload_event()`
+- [X] T022 [US5] `scripts/fix/redownload_event.py` の `redownload_event()`
   内、計算済みの `event_dir` が確定した時点(既存ディレクトリの探索・
   削除より前)でT021の関数を呼び出し、`True` の場合はT001の
   `disambiguate_event_name()` を用いて自分自身の保存先だけをずらす
   (相手側のディレクトリ・`tournaments.jsonl`エントリは一切変更しない)。
-- [ ] T023 [P] [US5] T021の単体テストを `scripts/test/test_download.py` に
+- [X] T023 [P] [US5] T021の単体テストを `scripts/test/test_download.py` に
   追加する(別event_idのデータが存在する場合に `True`、一致する場合や
   ディレクトリが存在しない場合に `False` を返すことを検証)。
-- [ ] T024 [P] [US5] `scripts/test/test_redownload_event.py` に統合テストを
+- [X] T024 [P] [US5] `scripts/test/test_redownload_event.py` に統合テストを
   追加する。衝突するevent_idの再取得では既存ディレクトリが変更されず
   再取得側だけが調整後の名前で保存されること、衝突しないevent_idでは
   従来通りの挙動になること、同じevent_idへの繰り返し実行で調整後の保存先
@@ -255,15 +265,15 @@ description: "Task list template for feature implementation"
 
 ## Phase 7: Polish & Cross-Cutting Concerns
 
-- [ ] T025 [P] `docs/fix.md` に、通常のクロール(`download_all_tournaments`/
+- [X] T025 [P] `docs/fix.md` に、通常のクロール(`download_all_tournaments`/
   `download_by_ids`)と `redownload_event.py` それぞれにおける保存先パス
   衝突回避の挙動、および新設した `find_path_collisions.py`/
   `fix_path_collision.py` の役割を追記する。
-- [ ] T026 `quickstart.md` の全6節(US1〜US5の手動検証手順+自動テスト)を
+- [X] T026 `quickstart.md` の全6節(US1〜US5の手動検証手順+自動テスト)を
   実際に実行し、記載通りに動作することを確認する。
-- [ ] T027 `python3 -m unittest discover -s scripts/test` を実行し、
+- [X] T027 `python3 -m unittest discover -s scripts/test` を実行し、
   リポジトリ全体のテストが通ることを確認する(憲法Principle III)。
-- [ ] T028 衝突解決によるディレクトリリネーム処理(T010の既存側リネーム、
+- [X] T028 衝突解決によるディレクトリリネーム処理(T010の既存側リネーム、
   T019の修復ツールによる再配置、T022の`redownload_event.py`自己シフト)
   が処理途中で中断された場合でも、次回実行時に安全に再開・収束する
   ことを検証するテストを `scripts/test/test_download.py` /

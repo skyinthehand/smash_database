@@ -52,18 +52,24 @@
 
 - `build_path_index(tournaments: dict) -> dict[str, tuple[int, int]]`:
   `path -> (tournament_id, event_id)`。
-- `resolve_path_collision(new_event_dir, new_num_entrants, existing_tournament_id, existing_event, tournaments, settled_tournament_ids) -> str`:
-  最終的に使うべき`new_event_dir`(調整後の場合あり)を返す。既存側を
-  調整すべき場合は、`tournaments`辞書内の既存エントリの`path`をその場で
-  書き換え、対応するディレクトリを実際にリネームする副作用を持つ。
-  `settled_tournament_ids`(呼び出し元が取得処理の開始時点でスナップ
-  ショットした、その時点で既に確定済みのtournament_idの集合。永続化は
-  しない)に`existing_tournament_id`が含まれる場合は、参加者数比較を
-  行わず常に新規側のみを調整する(FR-005の恒久ロック)。含まれない場合
-  (=既存側も同一の取得処理内でまだ確定していない)は、通常通り参加者数
-  を比較し、新規側の方が多ければ既存側を調整する入れ替えを行う
-  (`research.md` Decision 3。ユーザーフィードバック2026-08-29による
-  再訂正)。
+- `resolve_path_collision(naive_event_dir, tentative_new_dir, new_num_entrants, new_tournament_id, existing_tournament_id, existing_event, tournaments, settled_tournament_ids) -> str`:
+  最終的に新規イベント側が使うべきディレクトリ(`tentative_new_dir`の
+  ままか、`naive_event_dir`へ昇格するか)を返す。呼び出し元は、衝突検出
+  時点で`tentative_new_dir = disambiguate_event_name()`適用済みの暫定
+  ディレクトリを先に計算し、`download_standings()`以降の書き込みは
+  すべてこの暫定ディレクトリへ行っておく(`naive_event_dir`=素直な
+  計算結果のディレクトリには、まだ何も書き込まない。research.md
+  Decision 2の実装時訂正)。`settled_tournament_ids`(呼び出し元が取得
+  処理の開始時点でスナップショットした、その時点で既に確定済みの
+  tournament_idの集合。永続化はしない)に`existing_tournament_id`が
+  含まれる場合は、参加者数比較を行わず`tentative_new_dir`をそのまま
+  返す(FR-005の恒久ロック)。含まれない場合(=既存側も同一の取得処理内
+  でまだ確定していない)は参加者数を比較し、新規側が敗者なら
+  `tentative_new_dir`をそのまま返す。新規側が勝者なら、既存側の
+  ディレクトリを`disambiguate_event_name()`適用済みの名前へ実際に
+  リネームして`existing_event`(`tournaments`辞書内)の`path`を更新し、
+  新規側のデータを`tentative_new_dir`から`naive_event_dir`へ実際に
+  移動した上で`naive_event_dir`を返す(`research.md` Decision 3)。
 - `disambiguate_event_name(tournament_name: str, tournament_id: int) -> str`:
   `f"{tournament_name}_({tournament_id})"`(既存の空白/スラッシュ置換を
   適用した上で)。

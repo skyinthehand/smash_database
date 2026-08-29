@@ -249,6 +249,114 @@ def cleanup_relocated_directory(old_path):
         shutil.rmtree(old_path)
         print(f"Removed stale directory after relocation: {old_path}")
 
+
+# --- 保存先パス衝突の検出・解決(同日同名の別大会) ---------------------------------
+
+def build_path_index(tournaments):
+    """tournaments辞書から `path -> (tournament_id, event_id)` の逆引き辞書を構築する
+    (specs/008-tournament-path-collision/research.md Decision 1)。"""
+    index = {}
+    for tournament_id, entry in tournaments.items():
+        for event in entry.get("events", []):
+            path = event.get("path")
+            event_id = event.get("event_id")
+            if path and event_id is not None:
+                index[path] = (tournament_id, event_id)
+    return index
+
+
+def disambiguate_event_name(tournament_name, tournament_id):
+    """衝突時に大会名へ付加する、重複しない名前を返す(research.md Decision 4)。"""
+    disambiguated = f"{tournament_name}_({tournament_id})"
+    return disambiguated.replace(" ", "_").replace("/", "-")
+
+
+def disambiguated_dir(event_dir, tournament_id):
+    """event_dir内の大会名セグメントに disambiguate_event_name() を適用したパスを返す
+    (scripts/fix/redownload_event.py からも再利用される)。"""
+    parent, event_name_segment = os.path.split(event_dir)
+    grandparent, tournament_name_segment = os.path.split(parent)
+    disambiguated_name = disambiguate_event_name(tournament_name_segment, tournament_id)
+    return os.path.join(grandparent, disambiguated_name, event_name_segment)
+
+
+def _read_num_entrants(event_path):
+    """event_pathのattr.jsonからnum_entrantsを読み取る。読めない場合は0扱いとし、
+    比較対象の新規側を優先する安全側に倒す(research.md Decision 3)。"""
+    if not event_path:
+        return 0
+    try:
+        attr = read_json(os.path.join(event_path, "attr.json"))
+    except (FileNotFoundError, OSError, ValueError):
+        return 0
+    return attr.get("num_entrants") or 0
+
+
+def resolve_path_collision(
+    naive_event_dir, tentative_new_dir, new_num_entrants, new_tournament_id,
+    existing_tournament_id, existing_event, tournaments, settled_tournament_ids,
+):
+    """衝突する新規イベント側の最終的な保存先を決定する(research.md Decision 3)。
+
+    呼び出し元は衝突検出時点で tentative_new_dir (disambiguate_event_name()適用済みの
+    暫定ディレクトリ)へ download_standings() 以降の書き込みを行っておく必要がある。
+    naive_event_dir には、比較結果が確定するまで何も書き込んではならない(既にそこに
+    既存イベントの完全なデータが置かれているため、参加者数比較の前に上書きしてしまうと
+    データを破壊する。research.md Decision 2の実装時訂正)。
+
+    existing_tournament_id が settled_tournament_ids に含まれる場合(=別の取得処理で
+    既に確定済み)は、参加者数に関わらず常に tentative_new_dir をそのまま返す
+    (FR-005の恒久ロック)。含まれない場合(=既存側も同一の取得処理内でまだ確定して
+    いない)は参加者数を比較し、新規側が勝者(参加者数が多い、または同数で
+    tournament_idが既存側より小さい方を勝者とする決定的なタイブレーク。FR-004)なら、
+    既存側を実際にディレクトリごと退避させ、新規側のデータを tentative_new_dir から
+    naive_event_dir へ実際に移動する。
+    """
+    if existing_tournament_id not in settled_tournament_ids:
+        existing_num_entrants = _read_num_entrants(existing_event.get("path"))
+        new_wins = new_num_entrants > existing_num_entrants or (
+            new_num_entrants == existing_num_entrants and new_tournament_id < existing_tournament_id
+        )
+        if new_wins:
+            old_existing_path = existing_event.get("path")
+            if old_existing_path and os.path.isdir(old_existing_path):
+                new_existing_path = disambiguated_dir(old_existing_path, existing_tournament_id)
+                if new_existing_path != old_existing_path:
+                    os.makedirs(os.path.dirname(new_existing_path), exist_ok=True)
+                    if os.path.isdir(new_existing_path):
+                        shutil.rmtree(new_existing_path)
+                    shutil.move(old_existing_path, new_existing_path)
+                existing_event["path"] = new_existing_path
+            if os.path.isdir(tentative_new_dir):
+                os.makedirs(os.path.dirname(naive_event_dir), exist_ok=True)
+                if os.path.isdir(naive_event_dir):
+                    shutil.rmtree(naive_event_dir)
+                shutil.move(tentative_new_dir, naive_event_dir)
+            return naive_event_dir
+
+    return tentative_new_dir
+
+
+def path_occupied_by_different_event(event_dir, expected_event_id):
+    """event_dirがディスク上に存在し、かつそのattr.json(または他のデータファイル)が
+    expected_event_idとは異なるevent_idのものである場合にTrueを返す(research.md
+    Decision 7、scripts/fix/redownload_event.py 用)。"""
+    if not os.path.isdir(event_dir):
+        return False
+    attr_path = os.path.join(event_dir, "attr.json")
+    if os.path.exists(attr_path):
+        try:
+            attr = read_json(attr_path)
+        except (OSError, ValueError):
+            return False
+        existing_event_id = attr.get("event_id")
+        return existing_event_id is not None and existing_event_id != expected_event_id
+    return any(
+        os.path.exists(os.path.join(event_dir, name))
+        for name in ("matches.json", "standings.json", "seeds.json")
+    )
+
+
 def download_all_tournaments(
     game_id,
     country_code,
@@ -270,6 +378,8 @@ def download_all_tournaments(
     print(f"tournaments: {len(tournaments)}")
     rewrite_tournaments = False
     existing_tournament_ids = set(tournaments.keys())
+    path_index = build_path_index(tournaments)
+    settled_tournament_ids = set(tournaments.keys())
 
     page = 1
     reached_finish_date = False
@@ -365,17 +475,32 @@ def download_all_tournaments(
                         print(f"Tournament {tournament_id}: event {event_id} is excluded. Skipping.")
                         continue
 
-                    # event_id とディレクトリの対応関係は、取得処理が始まる前の時点で
-                    # 判明しているため、その後の取得(seeds/matches/attr.json)が途中で
-                    # 失敗しても記録が残るよう、ここで先に記録しておく。
-                    changed, stale_old_path = update_event_registration(
-                        tournaments, tournament_id, event_id, event_name, event_dir, matches_only=matches_only
+                    collision = path_index.get(event_dir)
+                    collision_pending = (
+                        not matches_only and collision is not None and collision[0] != tournament_id
                     )
-                    if stale_old_path:
-                        cleanup_relocated_directory(stale_old_path)
-                    if changed:
-                        if tournament_id in existing_tournament_ids:
-                            rewrite_tournaments = True
+                    naive_event_dir = event_dir
+                    if collision_pending:
+                        event_dir = disambiguated_dir(naive_event_dir, tournament_id)
+                        print(
+                            f"Tournament {tournament_id}: event {event_id} path collides with "
+                            f"tournament {collision[0]}. Using tentative directory {event_dir}."
+                        )
+
+                    if not collision_pending:
+                        # event_id とディレクトリの対応関係は、取得処理が始まる前の時点で
+                        # 判明しているため、その後の取得(seeds/matches/attr.json)が途中で
+                        # 失敗しても記録が残るよう、ここで先に記録しておく。衝突が検出された
+                        # 場合は、参加者数が判明するまで本登録を遅延させる(research.md Decision 2)。
+                        changed, stale_old_path = update_event_registration(
+                            tournaments, tournament_id, event_id, event_name, event_dir, matches_only=matches_only
+                        )
+                        if stale_old_path:
+                            cleanup_relocated_directory(stale_old_path)
+                        if changed:
+                            path_index[event_dir] = (tournament_id, event_id)
+                            if tournament_id in existing_tournament_ids:
+                                rewrite_tournaments = True
 
                     if matches_only:
                         if not os.path.isdir(event_dir):
@@ -392,6 +517,24 @@ def download_all_tournaments(
                             print(f"Tournament {tournament_id}: event {event_id} standings exceeded max_pages ({e}); skipping this run.")
                             continue
                         num_entrants = len(user_data)
+
+                        if collision_pending:
+                            existing_tournament_id, existing_event_id = collision
+                            existing_event = next(
+                                e for e in tournaments[existing_tournament_id]["events"]
+                                if e.get("event_id") == existing_event_id
+                            )
+                            event_dir = resolve_path_collision(
+                                naive_event_dir, event_dir, num_entrants, tournament_id,
+                                existing_tournament_id, existing_event, tournaments, settled_tournament_ids,
+                            )
+                            path_index = build_path_index(tournaments)
+                            rewrite_tournaments = True
+                            # 既存側(別tournament_id)のpathが変わった可能性があるため、この
+                            # 取得処理の終了を待たずに直ちに永続化する(中断時の不整合の窓を
+                            # 最小化する。憲法Principle II)。
+                            write_jsonl(list(tournaments.values()), tournament_file_path, with_version=True)
+
                         try:
                             download_seeds(event_id, user_data, player_data, entrant2user, event_dir, max_pages=max_pages)
                         except NoPhaseError:
@@ -421,6 +564,7 @@ def download_all_tournaments(
                     if stale_old_path:
                         cleanup_relocated_directory(stale_old_path)
                     if changed:
+                        path_index[event_dir] = (tournament_id, event_id)
                         if tournament_id in existing_tournament_ids:
                             rewrite_tournaments = True
                 # ファイルを保存
@@ -1371,6 +1515,8 @@ def download_by_ids(
     users = read_users_jsonl(users_file_path)
     tournaments = read_tournaments_jsonl(tournament_file_path)
     print(f"download_by_ids: fetching {len(tournament_id_list)} tournament(s)")
+    path_index = build_path_index(tournaments)
+    settled_tournament_ids = set(tournaments.keys())
 
     for tournament_id in tournament_id_list:
         try:
@@ -1425,12 +1571,26 @@ def download_by_ids(
                 print(f"Tournament {tournament_id}: event {event_id} is excluded. Skipping.")
                 continue
 
-            # event_id とディレクトリの対応関係は、取得処理が始まる前の時点で判明している
-            # ため、その後の取得(seeds/matches/attr.json)が途中で失敗しても記録が残るよう、
-            # ここで先に記録しておく。
-            _, stale_old_path = update_event_registration(tournaments, tournament_id, event_id, event_name, event_dir)
-            if stale_old_path:
-                cleanup_relocated_directory(stale_old_path)
+            collision = path_index.get(event_dir)
+            collision_pending = collision is not None and collision[0] != tournament_id
+            naive_event_dir = event_dir
+            if collision_pending:
+                event_dir = disambiguated_dir(naive_event_dir, tournament_id)
+                print(
+                    f"Tournament {tournament_id}: event {event_id} path collides with "
+                    f"tournament {collision[0]}. Using tentative directory {event_dir}."
+                )
+
+            if not collision_pending:
+                # event_id とディレクトリの対応関係は、取得処理が始まる前の時点で判明している
+                # ため、その後の取得(seeds/matches/attr.json)が途中で失敗しても記録が残るよう、
+                # ここで先に記録しておく。衝突が検出された場合は、参加者数が判明するまで
+                # 本登録を遅延させる(research.md Decision 2)。
+                changed, stale_old_path = update_event_registration(tournaments, tournament_id, event_id, event_name, event_dir)
+                if stale_old_path:
+                    cleanup_relocated_directory(stale_old_path)
+                if changed:
+                    path_index[event_dir] = (tournament_id, event_id)
 
             try:
                 user_data, player_data, entrant2user = download_standings(event_id, event_dir)
@@ -1439,6 +1599,23 @@ def download_by_ids(
                 continue
 
             num_entrants = len(user_data)
+
+            if collision_pending:
+                existing_tournament_id, existing_event_id = collision
+                existing_event = next(
+                    e for e in tournaments[existing_tournament_id]["events"]
+                    if e.get("event_id") == existing_event_id
+                )
+                event_dir = resolve_path_collision(
+                    naive_event_dir, event_dir, num_entrants, tournament_id,
+                    existing_tournament_id, existing_event, tournaments, settled_tournament_ids,
+                )
+                path_index = build_path_index(tournaments)
+                # 既存側(別tournament_id)のpathが変わった可能性があるため、この取得処理の
+                # 終了を待たずに直ちに永続化する(中断時の不整合の窓を最小化する。
+                # 憲法Principle II)。
+                write_jsonl(list(tournaments.values()), tournament_file_path, with_version=True)
+
             try:
                 download_seeds(event_id, user_data, player_data, entrant2user, event_dir)
             except NoPhaseError:

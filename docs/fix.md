@@ -1,5 +1,6 @@
 # Fix / 不完全な点メモ
 
+- 同日同名(地域・開催日・大会名・イベント名が一致)の別大会(tournament_idが異なる)による保存先パス衝突(`specs/008-tournament-path-collision/`): `scripts/fetch/download.py`の`download_all_tournaments()`/`download_by_ids()`は、新規イベントの保存先が既存の別tournament_idのイベントと衝突する場合、参加者数が多い方の保存先名を維持し、少ない方を`大会名_(tournament_id)`の形式に自動調整する。同一の取得処理(1回のクロール実行)内でまだ確定していない側同士は、3件以上の衝突でも都度再比較して収束するが、既に**別の**(先に完了した)取得処理で確定・保存済みの保存先は再度変更しない(`resolve_path_collision()`、`research.md` Decision 2・3)。`scripts/fix/redownload_event.py`は、既に別event_idのデータが置かれているディレクトリへ保存しようとした場合、参加者数比較は行わず常に自分自身の保存先だけを同じ形式でずらす(`path_occupied_by_different_event()`、Decision 7)。本フィーチャー導入前に発生した未検出の衝突は`scripts/fix/find_path_collisions.py`で監査でき、`scripts/fix/fix_path_collision.py --event-id <id1> <id2> [...] --yes`で(2件・3件以上いずれも)人手の確認のもとで修復できる。
 - `scripts/fetch/download_specific_event.py` は既存トーナメントにイベントを追加する際、`tournaments.jsonl` に反映されない（コメントにも記載あり）。
 - `scripts/fetch/download_specific_event.py` は `scripts/fetch/download.py` とは
   独立に、`fetch_all_sets`/`download_all_set`/`write_matches`/`write_event_attributes`

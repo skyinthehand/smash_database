@@ -67,6 +67,19 @@ API呼び出しを追加せずに済む。一方で、standings.jsonの書き込
   将来的にAPI仕様が確認できれば、この代替案への切り替えを検討する
   価値はある。
 
+**実装時の訂正(2026-08-29)**: 上記2.の「計算上の(衝突しうる)`event_dir`
+へ実行する」は、文字通り実装すると、その`event_dir`(衝突している=既に
+既存イベントの完全なデータが置かれているディレクトリ)へ新規イベントの
+`standings.json`を直接上書きしてしまい、比較結果が判明する前に既存データ
+を破壊してしまう。実装では、衝突検出時点で新規イベント用の**暫定的な
+(disambiguate_event_name()で調整済みの)ディレクトリ**を先に計算し、
+`download_standings()`以降の全ての書き込みはこの暫定ディレクトリへ
+行う。参加者数判明後、新規側が敗者ならこの暫定ディレクトリをそのまま
+使い続け、新規側が勝者なら(a)既存側を暫定的な調整名ディレクトリへ退避
+させ、(b)新規側のデータを暫定ディレクトリから本来の(衝突していた)
+`event_dir`へ移動する、という2段階の入れ替えを行う(`resolve_path_collision()`
+の実装、Decision 3参照)。
+
 ## Decision 3: 参加者数の比較・命名調整ロジック
 
 **Decision**: 新規モジュール関数
@@ -200,10 +213,13 @@ Scenario 3・4)。
 互いに対して`settled_tournament_ids`に含めない(=指定された全員を
 「同一の取得処理内」として扱い、3件以上でも参加者数が最多の1件だけが
 元の名前を維持するよう、まとめて比較・入れ替えの対象とする。Decision 3
-参照)。決定した保存先へ、`redownload_event.py`が使っているのと同じ
-取得用の関数群(`download_standings`/`download_seeds`/`download_all_set`/
-`write_event_attributes`)を用いて、それぞれを個別に再取得し、
-`tournaments.jsonl`を更新する。
+参照)。対象データは全て既にディスク上に存在するため、start.gg への
+再取得は行わない(実装時の判断。当初は`redownload_event.py`と同じ
+取得用の関数群を再利用する想定だったが、既存ディレクトリの移動だけで
+十分であり、無駄なAPI呼び出しを避けられる。憲法Principle V)。各対象の
+`attr.json`(`place.country_code`/`timestamp`/`tournament_name`/
+`event_name`)から本来の(衝突していない)保存先を再計算し、既存
+ディレクトリをそこへ移動した上で`tournaments.jsonl`を更新する。
 
 **Rationale**: `redownload_event.py`本体は、通常の「1件のevent_idを
 指定して再取得する」ツールとしての役割を保つ(Decision 7で追加する衝突

@@ -50,11 +50,13 @@ python3 scripts/fix/find_path_collisions.py
 ```bash
 # まずは確認のみ(--yes無し): 対象・現状・実行後の見込みが表示され、
 # 実際の変更は一切発生しないことを確認する(2件でも3件以上でも可)。
-python3 scripts/fix/fix_path_collision.py --token <TOKEN> \
+# 対象データは全て既にディスク上に存在するため、start.gg への再取得は
+# 行わない(--tokenは不要)。
+python3 scripts/fix/fix_path_collision.py \
   --event-id <衝突当事者1のevent_id> <衝突当事者2のevent_id>
 
 # 実際に修復する
-python3 scripts/fix/fix_path_collision.py --token <TOKEN> \
+python3 scripts/fix/fix_path_collision.py \
   --event-id <衝突当事者1のevent_id> <衝突当事者2のevent_id> --yes
 ```
 
