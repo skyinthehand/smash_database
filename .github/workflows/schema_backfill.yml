@@ -1,8 +1,8 @@
 name: "StartGG: Schema Version Backfill"
 
 on:
-  schedule:
-    - cron: "30 * * * *"
+  # 手動運用に切り替えるため、定期実行(schedule)は一時停止中。
+  # 再開する場合は `- cron: "30 * * * *"` を戻すこと。
   workflow_dispatch:
     inputs:
       max_events:
