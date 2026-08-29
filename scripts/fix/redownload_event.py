@@ -33,6 +33,7 @@ from scripts.fetch.download import (  # noqa: E402
     download_seeds,
     download_standings,
     extend_user_info,
+    load_excluded_event_ids,
     write_event_attributes,
 )
 from scripts.queries import get_event_details_by_id_query  # noqa: E402
@@ -112,6 +113,10 @@ def redownload_event(
         print(f"[{event_id}] existing data found: {existing_dir}")
     else:
         print(f"[{event_id}] no existing data found under {events_root}")
+
+    if event_id in load_excluded_event_ids():
+        print(f"[{event_id}] excluded: skipping (registered in the exclusion list)")
+        return True
 
     if not apply:
         if existing_dir is not None:

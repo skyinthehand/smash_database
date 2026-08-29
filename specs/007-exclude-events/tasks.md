@@ -21,7 +21,7 @@
 
 **Purpose**: 除外リストファイルのリネーム(コード変更に先立つ準備)
 
-- [ ] T001 `data/startgg/excluded_phases.json` を `data/startgg/excluded_events.json`
+- [X] T001 `data/startgg/excluded_phases.json` を `data/startgg/excluded_events.json`
   へ `git mv` でリネームする(既存のphase単位除外エントリはそのまま
   引き継がれる。`research.md` Decision 1)。
 
@@ -34,19 +34,19 @@
 **⚠️ CRITICAL**: このフェーズが完了するまで、どのUser Storyの実装にも
 着手できない。
 
-- [ ] T002 `scripts/fetch/download.py` の定数 `EXCLUDED_PHASES_PATH` を
+- [X] T002 `scripts/fetch/download.py` の定数 `EXCLUDED_PHASES_PATH` を
   `EXCLUDED_EVENTS_PATH = "data/startgg/excluded_events.json"` へ
   リネームする(`load_excluded_phase_ids()`のデフォルト引数を含む)。
-- [ ] T003 `scripts/fetch/download.py` の `load_excluded_phase_ids()` を
+- [X] T003 `scripts/fetch/download.py` の `load_excluded_phase_ids()` を
   修正し、値が配列(`list`)形状のエントリのみを対象にする(`dict`形状
   = イベント全体除外エントリは黙ってスキップする)ガードを追加する
   (依存: T002)。
-- [ ] T004 `scripts/fetch/download.py` に新規関数 `load_excluded_event_ids(path=EXCLUDED_EVENTS_PATH)`
+- [X] T004 `scripts/fetch/download.py` に新規関数 `load_excluded_event_ids(path=EXCLUDED_EVENTS_PATH)`
   を追加する。ファイルを読み込み、値が`dict`かつ`"reason"`キーを直下に
   持つエントリのみを対象に、`{event_id(int): {"reason": str}}` を返す
   (ファイル未存在/不正な場合は空辞書。`load_excluded_phase_ids()`と
   同じtry/exceptパターンを踏襲)(依存: T002)。
-- [ ] T005 `scripts/test/test_download.py` に、T003・T004の単体テストを
+- [X] T005 `scripts/test/test_download.py` に、T003・T004の単体テストを
   追加する: (a) `load_excluded_phase_ids()`が、統合後ファイルに混在する
   イベント全体除外エントリ(dict形状)を無視し、従来通りphase単位の
   エントリのみを返すこと、(b) `load_excluded_event_ids()`が、dict形状の
@@ -74,18 +74,18 @@
 
 ### Implementation for User Story 1
 
-- [ ] T006 [US1] `scripts/fetch/download.py` の `download_all_tournaments()`
+- [X] T006 [US1] `scripts/fetch/download.py` の `download_all_tournaments()`
   内、`event_dir = get_event_directory(...)` の直後に、
   `load_excluded_event_ids()` を用いた除外チェックを追加する。
   除外対象であれば、そのイベントの `update_event_registration()` 呼び出し・
   ディレクトリ作成・データ取得を一切行わずスキップし、既存の他の
   スキップ理由(`already downloaded`等)と同様の1行ログを出力する
   (FR-003, FR-004, FR-004a)(依存: T004)。
-- [ ] T007 [US1] `scripts/fetch/download.py` の `download_by_ids()` 内、
+- [X] T007 [US1] `scripts/fetch/download.py` の `download_by_ids()` 内、
   同様に `event_dir = get_event_directory(...)` の直後に除外チェックを
   追加し、除外対象であればスキップしてログを出力する(FR-003, FR-004,
   FR-004a)(依存: T004。T006と同一ファイルのため順序を空けて実施)。
-- [ ] T008 [US1] `scripts/test/test_download.py` に、T006・T007の統合
+- [X] T008 [US1] `scripts/test/test_download.py` に、T006・T007の統合
   テストを追加する: 除外リストに登録済みのevent_idを含むトーナメントに
   対して `download_all_tournaments()`/`download_by_ids()` を実行し、
   (a) そのevent_idのディレクトリが作成されないこと、(b) `tournaments.jsonl`
@@ -112,14 +112,14 @@ Constitution Principle Iに従ったドキュメント更新のみを行う。
 
 ### Implementation for User Story 2
 
-- [ ] T009 [P] [US2] `docs/data_model.md` の「管理ファイル」節に、
+- [X] T009 [P] [US2] `docs/data_model.md` の「管理ファイル」節に、
   `data/startgg/excluded_events.json` の説明(2種類のエントリ形状
   ——配列=phase単位除外、`reason`直下のオブジェクト=イベント全体除外
   ——と、除外日時をフィールドとして持たない旨)を追加する(`data-model.md`
   の内容を転記・要約する)。
-- [ ] T010 [P] [US2] `docs/fix.md` の `excluded_phases.json` への
+- [X] T010 [P] [US2] `docs/fix.md` の `excluded_phases.json` への
   言及箇所を `excluded_events.json` に更新する。
-- [ ] T011 [P] [US2] `docs/startgg_design.md` の `excluded_phases.json`
+- [X] T011 [P] [US2] `docs/startgg_design.md` の `excluded_phases.json`
   への言及箇所を `excluded_events.json` に更新する。
 
 **Checkpoint**: 除外リストの内容・スキーマがドキュメントからも追跡できる。
@@ -143,24 +143,24 @@ Constitution Principle Iに従ったドキュメント更新のみを行う。
 
 ### Implementation for User Story 3
 
-- [ ] T012 [P] [US3] `scripts/fix/redownload_event.py` の
+- [X] T012 [P] [US3] `scripts/fix/redownload_event.py` の
   `redownload_event()` 内、`find_existing_event_dir()` 呼び出しの直後に、
   `load_excluded_event_ids()`(`scripts.fetch.download`からimport)を
   用いた除外チェックを追加する。除外対象であれば、削除・再取得を一切
   行わずスキップし、既存の`print(f"[{event_id}] ...")`スタイルで除外の
   旨を報告する(FR-006)(依存: T004)。
-- [ ] T013 [P] [US3] `scripts/fix/backfill_tournament_index.py` の
+- [X] T013 [P] [US3] `scripts/fix/backfill_tournament_index.py` の
   `scan_and_fill()` 内、`os.path.isdir(event_dir)` チェックの近くに、
   同様の除外チェックを追加する。除外対象であれば、そのevent_idを
   `tournaments`辞書への追加対象から除外し、既存の`print(f"[ADD] ...")`
   に倣ったスタイルで除外の旨を報告する(FR-006)(依存: T004)。
-- [ ] T014 [P] [US3] `scripts/fix/check_events_in_tournaments.py` の
+- [X] T014 [P] [US3] `scripts/fix/check_events_in_tournaments.py` の
   `main()` 内、`event_id = attr.get("event_id")` で event_id が判明した
   直後に、同様の除外チェックを追加する。除外対象であれば、
   `missing_events` への追加を行わずスキップし、既存の
   `print(f"[SKIP] ...")` に倣って `print(f"[SKIP-EXCLUDED] {event_dir}: ...")`
   のような1行を出力する(FR-006)(依存: T004)。
-- [ ] T015 [P] [US3] `scripts/fix/fix_missing_tournaments.py` の
+- [X] T015 [P] [US3] `scripts/fix/fix_missing_tournaments.py` の
   `clean_tournaments()` を修正し、`excluded_event_ids`(集合)を引数に
   追加する。`for event in events:` ループ内、`check_event()` 呼び出しの
   前に、`event.get("event_id")` が除外対象かどうかを確認し、除外対象で
@@ -169,20 +169,20 @@ Constitution Principle Iに従ったドキュメント更新のみを行う。
   `f"[REMOVE] ...")` に倣って `report_lines.append(f"[EXCLUDED] ...")` を
   追加する。`main()` 側で `load_excluded_event_ids()` を呼び出し
   `clean_tournaments()` に渡すよう更新する(FR-006)(依存: T004)。
-- [ ] T016 [P] [US3] 新規ファイル `scripts/test/test_redownload_event.py`
+- [X] T016 [P] [US3] 新規ファイル `scripts/test/test_redownload_event.py`
   を作成し、T012の除外スキップ挙動(除外対象event_idに対して
   `redownload_event()` がAPI呼び出し・ディレクトリ削除/作成を一切
   行わないこと、除外の旨を報告すること)を検証するテストを追加する
   (依存: T012)。
-- [ ] T017 [P] [US3] `scripts/test/test_backfill_tournament_index.py` に、
+- [X] T017 [P] [US3] `scripts/test/test_backfill_tournament_index.py` に、
   T013の除外スキップ挙動(除外対象event_idに対応するディレクトリが
   ローカルに存在していても、`tournaments`への追加対象として扱われない
   こと)を検証するテストを追加する(依存: T013)。
-- [ ] T018 [P] [US3] 新規ファイル `scripts/test/test_check_events_in_tournaments.py`
+- [X] T018 [P] [US3] 新規ファイル `scripts/test/test_check_events_in_tournaments.py`
   を作成し、T014の除外スキップ挙動(除外対象event_idに対応するディレク
   トリ(attr.json含む)が存在していても、`missing_events`に含まれない
   こと)を検証するテストを追加する(依存: T014)。
-- [ ] T019 [P] [US3] 新規ファイル `scripts/test/test_fix_missing_tournaments.py`
+- [X] T019 [P] [US3] 新規ファイル `scripts/test/test_fix_missing_tournaments.py`
   を作成し、T015の除外スキップ挙動(除外対象event_idのエントリが
   `tournaments.jsonl`に存在する場合、ファイル完全性チェックの対象になら
   ずそのまま`kept_events`に残ること)を検証するテストを追加する
@@ -198,9 +198,9 @@ Constitution Principle Iに従ったドキュメント更新のみを行う。
 
 **Purpose**: 全体の整合性確認
 
-- [ ] T020 `python3 -m unittest discover -s scripts/test` を実行し、
+- [X] T020 `python3 -m unittest discover -s scripts/test` を実行し、
   リポジトリ全体のテストが通ることを確認する(憲法Principle III)。
-- [ ] T021 `quickstart.md` の手順1〜7を通しで実施し、エンドツーエンドの
+- [X] T021 `quickstart.md` の手順1〜7を通しで実施し、エンドツーエンドの
   動作(除外の追加・全4エントリポイントでのスキップ・可読性・解除・
   既存phase除外の回帰確認)を確認する。
 
