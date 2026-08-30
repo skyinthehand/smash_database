@@ -1,7 +1,8 @@
-# Specification Quality Checklist: 大会属性判定ロジックの内製化(参加資格制限大会ラベル)
+# Specification Quality Checklist: 汎用イベントラベリング機構(大会名・イベント名ルールベース判定)
 
 **Purpose**: Validate specification completeness and quality before proceeding to planning
 **Created**: 2026-08-01
+**Revised**: 2026-08-30
 **Feature**: [spec.md](../spec.md)
 
 ## Content Quality
@@ -31,9 +32,21 @@
 
 ## Notes
 
-- Items marked incomplete require spec updates before `/speckit-clarify` or `/speckit-plan`
-- 2件の [NEEDS CLARIFICATION] はユーザーとの対話で解決済み:
-  - FR-003(プロパティ名): `labels.registration_restricted`(真偽値)に決定。
-    既存の `registration_type` との命名一貫性を優先
-  - 文字列照合の正規化方針: 単純な部分文字列一致、大文字小文字・全角半角の
-    正規化なし
+- 初版(2026-08-01)は「参加資格制限大会かどうか」という単一の固定ラベルのみを
+  対象にしていたが、実装着手前の2026-08-30に「もっと汎用的に作るべき」との
+  ユーザーフィードバックを受け、任意のラベルを宣言的なJSONルールファイルで
+  定義できる汎用機構へと全面的に再検討した(初版は未実装のまま、tasks.md含め
+  今回の内容で置き換え)。
+- 今回の再検討で追加された主な仕様: (1) ルール定義ファイル自体の
+  `label_version`と、それを記録する`attr.json.label_version`(新規
+  トップレベルフィールド、`event_data_version`とは独立)の新設。(2) ラベル
+  付与処理はstart.ggアクセスを伴わない高速なローカル処理として、イベント
+  データ取得処理とは別個に管理する方針の明文化。(3) ルールが将来
+  `event_data_version`の特定バージョン以上を要求できるようにする
+  `min_event_data_version`(User Story 4、FR-011)。(4) トーナメント名・
+  イベント名を個別または組み合わせ(AND条件)で判定できるルール構造
+  (User Story 3、FR-001〜FR-003)。
+- 正規表現の前後スラッシュ記法(`/パターン/`)の扱い(スラッシュの有無
+  どちらも受け付けるか等)は意図的にAssumptionsで「`/speckit-plan`で確定する」
+  として先送りし、[NEEDS CLARIFICATION]は使用しなかった(HOWレベルの詳細
+  であり、スコープ・UXへの影響が無いため)。
