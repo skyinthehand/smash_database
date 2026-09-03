@@ -2,7 +2,7 @@
 
 **Purpose**: Validate specification completeness and quality before proceeding to planning
 **Created**: 2026-08-01
-**Revised**: 2026-08-30
+**Revised**: 2026-09-03
 **Feature**: [spec.md](../spec.md)
 
 ## Content Quality
@@ -60,3 +60,13 @@
   約26,000件超の規模での再計算コスト自体を避けたいとの指摘を受け、FR-010・
   User Story 2 Acceptance Scenario 4を「`label_version`が一致していれば判定の
   再計算自体をスキップする」に変更した。
+- `/speckit-clarify`(2026-09-03)にて4件の質問を実施し、`## Clarifications`
+  節に記録の上で以下をspec本文へ反映した: (1) FR-011で`event_data_version`
+  フィールド自体が存在しないイベントは`0`として扱いスキップ対象とする。
+  (2) ルール定義ファイル自体が存在しない・JSONとして壊れている場合も
+  FR-012の不正な正規表現と同様に起動時検出・処理中止とする(FR-012・
+  Edge Casesに追記)。(3) `tournament_name_match`/`event_name_match`の
+  「一致」は`re.search`相当の部分一致であることをFR-002に明記した。
+  (4) FR-007の一括適用ツールは他の修復ツール(`fix_path_collision.py`等)
+  に倣いデフォルトdry-run・明示オプション時のみ実書き込みとする
+  (FR-007・User Story 2 Acceptance Scenario 5に追記)。
