@@ -1,6 +1,6 @@
 # Feature Specification: 汎用イベントラベリング機構(大会名・イベント名ルールベース判定)
 
-**Feature Branch**: `003-eligibility-restricted-labeling`
+**Feature Branch**: `009-eligibility-restricted-labeling`
 
 **Created**: 2026-08-01
 

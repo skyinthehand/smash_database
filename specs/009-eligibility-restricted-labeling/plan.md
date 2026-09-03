@@ -1,8 +1,8 @@
 # Implementation Plan: 大会属性判定ロジックの内製化(参加資格制限大会ラベル)
 
-**Branch**: `003-eligibility-restricted-labeling` | **Date**: 2026-08-01 | **Spec**: [spec.md](./spec.md)
+**Branch**: `009-eligibility-restricted-labeling` | **Date**: 2026-08-01 | **Spec**: [spec.md](./spec.md)
 
-**Input**: Feature specification from `/specs/003-eligibility-restricted-labeling/spec.md`
+**Input**: Feature specification from `/specs/009-eligibility-restricted-labeling/spec.md`
 
 ## Summary
 
@@ -67,7 +67,7 @@
 ### Documentation (this feature)
 
 ```text
-specs/003-eligibility-restricted-labeling/
+specs/009-eligibility-restricted-labeling/
 ├── plan.md              # This file
 ├── research.md          # Phase 0 output
 ├── data-model.md        # Phase 1 output

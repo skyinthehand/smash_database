@@ -1,11 +1,11 @@
 ---
 
-description: "Task list for 003-eligibility-restricted-labeling"
+description: "Task list for 009-eligibility-restricted-labeling"
 ---
 
 # Tasks: 大会属性判定ロジックの内製化(参加資格制限大会ラベル)
 
-**Input**: Design documents from `/specs/003-eligibility-restricted-labeling/`
+**Input**: Design documents from `/specs/009-eligibility-restricted-labeling/`
 
 **Prerequisites**: plan.md, spec.md, research.md, data-model.md, contracts/cli.md, quickstart.md
 
