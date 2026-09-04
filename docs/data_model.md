@@ -88,15 +88,35 @@
   "labels": {
     "registration_type": "full-open",
     "event_type": "main",
-    "game_rule": "1on1"
+    "game_rule": "1on1",
+    "registration_restricted": true
   },
   "archive_status": "completed",
   "state": "COMPLETED",
   "type": 1,
   "event_data_version": 7,
+  "label_version": 1,
   "guest_entrant_count": 0
 }
 ```
+- `labels`: `registration_type`/`event_type`/`game_rule`等はOpenAIによる推定分(下記
+  「注意点」参照)。`registration_restricted`等、`data/startgg/label_rules.json`
+  (ラベル判定ルール定義、git管理)の`matches`に登場する`label`名はこのルール
+  定義ファイルの管理対象であり、判定エンジン(`scripts/labeling.py`)が
+  トーナメント名・イベント名を正規表現で判定して真偽値を設定する。一致した
+  ラベルのみキーとして存在し(不一致の場合はキー自体が無い)、ルール定義ファイルが
+  管理しないキー(OpenAI推定分等)は判定処理によって変更されない。
+- `label_version`: `labels`のうちルール管理対象分を算出した際の
+  `data/startgg/label_rules.json`の`label_version`。`event_data_version`とは
+  完全に独立したバージョンカウンタ(`002-incremental-schema-backfill`参照)。
+  ルール定義ファイルが`min_event_data_version`を宣言している場合、対象イベントの
+  `event_data_version`(欠落時は`0`扱い)がその値を下回ると判定自体がスキップされ、
+  このフィールドは書き込まれない(既存の値があればそのまま)。本機能導入前の
+  既存イベントには存在しない。新規取得経路(`scripts/fetch/download.py`/
+  `scripts/fetch/download_specific_event.py`の`write_event_attributes()`)・
+  一括適用ツール(`scripts/fix/apply_label_rules.py`、start.gg再アクセス不要・
+  デフォルトdry-run)のいずれで書き込まれた場合も同じ意味を持つ
+  (specs/009-eligibility-restricted-labeling参照)。
 - `archive_status`: このスクリプトによるデータ取得処理自体が完了したことを表すマーカー(常に`"completed"`)。
   `event_data_version >= 6` では、そのイベントの`matches.json`に**プレースホルダー
   レコード(後述)が1件も残っていない場合にのみ**`attr.json`自体が書き込まれる
@@ -225,7 +245,12 @@
   ため、本来解決できたはずの user_id が `null` のまま残っている場合があり、
   `scripts/fetch/backfill_schema_version.py`の巡回バックフィルにより順次再取得・修正
   される。
-- `labels` は OpenAI による推定であり、正確性は保証されない。
+- `labels` のうち `registration_type`/`event_type`/`game_rule` 等は OpenAI による
+  推定であり、正確性は保証されない。一方、`registration_restricted` 等の
+  ルール管理対象ラベルは、`data/startgg/label_rules.json`(git管理されるラベル
+  判定ルール定義)に基づき `scripts/labeling.py` が `tournament_name`/`event_name`
+  を正規表現で判定した確定的な結果であり、OpenAI推定とは性質が異なる
+  (specs/009-eligibility-restricted-labeling参照)。
 - `event_data_version` は「イベントごとに取得されるべきデータの内容(スキーマ世代)」を
   表す整数値であり、ファイル形式全体を表す `version` とは別物(`scripts/utils.py` の
   `EVENT_DATA_VERSION` 定数が現在の目標値)。本機能導入前に取得された既存イベントには

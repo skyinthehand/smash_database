@@ -31,21 +31,21 @@ description: "Task list for 009-eligibility-restricted-labeling"
 
 **Purpose**: 新規ファイルの骨格を用意する
 
-- [ ] T001 `data/startgg/label_rules.json` を、最小限の有効なルールセット
+- [X] T001 `data/startgg/label_rules.json` を、最小限の有効なルールセット
       (`{"label_version": 1, "matches": []}`)として新規作成する。具体的な
       判定パターンの内容は本feature のスコープ外(spec.md Assumptions 参照)
-- [ ] T002 [P] `scripts/labeling.py` を新規作成し、`DEFAULT_LABEL_RULES_PATH`・
+- [X] T002 [P] `scripts/labeling.py` を新規作成し、`DEFAULT_LABEL_RULES_PATH`・
       `LabelRuleError`・`CompiledLabelRule`/`CompiledLabelRuleSet`(dataclass)・
       各関数(`load_label_ruleset`, `compile_label_ruleset`, `compute_labels`,
       `merge_labels`, `compute_event_labels`)のシグネチャのみのスタブ
       (`raise NotImplementedError`)を用意する(data-model.md/contracts/cli.md 参照)
-- [ ] T003 [P] `scripts/test/test_labeling.py` を作成し、`scripts.labeling` を
+- [X] T003 [P] `scripts/test/test_labeling.py` を作成し、`scripts.labeling` を
       import するだけの空テストケースを用意する
-- [ ] T004 [P] `scripts/fix/apply_label_rules.py` を新規作成し、
+- [X] T004 [P] `scripts/fix/apply_label_rules.py` を新規作成し、
       `contracts/cli.md` に定義された引数(`--events-root`, `--rules-file`,
       `--indent-num`, `--yes`)を受け取る `parse_args()` のみを実装する
       (処理ロジックは未実装)
-- [ ] T005 [P] `scripts/test/test_apply_label_rules.py` を作成し、
+- [X] T005 [P] `scripts/test/test_apply_label_rules.py` を作成し、
       `scripts.fix.apply_label_rules` を import するだけの空テストケースを
       用意する
 
@@ -59,7 +59,7 @@ description: "Task list for 009-eligibility-restricted-labeling"
 **⚠️ CRITICAL**: このフェーズが完了するまで、いずれのユーザーストーリーの
 実装も開始しない
 
-- [ ] T006 `scripts/labeling.py` に `load_label_ruleset(path)` と
+- [X] T006 `scripts/labeling.py` に `load_label_ruleset(path)` と
       `compile_label_ruleset(ruleset)` を実装する。ファイル欠落・
       JSONデコードエラー・`label_version`欠落・`matches`が配列でない・
       各ルールの`label`欠落・`tournament_name_match`/`event_name_match`
@@ -67,7 +67,7 @@ description: "Task list for 009-eligibility-restricted-labeling"
       すべて列挙した1つの`LabelRuleError`を送出する(research.md #3)。
       正規表現は前後を`/`で囲んだ記法(`/pattern/`)・囲まない記法どちらも
       受け付ける(research.md #2 のスラッシュ正規化ルール)
-- [ ] T007 `scripts/labeling.py` に `compute_labels(compiled, tournament_name, event_name)`
+- [X] T007 `scripts/labeling.py` に `compute_labels(compiled, tournament_name, event_name)`
       と `merge_labels(existing_labels, computed_labels, managed_label_names)`
       を実装する。マッチングは`re.search`相当の部分一致。
       `tournament_name_match`のみ/`event_name_match`のみ/両方(AND)の
@@ -75,7 +75,7 @@ description: "Task list for 009-eligibility-restricted-labeling"
       異なる`label`同士は独立に複数同時成立する。`merge_labels`は
       `managed_label_names`に含まれない既存キーを保持し、含まれるキーは
       `computed_labels`で完全に置き換える(T006 に依存、同一ファイル)
-- [ ] T008 `scripts/labeling.py` に `compute_event_labels(existing_labels, tournament_name, event_name, event_data_version, *, rules_path=DEFAULT_LABEL_RULES_PATH)`
+- [X] T008 `scripts/labeling.py` に `compute_event_labels(existing_labels, tournament_name, event_name, event_data_version, *, rules_path=DEFAULT_LABEL_RULES_PATH)`
       を実装する(この時点では`min_event_data_version`のゲート判定は行わず、
       常に`(merge_labels(...), compiled.label_version)`を返す(`compiled`は
       `CompiledLabelRuleSet`のインスタンスであり、`label_version`は辞書添字
@@ -83,7 +83,7 @@ description: "Task list for 009-eligibility-restricted-labeling"
       Phase 6 (US4) で追加する)。`functools.lru_cache`でルールセットの
       読み込み・検証・コンパイル結果を`rules_path`ごとにプロセス内キャッシュする
       (T007 に依存、同一ファイル)
-- [ ] T009 [P] `scripts/test/test_labeling.py` に、T006〜T008 を検証する
+- [X] T009 [P] `scripts/test/test_labeling.py` に、T006〜T008 を検証する
       テストを追加する: ルール定義ファイルの欠落/JSON不正/必須フィールド
       欠落/不正な正規表現がそれぞれ`LabelRuleError`になること、
       スラッシュ記法の有無どちらも同じ結果になること、
@@ -112,7 +112,7 @@ description: "Task list for 009-eligibility-restricted-labeling"
 
 ### Tests for User Story 1
 
-- [ ] T010 [P] [US1] `scripts/test/test_download.py` に、
+- [X] T010 [P] [US1] `scripts/test/test_download.py` に、
       `write_event_attributes()` が(a) 一致するルールの`tournament_name`
       を与えられたとき`labels`に該当ラベルを`true`で設定し`label_version`を
       記録すること、(b) `tournament_name_match`と`event_name_match`両方
@@ -122,21 +122,21 @@ description: "Task list for 009-eligibility-restricted-labeling"
       `labels`プロパティ(ルール管理対象外のキー)を保持したまま追加する
       こと、を確認するテストを追加する(spec.md User Story 1 Acceptance
       Scenarios 1〜5 に対応)
-- [ ] T011 [P] [US1] `scripts/test/test_download_specific_event.py` に、
+- [X] T011 [P] [US1] `scripts/test/test_download_specific_event.py` に、
       T010 と同等のテストを追加する(独自実装への回帰確認)
 
 ### Implementation for User Story 1
 
-- [ ] T012 [US1] `scripts/fetch/download.py` の `write_event_attributes()`
+- [X] T012 [US1] `scripts/fetch/download.py` の `write_event_attributes()`
       を変更し、`json_data`組み立て直前に
       `labels, label_version = compute_event_labels(labels, tournament_name, event_name, EVENT_DATA_VERSION)`
       を呼び出し、`json_data["labels"] = labels`とし、`label_version`が
       `None`でなければ`json_data["label_version"] = label_version`を設定する
       (data-model.md 処理フロー参照。呼び出し元2箇所のシグネチャ変更は不要)
-- [ ] T013 [US1] `scripts/fetch/download_specific_event.py` の
+- [X] T013 [US1] `scripts/fetch/download_specific_event.py` の
       `write_event_attributes()`(独自実装)にも T012 と同一内容の変更を
       適用する
-- [ ] T014 [P] [US1] `docs/data_model.md` の `attr.json` スキーマ例に、
+- [X] T014 [P] [US1] `docs/data_model.md` の `attr.json` スキーマ例に、
       ルール管理対象ラベルの例(`registration_restricted: true`等)と
       新規トップレベルフィールド`label_version`を追記し、「注意点」相当の
       セクションに、ラベル判定ルールは`data/startgg/label_rules.json`で
@@ -158,19 +158,19 @@ dry-run/`--yes`実行)により、他のユーザーストーリーと独立に�
 
 ### Tests for User Story 2
 
-- [ ] T015 [P] [US2] `scripts/test/test_apply_label_rules.py` に、
+- [X] T015 [P] [US2] `scripts/test/test_apply_label_rules.py` に、
       ルールに一致するイベントの`labels`/`label_version`が(dry-runでは
       書き込まれず)`--yes`指定時のみ実際に更新されることを確認する
       テストを追加する
-- [ ] T016 [P] [US2] 同ファイルに、`attr.json`が存在しない/JSONとして
+- [X] T016 [P] [US2] 同ファイルに、`attr.json`が存在しない/JSONとして
       壊れているイベントディレクトリに遭遇しても処理全体が停止せず、
       残りのディレクトリを処理し続けること(`skipped_broken`が加算される
       こと)を確認するテストを追加する
-- [ ] T017 [P] [US2] 同ファイルに、既存の`label_version`が現在のルール
+- [X] T017 [P] [US2] 同ファイルに、既存の`label_version`が現在のルール
       セットと一致するイベントは判定の再計算自体が行われず
       (`compute_labels`が呼ばれないことをモック等で確認)、
       `skipped_up_to_date`が加算されることを確認するテストを追加する
-- [ ] T018 [P] [US2] 同ファイルに、`--yes`で1回実行した後にもう一度
+- [X] T018 [P] [US2] 同ファイルに、`--yes`で1回実行した後にもう一度
       `--yes`で実行すると2回目は全件`skipped_up_to_date`になる(冪等)
       ことを確認するテストと、実行中に`scripts.utils.fetch_data_with_retries`
       等のAPI関連関数が一切呼び出されない(importもしていない)ことを
@@ -178,14 +178,14 @@ dry-run/`--yes`実行)により、他のユーザーストーリーと独立に�
 
 ### Implementation for User Story 2
 
-- [ ] T019 [US2] `scripts/fix/apply_label_rules.py` に、起動時の
+- [X] T019 [US2] `scripts/fix/apply_label_rules.py` に、起動時の
       ルール定義ファイル読み込み・検証(失敗時は1件も処理せずエラー終了)、
       `--events-root`以下の`attr.json`を`rglob`で列挙、壊れた/存在しない
       ファイルのスキップ、既存`label_version`一致時のスキップ
       (判定再計算なし)、それ以外は`compute_labels`/`merge_labels`で
       再計算し`labels`/`label_version`を更新するロジックを実装する
       (data-model.md 処理フロー参照。T004/T006〜T008 に依存)
-- [ ] T020 [US2] 同ファイルに、dry-run時は書き込みを行わず「更新予定」を
+- [X] T020 [US2] 同ファイルに、dry-run時は書き込みを行わず「更新予定」を
       出力し、`--yes`指定時のみ`write_json()`で実際に書き込む処理と、
       終了時の要約行(`Done. updated=X skipped_low_version=0 skipped_up_to_date=Y skipped_broken=Z`、
       dry-run時は末尾に`(dry-run)`を付与)の出力を実装する
@@ -207,7 +207,7 @@ dry-run/`--yes`実行)により、他のユーザーストーリーと独立に�
 
 ### Tests for User Story 3
 
-- [ ] T021 [P] [US3] `scripts/test/test_labeling.py` に、spec.md User
+- [X] T021 [P] [US3] `scripts/test/test_labeling.py` に、spec.md User
       Story 3 Acceptance Scenarios 1〜5 に対応する結合的なテストケースを
       追加する: `tournament_name_match`のみのルール、`event_name_match`
       のみのルール、両方指定(AND)のルール、同じ`label`への複数ルール
@@ -235,18 +235,18 @@ dry-run/`--yes`実行)により、他のユーザーストーリーと独立に�
 
 ### Tests for User Story 4
 
-- [ ] T022 [P] [US4] `scripts/test/test_labeling.py` に、
+- [X] T022 [P] [US4] `scripts/test/test_labeling.py` に、
       `compute_event_labels`が`min_event_data_version`要件を満たさない場合
       `(existing_labels相当, None)`を返すこと、`event_data_version`が
       `None`の場合は`0`として扱われること(`min_event_data_version`が
       1以上なら常にスキップ対象になること)を確認するテストを追加する
       (spec.md Clarifications 参照)
-- [ ] T023 [P] [US4] `scripts/test/test_apply_label_rules.py` に、
+- [X] T023 [P] [US4] `scripts/test/test_apply_label_rules.py` に、
       `min_event_data_version`要件を満たさないイベントが`skipped_low_version`
       として加算され`labels`/`label_version`が変更されないこと、後日
       `event_data_version`が要件を満たす値に更新された上で再実行すると
       正常に判定・更新されることを確認するテストを追加する
-- [ ] T024 [P] [US4] `scripts/test/test_download.py`/
+- [X] T024 [P] [US4] `scripts/test/test_download.py`/
       `scripts/test/test_download_specific_event.py`に、
       `min_event_data_version`要件を満たさない場合に`write_event_attributes()`
       が`label_version`フィールドを設定しない(かつ`labels`の
@@ -254,12 +254,12 @@ dry-run/`--yes`実行)により、他のユーザーストーリーと独立に�
 
 ### Implementation for User Story 4
 
-- [ ] T025 [US4] `scripts/labeling.py`の`compute_event_labels`に
+- [X] T025 [US4] `scripts/labeling.py`の`compute_event_labels`に
       `min_event_data_version`のゲート判定を追加する: `event_data_version`
       (`None`の場合は`0`)がルールセットの`min_event_data_version`を
       下回る場合、判定の再計算を行わず`(existing_labels or {}, None)`を
       返す(T008 を拡張。T022 に対応)
-- [ ] T026 [US4] `scripts/fix/apply_label_rules.py`に、
+- [X] T026 [US4] `scripts/fix/apply_label_rules.py`に、
       `attr.get("event_data_version") or 0`とルールセットの
       `min_event_data_version`を比較するゲート判定を追加する(要件を
       満たさない場合は`skipped_low_version`を加算しスキップ、
@@ -273,8 +273,8 @@ dry-run/`--yes`実行)により、他のユーザーストーリーと独立に�
 
 ## Phase 7: Polish & Cross-Cutting Concerns
 
-- [ ] T027 [P] `python -m unittest scripts.test.test_labeling scripts.test.test_apply_label_rules scripts.test.test_download scripts.test.test_download_specific_event scripts.test.test_validate_data` を実行し、既存の全テストスイートも含めてすべてパスすることを確認する
-- [ ] T028 `quickstart.md` の手順2〜4(サンプルルール定義ファイルでの
+- [X] T027 [P] `python -m unittest scripts.test.test_labeling scripts.test.test_apply_label_rules scripts.test.test_download scripts.test.test_download_specific_event scripts.test.test_validate_data` を実行し、既存の全テストスイートも含めてすべてパスすることを確認する
+- [X] T028 `quickstart.md` の手順2〜4(サンプルルール定義ファイルでの
       dry-run/`--yes`実行、冪等性確認、実データ`data/startgg/events`への
       dry-run実行)を実際に行い、影響範囲(`updated`件数)を確認する
       (start.gg トークン・ネットワーク不要のため、この機能はローカルで
@@ -282,7 +282,7 @@ dry-run/`--yes`実行)により、他のユーザーストーリーと独立に�
       (`matches`への追記のみ)を試験的に追加し、`scripts/labeling.py`や
       `apply_label_rules.py`等のコードを一切変更せずに一括適用ツールの
       dry-run結果へ反映されることを手動確認する(SC-004の裏付け)
-- [ ] T029 [P] `docs/data_model.md`の記載(T014・US4 で追記した
+- [X] T029 [P] `docs/data_model.md`の記載(T014・US4 で追記した
       `min_event_data_version`の挙動説明を含む)が、最終的な実装の挙動と
       一致していることを最終確認する
 

@@ -15,6 +15,7 @@ from scripts.queries import (
     get_phase_groups_query, get_event_details_by_tournament_query # この関数を queries.py に追加想定
 )
 # utils.py から必要なユーティリティ関数をインポート
+from scripts.labeling import compute_event_labels
 from scripts.utils import (
     country_code2region, get_date_parts, get_event_directory,
     read_users_jsonl, read_set, read_tournaments_jsonl,
@@ -275,6 +276,7 @@ def write_matches(all_nodes, entrant2user, event_dir):
 def write_event_attributes(num_entrants, event_id, event_name, tournament_name, timestamp, place, url, labels, is_online, event_dir, guest_entrant_count=None, end_at=None, state=None, event_type=None):
     """イベントの属性情報をattr.jsonとして保存する"""
     os.makedirs(event_dir, exist_ok=True) # ディレクトリが存在しない場合は作成
+    labels, label_version = compute_event_labels(labels, tournament_name, event_name, EVENT_DATA_VERSION)
     json_data = {
         "event_id": event_id,
         "tournament_name": tournament_name,
@@ -284,7 +286,7 @@ def write_event_attributes(num_entrants, event_id, event_name, tournament_name, 
         "num_entrants": num_entrants,
         "offline": not is_online if is_online is not None else None, # is_onlineがNoneの場合を考慮
         "url": url, # トーナメントのURL
-        "labels": labels if labels is not None else [], # 追加メタ情報（現在は空）
+        "labels": labels, # ラベル判定ルールに基づく判定結果(scripts/labeling.py)
         "archive_status": "completed", # データ取得処理自体の完了マーカー(start.ggのevent.stateとは別概念)
         "state": state, # start.ggのevent.state (ACTIVE/COMPLETEDなど)
         "type": event_type, # start.ggのevent.type
@@ -294,6 +296,8 @@ def write_event_attributes(num_entrants, event_id, event_name, tournament_name, 
         "event_data_version": EVENT_DATA_VERSION,
         "guest_entrant_count": guest_entrant_count,
     }
+    if label_version is not None:
+        json_data["label_version"] = label_version
     write_json(json_data, f"{event_dir}/attr.json", with_version=True)
     print(f"Successfully wrote attr.json for event {event_id} to {event_dir}")
 
