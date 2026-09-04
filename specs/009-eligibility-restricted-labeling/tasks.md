@@ -77,7 +77,9 @@ description: "Task list for 009-eligibility-restricted-labeling"
       `computed_labels`で完全に置き換える(T006 に依存、同一ファイル)
 - [ ] T008 `scripts/labeling.py` に `compute_event_labels(existing_labels, tournament_name, event_name, event_data_version, *, rules_path=DEFAULT_LABEL_RULES_PATH)`
       を実装する(この時点では`min_event_data_version`のゲート判定は行わず、
-      常に`(merge_labels(...), ruleset["label_version"])`を返す。ゲート判定は
+      常に`(merge_labels(...), compiled.label_version)`を返す(`compiled`は
+      `CompiledLabelRuleSet`のインスタンスであり、`label_version`は辞書添字
+      ではなく属性アクセスで取得する、data-model.md 参照)。ゲート判定は
       Phase 6 (US4) で追加する)。`functools.lru_cache`でルールセットの
       読み込み・検証・コンパイル結果を`rules_path`ごとにプロセス内キャッシュする
       (T007 に依存、同一ファイル)
@@ -276,7 +278,10 @@ dry-run/`--yes`実行)により、他のユーザーストーリーと独立に�
       dry-run/`--yes`実行、冪等性確認、実データ`data/startgg/events`への
       dry-run実行)を実際に行い、影響範囲(`updated`件数)を確認する
       (start.gg トークン・ネットワーク不要のため、この機能はローカルで
-      完全に検証可能)
+      完全に検証可能)。あわせて、`label_rules.json`に新しいラベル
+      (`matches`への追記のみ)を試験的に追加し、`scripts/labeling.py`や
+      `apply_label_rules.py`等のコードを一切変更せずに一括適用ツールの
+      dry-run結果へ反映されることを手動確認する(SC-004の裏付け)
 - [ ] T029 [P] `docs/data_model.md`の記載(T014・US4 で追記した
       `min_event_data_version`の挙動説明を含む)が、最終的な実装の挙動と
       一致していることを最終確認する

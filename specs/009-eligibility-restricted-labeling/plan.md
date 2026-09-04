@@ -117,7 +117,8 @@ scripts/
 │   ├── apply_label_rules.py                         # [NEW] 既存データへの一括適用ツール
 │   │                                                 #   (dry-runデフォルト、--yesで実書き込み)
 │   ├── redownload_event.py                           # [変更不要] 同上
-│   └── backfill_events.py                            # [変更不要] 同上
+│   ├── backfill_events.py                            # [変更不要] 同上
+│   └── fix_path_collision.py                         # [変更不要] 同上
 └── test/
     ├── test_labeling.py                              # [NEW]
     ├── test_apply_label_rules.py                     # [NEW]
@@ -135,9 +136,9 @@ docs/
 判定ロジック本体は両者から参照される独立モジュール `scripts/labeling.py`
 に切り出す(research.md #3〜#4 参照)。`write_event_attributes()`は
 物理的に2実装(`download.py`/`download_specific_event.py`)のみ存在し、
-他3経路(`redownload_event.py`/`backfill_schema_version.py`/
-`backfill_events.py`)はいずれかをimportしているだけのため、コード変更は
-不要(research.md #0, #4 参照)。
+他4経路(`redownload_event.py`/`backfill_schema_version.py`/
+`backfill_events.py`/`fix_path_collision.py`)はいずれかをimportしている
+だけのため、コード変更は不要(research.md #0, #4 参照)。
 
 ## Complexity Tracking
 

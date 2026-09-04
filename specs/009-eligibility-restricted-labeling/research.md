@@ -8,10 +8,10 @@
   `scripts/fetch/download.py`(2箇所の呼び出し元)と
   `scripts/fetch/download_specific_event.py`(独自実装、1箇所の呼び出し元)。
   一方、`scripts/fix/redownload_event.py`・`scripts/fetch/backfill_schema_version.py`・
-  `scripts/fix/backfill_events.py` の3つは、いずれも
-  `scripts.fetch.download` から `write_event_attributes` を import しており、
-  **独自実装を持たない**(呼び出し元が異なるだけ)。したがって FR-005 が挙げる
-  5つの経路のうち、実際にコード変更が必要な箇所は
+  `scripts/fix/backfill_events.py`・`scripts/fix/fix_path_collision.py`の4つは、
+  いずれも `scripts.fetch.download` から `write_event_attributes` を import
+  しており、**独自実装を持たない**(呼び出し元が異なるだけ)。したがって
+  FR-005 が挙げる経路のうち、実際にコード変更が必要な箇所は
   `scripts/fetch/download.py` と `scripts/fetch/download_specific_event.py`
   の2ファイル(2つの`write_event_attributes`実装)のみである。
 - 現在、全ての呼び出し元は `write_event_attributes(...)` の `labels` 引数に
