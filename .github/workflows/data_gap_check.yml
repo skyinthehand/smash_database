@@ -1,8 +1,6 @@
 name: "StartGG: Gap Check"
 
 on:
-  schedule:
-    - cron: "0 10 * * 0"   # 毎週日曜 10:00 UTC = 19:00 JST
   workflow_dispatch:
 
 concurrency:

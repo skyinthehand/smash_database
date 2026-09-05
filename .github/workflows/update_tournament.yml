@@ -7,7 +7,7 @@ on:
 
 concurrency:
   group: main-data-commits
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 permissions:
   contents: write
@@ -45,20 +45,27 @@ jobs:
           STARTGG_TOKEN: ${{ secrets.STARTGG_TOKEN }}
         run: |
           set -euxo pipefail
+          CURSOR_FILE="data/startgg/tournament_fetch_cursor.txt"
           TODAY_JST="$(TZ=Asia/Tokyo date +%F)"
           YESTERDAY_JST="$(TZ=Asia/Tokyo date -d '1 day ago' +%F)"
+
+          if [ -f "$CURSOR_FILE" ]; then
+            FINISH_DATE="$(cat "$CURSOR_FILE")"
+          else
+            FINISH_DATE="$YESTERDAY_JST"
+          fi
+          echo "finish_date=$FINISH_DATE" >> "$GITHUB_OUTPUT"
           echo "today_jst=$TODAY_JST" >> "$GITHUB_OUTPUT"
-          echo "yesterday_jst=$YESTERDAY_JST" >> "$GITHUB_OUTPUT"
 
           python scripts/fetch/download.py \
             --token "$STARTGG_TOKEN" \
             --country_code "JP" \
-            --finish_date "$TODAY_JST"
+            --finish_date "$FINISH_DATE"
 
-          python scripts/fetch/download.py \
-            --token "$STARTGG_TOKEN" \
-            --country_code "JP" \
-            --finish_date "$YESTERDAY_JST"
+          # download.pyが正常終了した場合のみ到達する(set -euxo pipefailにより、
+          # 失敗・中断時はここに到達せずカーソルは前回の値のまま残るため、
+          # 次回実行時に自動的にこの区間を再走査して追いつく)。
+          echo "$YESTERDAY_JST" > "$CURSOR_FILE"
 
       - name: Run tests
         run: |
@@ -69,7 +76,7 @@ jobs:
         run: |
           set -euxo pipefail
           python scripts/fix/update_chore_tournament_log.py \
-            --mark-start "${{ steps.download_tournaments.outputs.yesterday_jst }}" \
+            --mark-start "${{ steps.download_tournaments.outputs.finish_date }}" \
             --mark-end "${{ steps.download_tournaments.outputs.today_jst }}" \
             --workflow "update_tournament"
 
@@ -77,13 +84,16 @@ jobs:
         id: detect_changes
         run: |
           set -euxo pipefail
-          if git diff --quiet; then
+          # git diff --quiet だけでは新規追加された未追跡ファイル(初回作成時の
+          # tournament_fetch_cursor.txt 等)を検知できないため、git status --porcelain
+          # で追跡外ファイルの追加も含めて判定する。
+          if [ -z "$(git status --porcelain)" ]; then
             echo "has_changes=false" >> "$GITHUB_OUTPUT"
             echo "changed_files_count=0" >> "$GITHUB_OUTPUT"
             echo "No changes to create PR."
           else
             echo "has_changes=true" >> "$GITHUB_OUTPUT"
-            echo "changed_files_count=$(git diff --name-only | wc -l | tr -d ' ')" >> "$GITHUB_OUTPUT"
+            echo "changed_files_count=$(git status --porcelain | wc -l | tr -d ' ')" >> "$GITHUB_OUTPUT"
             git status --short
           fi
 
