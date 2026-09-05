@@ -16,7 +16,7 @@ on:
 
 concurrency:
   group: main-data-commits
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 permissions:
   contents: write
