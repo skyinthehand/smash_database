@@ -17,7 +17,9 @@
   "num_entrants": 6,
   "offline": true,
   "url": "/tournament/ames-legally-distinct-tournament-13",
-  "labels": {},
+  "labels": {
+    "irregular_rule": true
+  },
   "archive_status": "completed",
   "state": "COMPLETED",
   "timestamp": 1723237200,
@@ -26,5 +28,5 @@
   "event_data_version": 4,
   "guest_entrant_count": 0,
   "version": "1.0",
-  "label_version": 0
+  "label_version": 1
 }

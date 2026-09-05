@@ -17,7 +17,9 @@
   "num_entrants": 14,
   "offline": true,
   "url": "/tournament/armorena-japan-s-tournament-6",
-  "labels": {},
+  "labels": {
+    "irregular_rule": true
+  },
   "archive_status": "completed",
   "state": "COMPLETED",
   "timestamp": 1731157200,
@@ -26,5 +28,5 @@
   "event_data_version": 4,
   "guest_entrant_count": 10,
   "version": "1.0",
-  "label_version": 0
+  "label_version": 1
 }

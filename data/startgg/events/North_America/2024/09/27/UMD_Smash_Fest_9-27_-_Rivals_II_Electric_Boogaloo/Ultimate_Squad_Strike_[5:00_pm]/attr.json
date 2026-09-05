@@ -17,7 +17,9 @@
   "num_entrants": 17,
   "offline": true,
   "url": "/tournament/umd-smash-fest-9-27-rivals-ii-electric-boogaloo",
-  "labels": {},
+  "labels": {
+    "irregular_rule": true
+  },
   "status": "completed",
   "timestamp": 1727470800,
   "end_at": 1727495940,
@@ -25,5 +27,5 @@
   "event_data_version": 3,
   "guest_entrant_count": 0,
   "version": "1.0",
-  "label_version": 0
+  "label_version": 1
 }

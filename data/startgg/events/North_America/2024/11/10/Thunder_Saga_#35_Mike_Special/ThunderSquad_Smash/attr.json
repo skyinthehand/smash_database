@@ -17,7 +17,9 @@
   "num_entrants": 18,
   "offline": true,
   "url": "/tournament/thunder-saga-35-mike-special",
-  "labels": {},
+  "labels": {
+    "irregular_rule": true
+  },
   "status": "completed",
   "timestamp": 1731274200,
   "end_at": 1731297600,
@@ -25,5 +27,5 @@
   "event_data_version": 3,
   "guest_entrant_count": 0,
   "version": "1.0",
-  "label_version": 0
+  "label_version": 1
 }

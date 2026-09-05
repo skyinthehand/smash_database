@@ -17,7 +17,9 @@
   "num_entrants": 8,
   "offline": true,
   "url": "/tournament/dorm-room-rumble-the-sequal",
-  "labels": {},
+  "labels": {
+    "irregular_rule": true
+  },
   "status": "completed",
   "timestamp": 1726336800,
   "end_at": 1726376160,
@@ -25,5 +27,5 @@
   "event_data_version": 3,
   "guest_entrant_count": 2,
   "version": "1.0",
-  "label_version": 0
+  "label_version": 1
 }

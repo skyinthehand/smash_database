@@ -17,7 +17,9 @@
   "num_entrants": 21,
   "offline": true,
   "url": "/tournament/buffalo-wild-wednesdays-v4-1-5",
-  "labels": {},
+  "labels": {
+    "irregular_rule": true
+  },
   "archive_status": "completed",
   "state": "COMPLETED",
   "timestamp": 1722466800,
@@ -26,5 +28,5 @@
   "event_data_version": 4,
   "guest_entrant_count": 2,
   "version": "1.0",
-  "label_version": 0
+  "label_version": 1
 }

@@ -17,7 +17,9 @@
   "num_entrants": 12,
   "offline": true,
   "url": "/tournament/columbus-smash-ultimate-summit-2",
-  "labels": {},
+  "labels": {
+    "irregular_rule": true
+  },
   "status": "completed",
   "timestamp": 1732374000,
   "end_at": 1732510740,
@@ -25,5 +27,5 @@
   "event_data_version": 3,
   "guest_entrant_count": 4,
   "version": "1.0",
-  "label_version": 0
+  "label_version": 1
 }

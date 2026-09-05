@@ -17,7 +17,9 @@
   "num_entrants": 9,
   "offline": true,
   "url": "/tournament/smash-at-su-fall-24-4",
-  "labels": {},
+  "labels": {
+    "irregular_rule": true
+  },
   "status": "completed",
   "timestamp": 1730572200,
   "end_at": 1730590200,
@@ -25,5 +27,5 @@
   "event_data_version": 3,
   "guest_entrant_count": 2,
   "version": "1.0",
-  "label_version": 0
+  "label_version": 1
 }

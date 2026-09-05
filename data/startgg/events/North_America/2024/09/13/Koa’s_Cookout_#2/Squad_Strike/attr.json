@@ -17,7 +17,9 @@
   "num_entrants": 12,
   "offline": true,
   "url": "/tournament/koa-s-cookout-2",
-  "labels": {},
+  "labels": {
+    "irregular_rule": true
+  },
   "status": "completed",
   "timestamp": 1726281000,
   "end_at": 1726285500,
@@ -25,5 +27,5 @@
   "event_data_version": 3,
   "guest_entrant_count": 0,
   "version": "1.0",
-  "label_version": 0
+  "label_version": 1
 }

@@ -17,7 +17,9 @@
   "num_entrants": 12,
   "offline": true,
   "url": "/tournament/center-stage-69",
-  "labels": {},
+  "labels": {
+    "irregular_rule": true
+  },
   "status": "completed",
   "timestamp": 1732665600,
   "end_at": 1732680000,
@@ -25,5 +27,5 @@
   "event_data_version": 3,
   "guest_entrant_count": 0,
   "version": "1.0",
-  "label_version": 0
+  "label_version": 1
 }

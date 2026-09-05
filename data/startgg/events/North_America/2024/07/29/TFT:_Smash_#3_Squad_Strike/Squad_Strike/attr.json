@@ -17,7 +17,9 @@
   "num_entrants": 29,
   "offline": true,
   "url": "/tournament/true-fire-tactics-smash-3-squad-strike",
-  "labels": {},
+  "labels": {
+    "irregular_rule": true
+  },
   "archive_status": "completed",
   "state": "COMPLETED",
   "timestamp": 1722211200,
@@ -26,5 +28,5 @@
   "event_data_version": 4,
   "guest_entrant_count": 14,
   "version": "1.0",
-  "label_version": 0
+  "label_version": 1
 }

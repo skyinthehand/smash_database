@@ -17,7 +17,9 @@
   "num_entrants": 17,
   "offline": true,
   "url": "/tournament/fsc-smash-circuit-3",
-  "labels": {},
+  "labels": {
+    "irregular_rule": true
+  },
   "status": "completed",
   "timestamp": 1725742800,
   "end_at": 1725757200,
@@ -25,5 +27,5 @@
   "event_data_version": 3,
   "guest_entrant_count": 0,
   "version": "1.0",
-  "label_version": 0
+  "label_version": 1
 }

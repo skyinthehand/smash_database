@@ -17,7 +17,9 @@
   "num_entrants": 23,
   "offline": true,
   "url": "/tournament/strength-1",
-  "labels": {},
+  "labels": {
+    "irregular_rule": true
+  },
   "status": "completed",
   "timestamp": 1725728400,
   "end_at": 1725750000,
@@ -25,5 +27,5 @@
   "event_data_version": 3,
   "guest_entrant_count": 2,
   "version": "1.0",
-  "label_version": 0
+  "label_version": 1
 }

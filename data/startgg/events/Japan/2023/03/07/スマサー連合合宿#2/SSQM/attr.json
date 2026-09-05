@@ -17,7 +17,10 @@
   "num_entrants": 40,
   "offline": true,
   "url": "/tournament/2-72",
-  "labels": {},
+  "labels": {
+    "irregular_rule": true,
+    "registration_restricted": true
+  },
   "archive_status": "completed",
   "state": "ACTIVE",
   "type": 1,
@@ -27,5 +30,5 @@
   "event_data_version": 5,
   "guest_entrant_count": 4,
   "version": "1.0",
-  "label_version": 0
+  "label_version": 1
 }

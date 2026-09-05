@@ -17,7 +17,9 @@
   "num_entrants": 5,
   "offline": true,
   "url": "/tournament/skullspace-smash-series-31-ft-rhythm-heaven-fever",
-  "labels": {},
+  "labels": {
+    "irregular_rule": true
+  },
   "status": "completed",
   "timestamp": 1728244800,
   "end_at": 1728261000,
@@ -25,5 +27,5 @@
   "event_data_version": 3,
   "guest_entrant_count": 0,
   "version": "1.0",
-  "label_version": 0
+  "label_version": 1
 }

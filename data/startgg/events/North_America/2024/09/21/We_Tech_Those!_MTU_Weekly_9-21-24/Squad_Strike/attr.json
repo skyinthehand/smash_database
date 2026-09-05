@@ -17,7 +17,9 @@
   "num_entrants": 17,
   "offline": true,
   "url": "/tournament/we-tech-those-mtu-weekly-9-21-24",
-  "labels": {},
+  "labels": {
+    "irregular_rule": true
+  },
   "status": "completed",
   "timestamp": 1726938000,
   "end_at": 1726957800,
@@ -25,5 +27,5 @@
   "event_data_version": 3,
   "guest_entrant_count": 0,
   "version": "1.0",
-  "label_version": 0
+  "label_version": 1
 }

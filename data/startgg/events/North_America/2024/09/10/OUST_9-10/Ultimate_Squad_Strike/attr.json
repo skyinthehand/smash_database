@@ -17,7 +17,9 @@
   "num_entrants": 8,
   "offline": true,
   "url": "/tournament/oust-9-10",
-  "labels": {},
+  "labels": {
+    "irregular_rule": true
+  },
   "status": "completed",
   "timestamp": 1726011000,
   "end_at": 1726026900,
@@ -25,5 +27,5 @@
   "event_data_version": 3,
   "guest_entrant_count": 0,
   "version": "1.0",
-  "label_version": 0
+  "label_version": 1
 }

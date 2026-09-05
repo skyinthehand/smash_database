@@ -17,7 +17,9 @@
   "num_entrants": 10,
   "offline": true,
   "url": "/tournament/rva-sm-sh-147-2pm-main-bracket",
-  "labels": {},
+  "labels": {
+    "irregular_rule": true
+  },
   "status": "completed",
   "timestamp": 1728838800,
   "end_at": 1728860400,
@@ -25,5 +27,5 @@
   "event_data_version": 3,
   "guest_entrant_count": 2,
   "version": "1.0",
-  "label_version": 0
+  "label_version": 1
 }

@@ -17,7 +17,9 @@
   "num_entrants": 26,
   "offline": true,
   "url": "/tournament/dam-d-if-you-don-t-fall-24-3",
-  "labels": {},
+  "labels": {
+    "irregular_rule": true
+  },
   "status": "completed",
   "timestamp": 1729299600,
   "end_at": 1729320900,
@@ -25,5 +27,5 @@
   "event_data_version": 3,
   "guest_entrant_count": 6,
   "version": "1.0",
-  "label_version": 0
+  "label_version": 1
 }

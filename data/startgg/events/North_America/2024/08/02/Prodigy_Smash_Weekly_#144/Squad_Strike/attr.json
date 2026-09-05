@@ -17,7 +17,9 @@
   "num_entrants": 7,
   "offline": true,
   "url": "/tournament/prodigy-smash-weekly-144",
-  "labels": {},
+  "labels": {
+    "irregular_rule": true
+  },
   "archive_status": "completed",
   "state": "COMPLETED",
   "timestamp": 1722637800,
@@ -26,5 +28,5 @@
   "event_data_version": 4,
   "guest_entrant_count": 0,
   "version": "1.0",
-  "label_version": 0
+  "label_version": 1
 }
