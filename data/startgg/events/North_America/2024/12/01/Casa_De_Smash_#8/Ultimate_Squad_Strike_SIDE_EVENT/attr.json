@@ -17,12 +17,15 @@
   "num_entrants": 10,
   "offline": true,
   "url": "/tournament/casa-de-smash-8",
-  "labels": {},
+  "labels": {
+    "irregular_rule": true
+  },
   "status": "completed",
   "timestamp": 1733011200,
   "end_at": 1733032800,
   "fetched_at": 1786448380,
   "event_data_version": 3,
   "guest_entrant_count": 2,
-  "version": "1.0"
+  "version": "1.0",
+  "label_version": 1
 }

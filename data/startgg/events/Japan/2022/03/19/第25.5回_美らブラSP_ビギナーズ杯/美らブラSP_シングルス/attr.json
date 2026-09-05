@@ -17,7 +17,9 @@
   "num_entrants": 27,
   "offline": true,
   "url": "/tournament/25-5-sp",
-  "labels": {},
+  "labels": {
+    "registration_restricted": true
+  },
   "archive_status": "completed",
   "state": "COMPLETED",
   "type": 1,
@@ -26,5 +28,6 @@
   "fetched_at": 1787548873,
   "event_data_version": 5,
   "guest_entrant_count": 0,
-  "version": "1.0"
+  "version": "1.0",
+  "label_version": 1
 }

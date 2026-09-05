@@ -17,12 +17,15 @@
   "num_entrants": 16,
   "offline": true,
   "url": "/tournament/bu-smash-society-bimonthly-20",
-  "labels": {},
+  "labels": {
+    "irregular_rule": true
+  },
   "status": "completed",
   "timestamp": 1731171600,
   "end_at": 1731207600,
   "fetched_at": 1786382535,
   "event_data_version": 3,
   "guest_entrant_count": 0,
-  "version": "1.0"
+  "version": "1.0",
+  "label_version": 1
 }

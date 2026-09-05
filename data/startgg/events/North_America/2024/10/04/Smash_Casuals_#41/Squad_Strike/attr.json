@@ -17,12 +17,15 @@
   "num_entrants": 11,
   "offline": true,
   "url": "/tournament/smash-casuals-41",
-  "labels": {},
+  "labels": {
+    "irregular_rule": true
+  },
   "status": "completed",
   "timestamp": 1728084600,
   "end_at": 1728104100,
   "fetched_at": 1786264281,
   "event_data_version": 3,
   "guest_entrant_count": 0,
-  "version": "1.0"
+  "version": "1.0",
+  "label_version": 1
 }

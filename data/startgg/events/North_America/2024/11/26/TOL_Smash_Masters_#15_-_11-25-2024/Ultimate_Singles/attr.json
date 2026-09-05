@@ -17,12 +17,15 @@
   "num_entrants": 4,
   "offline": true,
   "url": "/tournament/tol-smash-masters-15-11-25-2024",
-  "labels": {},
+  "labels": {
+    "registration_restricted": true
+  },
   "status": "completed",
   "timestamp": 1732579200,
   "end_at": 1732593600,
   "fetched_at": 1786443946,
   "event_data_version": 3,
   "guest_entrant_count": 2,
-  "version": "1.0"
+  "version": "1.0",
+  "label_version": 1
 }

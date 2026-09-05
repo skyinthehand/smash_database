@@ -17,12 +17,15 @@
   "num_entrants": 10,
   "offline": true,
   "url": "/tournament/the-grind-fridays-297",
-  "labels": {},
+  "labels": {
+    "irregular_rule": true
+  },
   "status": "completed",
   "timestamp": 1726254000,
   "end_at": 1726286160,
   "fetched_at": 1786201833,
   "event_data_version": 3,
   "guest_entrant_count": 0,
-  "version": "1.0"
+  "version": "1.0",
+  "label_version": 1
 }

@@ -17,12 +17,15 @@
   "num_entrants": 15,
   "offline": true,
   "url": "/tournament/berkeley-ultimate-smashfest-23-1",
-  "labels": {},
+  "labels": {
+    "irregular_rule": true
+  },
   "status": "completed",
   "timestamp": 1728167400,
   "end_at": 1728190800,
   "fetched_at": 1786267098,
   "event_data_version": 3,
   "guest_entrant_count": 0,
-  "version": "1.0"
+  "version": "1.0",
+  "label_version": 1
 }

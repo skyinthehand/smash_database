@@ -17,12 +17,15 @@
   "num_entrants": 10,
   "offline": true,
   "url": "/tournament/upstate-uproar-iii",
-  "labels": {},
+  "labels": {
+    "irregular_rule": true
+  },
   "status": "completed",
   "timestamp": 1731769200,
   "end_at": 1731898800,
   "fetched_at": 1786404313,
   "event_data_version": 3,
   "guest_entrant_count": 2,
-  "version": "1.0"
+  "version": "1.0",
+  "label_version": 1
 }

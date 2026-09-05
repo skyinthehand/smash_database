@@ -17,7 +17,9 @@
   "num_entrants": 11,
   "offline": true,
   "url": "/tournament/buster-out-89-smash-ultimate-weekly-at-refuge-gaming",
-  "labels": {},
+  "labels": {
+    "irregular_rule": true
+  },
   "archive_status": "completed",
   "state": "COMPLETED",
   "timestamp": 1721771940,
@@ -25,5 +27,6 @@
   "fetched_at": 1787469339,
   "event_data_version": 4,
   "guest_entrant_count": 0,
-  "version": "1.0"
+  "version": "1.0",
+  "label_version": 1
 }

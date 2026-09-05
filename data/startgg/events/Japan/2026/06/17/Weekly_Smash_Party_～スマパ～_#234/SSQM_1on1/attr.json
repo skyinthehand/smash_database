@@ -17,7 +17,9 @@
   "num_entrants": 12,
   "offline": true,
   "url": "/tournament/weekly-smash-party-234",
-  "labels": {},
+  "labels": {
+    "irregular_rule": true
+  },
   "archive_status": "completed",
   "state": "COMPLETED",
   "type": 1,
@@ -26,5 +28,6 @@
   "fetched_at": 1787779570,
   "event_data_version": 6,
   "guest_entrant_count": 0,
-  "version": "1.0"
+  "version": "1.0",
+  "label_version": 1
 }

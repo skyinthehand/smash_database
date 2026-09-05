@@ -18,6 +18,7 @@ from scripts.queries import (
     get_phase_group_sets_query, get_phase_group_sets_light_query,
     get_event_set_ids_query, get_phase_group_set_ids_query, get_sets_by_ids_query,
 )
+from scripts.labeling import compute_event_labels
 from scripts.utils import (
     country_code2region, get_date_parts, get_event_directory,
     read_users_jsonl, read_set, read_tournaments_jsonl,
@@ -1237,6 +1238,7 @@ def count_guest_entrants(user_data):
 
 
 def write_event_attributes(num_entrants, event_id, event_name, tournament_name, timestamp, place, url, labels, is_online, event_dir, guest_entrant_count=None, end_at=None, state=None, event_type=None):
+    labels, label_version = compute_event_labels(labels, tournament_name, event_name, EVENT_DATA_VERSION)
     json_data = {
         "event_id": event_id,
         "tournament_name": tournament_name,
@@ -1259,6 +1261,8 @@ def write_event_attributes(num_entrants, event_id, event_name, tournament_name, 
         "event_data_version": EVENT_DATA_VERSION,
         "guest_entrant_count": guest_entrant_count,
     }
+    if label_version is not None:
+        json_data["label_version"] = label_version
     write_json(json_data, f"{event_dir}/attr.json", with_version=True)
 
 def download_standings(event_id, event_dir, max_pages=None):

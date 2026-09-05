@@ -17,12 +17,15 @@
   "num_entrants": 12,
   "offline": true,
   "url": "/tournament/transcendence-18",
-  "labels": {},
+  "labels": {
+    "irregular_rule": true
+  },
   "status": "completed",
   "timestamp": 1729200600,
   "end_at": 1729223940,
   "fetched_at": 1786298245,
   "event_data_version": 3,
   "guest_entrant_count": 0,
-  "version": "1.0"
+  "version": "1.0",
+  "label_version": 1
 }

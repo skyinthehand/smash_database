@@ -17,12 +17,15 @@
   "num_entrants": 9,
   "offline": true,
   "url": "/tournament/french-bread-rumble-30-the-canadian-icehouse",
-  "labels": {},
+  "labels": {
+    "irregular_rule": true
+  },
   "status": "completed",
   "timestamp": 1732240800,
   "end_at": 1732258740,
   "fetched_at": 1786424410,
   "event_data_version": 3,
   "guest_entrant_count": 0,
-  "version": "1.0"
+  "version": "1.0",
+  "label_version": 1
 }

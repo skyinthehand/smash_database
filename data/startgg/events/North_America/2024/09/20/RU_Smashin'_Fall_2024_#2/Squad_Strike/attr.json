@@ -17,12 +17,15 @@
   "num_entrants": 9,
   "offline": true,
   "url": "/tournament/ru-smashin-fall-2024-2",
-  "labels": {},
+  "labels": {
+    "irregular_rule": true
+  },
   "status": "completed",
   "timestamp": 1726862400,
   "end_at": 1726887600,
   "fetched_at": 1786217531,
   "event_data_version": 3,
   "guest_entrant_count": 0,
-  "version": "1.0"
+  "version": "1.0",
+  "label_version": 1
 }

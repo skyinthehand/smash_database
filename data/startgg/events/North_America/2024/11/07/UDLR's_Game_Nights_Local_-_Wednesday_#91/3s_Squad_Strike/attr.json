@@ -17,12 +17,15 @@
   "num_entrants": 4,
   "offline": true,
   "url": "/tournament/udlr-s-game-nights-local-wednesday-91",
-  "labels": {},
+  "labels": {
+    "irregular_rule": true
+  },
   "status": "completed",
   "timestamp": 1730946600,
   "end_at": 1730962740,
   "fetched_at": 1786379042,
   "event_data_version": 3,
   "guest_entrant_count": 0,
-  "version": "1.0"
+  "version": "1.0",
+  "label_version": 1
 }

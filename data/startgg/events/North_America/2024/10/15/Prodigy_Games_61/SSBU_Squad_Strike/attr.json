@@ -17,12 +17,15 @@
   "num_entrants": 10,
   "offline": true,
   "url": "/tournament/prodigy-games-61",
-  "labels": {},
+  "labels": {
+    "irregular_rule": true
+  },
   "status": "completed",
   "timestamp": 1729033200,
   "end_at": 1729303200,
   "fetched_at": 1786291665,
   "event_data_version": 3,
   "guest_entrant_count": 4,
-  "version": "1.0"
+  "version": "1.0",
+  "label_version": 1
 }

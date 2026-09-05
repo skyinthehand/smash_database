@@ -17,12 +17,15 @@
   "num_entrants": 11,
   "offline": true,
   "url": "/tournament/dancing-blade-48",
-  "labels": {},
+  "labels": {
+    "irregular_rule": true
+  },
   "status": "completed",
   "timestamp": 1729297800,
   "end_at": 1729321200,
   "fetched_at": 1786470820,
   "event_data_version": 3,
   "guest_entrant_count": 0,
-  "version": "1.0"
+  "version": "1.0",
+  "label_version": 1
 }

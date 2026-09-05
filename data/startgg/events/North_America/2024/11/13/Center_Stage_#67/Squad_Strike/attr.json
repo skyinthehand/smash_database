@@ -17,12 +17,15 @@
   "num_entrants": 10,
   "offline": true,
   "url": "/tournament/center-stage-67",
-  "labels": {},
+  "labels": {
+    "irregular_rule": true
+  },
   "status": "completed",
   "timestamp": 1731457800,
   "end_at": 1731470400,
   "fetched_at": 1786392542,
   "event_data_version": 3,
   "guest_entrant_count": 0,
-  "version": "1.0"
+  "version": "1.0",
+  "label_version": 1
 }

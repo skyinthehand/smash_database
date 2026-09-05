@@ -17,12 +17,15 @@
   "num_entrants": 9,
   "offline": true,
   "url": "/tournament/lca-link-saga-the-middle-8",
-  "labels": {},
+  "labels": {
+    "irregular_rule": true
+  },
   "status": "completed",
   "timestamp": 1729126800,
   "end_at": 1729144740,
   "fetched_at": 1786295897,
   "event_data_version": 3,
   "guest_entrant_count": 0,
-  "version": "1.0"
+  "version": "1.0",
+  "label_version": 1
 }

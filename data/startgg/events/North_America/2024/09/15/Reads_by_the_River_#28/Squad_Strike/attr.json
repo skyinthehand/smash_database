@@ -17,12 +17,15 @@
   "num_entrants": 6,
   "offline": true,
   "url": "/tournament/reads-by-the-river-28",
-  "labels": {},
+  "labels": {
+    "irregular_rule": true
+  },
   "status": "completed",
   "timestamp": 1726433100,
   "end_at": 1726470000,
   "fetched_at": 1786208581,
   "event_data_version": 3,
   "guest_entrant_count": 0,
-  "version": "1.0"
+  "version": "1.0",
+  "label_version": 1
 }

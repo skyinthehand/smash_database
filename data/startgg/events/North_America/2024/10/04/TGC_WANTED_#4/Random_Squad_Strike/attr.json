@@ -17,12 +17,15 @@
   "num_entrants": 9,
   "offline": true,
   "url": "/tournament/tgc-wanted-4",
-  "labels": {},
+  "labels": {
+    "irregular_rule": true
+  },
   "status": "completed",
   "timestamp": 1728095400,
   "end_at": 1728100740,
   "fetched_at": 1786266650,
   "event_data_version": 3,
   "guest_entrant_count": 4,
-  "version": "1.0"
+  "version": "1.0",
+  "label_version": 1
 }

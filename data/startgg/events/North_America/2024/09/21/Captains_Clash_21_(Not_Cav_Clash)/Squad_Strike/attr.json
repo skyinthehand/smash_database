@@ -17,12 +17,15 @@
   "num_entrants": 13,
   "offline": true,
   "url": "/tournament/captains-clash-21-not-cav-clash",
-  "labels": {},
+  "labels": {
+    "irregular_rule": true
+  },
   "status": "completed",
   "timestamp": 1726956000,
   "end_at": 1726970400,
   "fetched_at": 1786219017,
   "event_data_version": 3,
   "guest_entrant_count": 0,
-  "version": "1.0"
+  "version": "1.0",
+  "label_version": 1
 }

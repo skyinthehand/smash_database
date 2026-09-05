@@ -17,12 +17,15 @@
   "num_entrants": 5,
   "offline": true,
   "url": "/tournament/buster-out-101-smash-ultimate-weekly-at-refuge-gaming",
-  "labels": {},
+  "labels": {
+    "irregular_rule": true
+  },
   "status": "completed",
   "timestamp": 1729029600,
   "end_at": 1729050900,
   "fetched_at": 1786291382,
   "event_data_version": 3,
   "guest_entrant_count": 0,
-  "version": "1.0"
+  "version": "1.0",
+  "label_version": 1
 }

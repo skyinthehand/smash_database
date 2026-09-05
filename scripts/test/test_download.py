@@ -50,6 +50,7 @@ from scripts.fetch.download import (
     write_matches,
     write_matches_data,
 )
+from scripts import labeling
 from scripts.queries import get_phase_group_set_ids_query
 from scripts.utils import (
     EVENT_DATA_VERSION,
@@ -515,6 +516,113 @@ class DownloadTests(unittest.TestCase):
             )
             attr = read_json(os.path.join(tmpdir, "attr.json"))
             self.assertIsNone(attr["type"])
+
+    def _label_rules_place(self):
+        return {
+            "country_code": "JP",
+            "city": "Tokyo",
+            "lat": 0,
+            "lng": 0,
+            "venue_name": "v",
+            "timezone": "Asia/Tokyo",
+            "postal_code": "p",
+            "venue_address": "a",
+            "maps_place_id": "m",
+        }
+
+    def _with_label_ruleset(self, ruleset):
+        labeling._load_compiled_ruleset.cache_clear()
+        patcher = patch.object(labeling, "load_label_ruleset", return_value=ruleset)
+        return patcher
+
+    def test_write_event_attributes_sets_matching_label_and_version(self):
+        """T010(a): tournament_name_matchに一致するlabelがtrueで設定され、
+        label_versionが記録される(spec.md US1 Scenario 1)。"""
+        ruleset = {
+            "label_version": 4,
+            "matches": [{"label": "registration_restricted", "tournament_name_match": "制限"}],
+        }
+        with tempfile.TemporaryDirectory() as tmpdir, self._with_label_ruleset(ruleset):
+            write_event_attributes(
+                10, 999, "Singles", "第1回制限大会", 1710001000, self._label_rules_place(),
+                "https://example.com", {}, True, tmpdir,
+            )
+            attr = read_json(os.path.join(tmpdir, "attr.json"))
+        labeling._load_compiled_ruleset.cache_clear()
+        self.assertEqual(attr["labels"], {"registration_restricted": True})
+        self.assertEqual(attr["label_version"], 4)
+
+    def test_write_event_attributes_and_condition_requires_both(self):
+        """T010(c): tournament/event両方指定のルールで片方しか満たさない場合は
+        付与されない(spec.md US1 Scenario 3)。"""
+        ruleset = {
+            "label_version": 4,
+            "matches": [
+                {"label": "casual", "tournament_name_match": "スマパ", "event_name_match": "カジュアル"}
+            ],
+        }
+        with tempfile.TemporaryDirectory() as tmpdir, self._with_label_ruleset(ruleset):
+            write_event_attributes(
+                10, 999, "Singles", "スマパ", 1710001000, self._label_rules_place(),
+                "https://example.com", {}, True, tmpdir,
+            )
+            attr = read_json(os.path.join(tmpdir, "attr.json"))
+        labeling._load_compiled_ruleset.cache_clear()
+        self.assertNotIn("casual", attr["labels"])
+
+    def test_write_event_attributes_no_match_still_records_label_version(self):
+        """T010(c): どの条件にも一致しない場合、ラベルキー自体は存在しないが
+        label_versionは記録される(spec.md US1 Scenario 4)。"""
+        ruleset = {
+            "label_version": 4,
+            "matches": [{"label": "registration_restricted", "tournament_name_match": "制限"}],
+        }
+        with tempfile.TemporaryDirectory() as tmpdir, self._with_label_ruleset(ruleset):
+            write_event_attributes(
+                10, 999, "Singles", "通常大会", 1710001000, self._label_rules_place(),
+                "https://example.com", {}, True, tmpdir,
+            )
+            attr = read_json(os.path.join(tmpdir, "attr.json"))
+        labeling._load_compiled_ruleset.cache_clear()
+        self.assertNotIn("registration_restricted", attr["labels"])
+        self.assertEqual(attr["label_version"], 4)
+
+    def test_write_event_attributes_preserves_unmanaged_existing_labels(self):
+        """T010(d): 呼び出し時に渡した既存のlabels(管理対象外キー)を保持したまま
+        追加する(spec.md US1 Scenario 5)。"""
+        ruleset = {
+            "label_version": 4,
+            "matches": [{"label": "registration_restricted", "tournament_name_match": "制限"}],
+        }
+        existing_labels = {"registration_type": "full-open"}
+        with tempfile.TemporaryDirectory() as tmpdir, self._with_label_ruleset(ruleset):
+            write_event_attributes(
+                10, 999, "Singles", "第1回制限大会", 1710001000, self._label_rules_place(),
+                "https://example.com", existing_labels, True, tmpdir,
+            )
+            attr = read_json(os.path.join(tmpdir, "attr.json"))
+        labeling._load_compiled_ruleset.cache_clear()
+        self.assertEqual(
+            attr["labels"], {"registration_type": "full-open", "registration_restricted": True}
+        )
+
+    def test_write_event_attributes_min_event_data_version_gate_skips_label_version(self):
+        """T024 (US4): min_event_data_version要件を満たさない場合、label_version
+        フィールドが設定されず、labelsのルール管理対象キーも変更されない。"""
+        ruleset = {
+            "label_version": 4,
+            "min_event_data_version": EVENT_DATA_VERSION + 1,
+            "matches": [{"label": "registration_restricted", "tournament_name_match": "制限"}],
+        }
+        with tempfile.TemporaryDirectory() as tmpdir, self._with_label_ruleset(ruleset):
+            write_event_attributes(
+                10, 999, "Singles", "第1回制限大会", 1710001000, self._label_rules_place(),
+                "https://example.com", {"registration_type": "full-open"}, True, tmpdir,
+            )
+            attr = read_json(os.path.join(tmpdir, "attr.json"))
+        labeling._load_compiled_ruleset.cache_clear()
+        self.assertNotIn("label_version", attr)
+        self.assertEqual(attr["labels"], {"registration_type": "full-open"})
 
     def test_count_guest_entrants_counts_none_users(self):
         user_data = [{"id": 1}, None, {"id": 2}, None, None]

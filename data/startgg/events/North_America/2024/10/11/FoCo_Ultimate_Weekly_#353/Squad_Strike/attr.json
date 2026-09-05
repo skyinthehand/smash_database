@@ -17,12 +17,15 @@
   "num_entrants": 13,
   "offline": true,
   "url": "/tournament/foco-ultimate-weekly-353",
-  "labels": {},
+  "labels": {
+    "irregular_rule": true
+  },
   "status": "completed",
   "timestamp": 1728604800,
   "end_at": 1728622800,
   "fetched_at": 1786282642,
   "event_data_version": 3,
   "guest_entrant_count": 0,
-  "version": "1.0"
+  "version": "1.0",
+  "label_version": 1
 }

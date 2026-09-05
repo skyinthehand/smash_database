@@ -17,12 +17,15 @@
   "num_entrants": 9,
   "offline": true,
   "url": "/tournament/central-clash-7",
-  "labels": {},
+  "labels": {
+    "irregular_rule": true
+  },
   "status": "completed",
   "timestamp": 1729353600,
   "end_at": 1729382400,
   "fetched_at": 1786303375,
   "event_data_version": 3,
   "guest_entrant_count": 0,
-  "version": "1.0"
+  "version": "1.0",
+  "label_version": 1
 }

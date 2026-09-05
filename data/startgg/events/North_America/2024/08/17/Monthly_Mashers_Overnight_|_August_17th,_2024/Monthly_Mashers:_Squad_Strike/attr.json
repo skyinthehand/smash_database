@@ -17,7 +17,9 @@
   "num_entrants": 10,
   "offline": true,
   "url": "/tournament/monthly-mashers-overnight-august-17th-2024",
-  "labels": {},
+  "labels": {
+    "irregular_rule": true
+  },
   "archive_status": "completed",
   "state": "COMPLETED",
   "timestamp": 1723939200,
@@ -25,5 +27,6 @@
   "fetched_at": 1787501008,
   "event_data_version": 4,
   "guest_entrant_count": 0,
-  "version": "1.0"
+  "version": "1.0",
+  "label_version": 1
 }

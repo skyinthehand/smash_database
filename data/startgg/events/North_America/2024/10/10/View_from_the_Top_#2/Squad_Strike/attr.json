@@ -17,12 +17,15 @@
   "num_entrants": 12,
   "offline": true,
   "url": "/tournament/view-from-the-top-2",
-  "labels": {},
+  "labels": {
+    "irregular_rule": true
+  },
   "status": "completed",
   "timestamp": 1728518400,
   "end_at": 1728532740,
   "fetched_at": 1786277762,
   "event_data_version": 3,
   "guest_entrant_count": 0,
-  "version": "1.0"
+  "version": "1.0",
+  "label_version": 1
 }

@@ -17,12 +17,15 @@
   "num_entrants": 8,
   "offline": true,
   "url": "/tournament/100-pot-bonus-wild-smash-wednesday-110",
-  "labels": {},
+  "labels": {
+    "irregular_rule": true
+  },
   "status": "completed",
   "timestamp": 1727924400,
   "end_at": 1727938740,
   "fetched_at": 1786261167,
   "event_data_version": 3,
   "guest_entrant_count": 0,
-  "version": "1.0"
+  "version": "1.0",
+  "label_version": 1
 }

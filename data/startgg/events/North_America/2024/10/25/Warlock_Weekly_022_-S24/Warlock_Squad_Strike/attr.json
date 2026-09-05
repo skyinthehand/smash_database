@@ -17,12 +17,15 @@
   "num_entrants": 23,
   "offline": true,
   "url": "/tournament/warlock-weekly-022-s24-2",
-  "labels": {},
+  "labels": {
+    "irregular_rule": true
+  },
   "status": "completed",
   "timestamp": 1729815300,
   "end_at": 1729830600,
   "fetched_at": 1786320270,
   "event_data_version": 3,
   "guest_entrant_count": 0,
-  "version": "1.0"
+  "version": "1.0",
+  "label_version": 1
 }

@@ -17,7 +17,9 @@
   "num_entrants": 17,
   "offline": true,
   "url": "/tournament/smash-town-monthly-4",
-  "labels": {},
+  "labels": {
+    "irregular_rule": true
+  },
   "archive_status": "completed",
   "state": "COMPLETED",
   "timestamp": 1723918500,
@@ -25,5 +27,6 @@
   "fetched_at": 1787501329,
   "event_data_version": 4,
   "guest_entrant_count": 0,
-  "version": "1.0"
+  "version": "1.0",
+  "label_version": 1
 }

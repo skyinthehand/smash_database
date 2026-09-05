@@ -17,12 +17,15 @@
   "num_entrants": 6,
   "offline": true,
   "url": "/tournament/udlr-s-game-nights-local-wednesday-85",
-  "labels": {},
+  "labels": {
+    "irregular_rule": true
+  },
   "status": "completed",
   "timestamp": 1727317800,
   "end_at": 1727333940,
   "fetched_at": 1786230737,
   "event_data_version": 3,
   "guest_entrant_count": 0,
-  "version": "1.0"
+  "version": "1.0",
+  "label_version": 1
 }

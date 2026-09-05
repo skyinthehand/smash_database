@@ -17,12 +17,15 @@
   "num_entrants": 5,
   "offline": true,
   "url": "/tournament/flame-choke-26",
-  "labels": {},
+  "labels": {
+    "registration_restricted": true
+  },
   "status": "completed",
   "timestamp": 1731171600,
   "end_at": 1731207600,
   "fetched_at": 1786383103,
   "event_data_version": 3,
   "guest_entrant_count": 0,
-  "version": "1.0"
+  "version": "1.0",
+  "label_version": 1
 }

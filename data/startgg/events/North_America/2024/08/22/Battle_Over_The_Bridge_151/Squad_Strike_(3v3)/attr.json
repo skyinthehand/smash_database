@@ -17,7 +17,9 @@
   "num_entrants": 12,
   "offline": true,
   "url": "/tournament/battle-over-the-bridge-151",
-  "labels": {},
+  "labels": {
+    "irregular_rule": true
+  },
   "archive_status": "completed",
   "state": "COMPLETED",
   "timestamp": 1724371200,
@@ -25,5 +27,6 @@
   "fetched_at": 1787507932,
   "event_data_version": 4,
   "guest_entrant_count": 0,
-  "version": "1.0"
+  "version": "1.0",
+  "label_version": 1
 }

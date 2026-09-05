@@ -17,7 +17,9 @@
   "num_entrants": 24,
   "offline": true,
   "url": "/tournament/weekly-smash-party-106",
-  "labels": {},
+  "labels": {
+    "casual": true
+  },
   "archive_status": "completed",
   "state": "COMPLETED",
   "type": 1,
@@ -26,5 +28,6 @@
   "fetched_at": 1787568968,
   "event_data_version": 5,
   "guest_entrant_count": 2,
-  "version": "1.0"
+  "version": "1.0",
+  "label_version": 1
 }

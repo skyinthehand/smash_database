@@ -17,12 +17,15 @@
   "num_entrants": 5,
   "offline": true,
   "url": "/tournament/flashback-fightclub-179",
-  "labels": {},
+  "labels": {
+    "irregular_rule": true
+  },
   "status": "completed",
   "timestamp": 1732144500,
   "end_at": 1732154400,
   "fetched_at": 1786415883,
   "event_data_version": 3,
   "guest_entrant_count": 0,
-  "version": "1.0"
+  "version": "1.0",
+  "label_version": 1
 }

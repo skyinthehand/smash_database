@@ -17,12 +17,15 @@
   "num_entrants": 23,
   "offline": true,
   "url": "/tournament/heatstroke-returns",
-  "labels": {},
+  "labels": {
+    "irregular_rule": true
+  },
   "status": "completed",
   "timestamp": 1731195000,
   "end_at": 1731225600,
   "fetched_at": 1786383255,
   "event_data_version": 3,
   "guest_entrant_count": 2,
-  "version": "1.0"
+  "version": "1.0",
+  "label_version": 1
 }

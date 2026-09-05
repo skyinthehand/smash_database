@@ -17,12 +17,15 @@
   "num_entrants": 19,
   "offline": true,
   "url": "/tournament/warlock-weekly-019-s24",
-  "labels": {},
+  "labels": {
+    "irregular_rule": true
+  },
   "status": "completed",
   "timestamp": 1728000000,
   "end_at": 1728017100,
   "fetched_at": 1786266966,
   "event_data_version": 3,
   "guest_entrant_count": 0,
-  "version": "1.0"
+  "version": "1.0",
+  "label_version": 1
 }

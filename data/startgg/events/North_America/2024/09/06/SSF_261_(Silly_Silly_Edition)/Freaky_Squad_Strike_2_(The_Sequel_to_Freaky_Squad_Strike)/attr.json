@@ -17,12 +17,15 @@
   "num_entrants": 8,
   "offline": true,
   "url": "/tournament/shocker-smash-fridays-161",
-  "labels": {},
+  "labels": {
+    "irregular_rule": true
+  },
   "status": "completed",
   "timestamp": 1725660000,
   "end_at": 1725685140,
   "fetched_at": 1786187478,
   "event_data_version": 3,
   "guest_entrant_count": 2,
-  "version": "1.0"
+  "version": "1.0",
+  "label_version": 1
 }

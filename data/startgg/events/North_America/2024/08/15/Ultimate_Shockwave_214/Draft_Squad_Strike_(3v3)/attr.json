@@ -17,7 +17,9 @@
   "num_entrants": 13,
   "offline": true,
   "url": "/tournament/ultimate-shockwave-214",
-  "labels": {},
+  "labels": {
+    "irregular_rule": true
+  },
   "archive_status": "completed",
   "state": "COMPLETED",
   "timestamp": 1723680000,
@@ -25,5 +27,6 @@
   "fetched_at": 1787499903,
   "event_data_version": 4,
   "guest_entrant_count": 0,
-  "version": "1.0"
+  "version": "1.0",
+  "label_version": 1
 }

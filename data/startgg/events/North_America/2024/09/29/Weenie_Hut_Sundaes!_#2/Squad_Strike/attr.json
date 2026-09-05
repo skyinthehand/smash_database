@@ -17,12 +17,15 @@
   "num_entrants": 5,
   "offline": true,
   "url": "/tournament/weenie-hut-sundaes-2",
-  "labels": {},
+  "labels": {
+    "irregular_rule": true
+  },
   "status": "completed",
   "timestamp": 1727640000,
   "end_at": 1727668740,
   "fetched_at": 1786251777,
   "event_data_version": 3,
   "guest_entrant_count": 2,
-  "version": "1.0"
+  "version": "1.0",
+  "label_version": 1
 }

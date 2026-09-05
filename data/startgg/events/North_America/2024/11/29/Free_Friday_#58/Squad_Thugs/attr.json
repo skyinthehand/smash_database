@@ -17,12 +17,15 @@
   "num_entrants": 5,
   "offline": true,
   "url": "/tournament/free-friday-58",
-  "labels": {},
+  "labels": {
+    "irregular_rule": true
+  },
   "status": "completed",
   "timestamp": 1732867200,
   "end_at": 1732950000,
   "fetched_at": 1786446846,
   "event_data_version": 3,
   "guest_entrant_count": 0,
-  "version": "1.0"
+  "version": "1.0",
+  "label_version": 1
 }

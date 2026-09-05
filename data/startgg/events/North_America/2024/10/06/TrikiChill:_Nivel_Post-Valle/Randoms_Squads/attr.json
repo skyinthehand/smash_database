@@ -17,12 +17,15 @@
   "num_entrants": 11,
   "offline": true,
   "url": "/tournament/trikichill-nivel-post-valle",
-  "labels": {},
+  "labels": {
+    "irregular_rule": true
+  },
   "status": "completed",
   "timestamp": 1728248400,
   "end_at": 1728273600,
   "fetched_at": 1786271236,
   "event_data_version": 3,
   "guest_entrant_count": 0,
-  "version": "1.0"
+  "version": "1.0",
+  "label_version": 1
 }

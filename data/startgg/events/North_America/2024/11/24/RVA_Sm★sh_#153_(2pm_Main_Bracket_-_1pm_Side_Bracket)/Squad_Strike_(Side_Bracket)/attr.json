@@ -17,12 +17,15 @@
   "num_entrants": 8,
   "offline": true,
   "url": "/tournament/rva-sm-sh-153-2pm-main-bracket-1pm-side-bracket",
-  "labels": {},
+  "labels": {
+    "irregular_rule": true
+  },
   "status": "completed",
   "timestamp": 1732471200,
   "end_at": 1732492800,
   "fetched_at": 1786440752,
   "event_data_version": 3,
   "guest_entrant_count": 0,
-  "version": "1.0"
+  "version": "1.0",
+  "label_version": 1
 }

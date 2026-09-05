@@ -17,7 +17,9 @@
   "num_entrants": 21,
   "offline": true,
   "url": "/tournament/the-retro-collection-july-30th-august-1st-2024-ultimate-thursday",
-  "labels": {},
+  "labels": {
+    "irregular_rule": true
+  },
   "archive_status": "completed",
   "state": "COMPLETED",
   "timestamp": 1722569400,
@@ -25,5 +27,6 @@
   "fetched_at": 1787479462,
   "event_data_version": 4,
   "guest_entrant_count": 0,
-  "version": "1.0"
+  "version": "1.0",
+  "label_version": 1
 }

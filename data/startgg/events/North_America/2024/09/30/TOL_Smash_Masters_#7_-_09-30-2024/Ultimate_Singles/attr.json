@@ -17,12 +17,15 @@
   "num_entrants": 14,
   "offline": true,
   "url": "/tournament/tol-smash-masters-7-09-30-2024",
-  "labels": {},
+  "labels": {
+    "registration_restricted": true
+  },
   "status": "completed",
   "timestamp": 1727737200,
   "end_at": 1727748000,
   "fetched_at": 1786255888,
   "event_data_version": 3,
   "guest_entrant_count": 0,
-  "version": "1.0"
+  "version": "1.0",
+  "label_version": 1
 }

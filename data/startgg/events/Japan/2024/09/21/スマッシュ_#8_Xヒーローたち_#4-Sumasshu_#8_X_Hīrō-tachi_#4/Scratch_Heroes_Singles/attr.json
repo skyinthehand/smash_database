@@ -17,7 +17,9 @@
   "num_entrants": 300,
   "offline": true,
   "url": "/tournament/8-x-4-sumasshu-8-x-h-r-tachi-4",
-  "labels": {},
+  "labels": {
+    "registration_restricted": true
+  },
   "archive_status": "completed",
   "state": "COMPLETED",
   "type": 1,
@@ -26,5 +28,6 @@
   "fetched_at": 1787593149,
   "event_data_version": 5,
   "guest_entrant_count": 598,
-  "version": "1.0"
+  "version": "1.0",
+  "label_version": 1
 }

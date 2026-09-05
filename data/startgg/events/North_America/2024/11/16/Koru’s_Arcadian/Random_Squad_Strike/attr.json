@@ -17,12 +17,15 @@
   "num_entrants": 21,
   "offline": true,
   "url": "/tournament/koru-s-arcadian",
-  "labels": {},
+  "labels": {
+    "irregular_rule": true
+  },
   "status": "completed",
   "timestamp": 1731715200,
   "end_at": 1731740100,
   "fetched_at": 1786400931,
   "event_data_version": 3,
   "guest_entrant_count": 0,
-  "version": "1.0"
+  "version": "1.0",
+  "label_version": 1
 }

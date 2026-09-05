@@ -17,12 +17,15 @@
   "num_entrants": 15,
   "offline": true,
   "url": "/tournament/salty-spitoon-20",
-  "labels": {},
+  "labels": {
+    "irregular_rule": true
+  },
   "status": "completed",
   "timestamp": 1725735600,
   "end_at": 1725760800,
   "fetched_at": 1786190266,
   "event_data_version": 3,
   "guest_entrant_count": 0,
-  "version": "1.0"
+  "version": "1.0",
+  "label_version": 1
 }
