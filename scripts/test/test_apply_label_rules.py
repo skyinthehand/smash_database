@@ -232,5 +232,118 @@ class MinEventDataVersionTests(unittest.TestCase):
         self.assertEqual(attr["labels"], {"restricted": True})
 
 
+class IgnoreLabelVersionOnlyTests(unittest.TestCase):
+    """labelsの中身は変わらずlabel_versionだけが変わるイベントを、表示・書き込み
+    対象から除外する `--ignore-label-version-only` の挙動。"""
+
+    def setUp(self):
+        self._tmp = tempfile.TemporaryDirectory()
+        self.root = Path(self._tmp.name)
+        self.events_root = self.root / "events"
+        self.rules_file = self.root / "label_rules.json"
+        _write_json(self.rules_file, RULES)  # label_version=2, "制限"にマッチ
+
+    def tearDown(self):
+        self._tmp.cleanup()
+
+    def _run_main(self, extra_args=None):
+        argv = [
+            "apply_label_rules.py",
+            "--events-root", str(self.events_root),
+            "--rules-file", str(self.rules_file),
+        ] + (extra_args or [])
+        buf = io.StringIO()
+        err = io.StringIO()
+        with patch.object(alr.sys, "argv", argv), redirect_stdout(buf), redirect_stderr(err):
+            exit_code = alr.main()
+        return exit_code, buf.getvalue(), err.getvalue()
+
+    def test_default_run_shows_and_writes_label_version_only_change(self):
+        attr_path = self.events_root / "e1" / "attr.json"
+        _write_json(
+            attr_path,
+            {
+                "event_id": 1,
+                "tournament_name": "制限大会",
+                "event_name": "Singles",
+                "labels": {"restricted": True},
+                "label_version": 1,
+            },
+        )
+
+        exit_code, out, _err = self._run_main(["--yes"])
+
+        self.assertEqual(exit_code, 0)
+        self.assertIn("[1]", out)
+        self.assertIn("updated=1", out)
+        self.assertIn("skipped_label_version_only=0", out)
+        attr = _read_json(attr_path)
+        self.assertEqual(attr["label_version"], 2)
+        self.assertEqual(attr["labels"], {"restricted": True})
+
+    def test_ignore_flag_skips_and_does_not_write_when_content_unchanged(self):
+        attr_path = self.events_root / "e1" / "attr.json"
+        original = {
+            "event_id": 1,
+            "tournament_name": "制限大会",
+            "event_name": "Singles",
+            "labels": {"restricted": True},
+            "label_version": 1,
+        }
+        _write_json(attr_path, original)
+
+        exit_code, out, _err = self._run_main(["--yes", "--ignore-label-version-only"])
+
+        self.assertEqual(exit_code, 0)
+        self.assertNotIn("[1]", out)
+        self.assertIn("updated=0", out)
+        self.assertIn("skipped_label_version_only=1", out)
+        attr = _read_json(attr_path)
+        self.assertEqual(attr, original)  # 完全に無変更(label_versionも古いまま)
+
+    def test_ignore_flag_still_reports_real_content_changes(self):
+        attr_path = self.events_root / "e1" / "attr.json"
+        _write_json(
+            attr_path,
+            {
+                "event_id": 1,
+                "tournament_name": "制限大会",
+                "event_name": "Singles",
+                "labels": {},
+                "label_version": 1,
+            },
+        )
+
+        exit_code, out, _err = self._run_main(["--yes", "--ignore-label-version-only"])
+
+        self.assertEqual(exit_code, 0)
+        self.assertIn("[1]", out)
+        self.assertIn("updated=1", out)
+        self.assertIn("skipped_label_version_only=0", out)
+        attr = _read_json(attr_path)
+        self.assertEqual(attr["label_version"], 2)
+        self.assertEqual(attr["labels"], {"restricted": True})
+
+    def test_ignore_flag_dry_run_prints_nothing_for_skipped_event(self):
+        attr_path = self.events_root / "e1" / "attr.json"
+        _write_json(
+            attr_path,
+            {
+                "event_id": 1,
+                "tournament_name": "通常大会",
+                "event_name": "Singles",
+                "labels": {},
+                "label_version": 1,
+            },
+        )
+
+        exit_code, out, _err = self._run_main(["--ignore-label-version-only"])
+
+        self.assertEqual(exit_code, 0)
+        self.assertIn("(dry-run)", out)
+        self.assertNotIn("[1]", out)
+        self.assertIn("skipped_label_version_only=1", out)
+
+
 if __name__ == "__main__":
     unittest.main()

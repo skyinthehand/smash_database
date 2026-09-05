@@ -59,7 +59,8 @@ python3 scripts/fix/apply_label_rules.py \
   [--events-root data/startgg/events] \
   [--rules-file data/startgg/label_rules.json] \
   [--indent-num 2] \
-  [--yes]
+  [--yes] \
+  [--ignore-label-version-only]
 ```
 
 start.gg への通信を行わないため、`--token`等のAPI関連引数は一切持たない。
@@ -72,9 +73,22 @@ start.gg への通信を行わないため、`--token`等のAPI関連引数は�
 | `--rules-file` | - | `data/startgg/label_rules.json` | ラベルルール定義ファイルのパス |
 | `--indent-num` | - | `2` | JSON出力のインデント(既存ツールとの一貫性のため) |
 | `--yes` | - | (フラグ、指定なしはdry-run) | 指定した場合のみ実際に`attr.json`へ書き込む |
+| `--ignore-label-version-only` | - | (フラグ、指定なしは無効) | 再計算後の`labels`が既存の`labels`と完全に一致する(=`label_version`だけが変わる)イベントを、表示・書き込みの両方から除外する |
 
 `--yes`を指定しない場合、`attr.json`への書き込みは一切発生せず、
 実行結果のサマリーのみが出力される(dry-run、spec Clarifications 参照)。
+
+`--ignore-label-version-only`を指定した場合、`labels`の中身(値の集合)が
+再計算前後で変わらないイベント(=ルール定義ファイルの`label_version`を
+上げただけで、そのイベントの判定結果自体は変化しない場合)は、他のイベントと
+区別され、1行の出力もされず(`--yes`指定時でも)`attr.json`への書き込みも
+行われない(結果として`label_version`は古い値のまま残る)。ルール定義を
+少しずつ追記していく運用で、実質的な判定結果の変化だけを確認したい場合に
+使う。指定しない場合(デフォルト)は、このようなイベントも他の更新対象と
+区別なく表示・書き込みされる(`label_version`のみが更新される)。
+このフラグで除外されたイベントは、次回以降フラグなしで実行すれば通常通り
+処理される(`skipped_up_to_date`とは異なり、`label_version`が現在の値と
+一致しないままなので、以後のどの実行でも再度対象になる)。
 
 ### 終了コード
 
@@ -95,8 +109,11 @@ start.gg への通信を行わないため、`--token`等のAPI関連引数は�
   出し、処理を継続する。
 - `min_event_data_version`要件を満たさずスキップしたイベントについて、
   その旨(event_idと理由)を出力する(User Story 4 Acceptance Scenario 1)。
+- `--ignore-label-version-only`指定時に除外されたイベント(labelsの中身は
+  変わらずlabel_versionだけが変わる)については、個別の行は一切出力しない
+  (要約行の`skipped_label_version_only`にのみ件数として反映する)。
 - 終了時に要約行を出力する。
-  例: `Done. updated=134 skipped_low_version=0 skipped_up_to_date=26512 skipped_broken=3 (dry-run)`
+  例: `Done. updated=134 skipped_low_version=0 skipped_up_to_date=26512 skipped_label_version_only=0 skipped_broken=3 (dry-run)`
   `--yes`指定時は末尾の`(dry-run)`を付けない。
 
 ## 3. `data/startgg/label_rules.json`(ルール定義ファイル、データ契約)
