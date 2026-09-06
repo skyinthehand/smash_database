@@ -13,10 +13,12 @@ git merge 中に発生した競合ファイルを、重複排除ルールに従�
   - data/startgg/users.jsonl       … user_id をキーとした JSONL。IDベースで重複削除。
   - docs/chore-tornament/checked_dates.json … 日付をキーとした JSON。日付ベースで重複削除。
   - docs/chore-tornament/README.md          … Markdown テーブル。日付ベースで重複削除。
+  - data/startgg/events/**/attr.json        … イベント属性。フィールドごとのルールでマージ。
 
 重複時の優先ルール:
   - CSV / JSONL  : ours（stage 2 = 現ブランチ）優先。theirs（stage 3 = origin/main）は新規IDのみ追加。
   - JSON / README: checked_at_utc（または Last Checked At 列）が新しい方を採用。
+  - attr.json    : ours優先。ただし timestamp / fetched_at は値が新しい（大きい）方を採用。
 
 オプション: --redownload-conflicts
   data/startgg/events 以下で競合している matches.json を、ours/theirs の
@@ -361,7 +363,76 @@ def resolve_readme(path: str) -> None:
 
 
 # ---------------------------------------------------------------------------
-# 5. data/startgg/events 以下の競合イベント — start.gg から再取得して上書き
+# 5. data/startgg/events 以下の attr.json — フィールドごとのマージ
+# ---------------------------------------------------------------------------
+
+def resolve_attr_json_conflicts() -> list[str]:
+    """
+    data/startgg/events 以下で競合している attr.json を、フィールドごとの
+    ルールでマージしてワーキングツリーに書き出す。
+
+    attr.json は matches.json と違って通常はあまり競合しない
+    (scripts/check_event_conflicts.py の get_event_id() のコメント参照)が、
+    両ブランチが同じイベントを独立に取得・更新した場合(ラベル判定機能の
+    導入等で labels/label_version が食い違う場合を含む)は実際に競合しうる。
+
+    優先ルール:
+      - timestamp / fetched_at: 値が大きい方(＝新しい方)を採用する。
+      - それ以外の全フィールド: ours(現ブランチ)を採用する
+        (done.csv/*.jsonl と同じ「ours優先」方針に合わせる)。
+
+    戻り値: 実際にマージを書き出した attr.json のパス一覧
+            (git add 対象の案内に使う)。
+    """
+    from scripts.check_event_conflicts import list_conflicting_event_paths
+
+    print(f"\n[5] data/startgg/events 以下の attr.json 競合をマージ")
+
+    paths = [p for p in list_conflicting_event_paths() if os.path.basename(p) == "attr.json"]
+    if not paths:
+        print("  競合中の attr.json は見つかりませんでした。")
+        return []
+
+    newer_wins_keys = ("timestamp", "fetched_at")
+
+    touched = []
+    for path in paths:
+        ours_raw = git_show(2, path)
+        theirs_raw = git_show(3, path)
+
+        try:
+            ours = json.loads(ours_raw) if ours_raw else {}
+            theirs = json.loads(theirs_raw) if theirs_raw else {}
+        except json.JSONDecodeError as exc:
+            print(f"  [WARN] {path}: JSONとして解析できません({exc})。スキップします。")
+            continue
+
+        merged = dict(ours)
+        for key in newer_wins_keys:
+            ours_value = ours.get(key)
+            theirs_value = theirs.get(key)
+            if ours_value is None:
+                merged[key] = theirs_value
+            elif theirs_value is None:
+                merged[key] = ours_value
+            else:
+                merged[key] = max(ours_value, theirs_value)
+
+        with open(path, "w", encoding="utf-8") as f:
+            json.dump(merged, f, ensure_ascii=False, indent=2)
+            f.write("\n")
+
+        touched.append(path)
+        print(
+            f"  {path}: timestamp={merged.get('timestamp')} "
+            f"fetched_at={merged.get('fetched_at')} (他フィールドはours採用)"
+        )
+
+    return touched
+
+
+# ---------------------------------------------------------------------------
+# 6. data/startgg/events 以下の競合イベント — start.gg から再取得して上書き
 # ---------------------------------------------------------------------------
 
 def resolve_events_by_redownload(token: str, events_root: str, users_file_path: str, only_event_ids: list | None) -> list:
@@ -380,7 +451,7 @@ def resolve_events_by_redownload(token: str, events_root: str, users_file_path: 
     from scripts.fix.redownload_event import redownload_event
     from scripts.utils import read_users_jsonl, set_api_parameters, set_indent_num, set_retry_parameters
 
-    print(f"\n[5] data/startgg/events 以下の競合イベントを再取得")
+    print(f"\n[6] data/startgg/events 以下の競合イベントを再取得")
 
     paths = list_conflicting_event_paths()
     if not paths:
@@ -499,6 +570,9 @@ def main():
     # -- README.md --
     resolve_readme("docs/chore-tornament/README.md")
 
+    # -- events 以下の attr.json --
+    merged_attr_paths = resolve_attr_json_conflicts()
+
     # -- 後検証 --
     all_paths = [
         "data/startgg/done.csv",
@@ -506,7 +580,7 @@ def main():
         "data/startgg/users.jsonl",
         "docs/chore-tornament/checked_dates.json",
         "docs/chore-tornament/README.md",
-    ]
+    ] + merged_attr_paths
     ok = verify_no_conflict_markers(all_paths)
 
     # -- events 以下の競合イベント再取得（オプトイン） --
@@ -527,7 +601,7 @@ def main():
             "data/startgg/users.jsonl",
             "docs/chore-tornament/checked_dates.json",
             "docs/chore-tornament/README.md",
-        ] + [f'"{d}"' for d in redownloaded_dirs]
+        ] + [f'"{p}"' for p in merged_attr_paths] + [f'"{d}"' for d in redownloaded_dirs]
         print("  git add " + " \\\n          ".join(git_add_targets))
         print("  git merge --continue")
     else:
