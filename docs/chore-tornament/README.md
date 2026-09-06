@@ -4,7 +4,7 @@ GitHub Actions が確認した日付と、`data/startgg/events/Japan/YYYY/MM/DD`
 
 - 集計開始日: `2018-12-29`
 - 集計終了日: `2026-09-07`
-- 最終更新 (UTC): `2026-09-06 15:40:16 UTC`
+- 最終更新 (UTC): `2026-09-06 20:03:56 UTC`
 
 | Date | Folder Exists | Checked By GitHub Actions | Last Checked At (JST) | Workflow |
 | --- | --- | --- | --- | --- |
@@ -2815,6 +2815,6 @@ GitHub Actions が確認した日付と、`data/startgg/events/Japan/YYYY/MM/DD`
 | 2026-09-02 | yes | yes | 2026-09-07 00:40:16 JST | data_gap_check |
 | 2026-09-03 | yes | yes | 2026-09-07 00:40:16 JST | data_gap_check |
 | 2026-09-04 | yes | yes | 2026-09-07 00:40:16 JST | data_gap_check |
-| 2026-09-05 | yes | yes | 2026-09-07 00:40:16 JST | data_gap_check |
-| 2026-09-06 | yes | yes | 2026-09-07 00:40:16 JST | data_gap_check |
-| 2026-09-07 | no | no |  |  |
+| 2026-09-05 | yes | yes | 2026-09-07 05:03:56 JST | update_tournament |
+| 2026-09-06 | yes | yes | 2026-09-07 05:03:56 JST | update_tournament |
+| 2026-09-07 | no | yes | 2026-09-07 05:03:56 JST | update_tournament |
