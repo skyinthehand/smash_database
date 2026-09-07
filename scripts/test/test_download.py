@@ -1809,6 +1809,54 @@ class DownloadTests(unittest.TestCase):
         event_dir = updated[1]["events"][0]["path"]
         self.assertFalse(os.path.isfile(os.path.join(event_dir, "attr.json")))
 
+    @patch("scripts.fetch.download.read_set", return_value=set())
+    @patch("scripts.fetch.download.read_users_jsonl", return_value={})
+    @patch("scripts.fetch.download.fetch_tournament_by_id")
+    @patch("scripts.fetch.download.fetch_event_ids_from_tournament")
+    @patch("scripts.fetch.download.download_standings")
+    def test_download_by_ids_does_not_duplicate_tournament_line_on_revisit(
+        self,
+        mock_standings,
+        mock_fetch_event_ids,
+        mock_fetch_tournament_by_id,
+        _mock_read_users,
+        _mock_read_set,
+    ):
+        """回帰テスト(event_id=1677094/tournament_id=937614で実際に起きた
+        不具合): 既にtournaments.jsonlに存在するtournament_idを
+        --tournament_ids で複数回処理しても、行が重複追記されない。"""
+        mock_fetch_tournament_by_id.return_value = {
+            "name": "Test Tournament",
+            "startAt": 1714780800,
+            "endAt": 1714784400,
+            "countryCode": "JP",
+            "city": "Tokyo",
+            "lat": None,
+            "lng": None,
+            "venueName": None,
+            "timezone": "Asia/Tokyo",
+            "postalCode": None,
+            "venueAddress": None,
+            "mapsPlaceId": None,
+            "url": "https://example.com",
+        }
+        mock_fetch_event_ids.return_value = [(10, "Singles", False, "COMPLETED", 1)]
+        mock_standings.side_effect = FetchError("standings query failed")
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            tournament_file_path = f"{tmpdir}/tournaments.jsonl"
+            for _ in range(2):
+                download_by_ids(
+                    [1], "1386", "JP", f"{tmpdir}",
+                    f"{tmpdir}/done.csv", f"{tmpdir}/users.jsonl", tournament_file_path,
+                )
+
+            with open(tournament_file_path, encoding="utf-8") as f:
+                lines = [line for line in f.read().splitlines() if line.strip()]
+
+        matching_lines = [line for line in lines if json.loads(line)["tournament_id"] == 1]
+        self.assertEqual(len(matching_lines), 1)
+
     @patch("scripts.fetch.download.read_users_jsonl", return_value={})
     @patch("scripts.fetch.download.fetch_tournament_by_id")
     @patch("scripts.fetch.download.fetch_event_ids_from_tournament")
@@ -2135,6 +2183,51 @@ class DownloadTests(unittest.TestCase):
 
         mock_download_seeds.assert_called_once()
         self.assertEqual(incomplete_count, 1)
+
+    @patch("scripts.fetch.download.read_set", return_value=set())
+    @patch("scripts.fetch.download.read_users_jsonl", return_value={})
+    @patch("scripts.fetch.download.fetch_latest_tournaments_by_game")
+    @patch("scripts.fetch.download.fetch_event_ids_from_tournament")
+    @patch("scripts.fetch.download.download_all_set")
+    @patch("scripts.fetch.download.download_standings")
+    @patch("scripts.fetch.download.download_seeds")
+    @patch("scripts.fetch.download.extend_user_info")
+    def test_download_all_tournaments_does_not_duplicate_tournament_line_on_revisit(
+        self,
+        _mock_extend_user_info,
+        mock_download_seeds,
+        mock_download_standings,
+        mock_download_all_set,
+        mock_fetch_event_ids,
+        mock_fetch_tournaments,
+        _mock_read_users,
+        _mock_read_set,
+    ):
+        """回帰テスト: tournaments.jsonlに既に存在するトーナメントが、
+        still_incompleteのまま2回連続で再訪問されても、tournaments.jsonl
+        への追記が重複しない(tournament_had_incomplete_event修正により
+        再訪問自体は今後正常に起こるようになるため、この重複防止が必要)。"""
+        mock_fetch_tournaments.return_value = self._incomplete_test_tournament(
+            name="Revisited Tournament"
+        )
+        mock_fetch_event_ids.return_value = [(10, "Singles", False, "COMPLETED", 1)]
+        mock_download_standings.return_value = ([], [], {})
+        mock_download_all_set.return_value = True  # 毎回 still has outstanding sets
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            tournament_file_path = f"{tmpdir}/tournaments.jsonl"
+            for _ in range(2):
+                download_all_tournaments(
+                    "1386", "JP", None, datetime(2024, 5, 4, 0, 0, 0),
+                    f"{tmpdir}", f"{tmpdir}/done.csv", f"{tmpdir}/users.jsonl",
+                    tournament_file_path,
+                )
+
+            with open(tournament_file_path, encoding="utf-8") as f:
+                lines = [line for line in f.read().splitlines() if line.strip()]
+
+        matching_lines = [line for line in lines if json.loads(line)["tournament_id"] == 1]
+        self.assertEqual(len(matching_lines), 1)
 
     @patch("scripts.fetch.download.read_set", return_value=set())
     @patch("scripts.fetch.download.read_users_jsonl", return_value={})

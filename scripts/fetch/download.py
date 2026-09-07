@@ -593,8 +593,12 @@ def download_all_tournaments(
                             rewrite_tournaments = True
                 # ファイルを保存
                 if len(tournaments[tournament_id]["events"]) > 0:
-                    if rewrite_tournaments:
-                        pass
+                    if tournament_id in existing_tournament_ids:
+                        # 既存トーナメントの再訪問(未完了で再度処理された場合を含む)は、
+                        # pathの変更が無くても増分追記(extend_tournament_info)を使わず、
+                        # 必ず最終的な全体書き換え(write_jsonl)に任せる。そうしないと、
+                        # 同じtournament_idの行がrunのたびに重複して追記され続けてしまう。
+                        rewrite_tournaments = True
                     else:
                         extend_tournament_info(tournaments[tournament_id], tournament_file_path)
                     # 未完了イベントが1件でもあれば done_tournaments には登録しない。
@@ -1582,6 +1586,8 @@ def download_by_ids(
     print(f"download_by_ids: fetching {len(tournament_id_list)} tournament(s)")
     path_index = build_path_index(tournaments)
     settled_tournament_ids = set(tournaments.keys())
+    existing_tournament_ids = set(tournaments.keys())
+    rewrite_tournaments = False
 
     for tournament_id in tournament_id_list:
         try:
@@ -1725,10 +1731,20 @@ def download_by_ids(
                 cleanup_relocated_directory(stale_old_path)
 
         if tournaments[tournament_id]["events"]:
-            extend_tournament_info(tournaments[tournament_id], tournament_file_path)
+            if tournament_id in existing_tournament_ids:
+                # 既存トーナメントの再訪問は増分追記(extend_tournament_info)を使わず、
+                # 必ず最終的な全体書き換え(write_jsonl)に任せる。そうしないと、同じ
+                # tournament_idに対して --tournament_ids を複数回実行するたびに
+                # tournaments.jsonl へ重複行が追記され続けてしまう。
+                rewrite_tournaments = True
+            else:
+                extend_tournament_info(tournaments[tournament_id], tournament_file_path)
             if not tournament_had_incomplete_event and tournament_id not in done_tournaments:
                 done_tournaments.add(tournament_id)
                 write_done_tournaments(tournament_id, done_file_path)
+
+    if rewrite_tournaments:
+        write_jsonl(list(tournaments.values()), tournament_file_path, with_version=True)
 
 
 if __name__ == "__main__":
