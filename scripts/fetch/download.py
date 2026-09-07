@@ -784,18 +784,37 @@ def _continue_incremental_fetch(event_id, entrant2user, event_dir):
     プレースホルダーのままの set_id のみを set(id:) で取得し、その場で置き換える。
     start.gg側のset一覧の再チェックは行わない(FR-015)。
 
+    BYE(不戦勝、片方のslotに対戦相手がいない)と判明したset_idは、
+    プレースホルダーのまま残さずmatches.jsonから取り除く。対戦相手が
+    構造上存在しないためstandingが埋まることは永久になく、残したままだと
+    毎回再取得を試みては失敗し、still_incompleteがTrueのまま恒久的に
+    進まなくなる(一括取得パスがBYEを最初から記録しないのと同じ扱いに揃える)。
+
     戻り値: 処理後も matches.json にプレースホルダーが1件以上残っていれば True
     (まだ未完了)、全て完了済みレコードに置き換わっていれば False。"""
     existing_data = read_matches_data(event_dir)
     known_set_ids = [record["set_id"] for record in existing_data if "set_id" in record]
     pending = outstanding_set_ids(existing_data, known_set_ids)
     for batch_nodes in fetch_set_details_by_ids(pending):
-        new_records = [
-            match_data
-            for match_data in (build_match_data_from_node(node, entrant2user) for node in batch_nodes)
-            if match_data is not None
-        ]
+        new_records = []
+        bye_set_ids = []
+        for node in batch_nodes:
+            match_data = build_match_data_from_node(node, entrant2user)
+            if match_data is not None:
+                new_records.append(match_data)
+            elif is_bye_set_node(node):
+                bye_set_ids.append(node.get("id"))
+            # それ以外(entrantはいるがstanding未定)は何もしない
+            # → プレースホルダーのまま残り、次回また再取得を試みる(既存挙動)
+
         existing_data = merge_matches_records(existing_data, new_records)
+        if bye_set_ids:
+            bye_id_set = set(bye_set_ids)
+            existing_data = [
+                record for record in existing_data
+                if not (is_placeholder_record(record) and record.get("set_id") in bye_id_set)
+            ]
+            print(f"Event {event_id}: removed {len(bye_set_ids)} BYE set placeholder(s) with no opponent.")
         write_matches_data(existing_data, event_dir)
 
     return any(is_placeholder_record(record) for record in existing_data)
@@ -1235,6 +1254,18 @@ def build_match_data_from_node(node, entrant2user):
             "state": node.get('state'),
             "details": details
         }
+
+
+def is_bye_set_node(node):
+    """setノードが不戦勝(BYE、片方のslotに対戦相手がいない)かどうかを判定する。
+    BYEは対戦相手が構造上存在しないため standing が埋まることは永久になく、
+    プレースホルダーのまま待ち続けても解決しない
+    (build_match_data_from_node が恒久的に None を返し続けるため)。"""
+    slots = node.get('slots')
+    if slots is None or len(slots) != 2:
+        return False
+    return slots[0].get('entrant') is None or slots[1].get('entrant') is None
+
 
 def write_matches(all_nodes, entrant2user, event_dir):
     """一括取得経路のマッチデータを保存する関数。既存の matches.json があれば

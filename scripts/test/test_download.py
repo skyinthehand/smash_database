@@ -88,6 +88,42 @@ def _make_set_node(set_id, winner_entrant=11, loser_entrant=22):
     }
 
 
+def _make_bye_set_node(set_id, entrant=11):
+    """テスト用に、不戦勝(BYE、片方のslotに対戦相手がいない)のsetノードを
+    組み立てる。standingは永久に埋まらないため build_match_data_from_node は
+    常に None を返す。"""
+    return {
+        "id": set_id,
+        "slots": [
+            {"entrant": {"id": entrant}, "standing": None},
+            {"entrant": None, "standing": None},
+        ],
+        "games": None,
+        "phaseGroup": None,
+        "fullRoundText": "Winners Round 1",
+        "round": 1,
+        "state": 1,
+    }
+
+
+def _make_unplayed_set_node(set_id, entrant0=11, entrant1=22):
+    """テスト用に、対戦相手は両方いるがまだプレイされていない(standingが
+    未定の)setノードを組み立てる。BYEとは異なり、後日プレイされれば
+    解決しうる一時的な状態。"""
+    return {
+        "id": set_id,
+        "slots": [
+            {"entrant": {"id": entrant0}, "standing": None},
+            {"entrant": {"id": entrant1}, "standing": None},
+        ],
+        "games": None,
+        "phaseGroup": None,
+        "fullRoundText": "Winners Round 1",
+        "round": 1,
+        "state": 1,
+    }
+
+
 class DownloadTests(unittest.TestCase):
     @patch("scripts.fetch.download.set_page_delay")
     @patch("scripts.fetch.download.set_retry_parameters")
@@ -838,6 +874,66 @@ class DownloadTests(unittest.TestCase):
                 payload = json.load(f)
 
         self.assertEqual(len(payload["data"]), 1)
+
+    def test_continue_incremental_fetch_removes_bye_set_placeholder(self):
+        """BYE(不戦勝)のset_idはプレースホルダーのまま残さず取り除かれ、
+        still_incompleteがFalseになる(除去しないと永久にTrueのまま
+        進まなくなる回帰テスト)。"""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            write_matches_data([{"set_id": 1}], tmpdir)
+
+            with patch("scripts.fetch.download.fetch_set_details_by_ids") as mock_fetch_details:
+                mock_fetch_details.return_value = [[_make_bye_set_node(1)]]
+                still_incomplete = _continue_incremental_fetch(10, {11: 1}, tmpdir)
+
+            with open(os.path.join(tmpdir, "matches.json"), encoding="utf-8") as f:
+                payload = json.load(f)
+
+        self.assertFalse(still_incomplete)
+        self.assertEqual(payload["data"], [])
+
+    def test_continue_incremental_fetch_keeps_unplayed_set_as_placeholder(self):
+        """対戦相手はいるがまだプレイされていない(standing未定の)set_idは、
+        BYEとは違い従来通りプレースホルダーのまま残る(除去しない)。"""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            write_matches_data([{"set_id": 1}], tmpdir)
+
+            with patch("scripts.fetch.download.fetch_set_details_by_ids") as mock_fetch_details:
+                mock_fetch_details.return_value = [[_make_unplayed_set_node(1)]]
+                still_incomplete = _continue_incremental_fetch(10, {11: 1, 22: 2}, tmpdir)
+
+            with open(os.path.join(tmpdir, "matches.json"), encoding="utf-8") as f:
+                payload = json.load(f)
+
+        self.assertTrue(still_incomplete)
+        self.assertEqual(len(payload["data"]), 1)
+        self.assertTrue(is_placeholder_record(payload["data"][0]))
+        self.assertEqual(payload["data"][0]["set_id"], 1)
+
+    def test_continue_incremental_fetch_removes_only_bye_when_mixed_with_completed_and_unplayed(self):
+        """BYE・完了済み・未消化が混在する場合、BYEだけが除去され、
+        完了済みは反映、未消化はプレースホルダーのまま残る。"""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            write_matches_data(
+                [{"set_id": 1}, {"set_id": 2}, {"set_id": 3}], tmpdir,
+            )
+
+            with patch("scripts.fetch.download.fetch_set_details_by_ids") as mock_fetch_details:
+                mock_fetch_details.return_value = [[
+                    _make_set_node(1),
+                    _make_bye_set_node(2),
+                    _make_unplayed_set_node(3),
+                ]]
+                still_incomplete = _continue_incremental_fetch(10, {11: 1, 22: 2}, tmpdir)
+
+            with open(os.path.join(tmpdir, "matches.json"), encoding="utf-8") as f:
+                payload = json.load(f)
+
+        self.assertTrue(still_incomplete)  # set_id=3 がまだプレースホルダーのため
+        by_set_id = {record["set_id"]: record for record in payload["data"]}
+        self.assertEqual(set(by_set_id.keys()), {1, 3})  # set_id=2(BYE)は除去済み
+        self.assertFalse(is_placeholder_record(by_set_id[1]))
+        self.assertTrue(is_placeholder_record(by_set_id[3]))
 
     @patch("scripts.fetch.download.fetch_with_page_fallback")
     @patch("scripts.fetch.download.load_excluded_phase_ids", return_value={})
