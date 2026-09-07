@@ -2784,6 +2784,67 @@ class DownloadTests(unittest.TestCase):
     @patch("scripts.fetch.download.download_standings")
     @patch("scripts.fetch.download.download_seeds")
     @patch("scripts.fetch.download.extend_user_info")
+    def test_download_all_tournaments_does_not_duplicate_line_for_new_tournament_that_collides(
+        self,
+        _mock_extend_user_info,
+        _mock_download_seeds,
+        mock_download_standings,
+        _mock_download_all_set,
+        mock_fetch_event_ids,
+        mock_fetch_tournaments,
+        _mock_read_users,
+        _mock_read_set,
+    ):
+        """回帰テスト(code-review指摘): 新規トーナメント(run開始時点では
+        tournaments.jsonlに存在しない)がパス衝突を起こすと、衝突解決時の
+        即時write_jsonl(events=[]の状態)と、その後のextend_tournament_info
+        (eventsが埋まった状態)の両方で書き出されてしまい、行が重複していた。
+        勝者(tournament_id=2、entrant数が多い方)の行が1行だけであることを
+        実ファイルの行数で確認する(read_tournaments_jsonlはdictなので
+        重複があってもマスクされてしまい検出できない)。"""
+        start = calendar.timegm((2026, 3, 20, 9, 0, 0, 0, 0, 0))
+        end = calendar.timegm((2026, 3, 20, 12, 0, 0, 0, 0, 0))
+        mock_fetch_tournaments.return_value = (
+            [
+                self._tournament_info(1, "Collide Test", start, end),
+                self._tournament_info(2, "Collide Test", start, end),
+            ],
+            1,
+        )
+        mock_fetch_event_ids.side_effect = [
+            [(10, "Singles", False, "COMPLETED", 1)],
+            [(20, "Singles", False, "COMPLETED", 1)],
+        ]
+
+        def _standings(event_id, event_dir, max_pages=None):
+            os.makedirs(event_dir, exist_ok=True)
+            count = 3 if event_id == 10 else 10
+            return ([None] * count, [None] * count, {})
+
+        mock_download_standings.side_effect = _standings
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            tournament_file_path = f"{tmpdir}/tournaments.jsonl"
+            download_all_tournaments(
+                "1386", "JP",
+                datetime(2026, 3, 20, 23, 59, 59), datetime(2026, 3, 20, 0, 0, 0),
+                f"{tmpdir}", f"{tmpdir}/done.csv", f"{tmpdir}/users.jsonl", tournament_file_path,
+            )
+
+            with open(tournament_file_path, encoding="utf-8") as f:
+                lines = [line for line in f.read().splitlines() if line.strip()]
+
+        matching_lines = [line for line in lines if json.loads(line)["tournament_id"] == 2]
+        self.assertEqual(len(matching_lines), 1)
+
+    @patch("scripts.fetch.download.read_set", return_value=set())
+    @patch("scripts.fetch.download.read_users_jsonl", return_value={})
+    @patch("scripts.fetch.download.fetch_latest_tournaments_by_game")
+    @patch("scripts.fetch.download.fetch_event_ids_from_tournament")
+    @patch("scripts.fetch.download.download_all_set", return_value=False)
+    @patch("scripts.fetch.download.download_standings")
+    @patch("scripts.fetch.download.download_seeds")
+    @patch("scripts.fetch.download.extend_user_info")
     def test_download_all_tournaments_same_run_reevaluates_for_third_larger_arrival(
         self,
         _mock_extend_user_info,
@@ -3013,6 +3074,58 @@ class DownloadTests(unittest.TestCase):
             updated = read_tournaments_jsonl(tournament_file_path)
             self.assertEqual(updated[2]["events"][0]["path"], naive_dir)
             self.assertEqual(updated[1]["events"][0]["path"], adjusted_dir_for_loser)
+
+    @patch("scripts.fetch.download.read_set", return_value=set())
+    @patch("scripts.fetch.download.read_users_jsonl", return_value={})
+    @patch("scripts.fetch.download.fetch_tournament_by_id")
+    @patch("scripts.fetch.download.fetch_event_ids_from_tournament")
+    @patch("scripts.fetch.download.download_all_set", return_value=False)
+    @patch("scripts.fetch.download.download_standings")
+    @patch("scripts.fetch.download.download_seeds")
+    @patch("scripts.fetch.download.extend_user_info")
+    def test_download_by_ids_does_not_duplicate_line_for_new_tournament_that_collides(
+        self,
+        _mock_extend_user_info,
+        _mock_download_seeds,
+        mock_download_standings,
+        _mock_download_all_set,
+        mock_fetch_event_ids,
+        mock_fetch_tournament_by_id,
+        _mock_read_users,
+        _mock_read_set,
+    ):
+        """回帰テスト(code-review指摘): download_by_ids() でも、新規
+        トーナメントがパス衝突を起こすと同様に行が重複していた。"""
+        start = calendar.timegm((2026, 3, 20, 9, 0, 0, 0, 0, 0))
+        end = calendar.timegm((2026, 3, 20, 12, 0, 0, 0, 0, 0))
+
+        def _tournament_by_id(tournament_id):
+            return self._tournament_info(tournament_id, "Collide By Ids", start, end)
+
+        mock_fetch_tournament_by_id.side_effect = _tournament_by_id
+        mock_fetch_event_ids.side_effect = [
+            [(10, "Singles", False, "COMPLETED", 1)],
+            [(20, "Singles", False, "COMPLETED", 1)],
+        ]
+
+        def _standings(event_id, event_dir):
+            os.makedirs(event_dir, exist_ok=True)
+            count = 2 if event_id == 10 else 40
+            return ([None] * count, [None] * count, {})
+
+        mock_download_standings.side_effect = _standings
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            tournament_file_path = f"{tmpdir}/tournaments.jsonl"
+            download_by_ids(
+                [1, 2], "1386", "JP", f"{tmpdir}", f"{tmpdir}/done.csv", f"{tmpdir}/users.jsonl", tournament_file_path,
+            )
+
+            with open(tournament_file_path, encoding="utf-8") as f:
+                lines = [line for line in f.read().splitlines() if line.strip()]
+
+        matching_lines = [line for line in lines if json.loads(line)["tournament_id"] == 2]
+        self.assertEqual(len(matching_lines), 1)
 
     # -- resolve_player_user_id: participant.user が null だった参加者だけ、
     #    player(id:) を個別に引き直して同じアカウントへのリンクを解決する -----------

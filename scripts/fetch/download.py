@@ -593,11 +593,13 @@ def download_all_tournaments(
                             rewrite_tournaments = True
                 # ファイルを保存
                 if len(tournaments[tournament_id]["events"]) > 0:
-                    if tournament_id in existing_tournament_ids:
-                        # 既存トーナメントの再訪問(未完了で再度処理された場合を含む)は、
-                        # pathの変更が無くても増分追記(extend_tournament_info)を使わず、
-                        # 必ず最終的な全体書き換え(write_jsonl)に任せる。そうしないと、
-                        # 同じtournament_idの行がrunのたびに重複して追記され続けてしまう。
+                    if rewrite_tournaments or tournament_id in existing_tournament_ids:
+                        # 既存トーナメントの再訪問(未完了で再度処理された場合を含む)、
+                        # または今回のrun中に既にこのtournament_idを含む全体書き換えを
+                        # 行っている(rewrite_tournaments、衝突解決時の即時write_jsonl等)
+                        # 場合は、増分追記(extend_tournament_info)を使わず、必ず最終的な
+                        # 全体書き換え(write_jsonl)に任せる。そうしないと、同じ
+                        # tournament_idの行が重複して書き出されてしまう。
                         rewrite_tournaments = True
                     else:
                         extend_tournament_info(tournaments[tournament_id], tournament_file_path)
@@ -1689,6 +1691,7 @@ def download_by_ids(
                     existing_tournament_id, existing_event, tournaments, settled_tournament_ids,
                 )
                 path_index = build_path_index(tournaments)
+                rewrite_tournaments = True
                 # 既存側(別tournament_id)のpathが変わった可能性があるため、この取得処理の
                 # 終了を待たずに直ちに永続化する(中断時の不整合の窓を最小化する。
                 # 憲法Principle II)。
@@ -1731,11 +1734,13 @@ def download_by_ids(
                 cleanup_relocated_directory(stale_old_path)
 
         if tournaments[tournament_id]["events"]:
-            if tournament_id in existing_tournament_ids:
-                # 既存トーナメントの再訪問は増分追記(extend_tournament_info)を使わず、
-                # 必ず最終的な全体書き換え(write_jsonl)に任せる。そうしないと、同じ
-                # tournament_idに対して --tournament_ids を複数回実行するたびに
-                # tournaments.jsonl へ重複行が追記され続けてしまう。
+            if rewrite_tournaments or tournament_id in existing_tournament_ids:
+                # 既存トーナメントの再訪問、または今回のrun中に既にこのtournament_idを
+                # 含む全体書き換えを行っている(衝突解決時の即時write_jsonl等)場合は、
+                # 増分追記(extend_tournament_info)を使わず、必ず最終的な全体書き換え
+                # (write_jsonl)に任せる。そうしないと、同じtournament_idに対して
+                # --tournament_ids を複数回実行するたびに、あるいは新規トーナメントが
+                # 衝突を起こした場合に、tournaments.jsonl へ重複行が書き出されてしまう。
                 rewrite_tournaments = True
             else:
                 extend_tournament_info(tournaments[tournament_id], tournament_file_path)
