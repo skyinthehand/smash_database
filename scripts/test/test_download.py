@@ -2072,6 +2072,58 @@ class DownloadTests(unittest.TestCase):
 
         self.assertEqual(incomplete_count, 1)
 
+    @patch("scripts.fetch.download.read_users_jsonl", return_value={})
+    @patch("scripts.fetch.download.fetch_latest_tournaments_by_game")
+    @patch("scripts.fetch.download.fetch_event_ids_from_tournament")
+    @patch("scripts.fetch.download.download_all_set")
+    @patch("scripts.fetch.download.download_standings")
+    @patch("scripts.fetch.download.download_seeds")
+    @patch("scripts.fetch.download.extend_user_info")
+    def test_download_all_tournaments_does_not_mark_tournament_done_with_partial_incomplete_event(
+        self,
+        _mock_extend_user_info,
+        mock_download_seeds,
+        mock_download_standings,
+        mock_download_all_set,
+        mock_fetch_event_ids,
+        mock_fetch_tournaments,
+        _mock_read_users,
+    ):
+        """回帰テスト: 1つのトーナメントに2イベントあり、片方(10)は完了、
+        もう片方(20)が still_incomplete のまま残った場合、そのトーナメントは
+        done_tournaments に登録されてはならない。登録されてしまうと、次回
+        should_skip_tournament() がトーナメントごとスキップし、event 20 が
+        二度と fetch_event_ids_from_tournament() 経由で発見されなくなる
+        (=incomplete_count にも二度とカウントされず、カーソルが誤って
+        前進してしまう)。"""
+        mock_fetch_tournaments.return_value = self._incomplete_test_tournament(
+            name="Partial Tournament"
+        )
+        mock_fetch_event_ids.return_value = [
+            (10, "Singles", False, "COMPLETED", 1),
+            (20, "Doubles", False, "COMPLETED", 1),
+        ]
+        mock_download_standings.return_value = ([], [], {})
+        mock_download_seeds.return_value = None
+        # event 10 は完了(False)、event 20 は still_incomplete(True)
+        mock_download_all_set.side_effect = [False, True]
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            event_dir = get_event_directory(
+                f"{tmpdir}", "JP", "2024", "05", "04", "Partial Tournament", "Singles",
+            )
+            os.makedirs(event_dir, exist_ok=True)
+            done_file_path = f"{tmpdir}/done.csv"
+            incomplete_count = download_all_tournaments(
+                "1386", "JP", None, datetime(2024, 5, 4, 0, 0, 0),
+                f"{tmpdir}", done_file_path, f"{tmpdir}/users.jsonl",
+                f"{tmpdir}/tournaments.jsonl",
+            )
+            done_tournaments = read_set(done_file_path, as_int=True)
+
+        self.assertEqual(incomplete_count, 1)
+        self.assertNotIn(1, done_tournaments)
+
     @patch("scripts.fetch.download.read_set", return_value=set())
     @patch("scripts.fetch.download.read_users_jsonl", return_value={})
     @patch("scripts.fetch.download.fetch_latest_tournaments_by_game")

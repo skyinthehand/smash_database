@@ -473,6 +473,14 @@ def download_all_tournaments(
                     f"Tournament {tournament_id}: fetched {len(events_info)} events for {tournament_name}."
                 )
 
+                # tournament_events_complete() は「登録済みのevents」しか見ないため、
+                # 1件でもイベントが未完了のままこのトーナメントを done_tournaments に
+                # 登録してしまうと、その未完了イベントは should_skip_tournament() に
+                # よって二度と発見されなくなる(fetch_event_ids_from_tournament すら
+                # 呼ばれなくなるため)。このトーナメント内で1件でも未完了イベントが
+                # あった場合は done 登録を見送り、次回また全イベントを再走査させる。
+                tournament_had_incomplete_event = False
+
                 for event_id, event_name, is_online, state, event_type in events_info:
                     print(
                         f"Tournament {tournament_id}: processing event {event_id} ({event_name}) matches_only={matches_only}."
@@ -524,6 +532,7 @@ def download_all_tournaments(
                         except MaxPagesExceededError as e:
                             print(f"Tournament {tournament_id}: event {event_id} standings exceeded max_pages ({e}); skipping this run.")
                             incomplete_count += 1
+                            tournament_had_incomplete_event = True
                             continue
                         num_entrants = len(user_data)
 
@@ -549,10 +558,12 @@ def download_all_tournaments(
                         except NoPhaseError:
                             print(f"No phase found for event {event_name}. Skipping.")
                             incomplete_count += 1
+                            tournament_had_incomplete_event = True
                             continue
                         except MaxPagesExceededError as e:
                             print(f"Tournament {tournament_id}: event {event_id} seeds exceeded max_pages ({e}); skipping this run.")
                             incomplete_count += 1
+                            tournament_had_incomplete_event = True
                             continue
                         extend_user_info(user_data, player_data, users, users_file_path)
                         still_incomplete = download_all_set(event_id, entrant2user, event_dir, max_pages=max_pages)
@@ -562,6 +573,7 @@ def download_all_tournaments(
                                 "sets; will resume on a later run."
                             )
                             incomplete_count += 1
+                            tournament_had_incomplete_event = True
                             continue
                         labels = {}
                         guest_entrant_count = count_guest_entrants(user_data)
@@ -585,7 +597,11 @@ def download_all_tournaments(
                         pass
                     else:
                         extend_tournament_info(tournaments[tournament_id], tournament_file_path)
-                    if tournament_id not in done_tournaments:
+                    # 未完了イベントが1件でもあれば done_tournaments には登録しない。
+                    # tournament_events_complete() は「登録済みのevents」しか見ないため、
+                    # ここで登録してしまうと未登録のまま残った未完了イベントが
+                    # should_skip_tournament() により二度と発見されなくなる。
+                    if not tournament_had_incomplete_event and tournament_id not in done_tournaments:
                         done_tournaments.add(tournament_id)
                         write_done_tournaments(tournament_id, done_file_path)
 
