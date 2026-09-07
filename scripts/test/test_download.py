@@ -57,6 +57,7 @@ from scripts.utils import (
     FetchError,
     MaxPagesExceededError,
     NoEventsForGameError,
+    NoPhaseError,
     read_json,
     read_set,
     read_tournaments_jsonl,
@@ -1920,6 +1921,156 @@ class DownloadTests(unittest.TestCase):
 
         self.assertEqual(skipped, 1)
         self.assertNotIn(1, done_tournaments)
+
+    def _incomplete_test_tournament(self, name="Incomplete Test Tournament"):
+        return (
+            [
+                {
+                    "id": 1,
+                    "name": name,
+                    "startAt": 1714780800,
+                    "endAt": 1714784400,
+                    "countryCode": "JP",
+                    "city": "Tokyo",
+                    "lat": None,
+                    "lng": None,
+                    "venueName": None,
+                    "timezone": "Asia/Tokyo",
+                    "postalCode": None,
+                    "venueAddress": None,
+                    "mapsPlaceId": None,
+                    "url": "https://example.com",
+                }
+            ],
+            1,
+        )
+
+    @patch("scripts.fetch.download.read_set", return_value=set())
+    @patch("scripts.fetch.download.read_users_jsonl", return_value={})
+    @patch("scripts.fetch.download.fetch_latest_tournaments_by_game")
+    @patch("scripts.fetch.download.fetch_event_ids_from_tournament")
+    @patch("scripts.fetch.download.download_all_set")
+    @patch("scripts.fetch.download.download_standings")
+    @patch("scripts.fetch.download.download_seeds")
+    @patch("scripts.fetch.download.extend_user_info")
+    def test_download_all_tournaments_counts_still_incomplete_event(
+        self,
+        _mock_extend_user_info,
+        mock_download_seeds,
+        mock_download_standings,
+        mock_download_all_set,
+        mock_fetch_event_ids,
+        mock_fetch_tournaments,
+        _mock_read_users,
+        _mock_read_set,
+    ):
+        """T5 (cursor fix、event単位): 逐次取得が未完了のまま(still_incomplete)
+        だったイベントも incomplete_count に数える。以前はここが数えられて
+        いなかったため、このケースだけでカーソルが誤って前進してしまっていた。"""
+        mock_fetch_tournaments.return_value = self._incomplete_test_tournament()
+        mock_fetch_event_ids.return_value = [(10, "Singles", False, "COMPLETED", 1)]
+        mock_download_standings.return_value = ([], [], {})
+        mock_download_all_set.return_value = True  # still has outstanding sets
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            incomplete_count = download_all_tournaments(
+                "1386", "JP", None, datetime(2024, 5, 4, 0, 0, 0),
+                f"{tmpdir}", f"{tmpdir}/done.csv", f"{tmpdir}/users.jsonl",
+                f"{tmpdir}/tournaments.jsonl",
+            )
+
+        mock_download_seeds.assert_called_once()
+        self.assertEqual(incomplete_count, 1)
+
+    @patch("scripts.fetch.download.read_set", return_value=set())
+    @patch("scripts.fetch.download.read_users_jsonl", return_value={})
+    @patch("scripts.fetch.download.fetch_latest_tournaments_by_game")
+    @patch("scripts.fetch.download.fetch_event_ids_from_tournament")
+    @patch("scripts.fetch.download.download_standings")
+    @patch("scripts.fetch.download.download_seeds")
+    def test_download_all_tournaments_counts_no_phase_error(
+        self,
+        mock_download_seeds,
+        mock_download_standings,
+        mock_fetch_event_ids,
+        mock_fetch_tournaments,
+        _mock_read_users,
+        _mock_read_set,
+    ):
+        """T5 (cursor fix、event単位): download_seeds() が NoPhaseError で
+        失敗したイベントも incomplete_count に数える。"""
+        mock_fetch_tournaments.return_value = self._incomplete_test_tournament()
+        mock_fetch_event_ids.return_value = [(10, "Singles", False, "COMPLETED", 1)]
+        mock_download_standings.return_value = ([], [], {})
+        mock_download_seeds.side_effect = NoPhaseError("no phase")
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            incomplete_count = download_all_tournaments(
+                "1386", "JP", None, datetime(2024, 5, 4, 0, 0, 0),
+                f"{tmpdir}", f"{tmpdir}/done.csv", f"{tmpdir}/users.jsonl",
+                f"{tmpdir}/tournaments.jsonl",
+            )
+
+        self.assertEqual(incomplete_count, 1)
+
+    @patch("scripts.fetch.download.read_set", return_value=set())
+    @patch("scripts.fetch.download.read_users_jsonl", return_value={})
+    @patch("scripts.fetch.download.fetch_latest_tournaments_by_game")
+    @patch("scripts.fetch.download.fetch_event_ids_from_tournament")
+    @patch("scripts.fetch.download.download_standings")
+    def test_download_all_tournaments_counts_standings_max_pages_exceeded(
+        self,
+        mock_download_standings,
+        mock_fetch_event_ids,
+        mock_fetch_tournaments,
+        _mock_read_users,
+        _mock_read_set,
+    ):
+        """T5 (cursor fix、event単位): download_standings() が
+        MaxPagesExceededError で失敗したイベントも incomplete_count に数える。"""
+        mock_fetch_tournaments.return_value = self._incomplete_test_tournament()
+        mock_fetch_event_ids.return_value = [(10, "Singles", False, "COMPLETED", 1)]
+        mock_download_standings.side_effect = MaxPagesExceededError(5, 3, 50)
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            incomplete_count = download_all_tournaments(
+                "1386", "JP", None, datetime(2024, 5, 4, 0, 0, 0),
+                f"{tmpdir}", f"{tmpdir}/done.csv", f"{tmpdir}/users.jsonl",
+                f"{tmpdir}/tournaments.jsonl",
+            )
+
+        self.assertEqual(incomplete_count, 1)
+
+    @patch("scripts.fetch.download.read_set", return_value=set())
+    @patch("scripts.fetch.download.read_users_jsonl", return_value={})
+    @patch("scripts.fetch.download.fetch_latest_tournaments_by_game")
+    @patch("scripts.fetch.download.fetch_event_ids_from_tournament")
+    @patch("scripts.fetch.download.download_standings")
+    @patch("scripts.fetch.download.download_seeds")
+    def test_download_all_tournaments_counts_seeds_max_pages_exceeded(
+        self,
+        mock_download_seeds,
+        mock_download_standings,
+        mock_fetch_event_ids,
+        mock_fetch_tournaments,
+        _mock_read_users,
+        _mock_read_set,
+    ):
+        """T5 (cursor fix、event単位): download_seeds() が
+        MaxPagesExceededError で失敗したイベントも incomplete_count に数える。"""
+        mock_fetch_tournaments.return_value = self._incomplete_test_tournament()
+        mock_fetch_event_ids.return_value = [(10, "Singles", False, "COMPLETED", 1)]
+        mock_download_standings.return_value = ([], [], {})
+        mock_download_seeds.side_effect = MaxPagesExceededError(5, 3, 50)
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            incomplete_count = download_all_tournaments(
+                "1386", "JP", None, datetime(2024, 5, 4, 0, 0, 0),
+                f"{tmpdir}", f"{tmpdir}/done.csv", f"{tmpdir}/users.jsonl",
+                f"{tmpdir}/tournaments.jsonl",
+            )
+
+        self.assertEqual(incomplete_count, 1)
 
     @patch("scripts.fetch.download.read_set", return_value=set())
     @patch("scripts.fetch.download.read_users_jsonl", return_value={})

@@ -158,7 +158,7 @@ def main():
     if args.start_date is not None and args.start_date < args.finish_date:
         raise ValueError("--start_date must be greater than or equal to --finish_date.")
 
-    skipped = download_all_tournaments(
+    incomplete_count = download_all_tournaments(
         args.game_id,
         args.country_code,
         args.start_date,
@@ -171,7 +171,7 @@ def main():
         matches_only=args.matches_only,
         max_pages=args.max_pages,
     )
-    print(f"Done. tournaments_skipped_due_to_error={skipped}")
+    print(f"Done. incomplete_count={incomplete_count}")
 
 def event_files_complete(event_dir):
     return all(os.path.exists(os.path.join(event_dir, name)) for name in REQUIRED_EVENT_FILES)
@@ -383,7 +383,12 @@ def download_all_tournaments(
     path_index = build_path_index(tournaments)
     settled_tournament_ids = set(tournaments.keys())
 
-    tournaments_skipped_due_to_error = 0
+    # トーナメント単位の取得失敗(FetchError)だけでなく、イベント単位で
+    # 「今回は完了しなかった」ケース(MaxPagesExceededError/NoPhaseError/
+    # 逐次取得が未完了のまま)もすべてここに数える。update_tournament.yml の
+    # カーソルは、この値が0の場合のみ前進させる(1件でもあれば「漏れなく
+    # 取得できた」とは言えないため)。
+    incomplete_count = 0
     page = 1
     reached_finish_date = False
     while True:
@@ -518,6 +523,7 @@ def download_all_tournaments(
                             user_data, player_data, entrant2user = download_standings(event_id, event_dir, max_pages=max_pages)
                         except MaxPagesExceededError as e:
                             print(f"Tournament {tournament_id}: event {event_id} standings exceeded max_pages ({e}); skipping this run.")
+                            incomplete_count += 1
                             continue
                         num_entrants = len(user_data)
 
@@ -542,9 +548,11 @@ def download_all_tournaments(
                             download_seeds(event_id, user_data, player_data, entrant2user, event_dir, max_pages=max_pages)
                         except NoPhaseError:
                             print(f"No phase found for event {event_name}. Skipping.")
+                            incomplete_count += 1
                             continue
                         except MaxPagesExceededError as e:
                             print(f"Tournament {tournament_id}: event {event_id} seeds exceeded max_pages ({e}); skipping this run.")
+                            incomplete_count += 1
                             continue
                         extend_user_info(user_data, player_data, users, users_file_path)
                         still_incomplete = download_all_set(event_id, entrant2user, event_dir, max_pages=max_pages)
@@ -553,6 +561,7 @@ def download_all_tournaments(
                                 f"Tournament {tournament_id}: event {event_id} ({event_name}) still has outstanding "
                                 "sets; will resume on a later run."
                             )
+                            incomplete_count += 1
                             continue
                         labels = {}
                         guest_entrant_count = count_guest_entrants(user_data)
@@ -582,7 +591,7 @@ def download_all_tournaments(
 
             except FetchError as e:
                 print(f"Tournament {tournament_id}: fetch failed, skipping. Error: {e}")
-                tournaments_skipped_due_to_error += 1
+                incomplete_count += 1
                 continue
 
         if reached_finish_date:
@@ -595,7 +604,7 @@ def download_all_tournaments(
     if rewrite_tournaments:
         write_jsonl(list(tournaments.values()), tournament_file_path, with_version=True)
 
-    return tournaments_skipped_due_to_error
+    return incomplete_count
 
 
 # --- 未取得setの追跡・プレースホルダー関連ヘルパー ---------------------------------
