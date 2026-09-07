@@ -1713,6 +1713,64 @@ class DownloadTests(unittest.TestCase):
         event_dir = updated[1]["events"][0]["path"]
         self.assertFalse(os.path.isfile(os.path.join(event_dir, "attr.json")))
 
+    @patch("scripts.fetch.download.read_users_jsonl", return_value={})
+    @patch("scripts.fetch.download.fetch_tournament_by_id")
+    @patch("scripts.fetch.download.fetch_event_ids_from_tournament")
+    @patch("scripts.fetch.download.download_all_set")
+    @patch("scripts.fetch.download.download_standings")
+    @patch("scripts.fetch.download.download_seeds")
+    @patch("scripts.fetch.download.extend_user_info")
+    def test_download_by_ids_does_not_mark_tournament_done_with_partial_incomplete_event(
+        self,
+        _mock_extend_user_info,
+        _mock_download_seeds,
+        mock_download_standings,
+        mock_download_all_set,
+        mock_fetch_event_ids,
+        mock_fetch_tournament_by_id,
+        _mock_read_users,
+    ):
+        """download_all_tournaments() と同じ回帰テスト: download_by_ids() 経由でも、
+        2イベント中1つ(20)が still_incomplete のまま残った場合、そのトーナメントは
+        done_tournaments に登録されてはならない(次回 --tournament_ids で
+        再実行したときに、未完了イベントが再度処理対象になる必要があるため)。"""
+        mock_fetch_tournament_by_id.return_value = {
+            "name": "Partial Tournament",
+            "startAt": 1714780800,
+            "endAt": 1714784400,
+            "countryCode": "JP",
+            "city": "Tokyo",
+            "lat": None,
+            "lng": None,
+            "venueName": None,
+            "timezone": "Asia/Tokyo",
+            "postalCode": None,
+            "venueAddress": None,
+            "mapsPlaceId": None,
+            "url": "https://example.com",
+        }
+        mock_fetch_event_ids.return_value = [
+            (10, "Singles", False, "COMPLETED", 1),
+            (20, "Doubles", False, "COMPLETED", 1),
+        ]
+        mock_download_standings.return_value = ([], [], {})
+        # event 10 は完了(False)、event 20 は still_incomplete(True)
+        mock_download_all_set.side_effect = [False, True]
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            event_dir = get_event_directory(
+                f"{tmpdir}", "JP", "2024", "05", "04", "Partial Tournament", "Singles",
+            )
+            os.makedirs(event_dir, exist_ok=True)
+            done_file_path = f"{tmpdir}/done.csv"
+            download_by_ids(
+                [1], "1386", "JP", f"{tmpdir}", done_file_path,
+                f"{tmpdir}/users.jsonl", f"{tmpdir}/tournaments.jsonl",
+            )
+            done_tournaments = read_set(done_file_path, as_int=True)
+
+        self.assertNotIn(1, done_tournaments)
+
     @patch("scripts.fetch.download.read_set", return_value=set())
     @patch("scripts.fetch.download.read_users_jsonl", return_value={})
     @patch("scripts.fetch.download.read_tournaments_jsonl", return_value={})

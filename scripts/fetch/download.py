@@ -1596,6 +1596,12 @@ def download_by_ids(
 
         print(f"Tournament {tournament_id}: fetched {len(events_info)} event(s).")
 
+        # download_all_tournaments() と同様、1件でも未完了イベントがあれば
+        # done_tournaments には登録しない(tournament_events_complete() は
+        # 登録済みeventsのファイル存在で判定するため実害は限定的だが、
+        # done.csv 自体の正確性のため揃えておく)。
+        tournament_had_incomplete_event = False
+
         for event_id, event_name, is_online, state, event_type in events_info:
             print(f"Tournament {tournament_id}: processing event {event_id} ({event_name}).")
             year, month, day = get_date_parts(timestamp)
@@ -1630,6 +1636,7 @@ def download_by_ids(
                 user_data, player_data, entrant2user = download_standings(event_id, event_dir)
             except FetchError as e:
                 print(f"Tournament {tournament_id}: event {event_id} standings failed, skipping. Error: {e}")
+                tournament_had_incomplete_event = True
                 continue
 
             num_entrants = len(user_data)
@@ -1654,9 +1661,11 @@ def download_by_ids(
                 download_seeds(event_id, user_data, player_data, entrant2user, event_dir)
             except NoPhaseError:
                 print(f"No phase found for event {event_name}. Skipping.")
+                tournament_had_incomplete_event = True
                 continue
             except FetchError as e:
                 print(f"Tournament {tournament_id}: event {event_id} seeds failed, skipping. Error: {e}")
+                tournament_had_incomplete_event = True
                 continue
 
             extend_user_info(user_data, player_data, users, users_file_path)
@@ -1665,8 +1674,10 @@ def download_by_ids(
                 still_incomplete = download_all_set(event_id, entrant2user, event_dir)
             except FetchError as e:
                 print(f"Tournament {tournament_id}: event {event_id} sets failed, skipping. Error: {e}")
+                tournament_had_incomplete_event = True
                 continue
             if still_incomplete:
+                tournament_had_incomplete_event = True
                 print(
                     f"Tournament {tournament_id}: event {event_id} ({event_name}) still has outstanding "
                     "sets; will resume on a later run."
@@ -1684,7 +1695,7 @@ def download_by_ids(
 
         if tournaments[tournament_id]["events"]:
             extend_tournament_info(tournaments[tournament_id], tournament_file_path)
-            if tournament_id not in done_tournaments:
+            if not tournament_had_incomplete_event and tournament_id not in done_tournaments:
                 done_tournaments.add(tournament_id)
                 write_done_tournaments(tournament_id, done_file_path)
 
