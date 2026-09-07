@@ -1398,7 +1398,52 @@
       "dq": false,
       "cancel": false,
       "state": 3,
-      "details": []
+      "details": [
+        {
+          "game_id": 40669861,
+          "order_num": 1,
+          "winner_id": 2632670,
+          "entrant1_score": 0,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2632670,
+              "selection_id": 60893919,
+              "character_id": 1846,
+              "character_name": "Kazuya"
+            },
+            {
+              "user_id": 2544776,
+              "selection_id": 60893920,
+              "character_id": 1285,
+              "character_name": "Falco"
+            }
+          ]
+        },
+        {
+          "game_id": 40669862,
+          "order_num": 2,
+          "winner_id": 2632670,
+          "entrant1_score": null,
+          "entrant2_score": null,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2632670,
+              "selection_id": 60893921,
+              "character_id": 1846,
+              "character_name": "Kazuya"
+            },
+            {
+              "user_id": 2544776,
+              "selection_id": 60893922,
+              "character_id": 1285,
+              "character_name": "Falco"
+            }
+          ]
+        }
+      ]
     },
     {
       "set_id": 94963625,
@@ -1478,7 +1523,52 @@
       "dq": false,
       "cancel": false,
       "state": 3,
-      "details": []
+      "details": [
+        {
+          "game_id": 40669849,
+          "order_num": 1,
+          "winner_id": 2378414,
+          "entrant1_score": null,
+          "entrant2_score": null,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2632670,
+              "selection_id": 60893899,
+              "character_id": 1846,
+              "character_name": "Kazuya"
+            },
+            {
+              "user_id": 2378414,
+              "selection_id": 60893900,
+              "character_id": 1405,
+              "character_name": "Mr. Game & Watch"
+            }
+          ]
+        },
+        {
+          "game_id": 40669850,
+          "order_num": 2,
+          "winner_id": 2378414,
+          "entrant1_score": null,
+          "entrant2_score": null,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2632670,
+              "selection_id": 60893901,
+              "character_id": 1846,
+              "character_name": "Kazuya"
+            },
+            {
+              "user_id": 2378414,
+              "selection_id": 60893902,
+              "character_id": 1405,
+              "character_name": "Mr. Game & Watch"
+            }
+          ]
+        }
+      ]
     },
     {
       "set_id": 94962815,
@@ -1734,7 +1824,52 @@
       "dq": false,
       "cancel": false,
       "state": 3,
-      "details": []
+      "details": [
+        {
+          "game_id": 40669878,
+          "order_num": 1,
+          "winner_id": 2632670,
+          "entrant1_score": null,
+          "entrant2_score": null,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2632670,
+              "selection_id": 60893953,
+              "character_id": 1315,
+              "character_name": "Pac-Man"
+            },
+            {
+              "user_id": 3031913,
+              "selection_id": 60893954,
+              "character_id": 1747,
+              "character_name": "Min Min"
+            }
+          ]
+        },
+        {
+          "game_id": 40669879,
+          "order_num": 2,
+          "winner_id": 2632670,
+          "entrant1_score": null,
+          "entrant2_score": null,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2632670,
+              "selection_id": 60893955,
+              "character_id": 1315,
+              "character_name": "Pac-Man"
+            },
+            {
+              "user_id": 3031913,
+              "selection_id": 60893956,
+              "character_id": 1747,
+              "character_name": "Min Min"
+            }
+          ]
+        }
+      ]
     },
     {
       "set_id": 94962812,
@@ -2540,8 +2675,8 @@
       "set_id": 94963610,
       "winner_id": 3159865,
       "loser_id": 2632670,
-      "winner_score": 2,
-      "loser_score": 1,
+      "winner_score": 1,
+      "loser_score": 0,
       "round_text": "Round 1",
       "round": 1,
       "phase": "1",
@@ -2550,7 +2685,74 @@
       "dq": false,
       "cancel": false,
       "state": 3,
-      "details": []
+      "details": [
+        {
+          "game_id": 40669840,
+          "order_num": 1,
+          "winner_id": 3159865,
+          "entrant1_score": 0,
+          "entrant2_score": null,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2632670,
+              "selection_id": 60893883,
+              "character_id": 1846,
+              "character_name": "Kazuya"
+            },
+            {
+              "user_id": 3159865,
+              "selection_id": 60893884,
+              "character_id": 1287,
+              "character_name": "Ganondorf"
+            }
+          ]
+        },
+        {
+          "game_id": 40669841,
+          "order_num": 2,
+          "winner_id": null,
+          "entrant1_score": null,
+          "entrant2_score": null,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2632670,
+              "selection_id": 60893885,
+              "character_id": 1846,
+              "character_name": "Kazuya"
+            },
+            {
+              "user_id": 3159865,
+              "selection_id": 60893886,
+              "character_id": 1287,
+              "character_name": "Ganondorf"
+            }
+          ]
+        },
+        {
+          "game_id": 40669842,
+          "order_num": 3,
+          "winner_id": null,
+          "entrant1_score": null,
+          "entrant2_score": null,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 2632670,
+              "selection_id": 60893887,
+              "character_id": 1846,
+              "character_name": "Kazuya"
+            },
+            {
+              "user_id": 3159865,
+              "selection_id": 60893888,
+              "character_id": 1287,
+              "character_name": "Ganondorf"
+            }
+          ]
+        }
+      ]
     },
     {
       "set_id": 94962914,
