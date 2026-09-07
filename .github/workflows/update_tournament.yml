@@ -45,7 +45,10 @@ jobs:
           STARTGG_TOKEN: ${{ secrets.STARTGG_TOKEN }}
         run: |
           set -euxo pipefail
-          CURSOR_FILE="data/startgg/tournament_fetch_cursor.txt"
+          # JP専用カーソル(--country_code "JP"固定の走査にのみ対応する。
+          # JSTの「昨日まで」判定を安全マージンに使っているため、他地域の
+          # 大会取得にこのファイルを流用してはならない)。
+          CURSOR_FILE="data/startgg/tournament_fetch_cursor_jp.txt"
           TODAY_JST="$(TZ=Asia/Tokyo date +%F)"
           YESTERDAY_JST="$(TZ=Asia/Tokyo date -d '1 day ago' +%F)"
 
@@ -107,7 +110,7 @@ jobs:
         run: |
           set -euxo pipefail
           # git diff --quiet だけでは新規追加された未追跡ファイル(初回作成時の
-          # tournament_fetch_cursor.txt 等)を検知できないため、git status --porcelain
+          # tournament_fetch_cursor_jp.txt 等)を検知できないため、git status --porcelain
           # で追跡外ファイルの追加も含めて判定する。
           if [ -z "$(git status --porcelain)" ]; then
             echo "has_changes=false" >> "$GITHUB_OUTPUT"
