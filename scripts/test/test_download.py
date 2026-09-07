@@ -38,6 +38,7 @@ from scripts.fetch.download import (
     is_placeholder_record,
     load_excluded_event_ids,
     load_excluded_phase_ids,
+    load_excluded_set_ids,
     merge_matches_records,
     outstanding_set_ids,
     path_occupied_by_different_event,
@@ -121,6 +122,25 @@ def _make_unplayed_set_node(set_id, entrant0=11, entrant1=22):
         "fullRoundText": "Winners Round 1",
         "round": 1,
         "state": 1,
+    }
+
+
+def _make_winner_only_set_node(set_id, winner_entrant=11, loser_entrant=22, winner_id=None):
+    """テスト用に、両entrantは存在するがstandingが未入力(null)で、
+    セット頂点のwinnerIdだけは確定しているsetノードを組み立てる
+    (start.gg側でTOが勝者だけ入力しscoreを未入力のケースを再現する)。"""
+    return {
+        "id": set_id,
+        "winnerId": winner_id if winner_id is not None else winner_entrant,
+        "slots": [
+            {"entrant": {"id": winner_entrant}, "standing": None},
+            {"entrant": {"id": loser_entrant}, "standing": None},
+        ],
+        "games": None,
+        "phaseGroup": None,
+        "fullRoundText": "Winners Round 1",
+        "round": 1,
+        "state": 3,
     }
 
 
@@ -382,6 +402,69 @@ class DownloadTests(unittest.TestCase):
                 json.dump({}, f)
 
             self.assertNotIn(1359150, load_excluded_event_ids(path))
+
+    def test_load_excluded_set_ids_reads_json_file(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            path = os.path.join(tmpdir, "excluded_events.json")
+            with open(path, "w", encoding="utf-8") as f:
+                json.dump({"1677094": [{"set_id": 107038806, "reason": "test"}]}, f)
+
+            result = load_excluded_set_ids(path)
+
+            self.assertEqual(result, {1677094: {107038806}})
+
+    def test_load_excluded_set_ids_missing_file_returns_empty(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            path = os.path.join(tmpdir, "does_not_exist.json")
+
+            self.assertEqual(load_excluded_set_ids(path), {})
+
+    def test_load_excluded_set_ids_ignores_phase_and_event_level_entries(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            path = os.path.join(tmpdir, "excluded_events.json")
+            with open(path, "w", encoding="utf-8") as f:
+                json.dump(
+                    {
+                        "436192": [{"phase_id": 731718, "reason": "test"}],
+                        "1359150": {"reason": "テスト運用のみの重複イベント"},
+                        "1677094": [{"set_id": 107038806, "reason": "test"}],
+                    },
+                    f,
+                )
+
+            result = load_excluded_set_ids(path)
+
+            self.assertEqual(result, {1677094: {107038806}})
+
+    def test_build_match_data_from_node_resolves_via_winner_id_when_standing_missing(self):
+        """standingが両方null(TOがscoreを未入力)でも、winnerIdがどちらかの
+        entrant idと一致すれば、スコア不明のまま勝敗を解決する。"""
+        node = _make_winner_only_set_node(1, winner_entrant=11, loser_entrant=22)
+
+        match_data = build_match_data_from_node(node, {11: 1, 22: 2})
+
+        self.assertIsNotNone(match_data)
+        self.assertEqual(match_data["winner_id"], 1)
+        self.assertEqual(match_data["loser_id"], 2)
+        self.assertIsNone(match_data["winner_score"])
+        self.assertIsNone(match_data["loser_score"])
+        self.assertFalse(match_data["dq"])
+        self.assertFalse(match_data["cancel"])
+
+    def test_build_match_data_from_node_returns_none_when_winner_id_missing_and_standing_missing(self):
+        """standingが両方nullで、winnerIdも無い(=判断材料が無い)場合は、
+        従来通りNoneを返しプレースホルダーのまま次回再試行する(fail-closed)。"""
+        node = _make_winner_only_set_node(1, winner_entrant=11, loser_entrant=22, winner_id=None)
+        node["winnerId"] = None
+
+        self.assertIsNone(build_match_data_from_node(node, {11: 1, 22: 2}))
+
+    def test_build_match_data_from_node_returns_none_when_winner_id_does_not_match_either_entrant(self):
+        """winnerIdがどちらのentrant idとも一致しない(データ不整合)場合も、
+        従来通りNoneを返す(fail-closed)。"""
+        node = _make_winner_only_set_node(1, winner_entrant=11, loser_entrant=22, winner_id=999)
+
+        self.assertIsNone(build_match_data_from_node(node, {11: 1, 22: 2}))
 
     def test_build_match_dedupe_key_ignores_details(self):
         base = {
@@ -934,6 +1017,30 @@ class DownloadTests(unittest.TestCase):
         self.assertEqual(set(by_set_id.keys()), {1, 3})  # set_id=2(BYE)は除去済み
         self.assertFalse(is_placeholder_record(by_set_id[1]))
         self.assertTrue(is_placeholder_record(by_set_id[3]))
+
+    @patch("scripts.fetch.download.load_excluded_set_ids")
+    def test_continue_incremental_fetch_removes_manually_excluded_set_placeholder(
+        self, mock_load_excluded_set_ids,
+    ):
+        """excluded_events.jsonでset単位除外に登録されたset_idは、matches.json
+        から削除され、以後fetch_set_details_by_idsで再取得も試みられなくなる
+        (winnerIdフォールバックでも解決できない、恒久的に解決不可能なセットの
+        逃げ道の回帰テスト)。"""
+        mock_load_excluded_set_ids.return_value = {10: {2}}
+        with tempfile.TemporaryDirectory() as tmpdir:
+            write_matches_data([{"set_id": 1}, {"set_id": 2}], tmpdir)
+
+            with patch("scripts.fetch.download.fetch_set_details_by_ids") as mock_fetch_details:
+                mock_fetch_details.return_value = [[_make_set_node(1)]]
+                still_incomplete = _continue_incremental_fetch(10, {11: 1, 22: 2}, tmpdir)
+
+            mock_fetch_details.assert_called_once_with([1])
+
+            with open(os.path.join(tmpdir, "matches.json"), encoding="utf-8") as f:
+                payload = json.load(f)
+
+        self.assertFalse(still_incomplete)
+        self.assertEqual({record["set_id"] for record in payload["data"]}, {1})
 
     @patch("scripts.fetch.download.fetch_with_page_fallback")
     @patch("scripts.fetch.download.load_excluded_phase_ids", return_value={})

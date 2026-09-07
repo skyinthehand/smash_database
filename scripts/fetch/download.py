@@ -799,6 +799,16 @@ def _continue_incremental_fetch(event_id, entrant2user, event_dir):
     戻り値: 処理後も matches.json にプレースホルダーが1件以上残っていれば True
     (まだ未完了)、全て完了済みレコードに置き換わっていれば False。"""
     existing_data = read_matches_data(event_dir)
+    excluded_set_ids = load_excluded_set_ids().get(event_id, set())
+    if excluded_set_ids:
+        before = len(existing_data)
+        existing_data = [
+            record for record in existing_data
+            if not (is_placeholder_record(record) and record.get("set_id") in excluded_set_ids)
+        ]
+        if len(existing_data) != before:
+            print(f"Event {event_id}: removed {before - len(existing_data)} manually-excluded set placeholder(s).")
+            write_matches_data(existing_data, event_dir)
     known_set_ids = [record["set_id"] for record in existing_data if "set_id" in record]
     pending = outstanding_set_ids(existing_data, known_set_ids)
     for batch_nodes in fetch_set_details_by_ids(pending):
@@ -903,6 +913,25 @@ def load_excluded_phase_ids(path=EXCLUDED_EVENTS_PATH):
         phase_ids = {entry["phase_id"] for entry in entries if "phase_id" in entry}
         if phase_ids:
             result[int(event_id_str)] = phase_ids
+    return result
+
+
+def load_excluded_set_ids(path=EXCLUDED_EVENTS_PATH):
+    """data/startgg/excluded_events.json を読み込み、event_id -> {set_id, ...} を返す。
+    値が配列形状のエントリのうち、set_idを持つもの(個別set単位の除外。start.gg側で
+    winnerIdすら確定せず恒久的に解決不可能なセットを手動で除外する用途)のみを対象にする。
+    ファイルが存在しない場合は空辞書を返す。"""
+    try:
+        raw = read_json(path)
+    except (FileNotFoundError, ValueError):
+        return {}
+    result = {}
+    for event_id_str, entries in (raw or {}).items():
+        if not isinstance(entries, list):
+            continue
+        set_ids = {entry["set_id"] for entry in entries if "set_id" in entry}
+        if set_ids:
+            result[int(event_id_str)] = set_ids
     return result
 
 
@@ -1194,20 +1223,41 @@ def build_match_data_from_node(node, entrant2user):
 
     slot0 = slots[0]
     slot1 = slots[1]
-    if slot0.get('entrant') is None or slot1.get('entrant') is None or slot0.get('standing') is None or slot1.get('standing') is None:
-        return None
+    if slot0.get('entrant') is None or slot1.get('entrant') is None:
+        return None  # BYE。is_bye_set_node()側で処理される。
 
-    # スコアがNoneの場合は0を設定
-    score0 = slot0['standing']['stats']['score']['value'] if slot0['standing']['stats']['score']['value'] is not None else 0
-    score1 = slot1['standing']['stats']['score']['value'] if slot1['standing']['stats']['score']['value'] is not None else 0
+    entrant0_id = slot0['entrant']['id']
+    entrant1_id = slot1['entrant']['id']
+    standing0 = slot0.get('standing')
+    standing1 = slot1.get('standing')
 
-    winner_slot = slot0 if score0 > score1 else slot1
-    loser_slot = slot1 if winner_slot == slot0 else slot0
-    winner_score = score0 if winner_slot == slot0 else score1
-    loser_score = score1 if winner_slot == slot0 else score0
+    if standing0 is not None and standing1 is not None:
+        # スコアがNoneの場合は0を設定
+        score0 = standing0['stats']['score']['value'] if standing0['stats']['score']['value'] is not None else 0
+        score1 = standing1['stats']['score']['value'] if standing1['stats']['score']['value'] is not None else 0
 
-    dq = (score0 < 0 or score1 < 0)
-    cancel = score0 == 0 and score1 == 0
+        winner_entrant_id = entrant0_id if score0 > score1 else entrant1_id
+        winner_score = score0 if winner_entrant_id == entrant0_id else score1
+        loser_score = score1 if winner_entrant_id == entrant0_id else score0
+
+        dq = (score0 < 0 or score1 < 0)
+        cancel = score0 == 0 and score1 == 0
+    else:
+        # standingが片方以上欠落(TOがscoreを未入力等)。winnerIdだけは
+        # 確定している場合、スコア不明のまま解決する。winnerIdがどちらの
+        # entrant idとも一致しなければ判断材料が無いためNoneを返し、
+        # プレースホルダーのまま次回再試行する(fail-closed)。
+        winner_id_raw = node.get('winnerId')
+        if winner_id_raw not in (entrant0_id, entrant1_id):
+            return None
+        winner_entrant_id = winner_id_raw
+        winner_score = None
+        loser_score = None
+        dq = False
+        cancel = False
+
+    winner_slot = slot0 if winner_entrant_id == entrant0_id else slot1
+    loser_slot = slot1 if winner_slot is slot0 else slot0
 
     games = node.get('games')
     details = [
