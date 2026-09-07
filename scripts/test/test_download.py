@@ -58,6 +58,7 @@ from scripts.utils import (
     MaxPagesExceededError,
     NoEventsForGameError,
     read_json,
+    read_set,
     read_tournaments_jsonl,
 )
 
@@ -1793,6 +1794,132 @@ class DownloadTests(unittest.TestCase):
         mock_extend_user_info.assert_not_called()
         mock_extend_tournament.assert_not_called()
         mock_write_done.assert_not_called()
+
+    @patch("scripts.fetch.download.read_set", return_value=set())
+    @patch("scripts.fetch.download.read_users_jsonl", return_value={})
+    @patch("scripts.fetch.download.fetch_latest_tournaments_by_game")
+    @patch("scripts.fetch.download.fetch_event_ids_from_tournament")
+    @patch("scripts.fetch.download.fetch_entrant_user_map")
+    @patch("scripts.fetch.download.download_all_set")
+    @patch("scripts.fetch.download.download_standings")
+    @patch("scripts.fetch.download.download_seeds")
+    @patch("scripts.fetch.download.extend_user_info")
+    @patch("scripts.fetch.download.extend_tournament_info")
+    @patch("scripts.fetch.download.write_done_tournaments")
+    def test_download_all_tournaments_returns_zero_when_no_errors(
+        self,
+        _mock_write_done,
+        _mock_extend_tournament,
+        _mock_extend_user_info,
+        mock_download_seeds,
+        mock_download_standings,
+        mock_download_all_set,
+        mock_fetch_entrant_user_map,
+        mock_fetch_event_ids,
+        mock_fetch_tournaments,
+        _mock_read_users,
+        _mock_read_set,
+    ):
+        """T5 (cursor fix): 全トーナメントが正常に処理できた場合、
+        download_all_tournaments() は 0 を返す(スキップ0件)。"""
+        mock_fetch_tournaments.return_value = (
+            [
+                {
+                    "id": 1,
+                    "name": "Test Tournament",
+                    "startAt": 1714780800,
+                    "endAt": 1714784400,
+                    "countryCode": "JP",
+                    "city": "Tokyo",
+                    "lat": None,
+                    "lng": None,
+                    "venueName": None,
+                    "timezone": "Asia/Tokyo",
+                    "postalCode": None,
+                    "venueAddress": None,
+                    "mapsPlaceId": None,
+                    "url": "https://example.com",
+                }
+            ],
+            1,
+        )
+        mock_fetch_event_ids.return_value = [(10, "Singles", False, "COMPLETED", 1)]
+        mock_fetch_entrant_user_map.return_value = {}
+        mock_download_standings.return_value = ([], [], {})
+        mock_download_all_set.return_value = False
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            event_dir = get_event_directory(
+                f"{tmpdir}", "JP", "2024", "05", "04", "Test Tournament", "Singles",
+            )
+            os.makedirs(event_dir, exist_ok=True)
+            skipped = download_all_tournaments(
+                "1386",
+                "JP",
+                None,
+                datetime(2024, 5, 4, 0, 0, 0),
+                f"{tmpdir}",
+                f"{tmpdir}/done.csv",
+                f"{tmpdir}/users.jsonl",
+                f"{tmpdir}/tournaments.jsonl",
+            )
+
+        self.assertEqual(skipped, 0)
+
+    @patch("scripts.fetch.download.read_set", return_value=set())
+    @patch("scripts.fetch.download.read_users_jsonl", return_value={})
+    @patch("scripts.fetch.download.fetch_latest_tournaments_by_game")
+    @patch("scripts.fetch.download.fetch_event_ids_from_tournament")
+    def test_download_all_tournaments_counts_tournaments_skipped_due_to_error(
+        self,
+        mock_fetch_event_ids,
+        mock_fetch_tournaments,
+        _mock_read_users,
+        _mock_read_set,
+    ):
+        """T5 (cursor fix): 個々のトーナメント取得が FetchError で失敗しても
+        run全体は継続し、戻り値でスキップ件数を報告する(update_tournament.yml
+        がこの件数を見てカーソルを進めるかどうかを判断する)。"""
+        mock_fetch_tournaments.return_value = (
+            [
+                {
+                    "id": 1,
+                    "name": "Broken Tournament",
+                    "startAt": 1714780800,
+                    "endAt": 1714784400,
+                    "countryCode": "JP",
+                    "city": "Tokyo",
+                    "lat": None,
+                    "lng": None,
+                    "venueName": None,
+                    "timezone": "Asia/Tokyo",
+                    "postalCode": None,
+                    "venueAddress": None,
+                    "mapsPlaceId": None,
+                    "url": "https://example.com",
+                }
+            ],
+            1,
+        )
+        mock_fetch_event_ids.side_effect = FetchError("boom")
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            tournament_file_path = f"{tmpdir}/tournaments.jsonl"
+            done_file_path = f"{tmpdir}/done.csv"
+            skipped = download_all_tournaments(
+                "1386",
+                "JP",
+                None,
+                datetime(2024, 5, 4, 0, 0, 0),
+                f"{tmpdir}",
+                done_file_path,
+                f"{tmpdir}/users.jsonl",
+                tournament_file_path,
+            )
+            done_tournaments = read_set(done_file_path, as_int=True)
+
+        self.assertEqual(skipped, 1)
+        self.assertNotIn(1, done_tournaments)
 
     @patch("scripts.fetch.download.read_set", return_value=set())
     @patch("scripts.fetch.download.read_users_jsonl", return_value={})

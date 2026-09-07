@@ -60,12 +60,32 @@ jobs:
           python scripts/fetch/download.py \
             --token "$STARTGG_TOKEN" \
             --country_code "JP" \
-            --finish_date "$FINISH_DATE"
+            --finish_date "$FINISH_DATE" \
+            2>&1 | tee /tmp/download_tournaments.log
 
-          # download.pyが正常終了した場合のみ到達する(set -euxo pipefailにより、
+          # download.pyが正常終了した場合のみここに到達する(set -euxo pipefailにより、
           # 失敗・中断時はここに到達せずカーソルは前回の値のまま残るため、
           # 次回実行時に自動的にこの区間を再走査して追いつく)。
-          echo "$YESTERDAY_JST" > "$CURSOR_FILE"
+          # ただし run 全体が成功しても、個々のトーナメントが FetchError で
+          # スキップされている場合がある(download_all_tournaments() は個別の
+          # 取得失敗を1件ずつログに出して継続するだけで run 自体は正常終了する
+          # ため)。skipped_due_to_error が 0 のときだけカーソルを進め、
+          # 1件でもスキップがあれば進めない(判定不能な場合もfail-closedで進めない)。
+          SKIPPED="$(grep -oE 'tournaments_skipped_due_to_error=[0-9]+' /tmp/download_tournaments.log | tail -1 | cut -d= -f2)" || SKIPPED=""
+          echo "skipped_due_to_error=${SKIPPED:-unknown}" >> "$GITHUB_OUTPUT"
+
+          if [ "$SKIPPED" = "0" ]; then
+            echo "$YESTERDAY_JST" > "$CURSOR_FILE"
+            echo "全トーナメントを正常に取得できたため、カーソルを $YESTERDAY_JST まで進めます。"
+          else
+            echo "[WARN] skipped_due_to_error=${SKIPPED:-unknown} のため、カーソルは進めません" \
+                 "(次回も [$FINISH_DATE, 今日] を再走査し、失敗したトーナメントに再挑戦します)。" >&2
+            {
+              echo "## :warning: 一部トーナメントの取得に失敗しました"
+              echo "skipped_due_to_error=${SKIPPED:-unknown} 件。カーソルは進めていません。"
+              echo "詳細は本ステップのログを確認してください。"
+            } >> "$GITHUB_STEP_SUMMARY"
+          fi
 
       - name: Run tests
         run: |

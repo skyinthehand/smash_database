@@ -158,7 +158,7 @@ def main():
     if args.start_date is not None and args.start_date < args.finish_date:
         raise ValueError("--start_date must be greater than or equal to --finish_date.")
 
-    download_all_tournaments(
+    skipped = download_all_tournaments(
         args.game_id,
         args.country_code,
         args.start_date,
@@ -171,6 +171,7 @@ def main():
         matches_only=args.matches_only,
         max_pages=args.max_pages,
     )
+    print(f"Done. tournaments_skipped_due_to_error={skipped}")
 
 def event_files_complete(event_dir):
     return all(os.path.exists(os.path.join(event_dir, name)) for name in REQUIRED_EVENT_FILES)
@@ -382,6 +383,7 @@ def download_all_tournaments(
     path_index = build_path_index(tournaments)
     settled_tournament_ids = set(tournaments.keys())
 
+    tournaments_skipped_due_to_error = 0
     page = 1
     reached_finish_date = False
     while True:
@@ -580,6 +582,7 @@ def download_all_tournaments(
 
             except FetchError as e:
                 print(f"Tournament {tournament_id}: fetch failed, skipping. Error: {e}")
+                tournaments_skipped_due_to_error += 1
                 continue
 
         if reached_finish_date:
@@ -591,6 +594,8 @@ def download_all_tournaments(
 
     if rewrite_tournaments:
         write_jsonl(list(tournaments.values()), tournament_file_path, with_version=True)
+
+    return tournaments_skipped_due_to_error
 
 
 # --- 未取得setの追跡・プレースホルダー関連ヘルパー ---------------------------------
