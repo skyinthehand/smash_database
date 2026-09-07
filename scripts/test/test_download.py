@@ -12,6 +12,7 @@ from unittest.mock import patch
 from scripts.fetch.download import (
     _continue_incremental_fetch,
     _start_incremental_fetch,
+    SET_BATCH_SIZE_FALLBACKS,
     SET_IDS_PER_PAGE_FALLBACKS,
     build_match_data_from_node,
     build_match_dedupe_key,
@@ -895,6 +896,63 @@ class DownloadTests(unittest.TestCase):
 
         mock_fetch_all_sets.assert_not_called()
         mock_fetch_set_ids.assert_not_called()
+
+    @patch("scripts.fetch.download.time.sleep")
+    @patch("scripts.fetch.download.fetch_data_with_retries")
+    def test_fetch_set_details_by_ids_falls_back_to_smaller_batch_on_complexity_error_without_exception(
+        self, mock_fetch, _mock_sleep,
+    ):
+        """fetch_data_with_retriesは、HTTP 200だが'data'キーが無いGraphQLレベルの
+        エラー応答(complexity超過等)では例外を投げない。これを「0件で正常終了」と
+        誤認せず、complexity超過エラーとして検知しバッチサイズを縮小して再試行する
+        ことを確認する(誤認すると、実データが存在するset_idのバッチ全体を
+        永久に取りこぼす重大な不具合になる回帰テスト)。"""
+        set_ids = list(range(10))
+        complexity_error_response = {
+            "errors": [
+                {"message": "Your query complexity is too high. A maximum of "
+                             "1000 objects may be returned by each request. (actual: 1217)"}
+            ],
+            "actionRecords": [],
+        }
+        success_response = {"data": {f"s{i}": {"id": set_ids[i]} for i in range(10)}}
+        mock_fetch.side_effect = [complexity_error_response, success_response]
+
+        batches = list(fetch_set_details_by_ids(set_ids))
+
+        self.assertEqual(mock_fetch.call_count, 2)
+        self.assertEqual(len(batches), 1)
+        self.assertEqual({node["id"] for node in batches[0]}, set(set_ids[:10]))
+
+    @patch("scripts.fetch.download.time.sleep")
+    @patch("scripts.fetch.download.fetch_data_with_retries")
+    def test_fetch_set_details_by_ids_raises_when_complexity_error_persists_at_smallest_batch(
+        self, mock_fetch, _mock_sleep,
+    ):
+        """最小バッチサイズ(1件)まで縮小してもcomplexity超過が続く場合は、
+        これ以上縮小できないためFetchErrorを送出する(黙って0件扱いにしない)。"""
+        complexity_error_response = {
+            "errors": [{"message": "Your query complexity is too high. (actual: 9999)"}],
+            "actionRecords": [],
+        }
+        mock_fetch.side_effect = [complexity_error_response] * len(SET_BATCH_SIZE_FALLBACKS)
+
+        with self.assertRaises(FetchError):
+            list(fetch_set_details_by_ids([1]))
+
+    @patch("scripts.fetch.download.fetch_data_with_retries")
+    def test_fetch_set_details_by_ids_raises_on_data_missing_without_complexity_error(
+        self, mock_fetch,
+    ):
+        """'data'キーが無い応答でも、complexity超過以外の理由(例: 内部エラー)なら
+        バッチサイズを縮小せず、従来通り即座にFetchErrorを送出する。"""
+        mock_fetch.return_value = {
+            "errors": [{"message": "internal server error"}],
+            "actionRecords": [],
+        }
+
+        with self.assertRaises(FetchError):
+            list(fetch_set_details_by_ids([1]))
 
     def test_continue_incremental_fetch_keeps_already_completed_records_on_interruption(self):
         def fake_fetch_set_details(set_ids):

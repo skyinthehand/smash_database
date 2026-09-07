@@ -758,7 +758,26 @@ def fetch_set_details_by_ids(set_ids):
                     "Retrying with a smaller batch."
                 )
                 continue
-            data = (response_data or {}).get("data") or {}
+            if "data" not in (response_data or {}):
+                # fetch_data_with_retriesはHTTP/ネットワークエラー以外では例外を投げない
+                # ため、complexity超過等のGraphQLレベルのエラー(HTTP 200だが'data'キーが
+                # 無い応答)はここで検知する必要がある。検知せず(response_data or {}).get("data")
+                # or {} のみに頼ると、空の{}を「0件で正常終了」と誤認し、このバッチのset_idを
+                # 二度と再取得しないまま永久にプレースホルダーとして取りこぼしてしまう
+                # (実データが存在するのに欠落し続ける不具合の原因だった)。
+                error_message = ((response_data or {}).get("errors") or [{}])[0].get("message", "")
+                if "query complexity is too high" in error_message.lower() and batch_size != SET_BATCH_SIZE_FALLBACKS[-1]:
+                    print(
+                        f"Set batch fetch hit complexity limits with batch_size={batch_size}. "
+                        "Retrying with a smaller batch."
+                    )
+                    continue
+                raise FetchError(
+                    f"Error: 'data' key not found in response. Query: {query}\n"
+                    f"Variables: {variables}\nResponse data: {response_data}\n"
+                    " in fetch_set_details_by_ids"
+                )
+            data = response_data.get("data") or {}
             batch_nodes = [data.get(f"s{i}") for i in range(len(batch))]
             batch_nodes = [node for node in batch_nodes if node is not None]
             index += len(batch)
