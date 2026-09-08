@@ -593,8 +593,14 @@ def download_all_tournaments(
                             rewrite_tournaments = True
                 # ファイルを保存
                 if len(tournaments[tournament_id]["events"]) > 0:
-                    if rewrite_tournaments:
-                        pass
+                    if rewrite_tournaments or tournament_id in existing_tournament_ids:
+                        # 既存トーナメントの再訪問(未完了で再度処理された場合を含む)、
+                        # または今回のrun中に既にこのtournament_idを含む全体書き換えを
+                        # 行っている(rewrite_tournaments、衝突解決時の即時write_jsonl等)
+                        # 場合は、増分追記(extend_tournament_info)を使わず、必ず最終的な
+                        # 全体書き換え(write_jsonl)に任せる。そうしないと、同じ
+                        # tournament_idの行が重複して書き出されてしまう。
+                        rewrite_tournaments = True
                     else:
                         extend_tournament_info(tournaments[tournament_id], tournament_file_path)
                     # 未完了イベントが1件でもあれば done_tournaments には登録しない。
@@ -752,7 +758,26 @@ def fetch_set_details_by_ids(set_ids):
                     "Retrying with a smaller batch."
                 )
                 continue
-            data = (response_data or {}).get("data") or {}
+            if "data" not in (response_data or {}):
+                # fetch_data_with_retriesはHTTP/ネットワークエラー以外では例外を投げない
+                # ため、complexity超過等のGraphQLレベルのエラー(HTTP 200だが'data'キーが
+                # 無い応答)はここで検知する必要がある。検知せず(response_data or {}).get("data")
+                # or {} のみに頼ると、空の{}を「0件で正常終了」と誤認し、このバッチのset_idを
+                # 二度と再取得しないまま永久にプレースホルダーとして取りこぼしてしまう
+                # (実データが存在するのに欠落し続ける不具合の原因だった)。
+                error_message = ((response_data or {}).get("errors") or [{}])[0].get("message", "")
+                if "query complexity is too high" in error_message.lower() and batch_size != SET_BATCH_SIZE_FALLBACKS[-1]:
+                    print(
+                        f"Set batch fetch hit complexity limits with batch_size={batch_size}. "
+                        "Retrying with a smaller batch."
+                    )
+                    continue
+                raise FetchError(
+                    f"Error: 'data' key not found in response. Query: {query}\n"
+                    f"Variables: {variables}\nResponse data: {response_data}\n"
+                    " in fetch_set_details_by_ids"
+                )
+            data = response_data.get("data") or {}
             batch_nodes = [data.get(f"s{i}") for i in range(len(batch))]
             batch_nodes = [node for node in batch_nodes if node is not None]
             index += len(batch)
@@ -784,18 +809,37 @@ def _continue_incremental_fetch(event_id, entrant2user, event_dir):
     プレースホルダーのままの set_id のみを set(id:) で取得し、その場で置き換える。
     start.gg側のset一覧の再チェックは行わない(FR-015)。
 
+    BYE(不戦勝、片方のslotに対戦相手がいない)と判明したset_idは、
+    プレースホルダーのまま残さずmatches.jsonから取り除く。対戦相手が
+    構造上存在しないためstandingが埋まることは永久になく、残したままだと
+    毎回再取得を試みては失敗し、still_incompleteがTrueのまま恒久的に
+    進まなくなる(一括取得パスがBYEを最初から記録しないのと同じ扱いに揃える)。
+
     戻り値: 処理後も matches.json にプレースホルダーが1件以上残っていれば True
     (まだ未完了)、全て完了済みレコードに置き換わっていれば False。"""
     existing_data = read_matches_data(event_dir)
     known_set_ids = [record["set_id"] for record in existing_data if "set_id" in record]
     pending = outstanding_set_ids(existing_data, known_set_ids)
     for batch_nodes in fetch_set_details_by_ids(pending):
-        new_records = [
-            match_data
-            for match_data in (build_match_data_from_node(node, entrant2user) for node in batch_nodes)
-            if match_data is not None
-        ]
+        new_records = []
+        bye_set_ids = []
+        for node in batch_nodes:
+            match_data = build_match_data_from_node(node, entrant2user)
+            if match_data is not None:
+                new_records.append(match_data)
+            elif is_bye_set_node(node):
+                bye_set_ids.append(node.get("id"))
+            # それ以外(entrantはいるがstanding未定)は何もしない
+            # → プレースホルダーのまま残り、次回また再取得を試みる(既存挙動)
+
         existing_data = merge_matches_records(existing_data, new_records)
+        if bye_set_ids:
+            bye_id_set = set(bye_set_ids)
+            existing_data = [
+                record for record in existing_data
+                if not (is_placeholder_record(record) and record.get("set_id") in bye_id_set)
+            ]
+            print(f"Event {event_id}: removed {len(bye_set_ids)} BYE set placeholder(s) with no opponent.")
         write_matches_data(existing_data, event_dir)
 
     return any(is_placeholder_record(record) for record in existing_data)
@@ -1236,6 +1280,18 @@ def build_match_data_from_node(node, entrant2user):
             "details": details
         }
 
+
+def is_bye_set_node(node):
+    """setノードが不戦勝(BYE、片方のslotに対戦相手がいない)かどうかを判定する。
+    BYEは対戦相手が構造上存在しないため standing が埋まることは永久になく、
+    プレースホルダーのまま待ち続けても解決しない
+    (build_match_data_from_node が恒久的に None を返し続けるため)。"""
+    slots = node.get('slots')
+    if slots is None or len(slots) != 2:
+        return False
+    return slots[0].get('entrant') is None or slots[1].get('entrant') is None
+
+
 def write_matches(all_nodes, entrant2user, event_dir):
     """一括取得経路のマッチデータを保存する関数。既存の matches.json があれば
     読み込んでset_idをキーにその場で置き換え、無ければ新規作成する。"""
@@ -1551,6 +1607,8 @@ def download_by_ids(
     print(f"download_by_ids: fetching {len(tournament_id_list)} tournament(s)")
     path_index = build_path_index(tournaments)
     settled_tournament_ids = set(tournaments.keys())
+    existing_tournament_ids = set(tournaments.keys())
+    rewrite_tournaments = False
 
     for tournament_id in tournament_id_list:
         try:
@@ -1596,6 +1654,12 @@ def download_by_ids(
 
         print(f"Tournament {tournament_id}: fetched {len(events_info)} event(s).")
 
+        # download_all_tournaments() と同様、1件でも未完了イベントがあれば
+        # done_tournaments には登録しない(tournament_events_complete() は
+        # 登録済みeventsのファイル存在で判定するため実害は限定的だが、
+        # done.csv 自体の正確性のため揃えておく)。
+        tournament_had_incomplete_event = False
+
         for event_id, event_name, is_online, state, event_type in events_info:
             print(f"Tournament {tournament_id}: processing event {event_id} ({event_name}).")
             year, month, day = get_date_parts(timestamp)
@@ -1630,6 +1694,7 @@ def download_by_ids(
                 user_data, player_data, entrant2user = download_standings(event_id, event_dir)
             except FetchError as e:
                 print(f"Tournament {tournament_id}: event {event_id} standings failed, skipping. Error: {e}")
+                tournament_had_incomplete_event = True
                 continue
 
             num_entrants = len(user_data)
@@ -1645,6 +1710,7 @@ def download_by_ids(
                     existing_tournament_id, existing_event, tournaments, settled_tournament_ids,
                 )
                 path_index = build_path_index(tournaments)
+                rewrite_tournaments = True
                 # 既存側(別tournament_id)のpathが変わった可能性があるため、この取得処理の
                 # 終了を待たずに直ちに永続化する(中断時の不整合の窓を最小化する。
                 # 憲法Principle II)。
@@ -1654,9 +1720,11 @@ def download_by_ids(
                 download_seeds(event_id, user_data, player_data, entrant2user, event_dir)
             except NoPhaseError:
                 print(f"No phase found for event {event_name}. Skipping.")
+                tournament_had_incomplete_event = True
                 continue
             except FetchError as e:
                 print(f"Tournament {tournament_id}: event {event_id} seeds failed, skipping. Error: {e}")
+                tournament_had_incomplete_event = True
                 continue
 
             extend_user_info(user_data, player_data, users, users_file_path)
@@ -1665,8 +1733,10 @@ def download_by_ids(
                 still_incomplete = download_all_set(event_id, entrant2user, event_dir)
             except FetchError as e:
                 print(f"Tournament {tournament_id}: event {event_id} sets failed, skipping. Error: {e}")
+                tournament_had_incomplete_event = True
                 continue
             if still_incomplete:
+                tournament_had_incomplete_event = True
                 print(
                     f"Tournament {tournament_id}: event {event_id} ({event_name}) still has outstanding "
                     "sets; will resume on a later run."
@@ -1683,10 +1753,22 @@ def download_by_ids(
                 cleanup_relocated_directory(stale_old_path)
 
         if tournaments[tournament_id]["events"]:
-            extend_tournament_info(tournaments[tournament_id], tournament_file_path)
-            if tournament_id not in done_tournaments:
+            if rewrite_tournaments or tournament_id in existing_tournament_ids:
+                # 既存トーナメントの再訪問、または今回のrun中に既にこのtournament_idを
+                # 含む全体書き換えを行っている(衝突解決時の即時write_jsonl等)場合は、
+                # 増分追記(extend_tournament_info)を使わず、必ず最終的な全体書き換え
+                # (write_jsonl)に任せる。そうしないと、同じtournament_idに対して
+                # --tournament_ids を複数回実行するたびに、あるいは新規トーナメントが
+                # 衝突を起こした場合に、tournaments.jsonl へ重複行が書き出されてしまう。
+                rewrite_tournaments = True
+            else:
+                extend_tournament_info(tournaments[tournament_id], tournament_file_path)
+            if not tournament_had_incomplete_event and tournament_id not in done_tournaments:
                 done_tournaments.add(tournament_id)
                 write_done_tournaments(tournament_id, done_file_path)
+
+    if rewrite_tournaments:
+        write_jsonl(list(tournaments.values()), tournament_file_path, with_version=True)
 
 
 if __name__ == "__main__":

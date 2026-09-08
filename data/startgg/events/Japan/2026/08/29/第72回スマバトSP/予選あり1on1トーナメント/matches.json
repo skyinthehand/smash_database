@@ -12893,79 +12893,1450 @@
       "details": []
     },
     {
-      "set_id": 107038806
+      "set_id": 107038806,
+      "winner_id": 3286324,
+      "loser_id": 2081118,
+      "winner_score": 2,
+      "loser_score": 1,
+      "round_text": "Quarter-Final",
+      "round": 4,
+      "phase": "1",
+      "phase_order": 7,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
     },
     {
-      "set_id": 107038807
+      "set_id": 107038807,
+      "winner_id": 2946597,
+      "loser_id": 2951551,
+      "winner_score": 2,
+      "loser_score": 1,
+      "round_text": "Semi-Final",
+      "round": 5,
+      "phase": "1",
+      "phase_order": 7,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
     },
     {
-      "set_id": 107038808
+      "set_id": 107038808,
+      "winner_id": 2304331,
+      "loser_id": 3286324,
+      "winner_score": 2,
+      "loser_score": 0,
+      "round_text": "Semi-Final",
+      "round": 5,
+      "phase": "1",
+      "phase_order": 7,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
     },
     {
-      "set_id": 107038809
+      "set_id": 107038809,
+      "winner_id": 2946597,
+      "loser_id": 2304331,
+      "winner_score": 2,
+      "loser_score": 0,
+      "round_text": "Final",
+      "round": 6,
+      "phase": "1",
+      "phase_order": 7,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": [
+        {
+          "game_id": 40539547,
+          "order_num": 1,
+          "winner_id": 2946597,
+          "entrant1_score": 2,
+          "entrant2_score": 0,
+          "stage": "Battlefield",
+          "selections": [
+            {
+              "user_id": 2304331,
+              "selection_id": 60681286,
+              "character_id": 1274,
+              "character_name": "Captain Falcon"
+            },
+            {
+              "user_id": 2946597,
+              "selection_id": 60681287,
+              "character_id": 1274,
+              "character_name": "Captain Falcon"
+            }
+          ]
+        },
+        {
+          "game_id": 40539548,
+          "order_num": 2,
+          "winner_id": 2946597,
+          "entrant1_score": 2,
+          "entrant2_score": 0,
+          "stage": "Battlefield",
+          "selections": [
+            {
+              "user_id": 2304331,
+              "selection_id": 60681288,
+              "character_id": 1274,
+              "character_name": "Captain Falcon"
+            },
+            {
+              "user_id": 2946597,
+              "selection_id": 60681289,
+              "character_id": 1274,
+              "character_name": "Captain Falcon"
+            }
+          ]
+        }
+      ]
     },
     {
-      "set_id": 107038810
+      "set_id": 107038810,
+      "winner_id": 2951551,
+      "loser_id": 3286324,
+      "winner_score": 0,
+      "loser_score": 0,
+      "round_text": "3rd Place Tiebreak",
+      "round": 7,
+      "phase": "1",
+      "phase_order": 7,
+      "wave": null,
+      "dq": false,
+      "cancel": true,
+      "state": 3,
+      "details": []
     },
     {
-      "set_id": 107040414
+      "set_id": 107040414,
+      "winner_id": 2323555,
+      "loser_id": 998485,
+      "winner_score": 3,
+      "loser_score": 2,
+      "round_text": "Winners Round 1",
+      "round": 1,
+      "phase": "1",
+      "phase_order": 5,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": [
+        {
+          "game_id": 40538975,
+          "order_num": 1,
+          "winner_id": 998485,
+          "entrant1_score": 0,
+          "entrant2_score": 2,
+          "stage": "Small Battlefield",
+          "selections": [
+            {
+              "user_id": 998485,
+              "selection_id": 60680111,
+              "character_id": 1299,
+              "character_name": "Lucas"
+            },
+            {
+              "user_id": 2323555,
+              "selection_id": 60680112,
+              "character_id": 1747,
+              "character_name": "Min Min"
+            }
+          ]
+        },
+        {
+          "game_id": 40538976,
+          "order_num": 2,
+          "winner_id": 2323555,
+          "entrant1_score": 1,
+          "entrant2_score": 0,
+          "stage": "Small Battlefield",
+          "selections": [
+            {
+              "user_id": 998485,
+              "selection_id": 60680113,
+              "character_id": 1299,
+              "character_name": "Lucas"
+            },
+            {
+              "user_id": 2323555,
+              "selection_id": 60680114,
+              "character_id": 1747,
+              "character_name": "Min Min"
+            }
+          ]
+        },
+        {
+          "game_id": 40538977,
+          "order_num": 3,
+          "winner_id": 2323555,
+          "entrant1_score": 2,
+          "entrant2_score": 0,
+          "stage": "Small Battlefield",
+          "selections": [
+            {
+              "user_id": 998485,
+              "selection_id": 60680115,
+              "character_id": 1311,
+              "character_name": "Mii Brawler"
+            },
+            {
+              "user_id": 2323555,
+              "selection_id": 60680116,
+              "character_id": 1747,
+              "character_name": "Min Min"
+            }
+          ]
+        },
+        {
+          "game_id": 40538978,
+          "order_num": 4,
+          "winner_id": 998485,
+          "entrant1_score": 0,
+          "entrant2_score": 1,
+          "stage": "Small Battlefield",
+          "selections": [
+            {
+              "user_id": 998485,
+              "selection_id": 60680117,
+              "character_id": 1299,
+              "character_name": "Lucas"
+            },
+            {
+              "user_id": 2323555,
+              "selection_id": 60680118,
+              "character_id": 1747,
+              "character_name": "Min Min"
+            }
+          ]
+        },
+        {
+          "game_id": 40538979,
+          "order_num": 5,
+          "winner_id": 2323555,
+          "entrant1_score": 2,
+          "entrant2_score": 0,
+          "stage": "Small Battlefield",
+          "selections": [
+            {
+              "user_id": 998485,
+              "selection_id": 60680119,
+              "character_id": 1299,
+              "character_name": "Lucas"
+            },
+            {
+              "user_id": 2323555,
+              "selection_id": 60680120,
+              "character_id": 1747,
+              "character_name": "Min Min"
+            }
+          ]
+        }
+      ]
     },
     {
-      "set_id": 107040415
+      "set_id": 107040415,
+      "winner_id": 1642623,
+      "loser_id": 2028351,
+      "winner_score": 3,
+      "loser_score": 0,
+      "round_text": "Winners Round 1",
+      "round": 1,
+      "phase": "1",
+      "phase_order": 5,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
     },
     {
-      "set_id": 107040416
+      "set_id": 107040416,
+      "winner_id": 2051538,
+      "loser_id": 2971239,
+      "winner_score": 3,
+      "loser_score": 2,
+      "round_text": "Winners Round 1",
+      "round": 1,
+      "phase": "1",
+      "phase_order": 5,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": [
+        {
+          "game_id": 40538999,
+          "order_num": 1,
+          "winner_id": 2971239,
+          "entrant1_score": 0,
+          "entrant2_score": 1,
+          "stage": "Hollow Bastion",
+          "selections": [
+            {
+              "user_id": 2971239,
+              "selection_id": 60680159,
+              "character_id": 1331,
+              "character_name": "Snake"
+            },
+            {
+              "user_id": 2051538,
+              "selection_id": 60680160,
+              "character_id": 1846,
+              "character_name": "Kazuya"
+            }
+          ]
+        },
+        {
+          "game_id": 40539000,
+          "order_num": 2,
+          "winner_id": 2971239,
+          "entrant1_score": 0,
+          "entrant2_score": 2,
+          "stage": "Smashville",
+          "selections": [
+            {
+              "user_id": 2971239,
+              "selection_id": 60680161,
+              "character_id": 1331,
+              "character_name": "Snake"
+            },
+            {
+              "user_id": 2051538,
+              "selection_id": 60680162,
+              "character_id": 1846,
+              "character_name": "Kazuya"
+            }
+          ]
+        },
+        {
+          "game_id": 40539001,
+          "order_num": 3,
+          "winner_id": 2051538,
+          "entrant1_score": 1,
+          "entrant2_score": 0,
+          "stage": "Hollow Bastion",
+          "selections": [
+            {
+              "user_id": 2971239,
+              "selection_id": 60680163,
+              "character_id": 1331,
+              "character_name": "Snake"
+            },
+            {
+              "user_id": 2051538,
+              "selection_id": 60680164,
+              "character_id": 1846,
+              "character_name": "Kazuya"
+            }
+          ]
+        },
+        {
+          "game_id": 40539002,
+          "order_num": 4,
+          "winner_id": 2051538,
+          "entrant1_score": 1,
+          "entrant2_score": 0,
+          "stage": "Small Battlefield",
+          "selections": [
+            {
+              "user_id": 2971239,
+              "selection_id": 60680165,
+              "character_id": 1331,
+              "character_name": "Snake"
+            },
+            {
+              "user_id": 2051538,
+              "selection_id": 60680166,
+              "character_id": 1846,
+              "character_name": "Kazuya"
+            }
+          ]
+        },
+        {
+          "game_id": 40539003,
+          "order_num": 5,
+          "winner_id": 2051538,
+          "entrant1_score": 2,
+          "entrant2_score": 0,
+          "stage": "Small Battlefield",
+          "selections": [
+            {
+              "user_id": 2971239,
+              "selection_id": 60680167,
+              "character_id": 1331,
+              "character_name": "Snake"
+            },
+            {
+              "user_id": 2051538,
+              "selection_id": 60680168,
+              "character_id": 1846,
+              "character_name": "Kazuya"
+            }
+          ]
+        }
+      ]
     },
     {
-      "set_id": 107040417
+      "set_id": 107040417,
+      "winner_id": 1929508,
+      "loser_id": 2032842,
+      "winner_score": 3,
+      "loser_score": 0,
+      "round_text": "Winners Round 1",
+      "round": 1,
+      "phase": "1",
+      "phase_order": 5,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": [
+        {
+          "game_id": 40538996,
+          "order_num": 1,
+          "winner_id": 1929508,
+          "entrant1_score": 2,
+          "entrant2_score": null,
+          "stage": "Pokémon Stadium 2",
+          "selections": [
+            {
+              "user_id": 1929508,
+              "selection_id": 60680153,
+              "character_id": 1318,
+              "character_name": "Pichu"
+            },
+            {
+              "user_id": 2032842,
+              "selection_id": 60680154,
+              "character_id": 1290,
+              "character_name": "Ice Climbers"
+            }
+          ]
+        },
+        {
+          "game_id": 40538997,
+          "order_num": 2,
+          "winner_id": 1929508,
+          "entrant1_score": 2,
+          "entrant2_score": null,
+          "stage": "Small Battlefield",
+          "selections": [
+            {
+              "user_id": 1929508,
+              "selection_id": 60680155,
+              "character_id": 1318,
+              "character_name": "Pichu"
+            },
+            {
+              "user_id": 2032842,
+              "selection_id": 60680156,
+              "character_id": 1290,
+              "character_name": "Ice Climbers"
+            }
+          ]
+        },
+        {
+          "game_id": 40538998,
+          "order_num": 3,
+          "winner_id": 1929508,
+          "entrant1_score": 1,
+          "entrant2_score": null,
+          "stage": "Small Battlefield",
+          "selections": [
+            {
+              "user_id": 1929508,
+              "selection_id": 60680157,
+              "character_id": 1318,
+              "character_name": "Pichu"
+            },
+            {
+              "user_id": 2032842,
+              "selection_id": 60680158,
+              "character_id": 1290,
+              "character_name": "Ice Climbers"
+            }
+          ]
+        }
+      ]
     },
     {
-      "set_id": 107040418
+      "set_id": 107040418,
+      "winner_id": 355675,
+      "loser_id": 2980181,
+      "winner_score": 3,
+      "loser_score": 0,
+      "round_text": "Winners Round 1",
+      "round": 1,
+      "phase": "1",
+      "phase_order": 5,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": [
+        {
+          "game_id": 40538969,
+          "order_num": 1,
+          "winner_id": 355675,
+          "entrant1_score": null,
+          "entrant2_score": 1,
+          "stage": "Small Battlefield",
+          "selections": [
+            {
+              "user_id": 2980181,
+              "selection_id": 60680103,
+              "character_id": 1532,
+              "character_name": "Terry"
+            },
+            {
+              "user_id": 355675,
+              "selection_id": 60680104,
+              "character_id": 1302,
+              "character_name": "Mario"
+            }
+          ]
+        },
+        {
+          "game_id": 40538970,
+          "order_num": 2,
+          "winner_id": 355675,
+          "entrant1_score": null,
+          "entrant2_score": 2,
+          "stage": "Hollow Bastion",
+          "selections": [
+            {
+              "user_id": 2980181,
+              "selection_id": 60680105,
+              "character_id": 1532,
+              "character_name": "Terry"
+            },
+            {
+              "user_id": 355675,
+              "selection_id": 60680106,
+              "character_id": 1302,
+              "character_name": "Mario"
+            }
+          ]
+        },
+        {
+          "game_id": 40538971,
+          "order_num": 3,
+          "winner_id": 355675,
+          "entrant1_score": null,
+          "entrant2_score": 1,
+          "stage": "Small Battlefield",
+          "selections": [
+            {
+              "user_id": 2980181,
+              "selection_id": 60680107,
+              "character_id": 1532,
+              "character_name": "Terry"
+            },
+            {
+              "user_id": 355675,
+              "selection_id": 60680108,
+              "character_id": 1302,
+              "character_name": "Mario"
+            }
+          ]
+        }
+      ]
     },
     {
-      "set_id": 107040419
+      "set_id": 107040419,
+      "winner_id": 2143259,
+      "loser_id": 938978,
+      "winner_score": 3,
+      "loser_score": 2,
+      "round_text": "Winners Round 1",
+      "round": 1,
+      "phase": "1",
+      "phase_order": 5,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": [
+        {
+          "game_id": 40538984,
+          "order_num": 1,
+          "winner_id": 2143259,
+          "entrant1_score": 0,
+          "entrant2_score": 3,
+          "stage": "Pokémon Stadium 2",
+          "selections": [
+            {
+              "user_id": 938978,
+              "selection_id": 60680129,
+              "character_id": 1766,
+              "character_name": "Steve"
+            },
+            {
+              "user_id": 2143259,
+              "selection_id": 60680130,
+              "character_id": 1289,
+              "character_name": "Greninja"
+            }
+          ]
+        },
+        {
+          "game_id": 40538985,
+          "order_num": 2,
+          "winner_id": 938978,
+          "entrant1_score": 1,
+          "entrant2_score": 0,
+          "stage": "Pokémon Stadium 2",
+          "selections": [
+            {
+              "user_id": 938978,
+              "selection_id": 60680131,
+              "character_id": 1766,
+              "character_name": "Steve"
+            },
+            {
+              "user_id": 2143259,
+              "selection_id": 60680132,
+              "character_id": 1289,
+              "character_name": "Greninja"
+            }
+          ]
+        },
+        {
+          "game_id": 40538986,
+          "order_num": 3,
+          "winner_id": 938978,
+          "entrant1_score": 1,
+          "entrant2_score": 0,
+          "stage": "Pokémon Stadium 2",
+          "selections": [
+            {
+              "user_id": 938978,
+              "selection_id": 60680133,
+              "character_id": 1766,
+              "character_name": "Steve"
+            },
+            {
+              "user_id": 2143259,
+              "selection_id": 60680134,
+              "character_id": 1289,
+              "character_name": "Greninja"
+            }
+          ]
+        },
+        {
+          "game_id": 40538987,
+          "order_num": 4,
+          "winner_id": 2143259,
+          "entrant1_score": 0,
+          "entrant2_score": 1,
+          "stage": "Pokémon Stadium 2",
+          "selections": [
+            {
+              "user_id": 938978,
+              "selection_id": 60680135,
+              "character_id": 1766,
+              "character_name": "Steve"
+            },
+            {
+              "user_id": 2143259,
+              "selection_id": 60680136,
+              "character_id": 1289,
+              "character_name": "Greninja"
+            }
+          ]
+        },
+        {
+          "game_id": 40538988,
+          "order_num": 5,
+          "winner_id": 2143259,
+          "entrant1_score": 0,
+          "entrant2_score": 3,
+          "stage": "Pokémon Stadium 2",
+          "selections": [
+            {
+              "user_id": 938978,
+              "selection_id": 60680137,
+              "character_id": 1766,
+              "character_name": "Steve"
+            },
+            {
+              "user_id": 2143259,
+              "selection_id": 60680138,
+              "character_id": 1289,
+              "character_name": "Greninja"
+            }
+          ]
+        }
+      ]
     },
     {
-      "set_id": 107040420
+      "set_id": 107040420,
+      "winner_id": 3128110,
+      "loser_id": 966836,
+      "winner_score": 3,
+      "loser_score": 1,
+      "round_text": "Winners Round 1",
+      "round": 1,
+      "phase": "1",
+      "phase_order": 5,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
     },
     {
-      "set_id": 107040421
+      "set_id": 107040421,
+      "winner_id": 1152730,
+      "loser_id": 1221330,
+      "winner_score": 3,
+      "loser_score": 0,
+      "round_text": "Winners Round 1",
+      "round": 1,
+      "phase": "1",
+      "phase_order": 5,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
     },
     {
-      "set_id": 107040422
+      "set_id": 107040422,
+      "winner_id": 1787715,
+      "loser_id": 2266422,
+      "winner_score": 3,
+      "loser_score": 0,
+      "round_text": "Winners Round 1",
+      "round": 1,
+      "phase": "1",
+      "phase_order": 5,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": [
+        {
+          "game_id": 40539009,
+          "order_num": 1,
+          "winner_id": 1787715,
+          "entrant1_score": 1,
+          "entrant2_score": null,
+          "stage": "Small Battlefield",
+          "selections": [
+            {
+              "user_id": 1787715,
+              "selection_id": 60680179,
+              "character_id": 1301,
+              "character_name": "Luigi"
+            },
+            {
+              "user_id": 2266422,
+              "selection_id": 60680180,
+              "character_id": 1313,
+              "character_name": "Ness"
+            }
+          ]
+        },
+        {
+          "game_id": 40539010,
+          "order_num": 2,
+          "winner_id": 1787715,
+          "entrant1_score": 1,
+          "entrant2_score": null,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 1787715,
+              "selection_id": 60680181,
+              "character_id": 1301,
+              "character_name": "Luigi"
+            },
+            {
+              "user_id": 2266422,
+              "selection_id": 60680182,
+              "character_id": 1313,
+              "character_name": "Ness"
+            }
+          ]
+        },
+        {
+          "game_id": 40539011,
+          "order_num": 3,
+          "winner_id": 1787715,
+          "entrant1_score": 2,
+          "entrant2_score": 0,
+          "stage": "Small Battlefield",
+          "selections": [
+            {
+              "user_id": 1787715,
+              "selection_id": 60680183,
+              "character_id": 1301,
+              "character_name": "Luigi"
+            },
+            {
+              "user_id": 2266422,
+              "selection_id": 60680184,
+              "character_id": 1313,
+              "character_name": "Ness"
+            }
+          ]
+        }
+      ]
     },
     {
-      "set_id": 107040423
+      "set_id": 107040423,
+      "winner_id": 1960501,
+      "loser_id": 378004,
+      "winner_score": 3,
+      "loser_score": 0,
+      "round_text": "Winners Round 1",
+      "round": 1,
+      "phase": "1",
+      "phase_order": 5,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
     },
     {
-      "set_id": 107040424
+      "set_id": 107040424,
+      "winner_id": 1843666,
+      "loser_id": 2452407,
+      "winner_score": 3,
+      "loser_score": 0,
+      "round_text": "Winners Round 1",
+      "round": 1,
+      "phase": "1",
+      "phase_order": 5,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
     },
     {
-      "set_id": 107040425
+      "set_id": 107040425,
+      "winner_id": 1712728,
+      "loser_id": 793771,
+      "winner_score": 3,
+      "loser_score": 2,
+      "round_text": "Winners Round 1",
+      "round": 1,
+      "phase": "1",
+      "phase_order": 5,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
     },
     {
-      "set_id": 107040426
+      "set_id": 107040426,
+      "winner_id": 2022776,
+      "loser_id": 2549375,
+      "winner_score": 3,
+      "loser_score": 2,
+      "round_text": "Winners Round 1",
+      "round": 1,
+      "phase": "1",
+      "phase_order": 5,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
     },
     {
-      "set_id": 107040427
+      "set_id": 107040427,
+      "winner_id": 1962591,
+      "loser_id": 3134596,
+      "winner_score": 3,
+      "loser_score": 1,
+      "round_text": "Winners Round 1",
+      "round": 1,
+      "phase": "1",
+      "phase_order": 5,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": [
+        {
+          "game_id": 40538989,
+          "order_num": 1,
+          "winner_id": 3134596,
+          "entrant1_score": 1,
+          "entrant2_score": 0,
+          "stage": "Pokémon Stadium 2",
+          "selections": [
+            {
+              "user_id": 1962591,
+              "selection_id": 60680139,
+              "character_id": 1766,
+              "character_name": "Steve"
+            },
+            {
+              "user_id": 3134596,
+              "selection_id": 60680140,
+              "character_id": 1290,
+              "character_name": "Ice Climbers"
+            }
+          ]
+        },
+        {
+          "game_id": 40538990,
+          "order_num": 2,
+          "winner_id": 1962591,
+          "entrant1_score": 0,
+          "entrant2_score": 1,
+          "stage": "Small Battlefield",
+          "selections": [
+            {
+              "user_id": 1962591,
+              "selection_id": 60680141,
+              "character_id": 1766,
+              "character_name": "Steve"
+            },
+            {
+              "user_id": 3134596,
+              "selection_id": 60680142,
+              "character_id": 1290,
+              "character_name": "Ice Climbers"
+            }
+          ]
+        },
+        {
+          "game_id": 40538991,
+          "order_num": 3,
+          "winner_id": 1962591,
+          "entrant1_score": 0,
+          "entrant2_score": 1,
+          "stage": "Pokémon Stadium 2",
+          "selections": [
+            {
+              "user_id": 1962591,
+              "selection_id": 60680143,
+              "character_id": 1766,
+              "character_name": "Steve"
+            },
+            {
+              "user_id": 3134596,
+              "selection_id": 60680144,
+              "character_id": 1290,
+              "character_name": "Ice Climbers"
+            }
+          ]
+        },
+        {
+          "game_id": 40538992,
+          "order_num": 4,
+          "winner_id": 1962591,
+          "entrant1_score": 0,
+          "entrant2_score": 1,
+          "stage": "Small Battlefield",
+          "selections": [
+            {
+              "user_id": 1962591,
+              "selection_id": 60680145,
+              "character_id": 1766,
+              "character_name": "Steve"
+            },
+            {
+              "user_id": 3134596,
+              "selection_id": 60680146,
+              "character_id": 1290,
+              "character_name": "Ice Climbers"
+            }
+          ]
+        }
+      ]
     },
     {
-      "set_id": 107040428
+      "set_id": 107040428,
+      "winner_id": 1689037,
+      "loser_id": 3072101,
+      "winner_score": 3,
+      "loser_score": 2,
+      "round_text": "Winners Round 1",
+      "round": 1,
+      "phase": "1",
+      "phase_order": 5,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
     },
     {
-      "set_id": 107040429
+      "set_id": 107040429,
+      "winner_id": 1909088,
+      "loser_id": 1157651,
+      "winner_score": 3,
+      "loser_score": 1,
+      "round_text": "Winners Round 1",
+      "round": 1,
+      "phase": "1",
+      "phase_order": 5,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
     },
     {
-      "set_id": 107040430
+      "set_id": 107040430,
+      "winner_id": 2323555,
+      "loser_id": 1642623,
+      "winner_score": 3,
+      "loser_score": 2,
+      "round_text": "Winners Round 2",
+      "round": 2,
+      "phase": "1",
+      "phase_order": 5,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": [
+        {
+          "game_id": 40539079,
+          "order_num": 1,
+          "winner_id": 1642623,
+          "entrant1_score": 0,
+          "entrant2_score": 3,
+          "stage": "Small Battlefield",
+          "selections": [
+            {
+              "user_id": 1642623,
+              "selection_id": 60680309,
+              "character_id": 1286,
+              "character_name": "Fox"
+            },
+            {
+              "user_id": 2323555,
+              "selection_id": 60680310,
+              "character_id": 1747,
+              "character_name": "Min Min"
+            }
+          ]
+        },
+        {
+          "game_id": 40539080,
+          "order_num": 2,
+          "winner_id": 1642623,
+          "entrant1_score": 0,
+          "entrant2_score": 2,
+          "stage": "Pokémon Stadium 2",
+          "selections": [
+            {
+              "user_id": 1642623,
+              "selection_id": 60680311,
+              "character_id": 1286,
+              "character_name": "Fox"
+            },
+            {
+              "user_id": 2323555,
+              "selection_id": 60680312,
+              "character_id": 1747,
+              "character_name": "Min Min"
+            }
+          ]
+        },
+        {
+          "game_id": 40539081,
+          "order_num": 3,
+          "winner_id": 2323555,
+          "entrant1_score": 1,
+          "entrant2_score": 0,
+          "stage": "Pokémon Stadium 2",
+          "selections": [
+            {
+              "user_id": 1642623,
+              "selection_id": 60680313,
+              "character_id": 1286,
+              "character_name": "Fox"
+            },
+            {
+              "user_id": 2323555,
+              "selection_id": 60680314,
+              "character_id": 1747,
+              "character_name": "Min Min"
+            }
+          ]
+        },
+        {
+          "game_id": 40539082,
+          "order_num": 4,
+          "winner_id": 2323555,
+          "entrant1_score": 2,
+          "entrant2_score": 0,
+          "stage": "Small Battlefield",
+          "selections": [
+            {
+              "user_id": 1642623,
+              "selection_id": 60680315,
+              "character_id": 1286,
+              "character_name": "Fox"
+            },
+            {
+              "user_id": 2323555,
+              "selection_id": 60680316,
+              "character_id": 1747,
+              "character_name": "Min Min"
+            }
+          ]
+        },
+        {
+          "game_id": 40539083,
+          "order_num": 5,
+          "winner_id": 2323555,
+          "entrant1_score": 2,
+          "entrant2_score": 0,
+          "stage": "Small Battlefield",
+          "selections": [
+            {
+              "user_id": 1642623,
+              "selection_id": 60680317,
+              "character_id": 1286,
+              "character_name": "Fox"
+            },
+            {
+              "user_id": 2323555,
+              "selection_id": 60680318,
+              "character_id": 1747,
+              "character_name": "Min Min"
+            }
+          ]
+        }
+      ]
     },
     {
-      "set_id": 107040431
+      "set_id": 107040431,
+      "winner_id": 1929508,
+      "loser_id": 2051538,
+      "winner_score": 3,
+      "loser_score": 1,
+      "round_text": "Winners Round 2",
+      "round": 2,
+      "phase": "1",
+      "phase_order": 5,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": [
+        {
+          "game_id": 40539113,
+          "order_num": 1,
+          "winner_id": 2051538,
+          "entrant1_score": 1,
+          "entrant2_score": 0,
+          "stage": "Small Battlefield",
+          "selections": [
+            {
+              "user_id": 1929508,
+              "selection_id": 60680377,
+              "character_id": 1318,
+              "character_name": "Pichu"
+            },
+            {
+              "user_id": 2051538,
+              "selection_id": 60680378,
+              "character_id": 1766,
+              "character_name": "Steve"
+            }
+          ]
+        },
+        {
+          "game_id": 40539114,
+          "order_num": 2,
+          "winner_id": 1929508,
+          "entrant1_score": 0,
+          "entrant2_score": 1,
+          "stage": "Small Battlefield",
+          "selections": [
+            {
+              "user_id": 1929508,
+              "selection_id": 60680379,
+              "character_id": 1318,
+              "character_name": "Pichu"
+            },
+            {
+              "user_id": 2051538,
+              "selection_id": 60680380,
+              "character_id": 1766,
+              "character_name": "Steve"
+            }
+          ]
+        },
+        {
+          "game_id": 40539115,
+          "order_num": 3,
+          "winner_id": 1929508,
+          "entrant1_score": 0,
+          "entrant2_score": 1,
+          "stage": "Small Battlefield",
+          "selections": [
+            {
+              "user_id": 1929508,
+              "selection_id": 60680381,
+              "character_id": 1318,
+              "character_name": "Pichu"
+            },
+            {
+              "user_id": 2051538,
+              "selection_id": 60680382,
+              "character_id": 1766,
+              "character_name": "Steve"
+            }
+          ]
+        },
+        {
+          "game_id": 40539116,
+          "order_num": 4,
+          "winner_id": 1929508,
+          "entrant1_score": 0,
+          "entrant2_score": 1,
+          "stage": "Final Destination",
+          "selections": [
+            {
+              "user_id": 1929508,
+              "selection_id": 60680383,
+              "character_id": 1318,
+              "character_name": "Pichu"
+            },
+            {
+              "user_id": 2051538,
+              "selection_id": 60680384,
+              "character_id": 1766,
+              "character_name": "Steve"
+            }
+          ]
+        }
+      ]
     },
     {
-      "set_id": 107040432
+      "set_id": 107040432,
+      "winner_id": 355675,
+      "loser_id": 2143259,
+      "winner_score": 3,
+      "loser_score": 1,
+      "round_text": "Winners Round 2",
+      "round": 2,
+      "phase": "1",
+      "phase_order": 5,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": [
+        {
+          "game_id": 40539093,
+          "order_num": 1,
+          "winner_id": 355675,
+          "entrant1_score": 3,
+          "entrant2_score": 0,
+          "stage": "Pokémon Stadium 2",
+          "selections": [
+            {
+              "user_id": 355675,
+              "selection_id": 60680337,
+              "character_id": 1302,
+              "character_name": "Mario"
+            },
+            {
+              "user_id": 2143259,
+              "selection_id": 60680338,
+              "character_id": 1289,
+              "character_name": "Greninja"
+            }
+          ]
+        },
+        {
+          "game_id": 40539094,
+          "order_num": 2,
+          "winner_id": 355675,
+          "entrant1_score": 1,
+          "entrant2_score": 0,
+          "stage": "Hollow Bastion",
+          "selections": [
+            {
+              "user_id": 355675,
+              "selection_id": 60680339,
+              "character_id": 1302,
+              "character_name": "Mario"
+            },
+            {
+              "user_id": 2143259,
+              "selection_id": 60680340,
+              "character_id": 1289,
+              "character_name": "Greninja"
+            }
+          ]
+        },
+        {
+          "game_id": 40539095,
+          "order_num": 3,
+          "winner_id": 2143259,
+          "entrant1_score": 0,
+          "entrant2_score": 1,
+          "stage": "Small Battlefield",
+          "selections": [
+            {
+              "user_id": 355675,
+              "selection_id": 60680341,
+              "character_id": 1302,
+              "character_name": "Mario"
+            },
+            {
+              "user_id": 2143259,
+              "selection_id": 60680342,
+              "character_id": 1289,
+              "character_name": "Greninja"
+            }
+          ]
+        },
+        {
+          "game_id": 40539096,
+          "order_num": 4,
+          "winner_id": 355675,
+          "entrant1_score": 1,
+          "entrant2_score": 0,
+          "stage": "Pokémon Stadium 2",
+          "selections": [
+            {
+              "user_id": 355675,
+              "selection_id": 60680343,
+              "character_id": 1302,
+              "character_name": "Mario"
+            },
+            {
+              "user_id": 2143259,
+              "selection_id": 60680344,
+              "character_id": 1289,
+              "character_name": "Greninja"
+            }
+          ]
+        }
+      ]
     },
     {
-      "set_id": 107040433
+      "set_id": 107040433,
+      "winner_id": 1152730,
+      "loser_id": 3128110,
+      "winner_score": 3,
+      "loser_score": 1,
+      "round_text": "Winners Round 2",
+      "round": 2,
+      "phase": "1",
+      "phase_order": 5,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": [
+        {
+          "game_id": 40539117,
+          "order_num": 1,
+          "winner_id": 3128110,
+          "entrant1_score": 2,
+          "entrant2_score": 0,
+          "stage": "Hollow Bastion",
+          "selections": [
+            {
+              "user_id": 1152730,
+              "selection_id": 60680385,
+              "character_id": 1323,
+              "character_name": "R.O.B."
+            },
+            {
+              "user_id": 3128110,
+              "selection_id": 60680386,
+              "character_id": 1302,
+              "character_name": "Mario"
+            }
+          ]
+        },
+        {
+          "game_id": 40539118,
+          "order_num": 2,
+          "winner_id": 1152730,
+          "entrant1_score": 0,
+          "entrant2_score": 1,
+          "stage": "Town and City",
+          "selections": [
+            {
+              "user_id": 1152730,
+              "selection_id": 60680387,
+              "character_id": 1323,
+              "character_name": "R.O.B."
+            },
+            {
+              "user_id": 3128110,
+              "selection_id": 60680388,
+              "character_id": 1302,
+              "character_name": "Mario"
+            }
+          ]
+        },
+        {
+          "game_id": 40539119,
+          "order_num": 3,
+          "winner_id": 1152730,
+          "entrant1_score": 0,
+          "entrant2_score": 1,
+          "stage": "Hollow Bastion",
+          "selections": [
+            {
+              "user_id": 1152730,
+              "selection_id": 60680389,
+              "character_id": 1323,
+              "character_name": "R.O.B."
+            },
+            {
+              "user_id": 3128110,
+              "selection_id": 60680390,
+              "character_id": 1302,
+              "character_name": "Mario"
+            }
+          ]
+        },
+        {
+          "game_id": 40539120,
+          "order_num": 4,
+          "winner_id": 1152730,
+          "entrant1_score": 0,
+          "entrant2_score": 2,
+          "stage": "Hollow Bastion",
+          "selections": [
+            {
+              "user_id": 1152730,
+              "selection_id": 60680391,
+              "character_id": 1323,
+              "character_name": "R.O.B."
+            },
+            {
+              "user_id": 3128110,
+              "selection_id": 60680392,
+              "character_id": 1302,
+              "character_name": "Mario"
+            }
+          ]
+        }
+      ]
     },
     {
       "set_id": 107040434,
@@ -14992,79 +16363,1762 @@
       "details": []
     },
     {
-      "set_id": 107040674
+      "set_id": 107040674,
+      "winner_id": 2195998,
+      "loser_id": 2028351,
+      "winner_score": 3,
+      "loser_score": 1,
+      "round_text": "Losers Round 4",
+      "round": -7,
+      "phase": "1",
+      "phase_order": 5,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
     },
     {
-      "set_id": 107040675
+      "set_id": 107040675,
+      "winner_id": 1157651,
+      "loser_id": 2326761,
+      "winner_score": 3,
+      "loser_score": 1,
+      "round_text": "Losers Round 4",
+      "round": -7,
+      "phase": "1",
+      "phase_order": 5,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
     },
     {
-      "set_id": 107040676
+      "set_id": 107040676,
+      "winner_id": 3134596,
+      "loser_id": 2549375,
+      "winner_score": 3,
+      "loser_score": 2,
+      "round_text": "Losers Round 4",
+      "round": -7,
+      "phase": "1",
+      "phase_order": 5,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
     },
     {
-      "set_id": 107040677
+      "set_id": 107040677,
+      "winner_id": 1687740,
+      "loser_id": 376960,
+      "winner_score": 3,
+      "loser_score": 1,
+      "round_text": "Losers Round 4",
+      "round": -7,
+      "phase": "1",
+      "phase_order": 5,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": [
+        {
+          "game_id": 40539127,
+          "order_num": 1,
+          "winner_id": 1687740,
+          "entrant1_score": 0,
+          "entrant2_score": 2,
+          "stage": "Pokémon Stadium 2",
+          "selections": [
+            {
+              "user_id": 376960,
+              "selection_id": 60680405,
+              "character_id": 1304,
+              "character_name": "Marth"
+            },
+            {
+              "user_id": 1687740,
+              "selection_id": 60680406,
+              "character_id": 1341,
+              "character_name": "Zero Suit Samus"
+            }
+          ]
+        },
+        {
+          "game_id": 40539128,
+          "order_num": 2,
+          "winner_id": 1687740,
+          "entrant1_score": 0,
+          "entrant2_score": 1,
+          "stage": "Small Battlefield",
+          "selections": [
+            {
+              "user_id": 376960,
+              "selection_id": 60680407,
+              "character_id": 1304,
+              "character_name": "Marth"
+            },
+            {
+              "user_id": 1687740,
+              "selection_id": 60680408,
+              "character_id": 1341,
+              "character_name": "Zero Suit Samus"
+            }
+          ]
+        },
+        {
+          "game_id": 40539129,
+          "order_num": 3,
+          "winner_id": 376960,
+          "entrant1_score": 2,
+          "entrant2_score": 0,
+          "stage": "Small Battlefield",
+          "selections": [
+            {
+              "user_id": 376960,
+              "selection_id": 60680409,
+              "character_id": 1304,
+              "character_name": "Marth"
+            },
+            {
+              "user_id": 1687740,
+              "selection_id": 60680410,
+              "character_id": 1341,
+              "character_name": "Zero Suit Samus"
+            }
+          ]
+        },
+        {
+          "game_id": 40539130,
+          "order_num": 4,
+          "winner_id": 1687740,
+          "entrant1_score": 0,
+          "entrant2_score": 2,
+          "stage": "Pokémon Stadium 2",
+          "selections": [
+            {
+              "user_id": 376960,
+              "selection_id": 60680411,
+              "character_id": 1304,
+              "character_name": "Marth"
+            },
+            {
+              "user_id": 1687740,
+              "selection_id": 60680412,
+              "character_id": 1341,
+              "character_name": "Zero Suit Samus"
+            }
+          ]
+        }
+      ]
     },
     {
-      "set_id": 107040678
+      "set_id": 107040678,
+      "winner_id": 2159069,
+      "loser_id": 378004,
+      "winner_score": 3,
+      "loser_score": 2,
+      "round_text": "Losers Round 4",
+      "round": -7,
+      "phase": "1",
+      "phase_order": 5,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
     },
     {
-      "set_id": 107040679
+      "set_id": 107040679,
+      "winner_id": 1960501,
+      "loser_id": 2526245,
+      "winner_score": 3,
+      "loser_score": 2,
+      "round_text": "Losers Round 5",
+      "round": -8,
+      "phase": "1",
+      "phase_order": 5,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
     },
     {
-      "set_id": 107040680
+      "set_id": 107040680,
+      "winner_id": 2980181,
+      "loser_id": 1712728,
+      "winner_score": 3,
+      "loser_score": 1,
+      "round_text": "Losers Round 5",
+      "round": -8,
+      "phase": "1",
+      "phase_order": 5,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
     },
     {
-      "set_id": 107040681
+      "set_id": 107040681,
+      "winner_id": 2971239,
+      "loser_id": 1962591,
+      "winner_score": 3,
+      "loser_score": 2,
+      "round_text": "Losers Round 5",
+      "round": -8,
+      "phase": "1",
+      "phase_order": 5,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
     },
     {
-      "set_id": 107040682
+      "set_id": 107040682,
+      "winner_id": 1909088,
+      "loser_id": 2195998,
+      "winner_score": 3,
+      "loser_score": 0,
+      "round_text": "Losers Round 5",
+      "round": -8,
+      "phase": "1",
+      "phase_order": 5,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": [
+        {
+          "game_id": 40539201,
+          "order_num": 1,
+          "winner_id": 1909088,
+          "entrant1_score": 1,
+          "entrant2_score": null,
+          "stage": "Pokémon Stadium 2",
+          "selections": [
+            {
+              "user_id": 2195998,
+              "selection_id": 60680553,
+              "character_id": 1323,
+              "character_name": "R.O.B."
+            },
+            {
+              "user_id": 1909088,
+              "selection_id": 60680554,
+              "character_id": 1279,
+              "character_name": "Diddy Kong"
+            }
+          ]
+        },
+        {
+          "game_id": 40539202,
+          "order_num": 2,
+          "winner_id": 1909088,
+          "entrant1_score": 2,
+          "entrant2_score": 0,
+          "stage": "Pokémon Stadium 2",
+          "selections": [
+            {
+              "user_id": 2195998,
+              "selection_id": 60680555,
+              "character_id": 1323,
+              "character_name": "R.O.B."
+            },
+            {
+              "user_id": 1909088,
+              "selection_id": 60680556,
+              "character_id": 1279,
+              "character_name": "Diddy Kong"
+            }
+          ]
+        },
+        {
+          "game_id": 40539203,
+          "order_num": 3,
+          "winner_id": 1909088,
+          "entrant1_score": 1,
+          "entrant2_score": null,
+          "stage": "Hollow Bastion",
+          "selections": [
+            {
+              "user_id": 2195998,
+              "selection_id": 60680557,
+              "character_id": 1323,
+              "character_name": "R.O.B."
+            },
+            {
+              "user_id": 1909088,
+              "selection_id": 60680558,
+              "character_id": 1279,
+              "character_name": "Diddy Kong"
+            }
+          ]
+        }
+      ]
     },
     {
-      "set_id": 107040683
+      "set_id": 107040683,
+      "winner_id": 1157651,
+      "loser_id": 1642623,
+      "winner_score": 3,
+      "loser_score": 0,
+      "round_text": "Losers Round 5",
+      "round": -8,
+      "phase": "1",
+      "phase_order": 5,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
     },
     {
-      "set_id": 107040684
+      "set_id": 107040684,
+      "winner_id": 2051538,
+      "loser_id": 3134596,
+      "winner_score": 3,
+      "loser_score": 1,
+      "round_text": "Losers Round 5",
+      "round": -8,
+      "phase": "1",
+      "phase_order": 5,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": [
+        {
+          "game_id": 40539141,
+          "order_num": 1,
+          "winner_id": 2051538,
+          "entrant1_score": 1,
+          "entrant2_score": 0,
+          "stage": "Small Battlefield",
+          "selections": [
+            {
+              "user_id": 3134596,
+              "selection_id": 60680433,
+              "character_id": 1290,
+              "character_name": "Ice Climbers"
+            },
+            {
+              "user_id": 2051538,
+              "selection_id": 60680434,
+              "character_id": 1766,
+              "character_name": "Steve"
+            }
+          ]
+        },
+        {
+          "game_id": 40539142,
+          "order_num": 2,
+          "winner_id": 2051538,
+          "entrant1_score": 3,
+          "entrant2_score": 0,
+          "stage": "Pokémon Stadium 2",
+          "selections": [
+            {
+              "user_id": 3134596,
+              "selection_id": 60680435,
+              "character_id": 1290,
+              "character_name": "Ice Climbers"
+            },
+            {
+              "user_id": 2051538,
+              "selection_id": 60680436,
+              "character_id": 1766,
+              "character_name": "Steve"
+            }
+          ]
+        },
+        {
+          "game_id": 40539143,
+          "order_num": 3,
+          "winner_id": 3134596,
+          "entrant1_score": 0,
+          "entrant2_score": 1,
+          "stage": "Pokémon Stadium 2",
+          "selections": [
+            {
+              "user_id": 3134596,
+              "selection_id": 60680437,
+              "character_id": 1290,
+              "character_name": "Ice Climbers"
+            },
+            {
+              "user_id": 2051538,
+              "selection_id": 60680438,
+              "character_id": 1766,
+              "character_name": "Steve"
+            }
+          ]
+        },
+        {
+          "game_id": 40539144,
+          "order_num": 4,
+          "winner_id": 2051538,
+          "entrant1_score": 1,
+          "entrant2_score": 0,
+          "stage": "Small Battlefield",
+          "selections": [
+            {
+              "user_id": 3134596,
+              "selection_id": 60680439,
+              "character_id": 1290,
+              "character_name": "Ice Climbers"
+            },
+            {
+              "user_id": 2051538,
+              "selection_id": 60680440,
+              "character_id": 1766,
+              "character_name": "Steve"
+            }
+          ]
+        }
+      ]
     },
     {
-      "set_id": 107040685
+      "set_id": 107040685,
+      "winner_id": 1687740,
+      "loser_id": 2143259,
+      "winner_score": 3,
+      "loser_score": 2,
+      "round_text": "Losers Round 5",
+      "round": -8,
+      "phase": "1",
+      "phase_order": 5,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
     },
     {
-      "set_id": 107040686
+      "set_id": 107040686,
+      "winner_id": 3128110,
+      "loser_id": 2159069,
+      "winner_score": 3,
+      "loser_score": 0,
+      "round_text": "Losers Round 5",
+      "round": -8,
+      "phase": "1",
+      "phase_order": 5,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": [
+        {
+          "game_id": 40539192,
+          "order_num": 1,
+          "winner_id": 3128110,
+          "entrant1_score": 3,
+          "entrant2_score": null,
+          "stage": "Small Battlefield",
+          "selections": [
+            {
+              "user_id": 2159069,
+              "selection_id": 60680535,
+              "character_id": 1532,
+              "character_name": "Terry"
+            },
+            {
+              "user_id": 3128110,
+              "selection_id": 60680536,
+              "character_id": 1302,
+              "character_name": "Mario"
+            }
+          ]
+        },
+        {
+          "game_id": 40539193,
+          "order_num": 2,
+          "winner_id": 3128110,
+          "entrant1_score": 3,
+          "entrant2_score": null,
+          "stage": "Hollow Bastion",
+          "selections": [
+            {
+              "user_id": 2159069,
+              "selection_id": 60680537,
+              "character_id": 1532,
+              "character_name": "Terry"
+            },
+            {
+              "user_id": 3128110,
+              "selection_id": 60680538,
+              "character_id": 1302,
+              "character_name": "Mario"
+            }
+          ]
+        },
+        {
+          "game_id": 40539194,
+          "order_num": 3,
+          "winner_id": 3128110,
+          "entrant1_score": 1,
+          "entrant2_score": null,
+          "stage": "Small Battlefield",
+          "selections": [
+            {
+              "user_id": 2159069,
+              "selection_id": 60680539,
+              "character_id": 1532,
+              "character_name": "Terry"
+            },
+            {
+              "user_id": 3128110,
+              "selection_id": 60680540,
+              "character_id": 1302,
+              "character_name": "Mario"
+            }
+          ]
+        }
+      ]
     },
     {
-      "set_id": 107040687
+      "set_id": 107040687,
+      "winner_id": 2980181,
+      "loser_id": 1960501,
+      "winner_score": 3,
+      "loser_score": 1,
+      "round_text": "Losers Round 6",
+      "round": -9,
+      "phase": "1",
+      "phase_order": 5,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": [
+        {
+          "game_id": 40539303,
+          "order_num": 1,
+          "winner_id": 2980181,
+          "entrant1_score": 0,
+          "entrant2_score": 1,
+          "stage": "Small Battlefield",
+          "selections": [
+            {
+              "user_id": 1960501,
+              "selection_id": 60680762,
+              "character_id": 1276,
+              "character_name": "Corrin"
+            },
+            {
+              "user_id": 2980181,
+              "selection_id": 60680763,
+              "character_id": 1532,
+              "character_name": "Terry"
+            }
+          ]
+        },
+        {
+          "game_id": 40539304,
+          "order_num": 2,
+          "winner_id": 2980181,
+          "entrant1_score": 0,
+          "entrant2_score": 2,
+          "stage": "Small Battlefield",
+          "selections": [
+            {
+              "user_id": 1960501,
+              "selection_id": 60680764,
+              "character_id": 1276,
+              "character_name": "Corrin"
+            },
+            {
+              "user_id": 2980181,
+              "selection_id": 60680765,
+              "character_id": 1532,
+              "character_name": "Terry"
+            }
+          ]
+        },
+        {
+          "game_id": 40539305,
+          "order_num": 3,
+          "winner_id": 1960501,
+          "entrant1_score": 1,
+          "entrant2_score": 0,
+          "stage": "Small Battlefield",
+          "selections": [
+            {
+              "user_id": 1960501,
+              "selection_id": 60680766,
+              "character_id": 1276,
+              "character_name": "Corrin"
+            },
+            {
+              "user_id": 2980181,
+              "selection_id": 60680767,
+              "character_id": 1532,
+              "character_name": "Terry"
+            }
+          ]
+        },
+        {
+          "game_id": 40539306,
+          "order_num": 4,
+          "winner_id": 2980181,
+          "entrant1_score": 0,
+          "entrant2_score": 2,
+          "stage": "Hollow Bastion",
+          "selections": [
+            {
+              "user_id": 1960501,
+              "selection_id": 60680768,
+              "character_id": 1276,
+              "character_name": "Corrin"
+            },
+            {
+              "user_id": 2980181,
+              "selection_id": 60680769,
+              "character_id": 1532,
+              "character_name": "Terry"
+            }
+          ]
+        }
+      ]
     },
     {
-      "set_id": 107040688
+      "set_id": 107040688,
+      "winner_id": 1909088,
+      "loser_id": 2971239,
+      "winner_score": 3,
+      "loser_score": 2,
+      "round_text": "Losers Round 6",
+      "round": -9,
+      "phase": "1",
+      "phase_order": 5,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": [
+        {
+          "game_id": 40539297,
+          "order_num": 1,
+          "winner_id": 2971239,
+          "entrant1_score": 1,
+          "entrant2_score": 0,
+          "stage": "Pokémon Stadium 2",
+          "selections": [
+            {
+              "user_id": 2971239,
+              "selection_id": 60680748,
+              "character_id": 1331,
+              "character_name": "Snake"
+            },
+            {
+              "user_id": 1909088,
+              "selection_id": 60680749,
+              "character_id": 1279,
+              "character_name": "Diddy Kong"
+            }
+          ]
+        },
+        {
+          "game_id": 40539298,
+          "order_num": 2,
+          "winner_id": 2971239,
+          "entrant1_score": 1,
+          "entrant2_score": 0,
+          "stage": "Pokémon Stadium 2",
+          "selections": [
+            {
+              "user_id": 2971239,
+              "selection_id": 60680750,
+              "character_id": 1331,
+              "character_name": "Snake"
+            },
+            {
+              "user_id": 1909088,
+              "selection_id": 60680751,
+              "character_id": 1279,
+              "character_name": "Diddy Kong"
+            }
+          ]
+        },
+        {
+          "game_id": 40539299,
+          "order_num": 3,
+          "winner_id": 1909088,
+          "entrant1_score": 0,
+          "entrant2_score": 1,
+          "stage": "Pokémon Stadium 2",
+          "selections": [
+            {
+              "user_id": 2971239,
+              "selection_id": 60680752,
+              "character_id": 1331,
+              "character_name": "Snake"
+            },
+            {
+              "user_id": 1909088,
+              "selection_id": 60680753,
+              "character_id": 1279,
+              "character_name": "Diddy Kong"
+            }
+          ]
+        },
+        {
+          "game_id": 40539300,
+          "order_num": 4,
+          "winner_id": 1909088,
+          "entrant1_score": 0,
+          "entrant2_score": 2,
+          "stage": "Pokémon Stadium 2",
+          "selections": [
+            {
+              "user_id": 2971239,
+              "selection_id": 60680754,
+              "character_id": 1331,
+              "character_name": "Snake"
+            },
+            {
+              "user_id": 1909088,
+              "selection_id": 60680755,
+              "character_id": 1279,
+              "character_name": "Diddy Kong"
+            }
+          ]
+        },
+        {
+          "game_id": 40539301,
+          "order_num": 5,
+          "winner_id": 1909088,
+          "entrant1_score": 0,
+          "entrant2_score": 1,
+          "stage": "Small Battlefield",
+          "selections": [
+            {
+              "user_id": 2971239,
+              "selection_id": 60680756,
+              "character_id": 1331,
+              "character_name": "Snake"
+            },
+            {
+              "user_id": 1909088,
+              "selection_id": 60680757,
+              "character_id": 1279,
+              "character_name": "Diddy Kong"
+            }
+          ]
+        }
+      ]
     },
     {
-      "set_id": 107040689
+      "set_id": 107040689,
+      "winner_id": 2051538,
+      "loser_id": 1157651,
+      "winner_score": 3,
+      "loser_score": 2,
+      "round_text": "Losers Round 6",
+      "round": -9,
+      "phase": "1",
+      "phase_order": 5,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": [
+        {
+          "game_id": 40539292,
+          "order_num": 1,
+          "winner_id": 1157651,
+          "entrant1_score": 1,
+          "entrant2_score": 0,
+          "stage": "Town and City",
+          "selections": [
+            {
+              "user_id": 1157651,
+              "selection_id": 60680738,
+              "character_id": 1285,
+              "character_name": "Falco"
+            },
+            {
+              "user_id": 2051538,
+              "selection_id": 60680739,
+              "character_id": 1846,
+              "character_name": "Kazuya"
+            }
+          ]
+        },
+        {
+          "game_id": 40539293,
+          "order_num": 2,
+          "winner_id": 1157651,
+          "entrant1_score": 1,
+          "entrant2_score": 0,
+          "stage": "Smashville",
+          "selections": [
+            {
+              "user_id": 1157651,
+              "selection_id": 60680740,
+              "character_id": 1285,
+              "character_name": "Falco"
+            },
+            {
+              "user_id": 2051538,
+              "selection_id": 60680741,
+              "character_id": 1846,
+              "character_name": "Kazuya"
+            }
+          ]
+        },
+        {
+          "game_id": 40539294,
+          "order_num": 3,
+          "winner_id": 2051538,
+          "entrant1_score": 0,
+          "entrant2_score": 1,
+          "stage": "Smashville",
+          "selections": [
+            {
+              "user_id": 1157651,
+              "selection_id": 60680742,
+              "character_id": 1285,
+              "character_name": "Falco"
+            },
+            {
+              "user_id": 2051538,
+              "selection_id": 60680743,
+              "character_id": 1846,
+              "character_name": "Kazuya"
+            }
+          ]
+        },
+        {
+          "game_id": 40539295,
+          "order_num": 4,
+          "winner_id": 2051538,
+          "entrant1_score": 0,
+          "entrant2_score": 1,
+          "stage": "Small Battlefield",
+          "selections": [
+            {
+              "user_id": 1157651,
+              "selection_id": 60680744,
+              "character_id": 1285,
+              "character_name": "Falco"
+            },
+            {
+              "user_id": 2051538,
+              "selection_id": 60680745,
+              "character_id": 1846,
+              "character_name": "Kazuya"
+            }
+          ]
+        },
+        {
+          "game_id": 40539296,
+          "order_num": 5,
+          "winner_id": 2051538,
+          "entrant1_score": 0,
+          "entrant2_score": 3,
+          "stage": "Town and City",
+          "selections": [
+            {
+              "user_id": 1157651,
+              "selection_id": 60680746,
+              "character_id": 1285,
+              "character_name": "Falco"
+            },
+            {
+              "user_id": 2051538,
+              "selection_id": 60680747,
+              "character_id": 1846,
+              "character_name": "Kazuya"
+            }
+          ]
+        }
+      ]
     },
     {
-      "set_id": 107040690
+      "set_id": 107040690,
+      "winner_id": 1687740,
+      "loser_id": 3128110,
+      "winner_score": 3,
+      "loser_score": 2,
+      "round_text": "Losers Round 6",
+      "round": -9,
+      "phase": "1",
+      "phase_order": 5,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": [
+        {
+          "game_id": 40539287,
+          "order_num": 1,
+          "winner_id": 3128110,
+          "entrant1_score": 0,
+          "entrant2_score": 1,
+          "stage": "Pokémon Stadium 2",
+          "selections": [
+            {
+              "user_id": 1687740,
+              "selection_id": 60680728,
+              "character_id": 1341,
+              "character_name": "Zero Suit Samus"
+            },
+            {
+              "user_id": 3128110,
+              "selection_id": 60680729,
+              "character_id": 1302,
+              "character_name": "Mario"
+            }
+          ]
+        },
+        {
+          "game_id": 40539288,
+          "order_num": 2,
+          "winner_id": 3128110,
+          "entrant1_score": 0,
+          "entrant2_score": 2,
+          "stage": "Pokémon Stadium 2",
+          "selections": [
+            {
+              "user_id": 1687740,
+              "selection_id": 60680730,
+              "character_id": 1341,
+              "character_name": "Zero Suit Samus"
+            },
+            {
+              "user_id": 3128110,
+              "selection_id": 60680731,
+              "character_id": 1302,
+              "character_name": "Mario"
+            }
+          ]
+        },
+        {
+          "game_id": 40539289,
+          "order_num": 3,
+          "winner_id": 1687740,
+          "entrant1_score": 3,
+          "entrant2_score": 0,
+          "stage": "Pokémon Stadium 2",
+          "selections": [
+            {
+              "user_id": 1687740,
+              "selection_id": 60680732,
+              "character_id": 1341,
+              "character_name": "Zero Suit Samus"
+            },
+            {
+              "user_id": 3128110,
+              "selection_id": 60680733,
+              "character_id": 1302,
+              "character_name": "Mario"
+            }
+          ]
+        },
+        {
+          "game_id": 40539290,
+          "order_num": 4,
+          "winner_id": 1687740,
+          "entrant1_score": 1,
+          "entrant2_score": 0,
+          "stage": "Pokémon Stadium 2",
+          "selections": [
+            {
+              "user_id": 1687740,
+              "selection_id": 60680734,
+              "character_id": 1341,
+              "character_name": "Zero Suit Samus"
+            },
+            {
+              "user_id": 3128110,
+              "selection_id": 60680735,
+              "character_id": 1302,
+              "character_name": "Mario"
+            }
+          ]
+        },
+        {
+          "game_id": 40539291,
+          "order_num": 5,
+          "winner_id": 1687740,
+          "entrant1_score": 2,
+          "entrant2_score": 0,
+          "stage": "Pokémon Stadium 2",
+          "selections": [
+            {
+              "user_id": 1687740,
+              "selection_id": 60680736,
+              "character_id": 1341,
+              "character_name": "Zero Suit Samus"
+            },
+            {
+              "user_id": 3128110,
+              "selection_id": 60680737,
+              "character_id": 1302,
+              "character_name": "Mario"
+            }
+          ]
+        }
+      ]
     },
     {
-      "set_id": 107040691
+      "set_id": 107040691,
+      "winner_id": 2980181,
+      "loser_id": 2323555,
+      "winner_score": 3,
+      "loser_score": 2,
+      "round_text": "Losers Round 7",
+      "round": -10,
+      "phase": "1",
+      "phase_order": 5,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": [
+        {
+          "game_id": 40539371,
+          "order_num": 1,
+          "winner_id": 2323555,
+          "entrant1_score": 2,
+          "entrant2_score": 0,
+          "stage": "Small Battlefield",
+          "selections": [
+            {
+              "user_id": 2980181,
+              "selection_id": 60680916,
+              "character_id": 1532,
+              "character_name": "Terry"
+            },
+            {
+              "user_id": 2323555,
+              "selection_id": 60680917,
+              "character_id": 1747,
+              "character_name": "Min Min"
+            }
+          ]
+        },
+        {
+          "game_id": 40539372,
+          "order_num": 2,
+          "winner_id": 2323555,
+          "entrant1_score": 2,
+          "entrant2_score": 0,
+          "stage": "Hollow Bastion",
+          "selections": [
+            {
+              "user_id": 2980181,
+              "selection_id": 60680918,
+              "character_id": 1532,
+              "character_name": "Terry"
+            },
+            {
+              "user_id": 2323555,
+              "selection_id": 60680919,
+              "character_id": 1747,
+              "character_name": "Min Min"
+            }
+          ]
+        },
+        {
+          "game_id": 40539373,
+          "order_num": 3,
+          "winner_id": 2980181,
+          "entrant1_score": 0,
+          "entrant2_score": 1,
+          "stage": "Small Battlefield",
+          "selections": [
+            {
+              "user_id": 2980181,
+              "selection_id": 60680920,
+              "character_id": 1532,
+              "character_name": "Terry"
+            },
+            {
+              "user_id": 2323555,
+              "selection_id": 60680921,
+              "character_id": 1747,
+              "character_name": "Min Min"
+            }
+          ]
+        },
+        {
+          "game_id": 40539374,
+          "order_num": 4,
+          "winner_id": 2980181,
+          "entrant1_score": 0,
+          "entrant2_score": 1,
+          "stage": "Small Battlefield",
+          "selections": [
+            {
+              "user_id": 2980181,
+              "selection_id": 60680922,
+              "character_id": 1532,
+              "character_name": "Terry"
+            },
+            {
+              "user_id": 2323555,
+              "selection_id": 60680923,
+              "character_id": 1747,
+              "character_name": "Min Min"
+            }
+          ]
+        },
+        {
+          "game_id": 40539375,
+          "order_num": 5,
+          "winner_id": 2980181,
+          "entrant1_score": 0,
+          "entrant2_score": 2,
+          "stage": "Small Battlefield",
+          "selections": [
+            {
+              "user_id": 2980181,
+              "selection_id": 60680924,
+              "character_id": 1532,
+              "character_name": "Terry"
+            },
+            {
+              "user_id": 2323555,
+              "selection_id": 60680925,
+              "character_id": 1747,
+              "character_name": "Min Min"
+            }
+          ]
+        }
+      ]
     },
     {
-      "set_id": 107040692
+      "set_id": 107040692,
+      "winner_id": 1909088,
+      "loser_id": 355675,
+      "winner_score": 3,
+      "loser_score": 1,
+      "round_text": "Losers Round 7",
+      "round": -10,
+      "phase": "1",
+      "phase_order": 5,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": [
+        {
+          "game_id": 40539326,
+          "order_num": 1,
+          "winner_id": 1909088,
+          "entrant1_score": 0,
+          "entrant2_score": 2,
+          "stage": "Pokémon Stadium 2",
+          "selections": [
+            {
+              "user_id": 1909088,
+              "selection_id": 60680824,
+              "character_id": 1279,
+              "character_name": "Diddy Kong"
+            },
+            {
+              "user_id": 355675,
+              "selection_id": 60680825,
+              "character_id": 1302,
+              "character_name": "Mario"
+            }
+          ]
+        },
+        {
+          "game_id": 40539327,
+          "order_num": 2,
+          "winner_id": 355675,
+          "entrant1_score": 1,
+          "entrant2_score": 0,
+          "stage": "Pokémon Stadium 2",
+          "selections": [
+            {
+              "user_id": 1909088,
+              "selection_id": 60680826,
+              "character_id": 1279,
+              "character_name": "Diddy Kong"
+            },
+            {
+              "user_id": 355675,
+              "selection_id": 60680827,
+              "character_id": 1302,
+              "character_name": "Mario"
+            }
+          ]
+        },
+        {
+          "game_id": 40539328,
+          "order_num": 3,
+          "winner_id": 1909088,
+          "entrant1_score": 0,
+          "entrant2_score": 2,
+          "stage": "Pokémon Stadium 2",
+          "selections": [
+            {
+              "user_id": 1909088,
+              "selection_id": 60680828,
+              "character_id": 1279,
+              "character_name": "Diddy Kong"
+            },
+            {
+              "user_id": 355675,
+              "selection_id": 60680829,
+              "character_id": 1302,
+              "character_name": "Mario"
+            }
+          ]
+        },
+        {
+          "game_id": 40539329,
+          "order_num": 4,
+          "winner_id": 1909088,
+          "entrant1_score": 0,
+          "entrant2_score": 2,
+          "stage": "Pokémon Stadium 2",
+          "selections": [
+            {
+              "user_id": 1909088,
+              "selection_id": 60680830,
+              "character_id": 1279,
+              "character_name": "Diddy Kong"
+            },
+            {
+              "user_id": 355675,
+              "selection_id": 60680831,
+              "character_id": 1302,
+              "character_name": "Mario"
+            }
+          ]
+        }
+      ]
     },
     {
-      "set_id": 107040693
+      "set_id": 107040693,
+      "winner_id": 2051538,
+      "loser_id": 1843666,
+      "winner_score": 3,
+      "loser_score": 0,
+      "round_text": "Losers Round 7",
+      "round": -10,
+      "phase": "1",
+      "phase_order": 5,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": [
+        {
+          "game_id": 40539314,
+          "order_num": 1,
+          "winner_id": 2051538,
+          "entrant1_score": null,
+          "entrant2_score": 2,
+          "stage": "Hollow Bastion",
+          "selections": [
+            {
+              "user_id": 1843666,
+              "selection_id": 60680788,
+              "character_id": 1302,
+              "character_name": "Mario"
+            },
+            {
+              "user_id": 2051538,
+              "selection_id": 60680789,
+              "character_id": 1846,
+              "character_name": "Kazuya"
+            }
+          ]
+        },
+        {
+          "game_id": 40539315,
+          "order_num": 2,
+          "winner_id": 2051538,
+          "entrant1_score": null,
+          "entrant2_score": 2,
+          "stage": "Small Battlefield",
+          "selections": [
+            {
+              "user_id": 1843666,
+              "selection_id": 60680790,
+              "character_id": 1302,
+              "character_name": "Mario"
+            },
+            {
+              "user_id": 2051538,
+              "selection_id": 60680791,
+              "character_id": 1846,
+              "character_name": "Kazuya"
+            }
+          ]
+        },
+        {
+          "game_id": 40539316,
+          "order_num": 3,
+          "winner_id": 2051538,
+          "entrant1_score": null,
+          "entrant2_score": 1,
+          "stage": "Small Battlefield",
+          "selections": [
+            {
+              "user_id": 1843666,
+              "selection_id": 60680792,
+              "character_id": 1302,
+              "character_name": "Mario"
+            },
+            {
+              "user_id": 2051538,
+              "selection_id": 60680793,
+              "character_id": 1846,
+              "character_name": "Kazuya"
+            }
+          ]
+        }
+      ]
     },
     {
-      "set_id": 107040694
+      "set_id": 107040694,
+      "winner_id": 2022776,
+      "loser_id": 1687740,
+      "winner_score": 3,
+      "loser_score": 0,
+      "round_text": "Losers Round 7",
+      "round": -10,
+      "phase": "1",
+      "phase_order": 5,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": [
+        {
+          "game_id": 40539335,
+          "order_num": 1,
+          "winner_id": 2022776,
+          "entrant1_score": 1,
+          "entrant2_score": null,
+          "stage": "Final Destination",
+          "selections": [
+            {
+              "user_id": 1687740,
+              "selection_id": 60680850,
+              "character_id": 1341,
+              "character_name": "Zero Suit Samus"
+            },
+            {
+              "user_id": 2022776,
+              "selection_id": 60680851,
+              "character_id": 1338,
+              "character_name": "Yoshi"
+            }
+          ]
+        },
+        {
+          "game_id": 40539336,
+          "order_num": 2,
+          "winner_id": 2022776,
+          "entrant1_score": 1,
+          "entrant2_score": null,
+          "stage": "Pokémon Stadium 2",
+          "selections": [
+            {
+              "user_id": 1687740,
+              "selection_id": 60680852,
+              "character_id": 1341,
+              "character_name": "Zero Suit Samus"
+            },
+            {
+              "user_id": 2022776,
+              "selection_id": 60680853,
+              "character_id": 1338,
+              "character_name": "Yoshi"
+            }
+          ]
+        },
+        {
+          "game_id": 40539337,
+          "order_num": 3,
+          "winner_id": 2022776,
+          "entrant1_score": 1,
+          "entrant2_score": null,
+          "stage": "Pokémon Stadium 2",
+          "selections": [
+            {
+              "user_id": 1687740,
+              "selection_id": 60680854,
+              "character_id": 1341,
+              "character_name": "Zero Suit Samus"
+            },
+            {
+              "user_id": 2022776,
+              "selection_id": 60680855,
+              "character_id": 1338,
+              "character_name": "Yoshi"
+            }
+          ]
+        }
+      ]
     },
     {
-      "set_id": 107046352
+      "set_id": 107046352,
+      "winner_id": 1929508,
+      "loser_id": 1152730,
+      "winner_score": 3,
+      "loser_score": 0,
+      "round_text": "Winners Semi-Final",
+      "round": 1,
+      "phase": "1",
+      "phase_order": 4,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": [
+        {
+          "game_id": 40539381,
+          "order_num": 1,
+          "winner_id": 1929508,
+          "entrant1_score": 1,
+          "entrant2_score": 0,
+          "stage": "Small Battlefield",
+          "selections": [
+            {
+              "user_id": 1929508,
+              "selection_id": 60680936,
+              "character_id": 1318,
+              "character_name": "Pichu"
+            },
+            {
+              "user_id": 1152730,
+              "selection_id": 60680937,
+              "character_id": 1323,
+              "character_name": "R.O.B."
+            }
+          ]
+        },
+        {
+          "game_id": 40539382,
+          "order_num": 2,
+          "winner_id": 1929508,
+          "entrant1_score": 1,
+          "entrant2_score": null,
+          "stage": "Small Battlefield",
+          "selections": [
+            {
+              "user_id": 1929508,
+              "selection_id": 60680938,
+              "character_id": 1318,
+              "character_name": "Pichu"
+            },
+            {
+              "user_id": 1152730,
+              "selection_id": 60680939,
+              "character_id": 1323,
+              "character_name": "R.O.B."
+            }
+          ]
+        },
+        {
+          "game_id": 40539383,
+          "order_num": 3,
+          "winner_id": 1929508,
+          "entrant1_score": 1,
+          "entrant2_score": null,
+          "stage": "Small Battlefield",
+          "selections": [
+            {
+              "user_id": 1929508,
+              "selection_id": 60680940,
+              "character_id": 1318,
+              "character_name": "Pichu"
+            },
+            {
+              "user_id": 1152730,
+              "selection_id": 60680941,
+              "character_id": 1323,
+              "character_name": "R.O.B."
+            }
+          ]
+        }
+      ]
     },
     {
-      "set_id": 107046353
+      "set_id": 107046353,
+      "winner_id": 1787715,
+      "loser_id": 1689037,
+      "winner_score": 3,
+      "loser_score": 0,
+      "round_text": "Winners Semi-Final",
+      "round": 1,
+      "phase": "1",
+      "phase_order": 4,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": [
+        {
+          "game_id": 40539384,
+          "order_num": 1,
+          "winner_id": 1787715,
+          "entrant1_score": 2,
+          "entrant2_score": null,
+          "stage": "Small Battlefield",
+          "selections": [
+            {
+              "user_id": 1689037,
+              "selection_id": 60680942,
+              "character_id": 1274,
+              "character_name": "Captain Falcon"
+            },
+            {
+              "user_id": 1787715,
+              "selection_id": 60680943,
+              "character_id": 1301,
+              "character_name": "Luigi"
+            }
+          ]
+        },
+        {
+          "game_id": 40539385,
+          "order_num": 2,
+          "winner_id": 1787715,
+          "entrant1_score": 2,
+          "entrant2_score": null,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 1689037,
+              "selection_id": 60680944,
+              "character_id": 1274,
+              "character_name": "Captain Falcon"
+            },
+            {
+              "user_id": 1787715,
+              "selection_id": 60680945,
+              "character_id": 1301,
+              "character_name": "Luigi"
+            }
+          ]
+        },
+        {
+          "game_id": 40539386,
+          "order_num": 3,
+          "winner_id": 1787715,
+          "entrant1_score": 1,
+          "entrant2_score": null,
+          "stage": "Small Battlefield",
+          "selections": [
+            {
+              "user_id": 1689037,
+              "selection_id": 60680946,
+              "character_id": 1274,
+              "character_name": "Captain Falcon"
+            },
+            {
+              "user_id": 1787715,
+              "selection_id": 60680947,
+              "character_id": 1301,
+              "character_name": "Luigi"
+            }
+          ]
+        }
+      ]
     },
     {
-      "set_id": 107046354
+      "set_id": 107046354,
+      "winner_id": 1787715,
+      "loser_id": 1929508,
+      "winner_score": 3,
+      "loser_score": 1,
+      "round_text": "Winners Final",
+      "round": 2,
+      "phase": "1",
+      "phase_order": 4,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": [
+        {
+          "game_id": 40539429,
+          "order_num": 1,
+          "winner_id": 1929508,
+          "entrant1_score": 2,
+          "entrant2_score": 0,
+          "stage": "Small Battlefield",
+          "selections": [
+            {
+              "user_id": 1929508,
+              "selection_id": 60681032,
+              "character_id": 1318,
+              "character_name": "Pichu"
+            },
+            {
+              "user_id": 1787715,
+              "selection_id": 60681033,
+              "character_id": 1301,
+              "character_name": "Luigi"
+            }
+          ]
+        },
+        {
+          "game_id": 40539430,
+          "order_num": 2,
+          "winner_id": 1787715,
+          "entrant1_score": 0,
+          "entrant2_score": 1,
+          "stage": "Small Battlefield",
+          "selections": [
+            {
+              "user_id": 1929508,
+              "selection_id": 60681034,
+              "character_id": 1318,
+              "character_name": "Pichu"
+            },
+            {
+              "user_id": 1787715,
+              "selection_id": 60681035,
+              "character_id": 1301,
+              "character_name": "Luigi"
+            }
+          ]
+        },
+        {
+          "game_id": 40539431,
+          "order_num": 3,
+          "winner_id": 1787715,
+          "entrant1_score": 0,
+          "entrant2_score": 1,
+          "stage": "Small Battlefield",
+          "selections": [
+            {
+              "user_id": 1929508,
+              "selection_id": 60681036,
+              "character_id": 1318,
+              "character_name": "Pichu"
+            },
+            {
+              "user_id": 1787715,
+              "selection_id": 60681037,
+              "character_id": 1301,
+              "character_name": "Luigi"
+            }
+          ]
+        },
+        {
+          "game_id": 40539432,
+          "order_num": 4,
+          "winner_id": 1787715,
+          "entrant1_score": 0,
+          "entrant2_score": 2,
+          "stage": "Small Battlefield",
+          "selections": [
+            {
+              "user_id": 1929508,
+              "selection_id": 60681038,
+              "character_id": 1318,
+              "character_name": "Pichu"
+            },
+            {
+              "user_id": 1787715,
+              "selection_id": 60681039,
+              "character_id": 1301,
+              "character_name": "Luigi"
+            }
+          ]
+        }
+      ]
     },
     {
-      "set_id": 107046355
+      "set_id": 107046355,
+      "winner_id": 1787715,
+      "loser_id": 1689037,
+      "winner_score": 3,
+      "loser_score": 0,
+      "round_text": "Grand Final",
+      "round": 3,
+      "phase": "1",
+      "phase_order": 4,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": [
+        {
+          "game_id": 40539475,
+          "order_num": 1,
+          "winner_id": 1787715,
+          "entrant1_score": 1,
+          "entrant2_score": null,
+          "stage": "Small Battlefield",
+          "selections": [
+            {
+              "user_id": 1689037,
+              "selection_id": 60681124,
+              "character_id": 1274,
+              "character_name": "Captain Falcon"
+            },
+            {
+              "user_id": 1787715,
+              "selection_id": 60681125,
+              "character_id": 1301,
+              "character_name": "Luigi"
+            }
+          ]
+        },
+        {
+          "game_id": 40539476,
+          "order_num": 2,
+          "winner_id": 1787715,
+          "entrant1_score": 2,
+          "entrant2_score": null,
+          "stage": "Small Battlefield",
+          "selections": [
+            {
+              "user_id": 1689037,
+              "selection_id": 60681126,
+              "character_id": 1274,
+              "character_name": "Captain Falcon"
+            },
+            {
+              "user_id": 1787715,
+              "selection_id": 60681127,
+              "character_id": 1301,
+              "character_name": "Luigi"
+            }
+          ]
+        },
+        {
+          "game_id": 40539477,
+          "order_num": 3,
+          "winner_id": 1787715,
+          "entrant1_score": 1,
+          "entrant2_score": null,
+          "stage": "Small Battlefield",
+          "selections": [
+            {
+              "user_id": 1689037,
+              "selection_id": 60681128,
+              "character_id": 1274,
+              "character_name": "Captain Falcon"
+            },
+            {
+              "user_id": 1787715,
+              "selection_id": 60681129,
+              "character_id": 1301,
+              "character_name": "Luigi"
+            }
+          ]
+        }
+      ]
     },
     {
       "set_id": 107046365,

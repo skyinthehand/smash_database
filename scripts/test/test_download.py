@@ -12,6 +12,7 @@ from unittest.mock import patch
 from scripts.fetch.download import (
     _continue_incremental_fetch,
     _start_incremental_fetch,
+    SET_BATCH_SIZE_FALLBACKS,
     SET_IDS_PER_PAGE_FALLBACKS,
     build_match_data_from_node,
     build_match_dedupe_key,
@@ -85,6 +86,42 @@ def _make_set_node(set_id, winner_entrant=11, loser_entrant=22):
         "fullRoundText": "Winners Round 1",
         "round": 1,
         "state": 3,
+    }
+
+
+def _make_bye_set_node(set_id, entrant=11):
+    """テスト用に、不戦勝(BYE、片方のslotに対戦相手がいない)のsetノードを
+    組み立てる。standingは永久に埋まらないため build_match_data_from_node は
+    常に None を返す。"""
+    return {
+        "id": set_id,
+        "slots": [
+            {"entrant": {"id": entrant}, "standing": None},
+            {"entrant": None, "standing": None},
+        ],
+        "games": None,
+        "phaseGroup": None,
+        "fullRoundText": "Winners Round 1",
+        "round": 1,
+        "state": 1,
+    }
+
+
+def _make_unplayed_set_node(set_id, entrant0=11, entrant1=22):
+    """テスト用に、対戦相手は両方いるがまだプレイされていない(standingが
+    未定の)setノードを組み立てる。BYEとは異なり、後日プレイされれば
+    解決しうる一時的な状態。"""
+    return {
+        "id": set_id,
+        "slots": [
+            {"entrant": {"id": entrant0}, "standing": None},
+            {"entrant": {"id": entrant1}, "standing": None},
+        ],
+        "games": None,
+        "phaseGroup": None,
+        "fullRoundText": "Winners Round 1",
+        "round": 1,
+        "state": 1,
     }
 
 
@@ -777,6 +814,63 @@ class DownloadTests(unittest.TestCase):
         mock_fetch_all_sets.assert_not_called()
         mock_fetch_set_ids.assert_not_called()
 
+    @patch("scripts.fetch.download.time.sleep")
+    @patch("scripts.fetch.download.fetch_data_with_retries")
+    def test_fetch_set_details_by_ids_falls_back_to_smaller_batch_on_complexity_error_without_exception(
+        self, mock_fetch, _mock_sleep,
+    ):
+        """fetch_data_with_retriesは、HTTP 200だが'data'キーが無いGraphQLレベルの
+        エラー応答(complexity超過等)では例外を投げない。これを「0件で正常終了」と
+        誤認せず、complexity超過エラーとして検知しバッチサイズを縮小して再試行する
+        ことを確認する(誤認すると、実データが存在するset_idのバッチ全体を
+        永久に取りこぼす重大な不具合になる回帰テスト)。"""
+        set_ids = list(range(10))
+        complexity_error_response = {
+            "errors": [
+                {"message": "Your query complexity is too high. A maximum of "
+                             "1000 objects may be returned by each request. (actual: 1217)"}
+            ],
+            "actionRecords": [],
+        }
+        success_response = {"data": {f"s{i}": {"id": set_ids[i]} for i in range(10)}}
+        mock_fetch.side_effect = [complexity_error_response, success_response]
+
+        batches = list(fetch_set_details_by_ids(set_ids))
+
+        self.assertEqual(mock_fetch.call_count, 2)
+        self.assertEqual(len(batches), 1)
+        self.assertEqual({node["id"] for node in batches[0]}, set(set_ids[:10]))
+
+    @patch("scripts.fetch.download.time.sleep")
+    @patch("scripts.fetch.download.fetch_data_with_retries")
+    def test_fetch_set_details_by_ids_raises_when_complexity_error_persists_at_smallest_batch(
+        self, mock_fetch, _mock_sleep,
+    ):
+        """最小バッチサイズ(1件)まで縮小してもcomplexity超過が続く場合は、
+        これ以上縮小できないためFetchErrorを送出する(黙って0件扱いにしない)。"""
+        complexity_error_response = {
+            "errors": [{"message": "Your query complexity is too high. (actual: 9999)"}],
+            "actionRecords": [],
+        }
+        mock_fetch.side_effect = [complexity_error_response] * len(SET_BATCH_SIZE_FALLBACKS)
+
+        with self.assertRaises(FetchError):
+            list(fetch_set_details_by_ids([1]))
+
+    @patch("scripts.fetch.download.fetch_data_with_retries")
+    def test_fetch_set_details_by_ids_raises_on_data_missing_without_complexity_error(
+        self, mock_fetch,
+    ):
+        """'data'キーが無い応答でも、complexity超過以外の理由(例: 内部エラー)なら
+        バッチサイズを縮小せず、従来通り即座にFetchErrorを送出する。"""
+        mock_fetch.return_value = {
+            "errors": [{"message": "internal server error"}],
+            "actionRecords": [],
+        }
+
+        with self.assertRaises(FetchError):
+            list(fetch_set_details_by_ids([1]))
+
     def test_continue_incremental_fetch_keeps_already_completed_records_on_interruption(self):
         def fake_fetch_set_details(set_ids):
             yield [_make_set_node(1)]
@@ -838,6 +932,66 @@ class DownloadTests(unittest.TestCase):
                 payload = json.load(f)
 
         self.assertEqual(len(payload["data"]), 1)
+
+    def test_continue_incremental_fetch_removes_bye_set_placeholder(self):
+        """BYE(不戦勝)のset_idはプレースホルダーのまま残さず取り除かれ、
+        still_incompleteがFalseになる(除去しないと永久にTrueのまま
+        進まなくなる回帰テスト)。"""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            write_matches_data([{"set_id": 1}], tmpdir)
+
+            with patch("scripts.fetch.download.fetch_set_details_by_ids") as mock_fetch_details:
+                mock_fetch_details.return_value = [[_make_bye_set_node(1)]]
+                still_incomplete = _continue_incremental_fetch(10, {11: 1}, tmpdir)
+
+            with open(os.path.join(tmpdir, "matches.json"), encoding="utf-8") as f:
+                payload = json.load(f)
+
+        self.assertFalse(still_incomplete)
+        self.assertEqual(payload["data"], [])
+
+    def test_continue_incremental_fetch_keeps_unplayed_set_as_placeholder(self):
+        """対戦相手はいるがまだプレイされていない(standing未定の)set_idは、
+        BYEとは違い従来通りプレースホルダーのまま残る(除去しない)。"""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            write_matches_data([{"set_id": 1}], tmpdir)
+
+            with patch("scripts.fetch.download.fetch_set_details_by_ids") as mock_fetch_details:
+                mock_fetch_details.return_value = [[_make_unplayed_set_node(1)]]
+                still_incomplete = _continue_incremental_fetch(10, {11: 1, 22: 2}, tmpdir)
+
+            with open(os.path.join(tmpdir, "matches.json"), encoding="utf-8") as f:
+                payload = json.load(f)
+
+        self.assertTrue(still_incomplete)
+        self.assertEqual(len(payload["data"]), 1)
+        self.assertTrue(is_placeholder_record(payload["data"][0]))
+        self.assertEqual(payload["data"][0]["set_id"], 1)
+
+    def test_continue_incremental_fetch_removes_only_bye_when_mixed_with_completed_and_unplayed(self):
+        """BYE・完了済み・未消化が混在する場合、BYEだけが除去され、
+        完了済みは反映、未消化はプレースホルダーのまま残る。"""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            write_matches_data(
+                [{"set_id": 1}, {"set_id": 2}, {"set_id": 3}], tmpdir,
+            )
+
+            with patch("scripts.fetch.download.fetch_set_details_by_ids") as mock_fetch_details:
+                mock_fetch_details.return_value = [[
+                    _make_set_node(1),
+                    _make_bye_set_node(2),
+                    _make_unplayed_set_node(3),
+                ]]
+                still_incomplete = _continue_incremental_fetch(10, {11: 1, 22: 2}, tmpdir)
+
+            with open(os.path.join(tmpdir, "matches.json"), encoding="utf-8") as f:
+                payload = json.load(f)
+
+        self.assertTrue(still_incomplete)  # set_id=3 がまだプレースホルダーのため
+        by_set_id = {record["set_id"]: record for record in payload["data"]}
+        self.assertEqual(set(by_set_id.keys()), {1, 3})  # set_id=2(BYE)は除去済み
+        self.assertFalse(is_placeholder_record(by_set_id[1]))
+        self.assertTrue(is_placeholder_record(by_set_id[3]))
 
     @patch("scripts.fetch.download.fetch_with_page_fallback")
     @patch("scripts.fetch.download.load_excluded_phase_ids", return_value={})
@@ -1715,6 +1869,112 @@ class DownloadTests(unittest.TestCase):
 
     @patch("scripts.fetch.download.read_set", return_value=set())
     @patch("scripts.fetch.download.read_users_jsonl", return_value={})
+    @patch("scripts.fetch.download.fetch_tournament_by_id")
+    @patch("scripts.fetch.download.fetch_event_ids_from_tournament")
+    @patch("scripts.fetch.download.download_standings")
+    def test_download_by_ids_does_not_duplicate_tournament_line_on_revisit(
+        self,
+        mock_standings,
+        mock_fetch_event_ids,
+        mock_fetch_tournament_by_id,
+        _mock_read_users,
+        _mock_read_set,
+    ):
+        """回帰テスト(event_id=1677094/tournament_id=937614で実際に起きた
+        不具合): 既にtournaments.jsonlに存在するtournament_idを
+        --tournament_ids で複数回処理しても、行が重複追記されない。"""
+        mock_fetch_tournament_by_id.return_value = {
+            "name": "Test Tournament",
+            "startAt": 1714780800,
+            "endAt": 1714784400,
+            "countryCode": "JP",
+            "city": "Tokyo",
+            "lat": None,
+            "lng": None,
+            "venueName": None,
+            "timezone": "Asia/Tokyo",
+            "postalCode": None,
+            "venueAddress": None,
+            "mapsPlaceId": None,
+            "url": "https://example.com",
+        }
+        mock_fetch_event_ids.return_value = [(10, "Singles", False, "COMPLETED", 1)]
+        mock_standings.side_effect = FetchError("standings query failed")
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            tournament_file_path = f"{tmpdir}/tournaments.jsonl"
+            for _ in range(2):
+                download_by_ids(
+                    [1], "1386", "JP", f"{tmpdir}",
+                    f"{tmpdir}/done.csv", f"{tmpdir}/users.jsonl", tournament_file_path,
+                )
+
+            with open(tournament_file_path, encoding="utf-8") as f:
+                lines = [line for line in f.read().splitlines() if line.strip()]
+
+        matching_lines = [line for line in lines if json.loads(line)["tournament_id"] == 1]
+        self.assertEqual(len(matching_lines), 1)
+
+    @patch("scripts.fetch.download.read_users_jsonl", return_value={})
+    @patch("scripts.fetch.download.fetch_tournament_by_id")
+    @patch("scripts.fetch.download.fetch_event_ids_from_tournament")
+    @patch("scripts.fetch.download.download_all_set")
+    @patch("scripts.fetch.download.download_standings")
+    @patch("scripts.fetch.download.download_seeds")
+    @patch("scripts.fetch.download.extend_user_info")
+    def test_download_by_ids_does_not_mark_tournament_done_with_partial_incomplete_event(
+        self,
+        _mock_extend_user_info,
+        _mock_download_seeds,
+        mock_download_standings,
+        mock_download_all_set,
+        mock_fetch_event_ids,
+        mock_fetch_tournament_by_id,
+        _mock_read_users,
+    ):
+        """download_all_tournaments() と同じ回帰テスト: download_by_ids() 経由でも、
+        2イベント中1つ(20)が still_incomplete のまま残った場合、そのトーナメントは
+        done_tournaments に登録されてはならない(次回 --tournament_ids で
+        再実行したときに、未完了イベントが再度処理対象になる必要があるため)。"""
+        mock_fetch_tournament_by_id.return_value = {
+            "name": "Partial Tournament",
+            "startAt": 1714780800,
+            "endAt": 1714784400,
+            "countryCode": "JP",
+            "city": "Tokyo",
+            "lat": None,
+            "lng": None,
+            "venueName": None,
+            "timezone": "Asia/Tokyo",
+            "postalCode": None,
+            "venueAddress": None,
+            "mapsPlaceId": None,
+            "url": "https://example.com",
+        }
+        mock_fetch_event_ids.return_value = [
+            (10, "Singles", False, "COMPLETED", 1),
+            (20, "Doubles", False, "COMPLETED", 1),
+        ]
+        mock_download_standings.return_value = ([], [], {})
+        # event 10 は完了(False)、event 20 は still_incomplete(True)
+        mock_download_all_set.side_effect = [False, True]
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            event_dir = get_event_directory(
+                f"{tmpdir}", "JP", "2024", "05", "04", "Partial Tournament", "Singles",
+            )
+            os.makedirs(event_dir, exist_ok=True)
+            done_file_path = f"{tmpdir}/done.csv"
+            download_by_ids(
+                [1], "1386", "JP", f"{tmpdir}", done_file_path,
+                f"{tmpdir}/users.jsonl", f"{tmpdir}/tournaments.jsonl",
+            )
+            done_tournaments = read_set(done_file_path, as_int=True)
+
+        self.assertNotIn(1, done_tournaments)
+
+    @patch("scripts.fetch.download.read_set", return_value=set())
+    @patch("scripts.fetch.download.read_users_jsonl", return_value={})
     @patch("scripts.fetch.download.read_tournaments_jsonl", return_value={})
     @patch("scripts.fetch.download.fetch_latest_tournaments_by_game")
     @patch("scripts.fetch.download.fetch_event_ids_from_tournament")
@@ -1981,6 +2241,51 @@ class DownloadTests(unittest.TestCase):
 
         mock_download_seeds.assert_called_once()
         self.assertEqual(incomplete_count, 1)
+
+    @patch("scripts.fetch.download.read_set", return_value=set())
+    @patch("scripts.fetch.download.read_users_jsonl", return_value={})
+    @patch("scripts.fetch.download.fetch_latest_tournaments_by_game")
+    @patch("scripts.fetch.download.fetch_event_ids_from_tournament")
+    @patch("scripts.fetch.download.download_all_set")
+    @patch("scripts.fetch.download.download_standings")
+    @patch("scripts.fetch.download.download_seeds")
+    @patch("scripts.fetch.download.extend_user_info")
+    def test_download_all_tournaments_does_not_duplicate_tournament_line_on_revisit(
+        self,
+        _mock_extend_user_info,
+        mock_download_seeds,
+        mock_download_standings,
+        mock_download_all_set,
+        mock_fetch_event_ids,
+        mock_fetch_tournaments,
+        _mock_read_users,
+        _mock_read_set,
+    ):
+        """回帰テスト: tournaments.jsonlに既に存在するトーナメントが、
+        still_incompleteのまま2回連続で再訪問されても、tournaments.jsonl
+        への追記が重複しない(tournament_had_incomplete_event修正により
+        再訪問自体は今後正常に起こるようになるため、この重複防止が必要)。"""
+        mock_fetch_tournaments.return_value = self._incomplete_test_tournament(
+            name="Revisited Tournament"
+        )
+        mock_fetch_event_ids.return_value = [(10, "Singles", False, "COMPLETED", 1)]
+        mock_download_standings.return_value = ([], [], {})
+        mock_download_all_set.return_value = True  # 毎回 still has outstanding sets
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            tournament_file_path = f"{tmpdir}/tournaments.jsonl"
+            for _ in range(2):
+                download_all_tournaments(
+                    "1386", "JP", None, datetime(2024, 5, 4, 0, 0, 0),
+                    f"{tmpdir}", f"{tmpdir}/done.csv", f"{tmpdir}/users.jsonl",
+                    tournament_file_path,
+                )
+
+            with open(tournament_file_path, encoding="utf-8") as f:
+                lines = [line for line in f.read().splitlines() if line.strip()]
+
+        matching_lines = [line for line in lines if json.loads(line)["tournament_id"] == 1]
+        self.assertEqual(len(matching_lines), 1)
 
     @patch("scripts.fetch.download.read_set", return_value=set())
     @patch("scripts.fetch.download.read_users_jsonl", return_value={})
@@ -2537,6 +2842,67 @@ class DownloadTests(unittest.TestCase):
     @patch("scripts.fetch.download.download_standings")
     @patch("scripts.fetch.download.download_seeds")
     @patch("scripts.fetch.download.extend_user_info")
+    def test_download_all_tournaments_does_not_duplicate_line_for_new_tournament_that_collides(
+        self,
+        _mock_extend_user_info,
+        _mock_download_seeds,
+        mock_download_standings,
+        _mock_download_all_set,
+        mock_fetch_event_ids,
+        mock_fetch_tournaments,
+        _mock_read_users,
+        _mock_read_set,
+    ):
+        """回帰テスト(code-review指摘): 新規トーナメント(run開始時点では
+        tournaments.jsonlに存在しない)がパス衝突を起こすと、衝突解決時の
+        即時write_jsonl(events=[]の状態)と、その後のextend_tournament_info
+        (eventsが埋まった状態)の両方で書き出されてしまい、行が重複していた。
+        勝者(tournament_id=2、entrant数が多い方)の行が1行だけであることを
+        実ファイルの行数で確認する(read_tournaments_jsonlはdictなので
+        重複があってもマスクされてしまい検出できない)。"""
+        start = calendar.timegm((2026, 3, 20, 9, 0, 0, 0, 0, 0))
+        end = calendar.timegm((2026, 3, 20, 12, 0, 0, 0, 0, 0))
+        mock_fetch_tournaments.return_value = (
+            [
+                self._tournament_info(1, "Collide Test", start, end),
+                self._tournament_info(2, "Collide Test", start, end),
+            ],
+            1,
+        )
+        mock_fetch_event_ids.side_effect = [
+            [(10, "Singles", False, "COMPLETED", 1)],
+            [(20, "Singles", False, "COMPLETED", 1)],
+        ]
+
+        def _standings(event_id, event_dir, max_pages=None):
+            os.makedirs(event_dir, exist_ok=True)
+            count = 3 if event_id == 10 else 10
+            return ([None] * count, [None] * count, {})
+
+        mock_download_standings.side_effect = _standings
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            tournament_file_path = f"{tmpdir}/tournaments.jsonl"
+            download_all_tournaments(
+                "1386", "JP",
+                datetime(2026, 3, 20, 23, 59, 59), datetime(2026, 3, 20, 0, 0, 0),
+                f"{tmpdir}", f"{tmpdir}/done.csv", f"{tmpdir}/users.jsonl", tournament_file_path,
+            )
+
+            with open(tournament_file_path, encoding="utf-8") as f:
+                lines = [line for line in f.read().splitlines() if line.strip()]
+
+        matching_lines = [line for line in lines if json.loads(line)["tournament_id"] == 2]
+        self.assertEqual(len(matching_lines), 1)
+
+    @patch("scripts.fetch.download.read_set", return_value=set())
+    @patch("scripts.fetch.download.read_users_jsonl", return_value={})
+    @patch("scripts.fetch.download.fetch_latest_tournaments_by_game")
+    @patch("scripts.fetch.download.fetch_event_ids_from_tournament")
+    @patch("scripts.fetch.download.download_all_set", return_value=False)
+    @patch("scripts.fetch.download.download_standings")
+    @patch("scripts.fetch.download.download_seeds")
+    @patch("scripts.fetch.download.extend_user_info")
     def test_download_all_tournaments_same_run_reevaluates_for_third_larger_arrival(
         self,
         _mock_extend_user_info,
@@ -2766,6 +3132,58 @@ class DownloadTests(unittest.TestCase):
             updated = read_tournaments_jsonl(tournament_file_path)
             self.assertEqual(updated[2]["events"][0]["path"], naive_dir)
             self.assertEqual(updated[1]["events"][0]["path"], adjusted_dir_for_loser)
+
+    @patch("scripts.fetch.download.read_set", return_value=set())
+    @patch("scripts.fetch.download.read_users_jsonl", return_value={})
+    @patch("scripts.fetch.download.fetch_tournament_by_id")
+    @patch("scripts.fetch.download.fetch_event_ids_from_tournament")
+    @patch("scripts.fetch.download.download_all_set", return_value=False)
+    @patch("scripts.fetch.download.download_standings")
+    @patch("scripts.fetch.download.download_seeds")
+    @patch("scripts.fetch.download.extend_user_info")
+    def test_download_by_ids_does_not_duplicate_line_for_new_tournament_that_collides(
+        self,
+        _mock_extend_user_info,
+        _mock_download_seeds,
+        mock_download_standings,
+        _mock_download_all_set,
+        mock_fetch_event_ids,
+        mock_fetch_tournament_by_id,
+        _mock_read_users,
+        _mock_read_set,
+    ):
+        """回帰テスト(code-review指摘): download_by_ids() でも、新規
+        トーナメントがパス衝突を起こすと同様に行が重複していた。"""
+        start = calendar.timegm((2026, 3, 20, 9, 0, 0, 0, 0, 0))
+        end = calendar.timegm((2026, 3, 20, 12, 0, 0, 0, 0, 0))
+
+        def _tournament_by_id(tournament_id):
+            return self._tournament_info(tournament_id, "Collide By Ids", start, end)
+
+        mock_fetch_tournament_by_id.side_effect = _tournament_by_id
+        mock_fetch_event_ids.side_effect = [
+            [(10, "Singles", False, "COMPLETED", 1)],
+            [(20, "Singles", False, "COMPLETED", 1)],
+        ]
+
+        def _standings(event_id, event_dir):
+            os.makedirs(event_dir, exist_ok=True)
+            count = 2 if event_id == 10 else 40
+            return ([None] * count, [None] * count, {})
+
+        mock_download_standings.side_effect = _standings
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            tournament_file_path = f"{tmpdir}/tournaments.jsonl"
+            download_by_ids(
+                [1, 2], "1386", "JP", f"{tmpdir}", f"{tmpdir}/done.csv", f"{tmpdir}/users.jsonl", tournament_file_path,
+            )
+
+            with open(tournament_file_path, encoding="utf-8") as f:
+                lines = [line for line in f.read().splitlines() if line.strip()]
+
+        matching_lines = [line for line in lines if json.loads(line)["tournament_id"] == 2]
+        self.assertEqual(len(matching_lines), 1)
 
     # -- resolve_player_user_id: participant.user が null だった参加者だけ、
     #    player(id:) を個別に引き直して同じアカウントへのリンクを解決する -----------

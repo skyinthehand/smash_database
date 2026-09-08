@@ -100,10 +100,19 @@ jobs:
       - name: Update chore tournament log
         run: |
           set -euxo pipefail
+          # incomplete_count が 0 以外(または判定不能の unknown)の場合は、
+          # 「実行は試みたが漏れなく取得できたわけではない」ことが一覧から
+          # 分かるよう、workflow欄の表記を変える(checked_dates.json自体は
+          # 引き続き無条件で記録する。あくまで「走査を試みたか」のログであり
+          # 「完全に取得できたか」はカーソルファイルが別途担う)。
+          WORKFLOW_LABEL="update_tournament"
+          if [ "${{ steps.download_tournaments.outputs.incomplete_count }}" != "0" ]; then
+            WORKFLOW_LABEL="update_tournament(incomplete)"
+          fi
           python scripts/fix/update_chore_tournament_log.py \
             --mark-start "${{ steps.download_tournaments.outputs.finish_date }}" \
             --mark-end "${{ steps.download_tournaments.outputs.today_jst }}" \
-            --workflow "update_tournament"
+            --workflow "$WORKFLOW_LABEL"
 
       - name: Detect changes
         id: detect_changes

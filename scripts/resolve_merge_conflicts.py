@@ -400,9 +400,16 @@ def resolve_attr_json_conflicts() -> list[str]:
         ours_raw = git_show(2, path)
         theirs_raw = git_show(3, path)
 
+        if not ours_raw or not theirs_raw:
+            print(
+                f"  [WARN] {path}: ours/theirsの少なくとも一方でファイルが存在しません"
+                "(削除されている可能性があります)。自動マージ対象外とし、手動で解決してください。"
+            )
+            continue
+
         try:
-            ours = json.loads(ours_raw) if ours_raw else {}
-            theirs = json.loads(theirs_raw) if theirs_raw else {}
+            ours = json.loads(ours_raw)
+            theirs = json.loads(theirs_raw)
         except json.JSONDecodeError as exc:
             print(f"  [WARN] {path}: JSONとして解析できません({exc})。スキップします。")
             continue
