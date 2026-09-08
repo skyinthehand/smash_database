@@ -55,22 +55,52 @@ jobs:
           git checkout -B "$BRANCH" origin/main
           echo "gap_branch=$BRANCH" >> "$GITHUB_ENV"
 
-      - name: Download missing tournaments (JP, last ${{ inputs.since_days_ago }} days)
+      - name: Download missing tournaments (JP, last ${{ inputs.since_days_ago }} days, chunked with incremental commits)
         env:
           STARTGG_TOKEN: ${{ secrets.STARTGG_TOKEN }}
         run: |
           set -euxo pipefail
-          python scripts/fetch/download.py \
-            --token "$STARTGG_TOKEN" \
-            --country_code "JP" \
-            --finish_date "${{ steps.range.outputs.since_jst }}" \
-            --max_pages 200 \
-            2>&1 | tee /tmp/download_gap.log
+          # 広い日付範囲を一度にdownload.pyへ渡すと、途中で(例えばstart.gg側の
+          # 一時的な内部エラー等により)止まった場合にcommitが1件も無いまま
+          # 長時間分の取得結果が失われる。CHUNK_DAYS単位で範囲を区切り、
+          # チャンクごとにcommit+pushすることで、後続チャンクで問題が起きても
+          # それまでの取得結果は失われないようにする。
+          CHUNK_DAYS=30
+          SINCE_DAYS_AGO="${{ inputs.since_days_ago }}"
+          : > /tmp/download_gap.log
 
-      - name: Run tests
-        run: |
-          set -euxo pipefail
-          python -m unittest scripts.test.test_validate_data
+          chunk_start_days_ago=0
+          while [ "$chunk_start_days_ago" -lt "$SINCE_DAYS_AGO" ]; do
+            chunk_end_days_ago=$(( chunk_start_days_ago + CHUNK_DAYS ))
+            if [ "$chunk_end_days_ago" -gt "$SINCE_DAYS_AGO" ]; then
+              chunk_end_days_ago="$SINCE_DAYS_AGO"
+            fi
+
+            START_DATE_ARGS=()
+            if [ "$chunk_start_days_ago" -ne 0 ]; then
+              CHUNK_START_JST="$(TZ=Asia/Tokyo date -d "$chunk_start_days_ago days ago" +%F)"
+              START_DATE_ARGS=(--start_date "$CHUNK_START_JST")
+            fi
+            CHUNK_FINISH_JST="$(TZ=Asia/Tokyo date -d "$chunk_end_days_ago days ago" +%F)"
+
+            echo "=== chunk: ${chunk_start_days_ago}〜${chunk_end_days_ago}日前 (finish_date=$CHUNK_FINISH_JST) ==="
+            python scripts/fetch/download.py \
+              --token "$STARTGG_TOKEN" \
+              --country_code "JP" \
+              "${START_DATE_ARGS[@]}" \
+              --finish_date "$CHUNK_FINISH_JST" \
+              --max_pages 200 \
+              2>&1 | tee -a /tmp/download_gap.log
+
+            if [ -n "$(git status --porcelain)" ]; then
+              python -m unittest scripts.test.test_validate_data
+              git add -A
+              git commit -m "chore(data): gap check recovery (partial, finish_date=$CHUNK_FINISH_JST)"
+              git push --set-upstream origin "$gap_branch"
+            fi
+
+            chunk_start_days_ago="$chunk_end_days_ago"
+          done
 
       - name: Generate gap report
         id: gap_report
@@ -123,18 +153,20 @@ jobs:
             --mark-end "${{ steps.range.outputs.today_jst }}" \
             --workflow "data_gap_check"
 
-      - name: Commit changes
-        if: steps.gap_report.outputs.has_gaps == 'true'
+      - name: Commit remaining changes
+        # ダウンロード自体はチャンクごとに既にcommit+push済みなので、ここで残る
+        # のは基本的に「Update chore tournament log」の分のみ(チャンクが0件でも
+        # このステップは常に走るので、has_gapsに関わらず無条件で実行し、その場で
+        # 実際に差分があるかどうかを確認してから commit する)。
         run: |
           set -euxo pipefail
-          git add -A
-          git commit -m "chore(data): gap check recovery"
-
-      - name: Push gap-check branch
-        if: steps.gap_report.outputs.has_gaps == 'true'
-        run: |
-          set -euxo pipefail
-          git push --set-upstream origin "$gap_branch"
+          if [ -n "$(git status --porcelain)" ]; then
+            git add -A
+            git commit -m "chore(data): gap check recovery (remaining)"
+            git push --set-upstream origin "$gap_branch"
+          else
+            echo "No remaining changes to commit."
+          fi
 
       - name: Create PR
         if: steps.gap_report.outputs.has_gaps == 'true'
