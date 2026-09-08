@@ -2,6 +2,11 @@ name: "StartGG: Gap Check"
 
 on:
   workflow_dispatch:
+    inputs:
+      since_days_ago:
+        description: "何日前から走査するか(通常は60。過去の大幅なバックフィル時のみ広めの値を指定する)"
+        required: false
+        default: "60"
 
 concurrency:
   group: data-gap-check
@@ -35,7 +40,7 @@ jobs:
         id: range
         run: |
           set -euxo pipefail
-          SINCE_JST="$(TZ=Asia/Tokyo date -d '60 days ago' +%F)"
+          SINCE_JST="$(TZ=Asia/Tokyo date -d '${{ inputs.since_days_ago }} days ago' +%F)"
           TODAY_JST="$(TZ=Asia/Tokyo date +%F)"
           echo "since_jst=$SINCE_JST" >> "$GITHUB_OUTPUT"
           echo "today_jst=$TODAY_JST" >> "$GITHUB_OUTPUT"
@@ -50,7 +55,7 @@ jobs:
           git checkout -B "$BRANCH" origin/main
           echo "gap_branch=$BRANCH" >> "$GITHUB_ENV"
 
-      - name: Download missing tournaments (JP, last 60 days)
+      - name: Download missing tournaments (JP, last ${{ inputs.since_days_ago }} days)
         env:
           STARTGG_TOKEN: ${{ secrets.STARTGG_TOKEN }}
         run: |
@@ -93,7 +98,7 @@ jobs:
             {
               echo "## 取得漏れトーナメント"
               echo ""
-              echo "ギャップチェック（過去60日スキャン）で以下のトーナメントが未取得であることが検出されました。"
+              echo "ギャップチェック（過去${{ inputs.since_days_ago }}日スキャン）で以下のトーナメントが未取得であることが検出されました。"
               echo ""
               echo "| 大会名・日付 |"
               echo "|---|"
