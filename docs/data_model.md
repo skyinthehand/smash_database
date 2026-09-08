@@ -33,15 +33,8 @@
 ```
 - event_id（文字列キー）ごとに、値の形で2種類のエントリを区別する
   （専用の`type`フィールドは持たない）。
-  - **値が配列**: 要素の形でさらに2種類を区別する。
-    - `phase_id`・`reason`を持つ要素: phase単位の除外。sets取得時のみ、
-      該当phaseGroupを除外する（`load_excluded_phase_ids()`）。
-    - `set_id`・`reason`を持つ要素: set単位の除外。start.gg側で
-      `winnerId`すら確定せず恒久的に解決不可能なセット
-      （`_continue_incremental_fetch()`のプレースホルダー再取得ループが
-      永久に終わらなくなるケース）を手動で除外する（`load_excluded_set_ids()`）。
-      該当set_idのプレースホルダーはmatches.jsonから削除され、以後
-      再取得も試みられなくなる。
+  - **値が配列**: phase単位の除外。各要素は`phase_id`・`reason`を持つ。
+    sets取得時のみ、該当phaseGroupを除外する（`load_excluded_phase_ids()`）。
   - **値が`reason`を直下に持つオブジェクト**: イベント全体の除外。
     以後の自動取得で、そのevent_idのディレクトリ作成・`tournaments.jsonl`
     への記載を一切行わない（`load_excluded_event_ids()`）。
@@ -186,9 +179,6 @@
 全`set_id`についてプレースホルダーを投入し、`set(id: ID!)`によるset単位の取得で
 順次完了済みレコードへ置き換えていく(「イベント属性」節の`archive_status`の
 説明も参照)。同じ`set_id`のレコードが2件以上存在することはない。
-`winner_score`/`loser_score`が`None`の場合は、start.gg側で勝者
-(`winnerId`)は確定しているがスコアが未入力であることを示す
-(`build_match_data_from_node()`のwinnerIdフォールバック)。
 
 ```json
 {
