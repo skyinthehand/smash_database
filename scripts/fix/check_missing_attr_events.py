@@ -151,8 +151,10 @@ def main() -> int:
             f"  tournament_id={tournament_id} event_id={event_id} "
             f"path={event.get('path')} "
             f"start.gg上の名前={api_event.get('name')!r} "
-            f"tournament={api_event.get('tournament', {}).get('name')!r} "
-            f"state={api_event.get('state')!r}"
+            f"tournament={(api_event.get('tournament') or {}).get('name')!r} "
+            f"state={api_event.get('state')!r} "
+            f"slug={api_event.get('slug')!r} "
+            f"tournament_slug={(api_event.get('tournament') or {}).get('slug')!r}"
         )
 
     print(f"\n=== 判定不能(inconclusive、削除しない): {len(inconclusive)}件 ===")
