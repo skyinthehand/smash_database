@@ -20,12 +20,14 @@
   "labels": {
     "registration_restricted": true
   },
-  "status": "completed",
+  "archive_status": "completed",
+  "state": "ACTIVE",
+  "type": 1,
   "timestamp": 1732986000,
   "end_at": 1733029200,
-  "fetched_at": 1786531476,
-  "event_data_version": 3,
+  "fetched_at": 1789077946,
+  "event_data_version": 7,
   "guest_entrant_count": 0,
-  "version": "1.0",
-  "label_version": 1
+  "label_version": 1,
+  "version": "1.0"
 }
