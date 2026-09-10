@@ -469,6 +469,50 @@ def get_tournaments_by_game_query(country_code="", before_now=True, past=False):
     query = "\n".join([first_row, second_row, nodes_query])
     return query
 
+def get_upcoming_tournaments_by_game_query(country_code, after_date):
+    """未開催トーナメント一覧クエリ。既存の get_tournaments_by_game_query() とは
+    独立した別関数とし、既存呼び出し元(履歴クロール側)には一切影響を与えない。
+    afterDate で開始日時が未来の大会のみに絞り込み、nodes に events をネストする
+    ことで、参加人数(numEntrants)を大会一覧の取得と同時に(1リクエストで)
+    取得できるようにする(010-upcoming-tournaments、research.md #1/#2)。"""
+    first_row = """query UpcomingTournamentsByGame($gameId: ID!, $perPage: Int!, $page: Int!) {"""
+    second_row = f"""tournaments(query: {{perPage: $perPage, page: $page, sortBy: "startAt desc", filter: {{videogameIds: [$gameId], published: true, countryCode: "{country_code}", afterDate: {after_date}}}}}) {{"""
+    nodes_query = """nodes {
+            id
+            name
+            startAt
+            endAt
+            countryCode
+            isOnline
+            addrState
+            city
+            lat
+            lng
+            mapsPlaceId
+            postalCode
+            venueAddress
+            venueName
+            timezone
+            url
+            events(filter: {videogameId: [$gameId]}) {
+              id
+              name
+              numEntrants
+              state
+              type
+              isOnline
+              startAt
+            }
+          }
+          pageInfo {
+            totalPages
+          }
+        }
+      }"""
+
+    query = "\n".join([first_row, second_row, nodes_query])
+    return query
+
 def get_tournament_url_query():
     return """query Tournament($tournamentId: ID!) {
       tournament(id: $tournamentId) {

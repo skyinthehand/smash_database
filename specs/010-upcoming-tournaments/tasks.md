@@ -23,7 +23,7 @@
 
 **Purpose**: 新規ファイルの土台を用意する
 
-- [ ] T001 `scripts/fetch/download_upcoming_tournaments.py`を新規作成し、
+- [X] T001 `scripts/fetch/download_upcoming_tournaments.py`を新規作成し、
       `argparse`によるCLI引数(`--token`必須、`--country_code`既定`JP`、
       `--game_id`既定`1386`、`--url`既定`https://api.start.gg/gql/alpha`、
       `--tournaments_file`既定`data/startgg/upcoming_tournaments.jsonl`、
@@ -45,7 +45,7 @@
       1回手動確認する(コード変更は無し。結果を`research.md`に反映する
       ドキュメント更新のみ。T002の結果次第でT003・T009の実装が
       `research.md`のFallback方式のいずれになるかが決まる)。
-- [ ] T003 `scripts/queries.py`に`get_upcoming_tournaments_by_game_query
+- [X] T003 `scripts/queries.py`に`get_upcoming_tournaments_by_game_query
       (country_code, after_date)`を新規追加する(`contracts/cli.md` #1
       通り。既存の`get_tournaments_by_game_query`は変更しない)。T002で
       `afterDate`/`events`ネストが有効と確認できた場合はそのまま実装し、
@@ -68,37 +68,37 @@
 
 ### Tests for User Story 1
 
-- [ ] T004 [P] [US1] `scripts/test/test_download_upcoming_tournaments.py`
+- [X] T004 [P] [US1] `scripts/test/test_download_upcoming_tournaments.py`
       を新規作成し、`fetch_data_with_retries`をモックしてページングで
       複数ページ分の大会を正しく集約することを確認するテストを書く。
-- [ ] T005 [P] [US1] 同ファイルに、実行のたびに既存の
+- [X] T005 [P] [US1] 同ファイルに、実行のたびに既存の
       `upcoming_tournaments.jsonl`の内容を破棄して完全に上書きすること
       (差分マージしないこと、FR-006)を確認するテストを書く。
-- [ ] T006 [P] [US1] 同ファイルに、`download_upcoming_tournaments.py`の
+- [X] T006 [P] [US1] 同ファイルに、`download_upcoming_tournaments.py`の
       実行前後で`data/startgg/tournaments.jsonl`・
       `data/startgg/events/`配下・`data/startgg/done.csv`・
       `data/startgg/done_events.csv`のいずれにも変更が生じないこと
       (FR-007)、および`data/startgg/events/`配下に新規ディレクトリが
       作成されないこと(FR-005)を確認するテストを書く。
-- [ ] T007 [P] [US1] 同ファイルに、開始日時は過去だが終了日時が未来
+- [X] T007 [P] [US1] 同ファイルに、開始日時は過去だが終了日時が未来
       (＝開催中)の大会が一覧に含まれないことを確認するテストを書く
       (spec.md Edge Cases「開催中の大会は対象外」)。
 
 ### Implementation for User Story 1
 
-- [ ] T008 [US1] `scripts/fetch/download_upcoming_tournaments.py`に、
+- [X] T008 [US1] `scripts/fetch/download_upcoming_tournaments.py`に、
       T003のクエリ関数を使ってJPの未開催大会をページングしながら全件
       取得する処理を実装する(`fetch_data_with_retries`/`fetch_all_nodes`
       経由、憲法Principle V)。
-- [ ] T009 [US1] 同ファイルに、取得した各大会を`data-model.md`の
+- [X] T009 [US1] 同ファイルに、取得した各大会を`data-model.md`の
       スキーマ(`tournament_id`/`name`/`country_code`/`start_at`/
       `end_at`/`url`/`place`/`fetched_at`/`version`。`events`は空配列で
       いったん組み立てる)に変換する処理を実装する。
-- [ ] T010 [US1] 同ファイルに、`write_jsonl(records,
+- [X] T010 [US1] 同ファイルに、`write_jsonl(records,
       tournaments_file, with_version=True)`で`upcoming_tournaments.jsonl`
       を全件書き出す処理を実装する(既存内容とのマージはしない。既存の
       `tournaments.jsonl`等には一切書き込まない、T006と対応)。
-- [ ] T011 [US1] 同ファイルに、取得件数(大会数)を標準出力に1行報告する
+- [X] T011 [US1] 同ファイルに、取得件数(大会数)を標準出力に1行報告する
       処理を追加する(`contracts/cli.md` #2、ワークフロー側の確認用)。
 
 **Checkpoint**: この時点で、大会一覧(参加人数・ラベル無し)が単独で
@@ -115,22 +115,22 @@ start.gg上の実際の登録人数と一致することを確認する
 
 ### Tests for User Story 2
 
-- [ ] T012 [P] [US2] `test_download_upcoming_tournaments.py`に、大会
+- [X] T012 [P] [US2] `test_download_upcoming_tournaments.py`に、大会
       ノードにネストされた`events`から`num_entrants`を正しく抽出する
       ケースのテストを追加する。
-- [ ] T013 [P] [US2] 同ファイルに、ネストされた`events`が使えない
+- [X] T013 [P] [US2] 同ファイルに、ネストされた`events`が使えない
       (取得できない)場合に、個別呼び出しフォールバック(FR-003a)が
       発動し、それでも`num_entrants`が埋まることを確認するテストを
       追加する。
 
 ### Implementation for User Story 2
 
-- [ ] T014 [US2] `download_upcoming_tournaments.py`に、T002/T003の結果に
+- [X] T014 [US2] `download_upcoming_tournaments.py`に、T002/T003の結果に
       応じて、大会ノードにネストされた`events`(`id`/`name`/
       `numEntrants`/`state`/`type`/`isOnline`)を各大会レコードの
       `events`配列に変換する処理を実装する(T009で空配列にしていた
       箇所を実装)。
-- [ ] T015 [US2] 同ファイルに、ネスト方式が使えなかった場合の
+- [X] T015 [US2] 同ファイルに、ネスト方式が使えなかった場合の
       フォールバックとして、`fetch_event_ids_from_tournament`相当→
       `get_event_details_by_id_query`相当の個別呼び出しで`num_entrants`
       を補完する処理を実装する(FR-003a、`research.md` #2)。
@@ -148,17 +148,17 @@ start.gg上の実際の登録人数と一致することを確認する
 
 ### Tests for User Story 3
 
-- [ ] T016 [P] [US3] `test_download_upcoming_tournaments.py`に、
+- [X] T016 [P] [US3] `test_download_upcoming_tournaments.py`に、
       `compute_event_labels`が呼ばれ、大会名・種目名のルールに応じた
       `labels`/`label_version`が各種目レコードに含まれることを確認する
       テストを追加する。
-- [ ] T017 [P] [US3] 同ファイルに、ルールセットの
+- [X] T017 [P] [US3] 同ファイルに、ルールセットの
       `min_event_data_version`要件を満たさない場合に`label_version`が
       `null`になることを確認するテストを追加する。
 
 ### Implementation for User Story 3
 
-- [ ] T018 [US3] `download_upcoming_tournaments.py`で、
+- [X] T018 [US3] `download_upcoming_tournaments.py`で、
       `scripts/labeling.py`の`compute_event_labels(None, tournament_name,
       event_name, EVENT_DATA_VERSION, rules_path=...)`を各種目について
       呼び出し、結果の`labels`/`label_version`を種目レコードに追加する
@@ -172,15 +172,15 @@ start.gg上の実際の登録人数と一致することを確認する
 
 **Purpose**: ドキュメント更新・日次自動化への統合・最終確認
 
-- [ ] T019 [P] `docs/data_model.md`に`data/startgg/upcoming_tournaments.jsonl`
+- [X] T019 [P] `docs/data_model.md`に`data/startgg/upcoming_tournaments.jsonl`
       の新セクションを追加する(`data-model.md`の内容を転記、憲法
       Principle I)。
-- [ ] T020 `.github/workflows/update_tournament.yml`に、
+- [X] T020 `.github/workflows/update_tournament.yml`に、
       `contracts/cli.md` #3の「Refresh upcoming tournaments (JP)」
       ステップ(`continue-on-error: true`)を追加する(FR-008/FR-009)。
 - [ ] T021 `quickstart.md`の手順1〜6を実際に(ユーザーのトークンで)
       実行し、想定通り動作することを確認する。
-- [ ] T022 `python3 -m unittest discover -s scripts/test -p "test_*.py"`
+- [X] T022 `python3 -m unittest discover -s scripts/test -p "test_*.py"`
       を実行し、既存テスト+本機能の新規テストが全てpassすることを
       確認する(憲法Principle III)。
 
