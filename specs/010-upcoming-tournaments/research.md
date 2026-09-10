@@ -58,7 +58,7 @@ fetch_event_ids_from_tournament`相当→イベントごとに`numEntrants`取�
 ネストが機能しない場合、既存の履歴収集と同じ「トーナメントごとに
 `fetch_event_ids_from_tournament`相当で種目一覧を取得→種目ごとに
 `get_event_details_by_id_query`相当で`numEntrants`を取得」という個別
-呼び出しにフォールバックする。コストは増えるが、対象がJP圏の開催前
+呼び出しにフォールバックする。コストは増えるが、対象がJP圏の未開催
 大会のみ(小規模)であるため許容範囲と判断する。
 
 ## 3. ラベル判定の再利用方法

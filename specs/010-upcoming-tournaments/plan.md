@@ -31,7 +31,7 @@ per-tournament/per-eventディレクトリは作らない)
 **Project Type**: 既存のデータ取得パイプラインへの追加スクリプト
 (`scripts/fetch/`)
 
-**Performance Goals**: 特になし(日次バッチ、JP圏の開催前大会は数十〜
+**Performance Goals**: 特になし(日次バッチ、JP圏の未開催大会は数十〜
 百件程度の小規模データを想定)
 
 **Constraints**: 憲法Principle Vにより、start.gg APIアクセスは
@@ -39,7 +39,7 @@ per-tournament/per-eventディレクトリは作らない)
 しなければならない。既存の(開催済み大会の)履歴データ・ファイルは
 本機能によって一切変更してはならない(FR-007)。
 
-**Scale/Scope**: JP圏・対象ゲーム1種目の開催前大会一覧(将来的に
+**Scale/Scope**: JP圏・対象ゲーム1種目の未開催大会一覧(将来的に
 `country_code`を変えて他地域にも適用できる構造にする)。
 
 ## Constitution Check
