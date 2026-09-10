@@ -92,6 +92,16 @@ jobs:
             } >> "$GITHUB_STEP_SUMMARY"
           fi
 
+      - name: Refresh upcoming tournaments (JP)
+        continue-on-error: true
+        env:
+          STARTGG_TOKEN: ${{ secrets.STARTGG_TOKEN }}
+        run: |
+          set -euxo pipefail
+          python scripts/fetch/download_upcoming_tournaments.py \
+            --token "$STARTGG_TOKEN" \
+            --country_code "JP"
+
       - name: Run tests
         run: |
           set -euxo pipefail

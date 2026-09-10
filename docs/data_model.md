@@ -52,6 +52,30 @@
 {"tournament_id": 12345, "name": "Example Tournament", "events": [{"event_id": 999, "event_name": "Ultimate Singles", "path": "data/startgg/events/Japan/2024/01/01/Example_Tournament/Ultimate_Singles"}], "version": "1.0"}
 ```
 
+## 未開催大会(補助データ)
+
+### `data/startgg/upcoming_tournaments.jsonl`
+```json
+{"tournament_id": 12345, "name": "第◯回◯◯", "country_code": "JP", "start_at": 1234567890, "end_at": 1234567890, "url": "https://www.start.gg/tournament/...", "place": {"city": "...", "lat": 0.0, "lng": 0.0, "venue_name": "...", "timezone": "Asia/Tokyo", "postal_code": "...", "venue_address": "...", "maps_place_id": "..."}, "events": [{"event_id": 999, "event_name": "Singles", "num_entrants": 42, "is_online": false, "state": "...", "type": 1, "labels": {"registration_type": "..."}, "label_version": 4}], "fetched_at": 1234567890, "version": "1.0"}
+```
+- `scripts/fetch/download_upcoming_tournaments.py`が出力する、まだ開始
+  されていない(start.gg上で`startAt`が未来の)大会の一覧。1行1大会。
+- `tournaments.jsonl`・`data/startgg/events/`配下(開催済み大会の履歴
+  データ)とは完全に独立しており、参照関係を持たない。大会・イベント
+  ごとの個別ディレクトリも作成しない。
+- 未開催データは開催日変更・エントリー増減・中止等で恒常的に変化する
+  ため、`done.csv`のような重複取得回避は行わず、実行のたびに**全件を
+  取得し直して完全に上書き**する(差分マージはしない)。開催日を過ぎた
+  大会は、次回実行時に自然に一覧から消える(以後は`tournaments.jsonl`
+  側が履歴として扱う。両者間のデータの引き継ぎは無い)。
+- `place`は`attr.json`の`place`と同じキー構成。`events[].labels`/
+  `label_version`は既存のイベントラベリング機構
+  (`scripts/labeling.py`の`compute_event_labels`)による判定結果で、
+  `attr.json`の`labels`/`label_version`と同じ意味を持つ。
+- `num_entrants`は大会一覧取得への`events`ネストで取得できなかった
+  場合、イベント単位の個別クエリにフォールバックしてでも取得する
+  (`specs/010-upcoming-tournaments/`参照)。
+
 ## ユーザー
 
 ### `data/startgg/users.jsonl`
