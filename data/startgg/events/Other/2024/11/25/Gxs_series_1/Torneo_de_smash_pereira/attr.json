@@ -18,12 +18,14 @@
   "offline": true,
   "url": "/tournament/gxs-series-1",
   "labels": {},
-  "status": "completed",
+  "archive_status": "completed",
+  "state": "COMPLETED",
+  "type": 1,
   "timestamp": 1732510800,
   "end_at": 1732521600,
-  "fetched_at": 1786524762,
-  "event_data_version": 3,
+  "fetched_at": 1789088890,
+  "event_data_version": 7,
   "guest_entrant_count": 18,
-  "version": "1.0",
-  "label_version": 1
+  "label_version": 1,
+  "version": "1.0"
 }
