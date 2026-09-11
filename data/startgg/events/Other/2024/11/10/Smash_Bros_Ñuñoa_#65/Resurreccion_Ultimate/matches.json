@@ -171,6 +171,185 @@
       "cancel": false,
       "state": 3,
       "details": []
+    },
+    {
+      "set_id": 82126892,
+      "winner_id": 2179344,
+      "loser_id": 1757647,
+      "winner_score": 3,
+      "loser_score": 1,
+      "round_text": "Final",
+      "round": 3,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "set_id": 82126890,
+      "winner_id": 2179344,
+      "loser_id": 1286348,
+      "winner_score": 3,
+      "loser_score": 1,
+      "round_text": "Semi-Final",
+      "round": 2,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "set_id": 82126891,
+      "winner_id": 1757647,
+      "loser_id": 2578451,
+      "winner_score": 3,
+      "loser_score": 0,
+      "round_text": "Semi-Final",
+      "round": 2,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "set_id": 82126886,
+      "winner_id": 1286348,
+      "loser_id": 941918,
+      "winner_score": 3,
+      "loser_score": 0,
+      "round_text": "Quarter-Final",
+      "round": 1,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": [
+        {
+          "game_id": 26129785,
+          "order_num": 1,
+          "winner_id": 1286348,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 1286348,
+              "selection_id": 38043289,
+              "character_id": 1405,
+              "character_name": "Mr. Game & Watch"
+            },
+            {
+              "user_id": 941918,
+              "selection_id": 38043290,
+              "character_id": 1283,
+              "character_name": "Duck Hunt"
+            }
+          ]
+        },
+        {
+          "game_id": 26129786,
+          "order_num": 2,
+          "winner_id": 1286348,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 1286348,
+              "selection_id": 38043291,
+              "character_id": 1405,
+              "character_name": "Mr. Game & Watch"
+            },
+            {
+              "user_id": 941918,
+              "selection_id": 38043292,
+              "character_id": 1283,
+              "character_name": "Duck Hunt"
+            }
+          ]
+        },
+        {
+          "game_id": 26129787,
+          "order_num": 3,
+          "winner_id": 1286348,
+          "entrant1_score": null,
+          "entrant2_score": 0,
+          "stage": null,
+          "selections": [
+            {
+              "user_id": 1286348,
+              "selection_id": 38043293,
+              "character_id": 1405,
+              "character_name": "Mr. Game & Watch"
+            },
+            {
+              "user_id": 941918,
+              "selection_id": 38043294,
+              "character_id": 1283,
+              "character_name": "Duck Hunt"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "set_id": 82126887,
+      "winner_id": 2179344,
+      "loser_id": 1848252,
+      "winner_score": 3,
+      "loser_score": 1,
+      "round_text": "Quarter-Final",
+      "round": 1,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": false,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "set_id": 82126888,
+      "winner_id": 2578451,
+      "loser_id": 632432,
+      "winner_score": 0,
+      "loser_score": -1,
+      "round_text": "Quarter-Final",
+      "round": 1,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": true,
+      "cancel": false,
+      "state": 3,
+      "details": []
+    },
+    {
+      "set_id": 82126889,
+      "winner_id": 1757647,
+      "loser_id": 173384,
+      "winner_score": 0,
+      "loser_score": -1,
+      "round_text": "Quarter-Final",
+      "round": 1,
+      "phase": "1",
+      "phase_order": 1,
+      "wave": null,
+      "dq": true,
+      "cancel": false,
+      "state": 3,
+      "details": []
     }
   ],
   "version": "1.0"
