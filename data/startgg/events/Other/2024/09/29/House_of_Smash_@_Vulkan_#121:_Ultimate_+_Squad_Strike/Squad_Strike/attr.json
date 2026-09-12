@@ -20,12 +20,14 @@
   "labels": {
     "irregular_rule": true
   },
-  "status": "completed",
+  "archive_status": "completed",
+  "state": "ACTIVE",
+  "type": 1,
   "timestamp": 1727607600,
   "end_at": 1727645400,
-  "fetched_at": 1786457696,
-  "event_data_version": 3,
+  "fetched_at": 1789245584,
+  "event_data_version": 7,
   "guest_entrant_count": 2,
-  "version": "1.0",
-  "label_version": 1
+  "label_version": 1,
+  "version": "1.0"
 }
