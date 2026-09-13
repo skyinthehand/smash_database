@@ -18,12 +18,14 @@
   "offline": true,
   "url": "/tournament/all-stars-tournament-sr",
   "labels": {},
-  "status": "completed",
+  "archive_status": "completed",
+  "state": "COMPLETED",
+  "type": 1,
   "timestamp": 1733005800,
   "end_at": 1733036100,
-  "fetched_at": 1786447100,
-  "event_data_version": 3,
+  "fetched_at": 1789260913,
+  "event_data_version": 7,
   "guest_entrant_count": 16,
-  "version": "1.0",
-  "label_version": 1
+  "label_version": 1,
+  "version": "1.0"
 }
