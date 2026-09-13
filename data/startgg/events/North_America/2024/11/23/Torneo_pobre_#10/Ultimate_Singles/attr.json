@@ -18,12 +18,14 @@
   "offline": true,
   "url": "/tournament/torneo-pobre-10",
   "labels": {},
-  "status": "completed",
+  "archive_status": "completed",
+  "state": "COMPLETED",
+  "type": 1,
   "timestamp": 1732341660,
   "end_at": 1732424400,
-  "fetched_at": 1786435588,
-  "event_data_version": 3,
+  "fetched_at": 1789311839,
+  "event_data_version": 7,
   "guest_entrant_count": 8,
-  "version": "1.0",
-  "label_version": 1
+  "label_version": 1,
+  "version": "1.0"
 }
