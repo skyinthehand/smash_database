@@ -3,8 +3,8 @@
 GitHub Actions が確認した日付と、`data/startgg/events/Japan/YYYY/MM/DD` の存在状況を記録します。
 
 - 集計開始日: `2018-12-29`
-- 集計終了日: `2026-09-12`
-- 最終更新 (UTC): `2026-09-11 20:36:46 UTC`
+- 集計終了日: `2026-09-15`
+- 最終更新 (UTC): `2026-09-14 21:54:44 UTC`
 
 | Date | Folder Exists | Checked By GitHub Actions | Last Checked At (JST) | Workflow |
 | --- | --- | --- | --- | --- |
@@ -1928,7 +1928,7 @@ GitHub Actions が確認した日付と、`data/startgg/events/Japan/YYYY/MM/DD`
 | 2024-03-29 | yes | yes | 2026-09-08 22:05:03 JST | data_gap_check |
 | 2024-03-30 | yes | yes | 2026-09-08 22:05:03 JST | data_gap_check |
 | 2024-03-31 | yes | yes | 2026-09-08 22:05:03 JST | data_gap_check |
-| 2024-04-01 | yes | yes | 2026-09-08 22:05:03 JST | data_gap_check |
+| 2024-04-01 | no | yes | 2026-09-08 22:05:03 JST | data_gap_check |
 | 2024-04-02 | yes | yes | 2026-09-08 22:05:03 JST | data_gap_check |
 | 2024-04-03 | yes | yes | 2026-09-08 22:05:03 JST | data_gap_check |
 | 2024-04-04 | yes | yes | 2026-09-08 22:05:03 JST | data_gap_check |
@@ -2045,8 +2045,8 @@ GitHub Actions が確認した日付と、`data/startgg/events/Japan/YYYY/MM/DD`
 | 2024-07-24 | yes | yes | 2026-09-08 22:05:03 JST | data_gap_check |
 | 2024-07-25 | yes | yes | 2026-09-08 22:05:03 JST | data_gap_check |
 | 2024-07-26 | yes | yes | 2026-09-08 22:05:03 JST | data_gap_check |
-| 2024-07-27 | yes | yes | 2026-09-08 22:05:03 JST | data_gap_check |
-| 2024-07-28 | yes | yes | 2026-09-08 22:05:03 JST | data_gap_check |
+| 2024-07-27 | no | yes | 2026-09-08 22:05:03 JST | data_gap_check |
+| 2024-07-28 | no | yes | 2026-09-08 22:05:03 JST | data_gap_check |
 | 2024-07-29 | no | yes | 2026-09-08 22:05:03 JST | data_gap_check |
 | 2024-07-30 | yes | yes | 2026-09-08 22:05:03 JST | data_gap_check |
 | 2024-07-31 | yes | yes | 2026-09-08 22:05:03 JST | data_gap_check |
@@ -2105,7 +2105,7 @@ GitHub Actions が確認した日付と、`data/startgg/events/Japan/YYYY/MM/DD`
 | 2024-09-22 | yes | yes | 2026-09-08 22:05:03 JST | data_gap_check |
 | 2024-09-23 | yes | yes | 2026-09-08 22:05:03 JST | data_gap_check |
 | 2024-09-24 | yes | yes | 2026-09-08 22:05:03 JST | data_gap_check |
-| 2024-09-25 | yes | yes | 2026-09-08 22:05:03 JST | data_gap_check |
+| 2024-09-25 | no | yes | 2026-09-08 22:05:03 JST | data_gap_check |
 | 2024-09-26 | yes | yes | 2026-09-08 22:05:03 JST | data_gap_check |
 | 2024-09-27 | yes | yes | 2026-09-08 22:05:03 JST | data_gap_check |
 | 2024-09-28 | yes | yes | 2026-09-08 22:05:03 JST | data_gap_check |
@@ -2172,7 +2172,7 @@ GitHub Actions が確認した日付と、`data/startgg/events/Japan/YYYY/MM/DD`
 | 2024-11-28 | yes | yes | 2026-09-08 22:05:03 JST | data_gap_check |
 | 2024-11-29 | yes | yes | 2026-09-08 22:05:03 JST | data_gap_check |
 | 2024-11-30 | yes | yes | 2026-09-08 22:05:03 JST | data_gap_check |
-| 2024-12-01 | yes | yes | 2026-09-08 22:05:03 JST | data_gap_check |
+| 2024-12-01 | no | yes | 2026-09-08 22:05:03 JST | data_gap_check |
 | 2024-12-02 | yes | yes | 2026-09-08 22:05:03 JST | data_gap_check |
 | 2024-12-03 | yes | yes | 2026-09-08 22:05:03 JST | data_gap_check |
 | 2024-12-04 | yes | yes | 2026-09-08 22:05:03 JST | data_gap_check |
@@ -2202,8 +2202,8 @@ GitHub Actions が確認した日付と、`data/startgg/events/Japan/YYYY/MM/DD`
 | 2024-12-28 | yes | yes | 2026-09-08 22:05:03 JST | data_gap_check |
 | 2024-12-29 | yes | yes | 2026-09-08 22:05:03 JST | data_gap_check |
 | 2024-12-30 | yes | yes | 2026-09-08 22:05:03 JST | data_gap_check |
-| 2024-12-31 | yes | yes | 2026-09-08 22:05:03 JST | data_gap_check |
-| 2025-01-01 | yes | yes | 2026-09-08 22:05:03 JST | data_gap_check |
+| 2024-12-31 | no | yes | 2026-09-08 22:05:03 JST | data_gap_check |
+| 2025-01-01 | no | yes | 2026-09-08 22:05:03 JST | data_gap_check |
 | 2025-01-02 | yes | yes | 2026-09-08 22:05:03 JST | data_gap_check |
 | 2025-01-03 | yes | yes | 2026-09-08 22:05:03 JST | data_gap_check |
 | 2025-01-04 | yes | yes | 2026-09-08 22:05:03 JST | data_gap_check |
@@ -2821,5 +2821,8 @@ GitHub Actions が確認した日付と、`data/startgg/events/Japan/YYYY/MM/DD`
 | 2026-09-08 | yes | yes | 2026-09-10 05:31:28 JST | update_tournament |
 | 2026-09-09 | yes | yes | 2026-09-11 05:40:33 JST | update_tournament |
 | 2026-09-10 | yes | yes | 2026-09-12 05:36:46 JST | update_tournament |
-| 2026-09-11 | yes | yes | 2026-09-12 05:36:46 JST | update_tournament |
-| 2026-09-12 | no | yes | 2026-09-12 05:36:46 JST | update_tournament |
+| 2026-09-11 | yes | yes | 2026-09-15 06:54:44 JST | update_tournament |
+| 2026-09-12 | yes | yes | 2026-09-15 06:54:44 JST | update_tournament |
+| 2026-09-13 | yes | yes | 2026-09-15 06:54:44 JST | update_tournament |
+| 2026-09-14 | yes | yes | 2026-09-15 06:54:44 JST | update_tournament |
+| 2026-09-15 | no | yes | 2026-09-15 06:54:44 JST | update_tournament |
