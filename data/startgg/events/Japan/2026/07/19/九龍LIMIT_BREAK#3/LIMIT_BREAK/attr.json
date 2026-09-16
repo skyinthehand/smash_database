@@ -17,7 +17,9 @@
   "num_entrants": 91,
   "offline": true,
   "url": "/tournament/limit-break-3-2",
-  "labels": {},
+  "labels": {
+    "registration_restricted": true
+  },
   "archive_status": "completed",
   "state": "COMPLETED",
   "type": 1,
@@ -26,6 +28,6 @@
   "fetched_at": 1788680409,
   "event_data_version": 7,
   "guest_entrant_count": 0,
-  "label_version": 1,
+  "label_version": 2,
   "version": "1.0"
 }

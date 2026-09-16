@@ -1,5 +1,5 @@
 {
-  "label_version": 1,
+  "label_version": 2,
   "matches": [
     {"label": "registration_restricted", "tournament_name_match": "/[^無]制限/"},
     {"label": "registration_restricted", "event_name_match": "/[^無]制限/"},
@@ -59,8 +59,8 @@
     {"label": "registration_restricted", "event_name_match": "/Bクラス/"},
     {"label": "irregular_rule", "tournament_name_match": "/キャプテン・ファルコン限定杯/"},
     {"label": "irregular_rule", "event_name_match": "/キャプテン・ファルコン限定杯/"},
-    {"label": "registration_restricted", "tournament_name_match": "/LIMITBREAK/"},
-    {"label": "registration_restricted", "event_name_match": "/LIMITBREAK/"},
+    {"label": "registration_restricted", "tournament_name_match": "/九龍\\s*LIMIT\\s*BREAK/"},
+    {"label": "registration_restricted", "event_name_match": "/九龍\\s*LIMIT\\s*BREAK/"},
     {"label": "registration_restricted", "tournament_name_match": "/Victoire/"},
     {"label": "registration_restricted", "event_name_match": "/Victoire/"},
     {"label": "registration_restricted", "tournament_name_match": "/マエスマ'U22/"},
