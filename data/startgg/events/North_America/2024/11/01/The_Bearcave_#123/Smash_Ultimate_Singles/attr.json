@@ -18,12 +18,14 @@
   "offline": true,
   "url": "/tournament/the-bearcave-123",
   "labels": {},
-  "status": "completed",
+  "archive_status": "completed",
+  "state": "COMPLETED",
+  "type": 1,
   "timestamp": 1730500200,
   "end_at": 1730519700,
-  "fetched_at": 1786359066,
-  "event_data_version": 3,
+  "fetched_at": 1789509995,
+  "event_data_version": 7,
   "guest_entrant_count": 2,
-  "version": "1.0",
-  "label_version": 1
+  "label_version": 1,
+  "version": "1.0"
 }
