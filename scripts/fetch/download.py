@@ -1518,6 +1518,35 @@ def extend_user_info(user_data, player_data, users, users_file_path):
 def extend_tournament_info(new_tournament_info, tournament_file_path):
     extend_jsonl([new_tournament_info], tournament_file_path, with_version=True)
 
+def register_event_if_missing(tournaments, tournament_id, tournament_name, event_id, event_name, event_dir):
+    """tournament_id が未登録なら新規作成し、event_id が未登録なら追加する。
+    既存の登録済みイベント/大会名は一切変更しない(加算のみ)。戻り値: 変更した場合True。
+
+    GraphQLのIDスカラーは文字列で返ってくるため、tournaments(tournament_idをキーとする
+    intキー辞書)と一致させるために必ずintへキャストする(キャストしないと既存のintキーの
+    エントリと一致せず、重複エントリが作られてしまう)。
+    """
+    try:
+        tournament_id = int(tournament_id)
+    except (TypeError, ValueError):
+        print(f"[{event_id}] tournament_id を取得できないため tournaments.jsonl への登録をスキップします。", file=sys.stderr)
+        return False
+
+    entry = tournaments.get(tournament_id)
+    if entry is None:
+        tournaments[tournament_id] = {
+            "tournament_id": tournament_id,
+            "name": tournament_name,
+            "events": [{"event_id": event_id, "event_name": event_name, "path": event_dir}],
+        }
+        return True
+
+    events = entry.setdefault("events", [])
+    if any(e.get("event_id") == event_id for e in events):
+        return False
+    events.append({"event_id": event_id, "event_name": event_name, "path": event_dir})
+    return True
+
 # 特定のゲームのトーナメントを最新のものから取得する関数
 def fetch_latest_tournaments_by_game(game_id, country_code, limit=5, page=1):
     response_data = fetch_data_with_retries(
