@@ -3,7 +3,10 @@
 
 event_id を指定すると、data/startgg/events 以下から既存のイベントディレクトリを
 探し出し（あれば）削除した上で、start.gg から attr.json / matches.json /
-seeds.json / standings.json を新規に取得し直す。
+seeds.json / standings.json を新規に取得し直す。--yes実行時は、取得し直した
+tournament_id/tournament_nameを使って、tournaments.jsonlに該当イベントの登録が
+漏れていれば(トーナメント自体が未登録、またはイベントだけが未登録の場合)追加する
+(追加のAPI呼び出しは発生しない。既存の登録済みエントリの上書き・削除は行わない)。
 
 git add は一切行わない。競合解消後は自分で git add すること。
 
@@ -36,6 +39,7 @@ from scripts.fetch.download import (  # noqa: E402
     extend_user_info,
     load_excluded_event_ids,
     path_occupied_by_different_event,
+    register_event_if_missing,
     write_event_attributes,
 )
 from scripts.queries import get_event_details_by_id_query  # noqa: E402
@@ -46,10 +50,12 @@ from scripts.utils import (  # noqa: E402
     get_date_parts,
     get_event_directory,
     read_json,
+    read_tournaments_jsonl,
     read_users_jsonl,
     set_api_parameters,
     set_indent_num,
     set_retry_parameters,
+    write_jsonl,
 )
 
 
@@ -109,6 +115,7 @@ def redownload_event(
     users: dict,
     users_file_path: str,
     apply: bool,
+    tournaments: dict | None = None,
 ) -> bool:
     existing_dir = find_existing_event_dir(events_root, event_id)
     if existing_dir is not None:
@@ -196,6 +203,11 @@ def redownload_event(
     )
     print(f"[{event_id}] re-downloaded to {event_dir}")
 
+    if tournaments is not None:
+        register_event_if_missing(
+            tournaments, tournament.get("id"), tournament_name, event_id, event_name, str(event_dir)
+        )
+
     after_matches = count_data_entries(event_dir / "matches.json")
     after_standings = count_data_entries(event_dir / "standings.json")
     if before_matches > 0 and after_matches == 0:
@@ -230,6 +242,16 @@ def main() -> int:
     parser.add_argument("--event-id", type=int, nargs="+", required=True, help="event_id(s) to redownload")
     parser.add_argument("--events-root", default="data/startgg/events", help="Events root directory")
     parser.add_argument("--users-file-path", default="data/startgg/users.jsonl", help="Path to users.jsonl")
+    parser.add_argument(
+        "--tournaments-file",
+        default="data/startgg/tournaments.jsonl",
+        help=(
+            "Path to tournaments.jsonl. Missing registrations for the re-downloaded event(s) are "
+            "added here automatically on --yes (existing entries are never overwritten or removed). "
+            "Note: the registered path is --events-root joined with the computed subpath, so keep "
+            "--events-root at its default (repo-relative) form for the path to match existing entries."
+        ),
+    )
     parser.add_argument("--url", default="https://api.start.gg/gql/alpha", help="API URL")
     parser.add_argument("--max-retries", type=int, default=20, help="Maximum number of retries for API requests")
     parser.add_argument("--retry-delay", type=int, default=5, help="Delay between retries in seconds")
@@ -246,16 +268,24 @@ def main() -> int:
     set_api_parameters(args.url, args.token)
 
     events_root = Path(args.events_root)
-    # dry-run はディレクトリの有無を確認するだけなので users.jsonl は読まない。
+    # dry-run はディレクトリの有無を確認するだけなので users.jsonl/tournaments.jsonl は読まない。
     users = read_users_jsonl(args.users_file_path) if args.yes else {}
+    tournaments = read_tournaments_jsonl(args.tournaments_file) if args.yes else {}
+    events_before = sum(len(t.get("events", [])) for t in tournaments.values())
 
     success = 0
     failure = 0
     for event_id in args.event_id:
-        if redownload_event(event_id, events_root, users, args.users_file_path, args.yes):
+        if redownload_event(event_id, events_root, users, args.users_file_path, args.yes, tournaments):
             success += 1
         else:
             failure += 1
+
+    if args.yes:
+        events_after = sum(len(t.get("events", [])) for t in tournaments.values())
+        if events_after != events_before:
+            write_jsonl(list(tournaments.values()), args.tournaments_file, with_version=True)
+            print(f"\n{args.tournaments_file} に登録漏れを追加しました。")
 
     if not args.yes:
         print("\nDry-run only. Re-run with --yes to actually delete and re-download.")
