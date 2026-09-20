@@ -18,12 +18,14 @@
   "offline": false,
   "url": "/tournament/phl-gaming-tournaments",
   "labels": {},
-  "status": "completed",
+  "archive_status": "completed",
+  "state": "COMPLETED",
+  "type": 1,
   "timestamp": 1726315200,
   "end_at": 1726347600,
-  "fetched_at": 1786204772,
-  "event_data_version": 3,
+  "fetched_at": 1789948631,
+  "event_data_version": 7,
   "guest_entrant_count": 14,
-  "version": "1.0",
-  "label_version": 1
+  "label_version": 2,
+  "version": "1.0"
 }
