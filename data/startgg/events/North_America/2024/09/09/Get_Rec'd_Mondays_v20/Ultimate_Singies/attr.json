@@ -18,12 +18,14 @@
   "offline": true,
   "url": "/tournament/get-rec-d-mondays-v20",
   "labels": {},
-  "status": "completed",
+  "archive_status": "completed",
+  "state": "COMPLETED",
+  "type": 1,
   "timestamp": 1725922800,
   "end_at": 1725937200,
-  "fetched_at": 1786195611,
-  "event_data_version": 3,
+  "fetched_at": 1790002150,
+  "event_data_version": 7,
   "guest_entrant_count": 6,
-  "version": "1.0",
-  "label_version": 1
+  "label_version": 2,
+  "version": "1.0"
 }
