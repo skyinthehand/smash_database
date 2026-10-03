@@ -1,0 +1,40 @@
+name: 不具合報告(スクリプト・ワークフロー)
+description: スクリプトやGitHub Actionsのワークフローの不具合を報告する
+title: "[不具合] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        データの中身の誤りは「データの誤り報告」から送ってください。
+        セキュリティ上の問題(脆弱性・トークンの漏洩など)は Issue にせず、[SECURITY.md](https://github.com/skyinthehand/smash_database/blob/main/SECURITY.md) の手順で報告してください。
+
+  - type: input
+    id: target
+    attributes:
+      label: 対象
+      description: 不具合が起きたスクリプトまたはワークフロー
+      placeholder: "scripts/fetch/download.py / StartGG: Update Tournament"
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: 再現手順
+      description: 実行したコマンドや操作。トークンなどの秘密情報は含めないでください。
+      placeholder: |
+        python scripts/fetch/download.py --token *** ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: 期待した動作と実際の動作
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: エラーメッセージ・ログ
+      render: text

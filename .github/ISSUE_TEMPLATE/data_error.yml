@@ -1,0 +1,51 @@
+name: データの誤り報告
+description: 順位・スコア・大会情報などが start.gg と違う、データが抜けているなどの報告(コードの知識は不要です)
+title: "[データ] "
+labels: ["data"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        報告ありがとうございます。データの探し方や「誤りではないもの」は [CONTRIBUTING.md のデータを確認する方へ](https://github.com/skyinthehand/smash_database/blob/main/CONTRIBUTING.md#データを確認する方へ) にまとめています。
+        分かる範囲で記入してください。空欄があっても構いません。
+
+  - type: input
+    id: path
+    attributes:
+      label: データの場所
+      description: 誤りのあるフォルダかファイルのパス。分からなければ空欄で構いません。
+      placeholder: data/startgg/events/Japan/2025/06/06/晴れスマ#48/晴れスマ#48/standings.json
+
+  - type: input
+    id: startgg_url
+    attributes:
+      label: start.gg の URL
+      description: 比較した start.gg の大会・イベントページ
+      placeholder: https://www.start.gg/tournament/...
+    validations:
+      required: true
+
+  - type: dropdown
+    id: kind
+    attributes:
+      label: 誤りの種類
+      options:
+        - 順位・シードが違う
+        - 対戦結果(スコア・勝敗・キャラクター・ステージ)が違う
+        - 大会情報(大会名・日付・地域・参加者数・会場)が違う
+        - 大会・イベントが保存されていない
+        - 同じ大会・イベントが重複している
+        - 選手情報(users.jsonl)が違う
+        - その他
+    validations:
+      required: true
+
+  - type: textarea
+    id: detail
+    attributes:
+      label: 内容
+      description: どこが、どのように違うかを書いてください。データ側の値と start.gg 側の値を並べてもらえると助かります。
+      placeholder: |
+        standings.json では placement 3 の user_id が 111 だが、start.gg では 3位は別の選手(〇〇)になっている。
+    validations:
+      required: true
