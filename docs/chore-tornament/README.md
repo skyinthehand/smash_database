@@ -3,8 +3,8 @@
 GitHub Actions が確認した日付と、`data/startgg/events/Japan/YYYY/MM/DD` の存在状況を記録します。
 
 - 集計開始日: `2018-12-29`
-- 集計終了日: `2026-10-03`
-- 最終更新 (UTC): `2026-10-03 13:28:14 UTC`
+- 集計終了日: `2026-10-04`
+- 最終更新 (UTC): `2026-10-03 20:39:53 UTC`
 
 | Date | Folder Exists | Checked By GitHub Actions | Last Checked At (JST) | Workflow |
 | --- | --- | --- | --- | --- |
@@ -2842,5 +2842,6 @@ GitHub Actions が確認した日付と、`data/startgg/events/Japan/YYYY/MM/DD`
 | 2026-09-29 | yes | yes | 2026-10-03 22:28:14 JST | update_tournament |
 | 2026-09-30 | yes | yes | 2026-10-03 22:28:14 JST | update_tournament |
 | 2026-10-01 | yes | yes | 2026-10-03 22:28:14 JST | update_tournament |
-| 2026-10-02 | yes | yes | 2026-10-03 22:28:14 JST | update_tournament |
-| 2026-10-03 | yes | yes | 2026-10-03 22:28:14 JST | update_tournament |
+| 2026-10-02 | yes | yes | 2026-10-04 05:39:53 JST | update_tournament |
+| 2026-10-03 | yes | yes | 2026-10-04 05:39:53 JST | update_tournament |
+| 2026-10-04 | no | yes | 2026-10-04 05:39:53 JST | update_tournament |
