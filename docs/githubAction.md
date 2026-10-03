@@ -28,10 +28,15 @@
   - `schedule`: 毎日 `18:00 UTC` = 毎日 `03:00 JST`
   - `workflow_dispatch`
 - 実行内容:
-  - `scripts/fetch/download.py` を日本 (`JP`) 向けに当日・前日分で実行
+  - `scripts/fetch/download.py` を日本 (`JP`) 向けに、カーソル(`data/startgg/tournament_fetch_cursor_jp.txt`)の日付から当日まで実行
+  - 取得が完了しなかったイベントがなければ(`incomplete_count=0`)、カーソルを前日(JST)に進める
   - `python -m unittest scripts.test.test_validate_data` を実行
   - `scripts/fix/update_chore_tournament_log.py` で `docs/chore-tornament/` を更新
   - 差分があれば `main` ブランチへ直接 push
+  - 取得が完了しなかったイベントが1件でもあれば、push の後で run を**失敗**にする。
+    対象の大会・イベント・理由・エラー内容と対処の目安は、run の Summary に表で出る
+    (`download.py --incomplete_summary_path`)。各イベントは run 画面の Annotations にも警告として出る。
+    カーソルが何日止まっているかも Summary に出る。
 
 ### `update_user.yml`
 - 定義ファイル: `.github/workflows/update_user.yml`
