@@ -11,8 +11,8 @@ git merge 中に発生した競合ファイルを、重複排除ルールに従�
   - data/startgg/done.csv         … ID（数値）の一覧。IDベースで重複削除。
   - data/startgg/tournaments.jsonl … tournament_id をキーとした JSONL。IDベースで重複削除。
   - data/startgg/users.jsonl       … user_id をキーとした JSONL。IDベースで重複削除。
-  - docs/chore-tornament/checked_dates.json … 日付をキーとした JSON。日付ベースで重複削除。
-  - docs/chore-tornament/README.md          … Markdown テーブル。日付ベースで重複削除。
+  - docs/chore-tournament/checked_dates.json … 日付をキーとした JSON。日付ベースで重複削除。
+  - docs/chore-tournament/README.md          … Markdown テーブル。日付ベースで重複削除。
   - data/startgg/events/**/attr.json        … イベント属性。フィールドごとのルールでマージ。
 
 重複時の優先ルール:
@@ -572,10 +572,10 @@ def main():
     resolve_jsonl("data/startgg/users.jsonl", "user_id")
 
     # -- checked_dates.json --
-    resolve_checked_dates("docs/chore-tornament/checked_dates.json")
+    resolve_checked_dates("docs/chore-tournament/checked_dates.json")
 
     # -- README.md --
-    resolve_readme("docs/chore-tornament/README.md")
+    resolve_readme("docs/chore-tournament/README.md")
 
     # -- events 以下の attr.json --
     merged_attr_paths = resolve_attr_json_conflicts()
@@ -585,8 +585,8 @@ def main():
         "data/startgg/done.csv",
         "data/startgg/tournaments.jsonl",
         "data/startgg/users.jsonl",
-        "docs/chore-tornament/checked_dates.json",
-        "docs/chore-tornament/README.md",
+        "docs/chore-tournament/checked_dates.json",
+        "docs/chore-tournament/README.md",
     ] + merged_attr_paths
     ok = verify_no_conflict_markers(all_paths)
 
@@ -606,8 +606,8 @@ def main():
             "data/startgg/done.csv",
             "data/startgg/tournaments.jsonl",
             "data/startgg/users.jsonl",
-            "docs/chore-tornament/checked_dates.json",
-            "docs/chore-tornament/README.md",
+            "docs/chore-tournament/checked_dates.json",
+            "docs/chore-tournament/README.md",
         ] + [f'"{p}"' for p in merged_attr_paths] + [f'"{d}"' for d in redownloaded_dirs]
         print("  git add " + " \\\n          ".join(git_add_targets))
         print("  git merge --continue")

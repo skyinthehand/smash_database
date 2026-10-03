@@ -77,7 +77,7 @@ Rationale: データベース全体の一貫性は自動収集パイプライン
 競合した場合は `git pull --rebase origin main` による MUST リトライを行う。
 `main` に変更を積む前に、Principle III（マージ前の検証ゲート）のテストを
 MUST pass させる。
-`docs/chore-tornament/README.md` と `checked_dates.json` は
+`docs/chore-tournament/README.md` と `checked_dates.json` は
 `scripts/fix/update_chore_tournament_log.py` 経由でのみ MUST 更新し、手動編集
 は MUST NOT 行わない。
 Rationale: 以前は自動更新を `chore-update` ブランチに集約し、PR 経由の

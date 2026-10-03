@@ -22,7 +22,7 @@
 │   └── skills
 ├── .specify
 ├── docs
-│   ├── chore-tornament
+│   ├── chore-tournament
 │   │   ├── README.md
 │   │   └── checked_dates.json
 │   ├── data_model.md
@@ -102,7 +102,7 @@
 ## 説明
 - `.github/`: GitHub Actions のワークフロー、Dependabot 設定、Issue / Pull Request テンプレート。
 - `.claude/`・`.specify/`: 開発支援ツール(Claude Code・Spec Kit)の設定とテンプレート。
-- `docs/`: 仕様・運用・設計資料。`chore-tornament/` は GitHub Actions が確認した日付の記録。
+- `docs/`: 仕様・運用・設計資料。`chore-tournament/` は GitHub Actions が確認した日付の記録。
 - `specs/`: 機能ごとの仕様・計画・タスク(Spec Kit で作成)。
 - `data/`: start.gg から取得したデータと、取得処理の管理用ファイル(取得済みID・巡回カーソル・除外設定・ラベル判定ルール)。
   各ファイルの形式は [data_model.md](data_model.md) を参照。

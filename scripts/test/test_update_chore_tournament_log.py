@@ -10,7 +10,7 @@ class UpdateChoreTournamentLogTest(unittest.TestCase):
     def test_generates_markdown_and_metadata(self) -> None:
         with tempfile.TemporaryDirectory() as tmp_dir:
             root = Path(tmp_dir)
-            docs_dir = root / "docs/chore-tornament"
+            docs_dir = root / "docs/chore-tournament"
             events_root = root / "data/startgg/events/Japan"
             (events_root / "2018/12/29").mkdir(parents=True)
             (events_root / "2018/12/30").mkdir(parents=True)

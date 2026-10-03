@@ -17,7 +17,7 @@
   `fetch_large_event.yml` を用意していたが、`scripts/fetch/download.py` が一括取得の
   失敗を検知して自動的に逐次(set単位)取得へフォールバックし、実行回をまたいで
   再開できるようになったため、手動でのリカバリ手段自体が不要になり削除した。)
-- 大会データの取得状況は `docs/chore-tornament/README.md` に日付単位で記録する。
+- 大会データの取得状況は `docs/chore-tournament/README.md` に日付単位で記録する。
 - 記録対象の日付範囲は `2018-12-29` から当日まで。
 
 ## ワークフロー
@@ -30,7 +30,7 @@
 - 実行内容:
   - `scripts/fetch/download.py` を日本 (`JP`) 向けに当日・前日分で実行
   - `python -m unittest scripts.test.test_validate_data` を実行
-  - `scripts/fix/update_chore_tournament_log.py` で `docs/chore-tornament/` を更新
+  - `scripts/fix/update_chore_tournament_log.py` で `docs/chore-tournament/` を更新
   - 差分があれば `main` ブランチへ直接 push
 
 ### `update_user.yml`
@@ -108,10 +108,10 @@
 
 - `data_backfill.yml`
   - `schedule` はない。
-  - `workflow_dispatch` の場合のみ起動し、指定した `start_date` から `end_date` の範囲を取得して、その範囲を `docs/chore-tornament` に記録する。
+  - `workflow_dispatch` の場合のみ起動し、指定した `start_date` から `end_date` の範囲を取得して、その範囲を `docs/chore-tournament` に記録する。
 
 - `data_monthly_check.yml`
-  - `schedule` の場合: 毎日 `03:10 JST` に起動し、`tournaments.jsonl` の補正と `docs/chore-tornament` の再生成を行う。
+  - `schedule` の場合: 毎日 `03:10 JST` に起動し、`tournaments.jsonl` の補正と `docs/chore-tournament` の再生成を行う。
   - `workflow_dispatch` の場合: 実行した時点ですぐ起動し、同じ補正処理と再生成をその場で実行する。
 
 - `schema_backfill.yml`
@@ -132,14 +132,14 @@
     直列化し、push 競合時は `git pull --rebase origin main` してリトライする。
   - `schedule` は GitHub Actions の仕様上、デフォルトブランチ上の workflow 定義を元に起動される。
 
-## `docs/chore-tornament`
+## `docs/chore-tournament`
 
 ### 生成ファイル
-- `docs/chore-tornament/README.md`
+- `docs/chore-tournament/README.md`
   - `2018-12-29` から当日までを 1 日 1 行の Markdown テーブルで出力する。
   - `data/startgg/events/Japan/YYYY/MM/DD` のフォルダ有無を `Folder Exists` に記録する。
   - GitHub Actions がその日付を取得対象として処理した場合、`Checked By GitHub Actions` / `Last Checked At (JST)` / `Workflow` を更新する。
-- `docs/chore-tornament/checked_dates.json`
+- `docs/chore-tournament/checked_dates.json`
   - Markdown 生成用の記録データを保持する。
 
 ### 更新スクリプト
