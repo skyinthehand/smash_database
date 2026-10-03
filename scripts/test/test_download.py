@@ -28,6 +28,8 @@ from scripts.fetch.download import (
     download_by_ids,
     download_seeds,
     download_standings,
+    format_incomplete_summary,
+    record_incomplete,
     event_in_fallback_mode,
     fetch_all_phase_groups,
     fetch_all_sets,
@@ -2428,6 +2430,165 @@ class DownloadTests(unittest.TestCase):
 
         self.assertEqual(incomplete_count, 1)
         self.assertNotIn(1, done_tournaments)
+
+    def _summary_test_tournament(self):
+        tournaments, total = self._incomplete_test_tournament(name="Pipe | Tournament")
+        tournaments[0]["url"] = "/tournament/pipe"
+        return tournaments, total
+
+    @patch("scripts.fetch.download.read_set", return_value=set())
+    @patch("scripts.fetch.download.read_users_jsonl", return_value={})
+    @patch("scripts.fetch.download.fetch_latest_tournaments_by_game")
+    @patch("scripts.fetch.download.fetch_event_ids_from_tournament")
+    @patch("scripts.fetch.download.download_all_set")
+    @patch("scripts.fetch.download.download_standings")
+    @patch("scripts.fetch.download.download_seeds")
+    @patch("scripts.fetch.download.extend_user_info")
+    def test_download_all_tournaments_writes_summary_of_incomplete_events(
+        self,
+        _mock_extend_user_info,
+        _mock_download_seeds,
+        mock_download_standings,
+        mock_download_all_set,
+        mock_fetch_event_ids,
+        mock_fetch_tournaments,
+        _mock_read_users,
+        _mock_read_set,
+    ):
+        """未完了のイベントだけが、大会・イベント・理由つきでサマリーに載る。"""
+        mock_fetch_tournaments.return_value = self._summary_test_tournament()
+        mock_fetch_event_ids.return_value = [
+            (10, "Singles", False, "COMPLETED", 1),
+            (20, "Doubles", False, "COMPLETED", 1),
+        ]
+        mock_download_standings.return_value = ([], [], {})
+        mock_download_all_set.side_effect = [False, True]
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            os.makedirs(get_event_directory(
+                f"{tmpdir}", "JP", "2024", "05", "04", "Pipe | Tournament", "Singles",
+            ), exist_ok=True)
+            summary_path = f"{tmpdir}/summary.md"
+            with redirect_stdout(io.StringIO()):
+                incomplete_count = download_all_tournaments(
+                    "1386", "JP", None, datetime(2024, 5, 4, 0, 0, 0),
+                    f"{tmpdir}", f"{tmpdir}/done.csv", f"{tmpdir}/users.jsonl",
+                    f"{tmpdir}/tournaments.jsonl",
+                    incomplete_summary_path=summary_path,
+                )
+            with open(summary_path, encoding="utf-8") as f:
+                summary = f.read()
+
+        self.assertEqual(incomplete_count, 1)
+        self.assertIn("取得が完了しなかったイベント: 1 件", summary)
+        self.assertIn("[Pipe \\| Tournament](https://www.start.gg/tournament/pipe)", summary)
+        self.assertIn("Doubles<br>event_id: `20`", summary)
+        self.assertIn("対戦結果(sets)の取得が未完了", summary)
+        self.assertIn("### 対処の目安", summary)
+        self.assertNotIn("Singles", summary)
+
+    @patch("scripts.fetch.download.read_set", return_value=set())
+    @patch("scripts.fetch.download.read_users_jsonl", return_value={})
+    @patch("scripts.fetch.download.fetch_latest_tournaments_by_game")
+    @patch("scripts.fetch.download.fetch_event_ids_from_tournament")
+    @patch("scripts.fetch.download.download_all_set")
+    @patch("scripts.fetch.download.download_standings")
+    @patch("scripts.fetch.download.download_seeds")
+    @patch("scripts.fetch.download.extend_user_info")
+    def test_download_all_tournaments_writes_no_summary_when_all_events_complete(
+        self,
+        _mock_extend_user_info,
+        _mock_download_seeds,
+        mock_download_standings,
+        mock_download_all_set,
+        mock_fetch_event_ids,
+        mock_fetch_tournaments,
+        _mock_read_users,
+        _mock_read_set,
+    ):
+        mock_fetch_tournaments.return_value = self._summary_test_tournament()
+        mock_fetch_event_ids.return_value = [(10, "Singles", False, "COMPLETED", 1)]
+        mock_download_standings.return_value = ([], [], {})
+        mock_download_all_set.return_value = False
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            os.makedirs(get_event_directory(
+                f"{tmpdir}", "JP", "2024", "05", "04", "Pipe | Tournament", "Singles",
+            ), exist_ok=True)
+            summary_path = f"{tmpdir}/summary.md"
+            with redirect_stdout(io.StringIO()):
+                incomplete_count = download_all_tournaments(
+                    "1386", "JP", None, datetime(2024, 5, 4, 0, 0, 0),
+                    f"{tmpdir}", f"{tmpdir}/done.csv", f"{tmpdir}/users.jsonl",
+                    f"{tmpdir}/tournaments.jsonl",
+                    incomplete_summary_path=summary_path,
+                )
+            summary_exists = os.path.exists(summary_path)
+
+        self.assertEqual(incomplete_count, 0)
+        self.assertFalse(summary_exists)
+
+    @patch("scripts.fetch.download.read_set", return_value=set())
+    @patch("scripts.fetch.download.read_users_jsonl", return_value={})
+    @patch("scripts.fetch.download.fetch_latest_tournaments_by_game")
+    @patch("scripts.fetch.download.fetch_event_ids_from_tournament")
+    @patch("scripts.fetch.download.download_all_set")
+    @patch("scripts.fetch.download.download_standings")
+    @patch("scripts.fetch.download.download_seeds")
+    @patch("scripts.fetch.download.extend_user_info")
+    def test_download_all_tournaments_summary_names_event_that_raised_fetch_error(
+        self,
+        _mock_extend_user_info,
+        _mock_download_seeds,
+        mock_download_standings,
+        mock_download_all_set,
+        mock_fetch_event_ids,
+        mock_fetch_tournaments,
+        _mock_read_users,
+        _mock_read_set,
+    ):
+        """トーナメント単位で捕捉される FetchError でも、処理中だったイベントとエラー内容が分かる。"""
+        mock_fetch_tournaments.return_value = self._summary_test_tournament()
+        mock_fetch_event_ids.return_value = [
+            (10, "Singles", False, "COMPLETED", 1),
+            (20, "Doubles", False, "COMPLETED", 1),
+        ]
+        mock_download_standings.side_effect = [([], [], {}), FetchError("query complexity is too high")]
+        mock_download_all_set.return_value = False
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            os.makedirs(get_event_directory(
+                f"{tmpdir}", "JP", "2024", "05", "04", "Pipe | Tournament", "Singles",
+            ), exist_ok=True)
+            summary_path = f"{tmpdir}/summary.md"
+            with redirect_stdout(io.StringIO()):
+                incomplete_count = download_all_tournaments(
+                    "1386", "JP", None, datetime(2024, 5, 4, 0, 0, 0),
+                    f"{tmpdir}", f"{tmpdir}/done.csv", f"{tmpdir}/users.jsonl",
+                    f"{tmpdir}/tournaments.jsonl",
+                    incomplete_summary_path=summary_path,
+                )
+            with open(summary_path, encoding="utf-8") as f:
+                summary = f.read()
+
+        self.assertEqual(incomplete_count, 1)
+        self.assertIn("Doubles<br>event_id: `20`", summary)
+        self.assertIn("start.gg API の取得エラー", summary)
+        self.assertIn("query complexity is too high", summary)
+
+    def test_record_incomplete_emits_annotation_only_on_github_actions(self):
+        for env, expect_annotation in (({"GITHUB_ACTIONS": "true"}, True), ({}, False)):
+            with self.subTest(env=env), patch.dict(os.environ, env, clear=True):
+                out = io.StringIO()
+                events = []
+                with redirect_stdout(out):
+                    record_incomplete(events, 1, "T", "/tournament/t", 20, "Doubles", "seeds_no_phase", "no phase")
+                self.assertIn("[INCOMPLETE] phase(ブラケット)が存在しない", out.getvalue())
+                self.assertEqual("::warning title=" in out.getvalue(), expect_annotation)
+                self.assertEqual(events[0]["tournament_url"], "https://www.start.gg/tournament/t")
+
+    def test_format_incomplete_summary_is_empty_without_events(self):
+        self.assertEqual(format_incomplete_summary([]), "")
 
     @patch("scripts.fetch.download.read_set", return_value=set())
     @patch("scripts.fetch.download.read_users_jsonl", return_value={})

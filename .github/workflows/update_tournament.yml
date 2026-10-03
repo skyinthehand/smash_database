@@ -64,6 +64,7 @@ jobs:
             --token "$STARTGG_TOKEN" \
             --country_code "JP" \
             --finish_date "$FINISH_DATE" \
+            --incomplete_summary_path "$GITHUB_STEP_SUMMARY" \
             2>&1 | tee /tmp/download_tournaments.log
 
           # download.pyが正常終了した場合のみここに到達する(set -euxo pipefailにより、
@@ -85,10 +86,25 @@ jobs:
           else
             echo "[WARN] incomplete_count=${INCOMPLETE:-unknown} のため、カーソルは進めません" \
                  "(次回も [$FINISH_DATE, 今日] を再走査し、未完了だったトーナメント/イベントに再挑戦します)。" >&2
+            # 未完了イベントの一覧表は download.py が --incomplete_summary_path に書き出す。
+            # ここではカーソルが止まっている期間を追記する(1件の未完了イベントが原因で
+            # 何日もカーソルが進まない状態に気づけるようにするため)。
+            # 日付として解釈できない値でも、ここで失敗して push まで止めないようにする。
+            FINISH_EPOCH="$(date -d "$FINISH_DATE" +%s 2>/dev/null || true)"
+            if [ -n "$FINISH_EPOCH" ]; then
+              STUCK_TEXT="$(( ( $(date -d "$TODAY_JST" +%s) - FINISH_EPOCH ) / 86400 )) 日間進んでいません"
+            else
+              STUCK_TEXT="進んでいません"
+            fi
             {
-              echo "## :warning: 一部トーナメント/イベントの取得が完了しませんでした"
-              echo "incomplete_count=${INCOMPLETE:-unknown} 件。カーソルは進めていません。"
-              echo "詳細は本ステップのログを確認してください。"
+              echo ""
+              echo "### カーソル"
+              echo "カーソル(\`$CURSOR_FILE\`)は **$FINISH_DATE のまま、${STUCK_TEXT}**。"
+              echo "上の表のイベントが取得できるか除外されるまで、毎回 $FINISH_DATE 以降を再走査します。"
+              if [ -z "$INCOMPLETE" ]; then
+                echo ""
+                echo "ログから incomplete_count を読み取れませんでした。本ステップのログを確認してください。"
+              fi
             } >> "$GITHUB_STEP_SUMMARY"
           fi
 
@@ -166,3 +182,12 @@ jobs:
           echo "Workflow failed."
           git status --porcelain
           ls -la data/startgg
+
+      # 取得できたデータは上で push 済み。そのうえで、未完了のイベントがあった場合は
+      # run 自体を失敗にして気づけるようにする(以前は成功扱いのままカーソルだけが
+      # 止まり続け、問題に気づけなかった)。
+      - name: Fail if some events were not fetched completely
+        if: steps.download_tournaments.outputs.incomplete_count != '0'
+        run: |
+          echo "::error title=取得が完了しなかったイベントがあります::incomplete_count=${{ steps.download_tournaments.outputs.incomplete_count }}。取得できたデータの push は完了しています。対象のイベントと理由は、この run の Summary の表を確認してください。"
+          exit 1
