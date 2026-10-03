@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""既存の全イベントデータに、現在の `data/startgg/label_rules.json` を一括適用する
+"""既存の全イベントデータに、現在の `config/startgg/label_rules.json` を一括適用する
 ツール(specs/009-eligibility-restricted-labeling, User Story 2)。
 
 start.gg への再アクセスは一切行わず、既に保存されている `attr.json` の
@@ -36,10 +36,10 @@ from scripts.labeling import (  # noqa: E402
     load_label_ruleset,
     merge_labels,
 )
-from scripts.utils import read_json, set_indent_num, write_json  # noqa: E402
+from scripts.utils import LABEL_RULES_PATH, read_json, set_indent_num, write_json  # noqa: E402
 
 DEFAULT_EVENTS_ROOT = "data/startgg/events"
-DEFAULT_RULES_FILE = "data/startgg/label_rules.json"
+DEFAULT_RULES_FILE = LABEL_RULES_PATH
 
 
 def parse_args() -> argparse.Namespace:

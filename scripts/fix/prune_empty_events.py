@@ -41,7 +41,7 @@ ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 if ROOT_DIR not in sys.path:
     sys.path.insert(0, ROOT_DIR)
 
-from scripts.fetch.backfill_schema_version import backfill_one_event  # noqa: E402
+from scripts.fix.backfill_schema_version import backfill_one_event  # noqa: E402
 from scripts.fetch.download import fetch_event_ids_from_tournament  # noqa: E402
 from scripts.utils import (  # noqa: E402
     FetchError,

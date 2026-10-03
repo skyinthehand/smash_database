@@ -3,7 +3,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from scripts.fix.validate_data import validate_event_dir
+from scripts.check.validate_data import validate_event_dir
 
 
 def write_json(path: Path, payload):

@@ -4,7 +4,7 @@ import tempfile
 import unittest
 from unittest.mock import patch
 
-from scripts import resolve_merge_conflicts as rmc
+from scripts.merge import resolve_merge_conflicts as rmc
 
 
 class ResolveAttrJsonConflictsTests(unittest.TestCase):
@@ -17,7 +17,7 @@ class ResolveAttrJsonConflictsTests(unittest.TestCase):
 
         with patch.object(rmc, "git_show", side_effect=fake_git_show), \
              patch(
-                 "scripts.check_event_conflicts.list_conflicting_event_paths",
+                 "scripts.merge.check_event_conflicts.list_conflicting_event_paths",
                  return_value=[path],
              ):
             return rmc.resolve_attr_json_conflicts()

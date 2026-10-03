@@ -6,6 +6,22 @@ import sys
 import random
 import requests
 
+# 公開データ(data/)と、取得処理の管理用ファイルの置き場所。
+# state/: スクリプト・ワークフローが自動で更新する進捗(取得済みID・巡回カーソル)。
+# config/: 人が編集する設定(除外イベント・ラベル判定ルール)。
+STARTGG_DATA_DIR = "data/startgg"
+STARTGG_STATE_DIR = "state/startgg"
+STARTGG_CONFIG_DIR = "config/startgg"
+
+DONE_TOURNAMENTS_PATH = f"{STARTGG_STATE_DIR}/done.csv"
+DONE_EVENTS_PATH = f"{STARTGG_STATE_DIR}/done_events.csv"
+TOURNAMENT_FETCH_CURSOR_JP_PATH = f"{STARTGG_STATE_DIR}/tournament_fetch_cursor_jp.txt"
+USERS_REFRESH_CURSOR_PATH = f"{STARTGG_STATE_DIR}/users_refresh_cursor.txt"
+SCHEMA_BACKFILL_CURSOR_PATH = f"{STARTGG_STATE_DIR}/schema_backfill_cursor.txt"
+
+EXCLUDED_EVENTS_PATH = f"{STARTGG_CONFIG_DIR}/excluded_events.json"
+LABEL_RULES_PATH = f"{STARTGG_CONFIG_DIR}/label_rules.json"
+
 # 国コードをリージョンに変換する関数
 def country_code2region(country_code):
     japan = ["JP"]

@@ -1,6 +1,6 @@
 # Fix / 不完全な点メモ
 
-- 同日同名(地域・開催日・大会名・イベント名が一致)の別大会(tournament_idが異なる)による保存先パス衝突(`specs/008-tournament-path-collision/`): `scripts/fetch/download.py`の`download_all_tournaments()`/`download_by_ids()`は、新規イベントの保存先が既存の別tournament_idのイベントと衝突する場合、参加者数が多い方の保存先名を維持し、少ない方を`大会名_(tournament_id)`の形式に自動調整する。同一の取得処理(1回のクロール実行)内でまだ確定していない側同士は、3件以上の衝突でも都度再比較して収束するが、既に**別の**(先に完了した)取得処理で確定・保存済みの保存先は再度変更しない(`resolve_path_collision()`、`research.md` Decision 2・3)。`scripts/fix/redownload_event.py`は、既に別event_idのデータが置かれているディレクトリへ保存しようとした場合、参加者数比較は行わず常に自分自身の保存先だけを同じ形式でずらす(`path_occupied_by_different_event()`、Decision 7)。本フィーチャー導入前に発生した未検出の衝突は`scripts/fix/find_path_collisions.py`で監査でき、`scripts/fix/fix_path_collision.py --event-id <id1> <id2> [...] --yes`で(2件・3件以上いずれも)人手の確認のもとで修復できる。
+- 同日同名(地域・開催日・大会名・イベント名が一致)の別大会(tournament_idが異なる)による保存先パス衝突(`specs/008-tournament-path-collision/`): `scripts/fetch/download.py`の`download_all_tournaments()`/`download_by_ids()`は、新規イベントの保存先が既存の別tournament_idのイベントと衝突する場合、参加者数が多い方の保存先名を維持し、少ない方を`大会名_(tournament_id)`の形式に自動調整する。同一の取得処理(1回のクロール実行)内でまだ確定していない側同士は、3件以上の衝突でも都度再比較して収束するが、既に**別の**(先に完了した)取得処理で確定・保存済みの保存先は再度変更しない(`resolve_path_collision()`、`research.md` Decision 2・3)。`scripts/fix/redownload_event.py`は、既に別event_idのデータが置かれているディレクトリへ保存しようとした場合、参加者数比較は行わず常に自分自身の保存先だけを同じ形式でずらす(`path_occupied_by_different_event()`、Decision 7)。本フィーチャー導入前に発生した未検出の衝突は`scripts/check/find_path_collisions.py`で監査でき、`scripts/fix/fix_path_collision.py --event-id <id1> <id2> [...] --yes`で(2件・3件以上いずれも)人手の確認のもとで修復できる。
 - `scripts/fetch/download_specific_event.py` は既存トーナメントにイベントを追加する際、`tournaments.jsonl` に反映されない（コメントにも記載あり）。
 - `scripts/fetch/download_specific_event.py` は `scripts/fetch/download.py` とは
   独立に、`fetch_all_sets`/`download_all_set`/`write_matches`/`write_event_attributes`
@@ -13,9 +13,9 @@
   `download.py`側の実装を再利用する形にリファクタリングすることを検討する。
 - `scripts/fetch/download_specific_event.py` の先頭コメントに「get_event_details_by_slug_query を追加する必要がある」とあるが、現状は `get_event_details_by_tournament_query` を使用しておりコメントが古い。
 - `scripts/utils.py` の `fetch_data_with_retries()` は `variables` を `json.dumps()` して送信しているため、APIが変数をオブジェクトとして要求する場合に互換性の懸念がある。
-- 一部の大規模イベントでは、`event.sets(sortType: STANDARD)` によるイベント単位のページネーションが安定せず、`per_page` をどれだけ縮めても重複/欠落が解消しないことがある(`scripts/fetch/download.py` の `fetch_all_sets` は、この場合 `pageInfo.total` との照合で解決しなければ自動的に phaseGroup 単位のページネーション(`_fetch_all_sets_by_phase_group`)へフォールバックする)。さらに、phaseGroup 単位でも解決できない=start.gg 側のデータそのものが壊れていると判明した phase は、`data/startgg/excluded_events.json` に登録して取得対象から除外する。既知のケース: event_id=436192(第12回スマバトSP「予選あり1on1トーナメント」)の phase_id=731718。(このファイルは、イベント全体を取得対象から除外する用途にも使われる。`docs/data_model.md`参照)
-- 大会の開催日が延期された場合、`scripts/fetch/download.py` の `record_event_path()` は `tournaments.jsonl` に記録されている**1件の旧パス**とのみ比較して重複ディレクトリを解消する(新ディレクトリの必須ファイルが揃うまでは旧ディレクトリを残す)。このため、同じ大会が2回以上延期され、かつ `tournaments.jsonl` の更新が行われないまま(修正前のバグにより)3件以上のディレクトリが既に発生してしまっているケースでは、`tournaments.jsonl` からも参照されていない「中間の」ディレクトリまでは自動検出・削除できない。既知のケース: `走利夜-SO-RYA_#2`、`L.S.C.T〜Love_Smash_Champion_Tournament〜`(いずれも Japan リージョン、3件のディレクトリが重複)。これらは人手での確認・統合が必要。
-- 第7回チバスマ交流会(event_id=1423946, tournament_id=811466)の重複は、上記の `record_event_path()` の延期検知では解消されなかった。実態は「延期」ではなく、start.gg側で**別のtournament_id(867504)として作り直されていた**ためで、`fetch_event_ids_from_tournament(811466, game_id)` は今も `events: null`(GraphQLの`errors`を伴わない)を返す。`scripts/fix/prune_empty_events.py` はこれを `NoEventsForGameError` として扱い、「確認できた上でtournament_id=811466にはスマブラSPのイベントが0件」と判定して、対応する空ディレクトリ(event_id=1423946)を削除対象にする(`errors`を伴うレスポンスは通常の`FetchError`として区別し、その場合は削除しない)。event_id=1533881(tournament_id=867504)側は `scripts/fix/redownload_event.py --event-id 1533881 --yes` で手動取得済み。
+- 一部の大規模イベントでは、`event.sets(sortType: STANDARD)` によるイベント単位のページネーションが安定せず、`per_page` をどれだけ縮めても重複/欠落が解消しないことがある(`scripts/fetch/download.py` の `fetch_all_sets` は、この場合 `pageInfo.total` との照合で解決しなければ自動的に phaseGroup 単位のページネーション(`_fetch_all_sets_by_phase_group`)へフォールバックする)。さらに、phaseGroup 単位でも解決できない=start.gg 側のデータそのものが壊れていると判明した phase は、`config/startgg/excluded_events.json` に登録して取得対象から除外する。既知のケース: event_id=436192(第12回スマバトSP「予選あり1on1トーナメント」)の phase_id=731718。(このファイルは、イベント全体を取得対象から除外する用途にも使われる。`docs/data_model.md`参照)
+- 大会の開催日が延期された場合、`scripts/fetch/download.py` の `update_event_registration()`(古いディレクトリの削除は `cleanup_relocated_directory()`)は `tournaments.jsonl` に記録されている**1件の旧パス**とのみ比較して重複ディレクトリを解消する(新ディレクトリの必須ファイルが揃うまでは旧ディレクトリを残す)。このため、同じ大会が2回以上延期され、かつ `tournaments.jsonl` の更新が行われないまま(修正前のバグにより)3件以上のディレクトリが既に発生してしまっているケースでは、`tournaments.jsonl` からも参照されていない「中間の」ディレクトリまでは自動検出・削除できない。既知のケース: `走利夜-SO-RYA_#2`、`L.S.C.T〜Love_Smash_Champion_Tournament〜`(いずれも Japan リージョン、3件のディレクトリが重複)。これらは人手での確認・統合が必要。
+- 第7回チバスマ交流会(event_id=1423946, tournament_id=811466)の重複は、上記の `update_event_registration()` の延期検知では解消されなかった。実態は「延期」ではなく、start.gg側で**別のtournament_id(867504)として作り直されていた**ためで、`fetch_event_ids_from_tournament(811466, game_id)` は今も `events: null`(GraphQLの`errors`を伴わない)を返す。`scripts/fix/prune_empty_events.py` はこれを `NoEventsForGameError` として扱い、「確認できた上でtournament_id=811466にはスマブラSPのイベントが0件」と判定して、対応する空ディレクトリ(event_id=1423946)を削除対象にする(`errors`を伴うレスポンスは通常の`FetchError`として区別し、その場合は削除しない)。event_id=1533881(tournament_id=867504)側は `scripts/fix/redownload_event.py --event-id 1533881 --yes` で手動取得済み。
 - （逐次取得モード／`event_data_version>=6`）一括sets取得が失敗したイベントは、
   `fetch_set_ids_for_event()`によるID専用の軽量クエリでset一覧を取得してから
   `matches.json`にプレースホルダーを投入する。このID専用クエリ自体は、既存の
@@ -26,7 +26,7 @@
   なる。2026年時点で観測された最大級のイベント（488人／1267ページ相当）では
   問題無く完走する見込みだが、これを大幅に超える規模のイベントが今後出現した場合は
   改めて対応を検討する。
-- `scripts/fix/validate_data.py`は`events_root.rglob("attr.json")`でイベント
+- `scripts/check/validate_data.py`は`events_root.rglob("attr.json")`でイベント
   ディレクトリを発見するため、逐次取得モードで取得中(`attr.json`未生成)のイベントは
   そもそも検証対象にならず、プレースホルダー混在の`matches.json`から誤検知エラーが
   出ることは無い(設計上の意図的な性質。詳細は

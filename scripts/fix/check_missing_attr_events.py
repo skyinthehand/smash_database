@@ -37,6 +37,7 @@ if ROOT_DIR not in sys.path:
 
 from scripts.queries import get_event_details_by_id_query  # noqa: E402
 from scripts.utils import (  # noqa: E402
+    DONE_EVENTS_PATH,
     FetchError,
     fetch_data_with_retries,
     read_set,
@@ -101,7 +102,7 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--token", required=True, help="start.gg API token")
     parser.add_argument("--tournaments-file", default="data/startgg/tournaments.jsonl")
-    parser.add_argument("--done-events-file", default="data/startgg/done_events.csv")
+    parser.add_argument("--done-events-file", default=DONE_EVENTS_PATH)
     parser.add_argument("--api-url", default="https://api.start.gg/gql/alpha")
     parser.add_argument("--max-retries", type=int, default=20)
     parser.add_argument("--retry-delay", type=int, default=5)

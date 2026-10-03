@@ -1,49 +1,13 @@
 # Data Model
 
 ## 保存全体像
-- start.gg の取得結果は `data/startgg/` に集約。
-- 各イベントは `attr.json` / `standings.json` / `seeds.json` / `matches.json` に分割保存。
-
-## 管理ファイル
-
-### `data/startgg/done.csv`
-```csv
-12345
-67890
-```
-- 1行1大会ID（既取得の大会）
-
-### `data/startgg/done_events.csv`
-```csv
-999
-1000
-```
-- 1行1イベントID（個別取得済み）
-
-### `data/startgg/excluded_events.json`
-```json
-{
-  "436192": [
-    {"phase_id": 731718, "reason": "start.gg側のデータ不整合によりsetsのページネーションが安定しない (2026-08-04確認)"}
-  ],
-  "1359150": {
-    "reason": "テスト運用のみの重複イベント(壁スマ#2 ggテスト運用と同一)"
-  }
-}
-```
-- event_id（文字列キー）ごとに、値の形で2種類のエントリを区別する
-  （専用の`type`フィールドは持たない）。
-  - **値が配列**: phase単位の除外。各要素は`phase_id`・`reason`を持つ。
-    sets取得時のみ、該当phaseGroupを除外する（`load_excluded_phase_ids()`）。
-  - **値が`reason`を直下に持つオブジェクト**: イベント全体の除外。
-    以後の自動取得で、そのevent_idのディレクトリ作成・`tournaments.jsonl`
-    への記載を一切行わない（`load_excluded_event_ids()`）。
-- 除外日時は保持しない。このファイル自体がgit管理されているため、
-  いつ追加・変更・削除されたかは`git log`/`git blame`で確認する。
-- 除外の解除は、該当event_idのキーを削除するだけでよい（無効化フラグ等
-  の中間状態は持たない）。
-- ファイル自体が存在しない場合は、除外イベント・除外phaseともに0件として
-  扱う。
+- **公開データ**(利用者向け): start.gg の取得結果は `data/startgg/` に集約。
+  - `events/`: イベントごとに `attr.json` / `standings.json` / `seeds.json` / `matches.json` に分割保存。
+  - `tournaments.jsonl`(大会索引)/ `upcoming_tournaments.jsonl`(未開催大会)/ `users.jsonl`(選手)。
+- **管理用ファイル**(取得処理用。公開データではない): 末尾の「管理用ファイル」節を参照。
+  - `state/startgg/`: スクリプト・ワークフローが自動で更新する進捗(取得済みID・巡回カーソル)。
+  - `config/startgg/`: 人が編集する設定(除外イベント・ラベル判定ルール)。
+  - パスは `scripts/utils.py` の定数(`DONE_TOURNAMENTS_PATH` など)で一元管理する。
 
 ## 大会索引
 
@@ -124,14 +88,14 @@
 }
 ```
 - `labels`: `registration_type`/`event_type`/`game_rule`等はOpenAIによる推定分(下記
-  「注意点」参照)。`registration_restricted`等、`data/startgg/label_rules.json`
+  「注意点」参照)。`registration_restricted`等、`config/startgg/label_rules.json`
   (ラベル判定ルール定義、git管理)の`matches`に登場する`label`名はこのルール
   定義ファイルの管理対象であり、判定エンジン(`scripts/labeling.py`)が
   トーナメント名・イベント名を正規表現で判定して真偽値を設定する。一致した
   ラベルのみキーとして存在し(不一致の場合はキー自体が無い)、ルール定義ファイルが
   管理しないキー(OpenAI推定分等)は判定処理によって変更されない。
 - `label_version`: `labels`のうちルール管理対象分を算出した際の
-  `data/startgg/label_rules.json`の`label_version`。`event_data_version`とは
+  `config/startgg/label_rules.json`の`label_version`。`event_data_version`とは
   完全に独立したバージョンカウンタ(`002-incremental-schema-backfill`参照)。
   ルール定義ファイルが`min_event_data_version`を宣言している場合、対象イベントの
   `event_data_version`(欠落時は`0`扱い)がその値を下回ると判定自体がスキップされ、
@@ -249,7 +213,7 @@
 上記の2件目(`{"set_id": 889}`のみ)がプレースホルダーの例。
 
 - `set_id`: start.gg上のset ID。`event_data_version < 6`の既存データには存在しない
-  (`null`相当)。既存イベントは`scripts/fetch/backfill_schema_version.py`の巡回
+  (`null`相当)。既存イベントは`scripts/fix/backfill_schema_version.py`の巡回
   バックフィルにより順次付与される。
 
 ## 注意点
@@ -267,11 +231,11 @@
   start.gg側でリンクが後から解除されていた場合は、従来通り`user_id`は`null`のまま。
   `event_data_version < 7` の既存データはこのフォールバックが適用される前に取得された
   ため、本来解決できたはずの user_id が `null` のまま残っている場合があり、
-  `scripts/fetch/backfill_schema_version.py`の巡回バックフィルにより順次再取得・修正
+  `scripts/fix/backfill_schema_version.py`の巡回バックフィルにより順次再取得・修正
   される。
 - `labels` のうち `registration_type`/`event_type`/`game_rule` 等は OpenAI による
   推定であり、正確性は保証されない。一方、`registration_restricted` 等の
-  ルール管理対象ラベルは、`data/startgg/label_rules.json`(git管理されるラベル
+  ルール管理対象ラベルは、`config/startgg/label_rules.json`(git管理されるラベル
   判定ルール定義)に基づき `scripts/labeling.py` が `tournament_name`/`event_name`
   を正規表現で判定した確定的な結果であり、OpenAI推定とは性質が異なる
   (specs/009-eligibility-restricted-labeling参照)。
@@ -291,3 +255,76 @@
   同じ形式)。イベント(種目)ごとの個別の終了日時ではない。start.gg 側で終了日時が
   未確定の場合は `null`。`event_data_version` が `3` 未満の既存イベントには
   フィールド自体が存在しない(段階的バックフィルにより順次追加される)。
+
+## 管理用ファイル
+
+取得処理の進捗と設定。利用者向けの公開データではない。
+
+### 進捗(`state/startgg/`)
+
+### `state/startgg/done.csv`
+```csv
+12345
+67890
+```
+- 1行1大会ID（既取得の大会）
+
+### `state/startgg/done_events.csv`
+```csv
+999
+1000
+```
+- 1行1イベントID（個別取得済み）
+
+### `state/startgg/tournament_fetch_cursor_jp.txt`
+```text
+2026-09-18
+```
+- `update_tournament.yml` が次回の取得を始める日付(JST)。日本(`JP`)の定期取得専用。
+- 取りこぼしなく取得できた場合だけ前日の日付に進める(`docs/github_actions.md` 参照)。
+
+### `state/startgg/users_refresh_cursor.txt`
+```text
+46200
+```
+- `scripts/fetch/refresh_users.py` が `users.jsonl` の何行目から更新を再開するか。
+
+### `state/startgg/schema_backfill_cursor.txt`
+```text
+data/startgg/events/North_America/2024/08/09/Example_Tournament/Ultimate_Singles
+```
+- `scripts/fix/backfill_schema_version.py` が直近に確認したイベントディレクトリ。次回はこの次から走査する。
+
+### 設定(`config/startgg/`)
+
+### `config/startgg/excluded_events.json`
+```json
+{
+  "436192": [
+    {"phase_id": 731718, "reason": "start.gg側のデータ不整合によりsetsのページネーションが安定しない (2026-08-04確認)"}
+  ],
+  "1359150": {
+    "reason": "テスト運用のみの重複イベント(壁スマ#2 ggテスト運用と同一)"
+  }
+}
+```
+- event_id（文字列キー）ごとに、値の形で2種類のエントリを区別する
+  （専用の`type`フィールドは持たない）。
+  - **値が配列**: phase単位の除外。各要素は`phase_id`・`reason`を持つ。
+    sets取得時のみ、該当phaseGroupを除外する（`load_excluded_phase_ids()`）。
+  - **値が`reason`を直下に持つオブジェクト**: イベント全体の除外。
+    以後の自動取得で、そのevent_idのディレクトリ作成・`tournaments.jsonl`
+    への記載を一切行わない（`load_excluded_event_ids()`）。
+- 除外日時は保持しない。このファイル自体がgit管理されているため、
+  いつ追加・変更・削除されたかは`git log`/`git blame`で確認する。
+- 除外の解除は、該当event_idのキーを削除するだけでよい（無効化フラグ等
+  の中間状態は持たない）。
+- ファイル自体が存在しない場合は、除外イベント・除外phaseともに0件として
+  扱う。
+
+### `config/startgg/label_rules.json`
+```json
+{"label_version": 2, "matches": [{"label": "registration_restricted", "tournament_name_match": "/[^無]制限/"}]}
+```
+- `attr.json` の `labels` のうち、ルール管理対象のラベルを判定する正規表現の定義。
+  判定は `scripts/labeling.py` が行う(「イベント属性」節の `labels` / `label_version` を参照)。

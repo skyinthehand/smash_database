@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""data/startgg/excluded_events.json にイベント単位で除外登録されている
+"""config/startgg/excluded_events.json にイベント単位で除外登録されている
 event_idについて、data/startgg/tournaments.jsonlのエントリと、対応する
 ローカルのイベントディレクトリの両方を削除するツール。
 
@@ -39,7 +39,13 @@ if ROOT_DIR not in sys.path:
 
 from scripts.fetch.download import load_excluded_event_ids  # noqa: E402
 from scripts.fix.check_missing_attr_events import remove_event  # noqa: E402
-from scripts.utils import read_set, read_tournaments_jsonl, write_jsonl  # noqa: E402
+from scripts.utils import (  # noqa: E402
+    DONE_EVENTS_PATH,
+    EXCLUDED_EVENTS_PATH,
+    read_set,
+    read_tournaments_jsonl,
+    write_jsonl,
+)
 
 
 def find_excluded_events_in_tournaments(tournaments: dict, excluded_event_ids: set) -> list[tuple[int, int, dict]]:
@@ -59,8 +65,8 @@ def parse_args() -> argparse.Namespace:
         "tournaments.jsonl・ローカルディレクトリの両方から削除する。"
     )
     parser.add_argument("--tournaments-file", default="data/startgg/tournaments.jsonl")
-    parser.add_argument("--excluded-events-file", default="data/startgg/excluded_events.json")
-    parser.add_argument("--done-events-file", default="data/startgg/done_events.csv")
+    parser.add_argument("--excluded-events-file", default=EXCLUDED_EVENTS_PATH)
+    parser.add_argument("--done-events-file", default=DONE_EVENTS_PATH)
     parser.add_argument(
         "--yes",
         action="store_true",

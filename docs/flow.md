@@ -18,7 +18,7 @@ flowchart TD
     A --> L[scripts/fetch/refresh_users.py]
     L --> M[users.jsonl 再取得]
 
-    A --> N[scripts/fix/validate_data.py]
+    A --> N[scripts/check/validate_data.py]
     N --> O[データ検証]
 
     A --> P[scripts/fix/backfill_events.py]

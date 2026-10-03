@@ -6,7 +6,7 @@ from contextlib import redirect_stderr
 from pathlib import Path
 from unittest.mock import patch
 
-from scripts.fetch import backfill_schema_version as bsv
+from scripts.fix import backfill_schema_version as bsv
 from scripts.utils import EVENT_DATA_VERSION
 
 
