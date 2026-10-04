@@ -1,42 +1,35 @@
 <!--
 Sync Impact Report
 -------------------
-Version change: 2.0.0 → 2.1.0
-Rationale: MINOR — 開発ワークフロー節への追加。既存原則の後方非互換な削除・
-再定義ではなく、spec-kit（`/speckit-specify` 等）が `specs/` 配下に生成する
-ドキュメントの記述言語に関するルールを新設する追加的なガイダンスのため、
+Version change: 2.1.0 → 2.2.0
+Rationale: MINOR — 開発ワークフロー節に、コミットメッセージの種類に関する
+ルールを新設する追加的なガイダンス。既存原則の削除・再定義ではないため、
 本憲法自身のバージョニング方針（Governance節）に照らし MINOR とする。
 
 Modified sections:
-- 開発ワークフロー (Development Workflow): spec-kit コマンド
-  (`/speckit-specify` / `/speckit-clarify` / `/speckit-plan` / `/speckit-tasks`
-  等) が `specs/` 配下に生成するドキュメント（`spec.md` / `plan.md` /
-  `research.md` / `data-model.md` / `quickstart.md` / `contracts/` /
-  `tasks.md` / `checklists/` 等）は、コード識別子・ファイルパス・
-  フィールド名・関数名などコード由来の用語を除き日本語で記述する、という
-  項目を追加。
-  Rationale: 本プロジェクトのメンテナ・コミットメッセージ・既存 `docs/`
-  配下のドキュメント（`data_model.md` / `flow.md` / `startgg_design.md`
-  等）は日本語で書かれており、spec-kit の成果物だけ英語になっていると
-  一貫性が無い。実際に `specs/006-incremental-set-fetch/` で英語のまま
-  作成してしまい、後から日本語へ翻訳し直す手戻りが発生したことを踏まえる。
+- 開発ワークフロー (Development Workflow): コミットメッセージは Conventional
+  Commits 形式とし、最も具体的な種類を選ぶこと、`chore` を受け皿として
+  使わないこと、種類の異なる変更はコミットを分けることを追加。自動化
+  ワークフローによる定期データ更新の `chore(data):` は既存の慣習として許容。
+  Rationale: `chore` を受け皿にするとコミットの中身が履歴から読み取れない。
+  依存関係・Dependabot・セキュリティポリシーの追加をまとめて `chore` にした
+  例や、カーソル停止を直す除外設定を `chore` にした例があったことを踏まえる。
 
 Added sections: none (既存の「開発ワークフロー」節への箇条書き追加のみ)
 
 Removed sections: none
 
 Templates requiring updates:
-- .specify/templates/plan-template.md: ✅ no change needed (テンプレートの
-  見出し構造自体は変更対象外。実際に生成される本文側で言語ルールを守る)
+- .specify/templates/plan-template.md: ✅ no change needed (コミットに関する
+  記述なし)
 - .specify/templates/spec-template.md: ✅ no change needed (同上)
 - .specify/templates/tasks-template.md: ✅ no change needed (同上)
 - .specify/templates/checklist-template.md: ✅ no change needed (同上)
-- .claude/skills/speckit-*/SKILL.md: ✅ 言語に関する既存の矛盾する指示は
-  見つからず、追加の変更は不要
+- .claude/skills/speckit-*/SKILL.md: ✅ no change needed
+  (`speckit-constitution` のコミットメッセージ例は `docs:` で、本ルールと整合)
+- README.md / docs/*.md: ✅ no change needed (コミット規約への言及なし)
 
-Follow-up TODOs: none within constitution scope. See "Next Actions" for the
-non-governance follow-up (specs/006-incremental-set-fetch/spec.md の日本語化)
-the requester may perform separately.
+Follow-up TODOs: none
 -->
 
 # smash_database Constitution
@@ -127,6 +120,20 @@ Rationale: 統一されたリトライ経路がないと、一部スクリプト
   Rationale: コミットメッセージや既存の `docs/` 配下のドキュメントは
   日本語で書かれており、spec-kit の成果物だけ英語のままだと一貫性が無く、
   後から日本語へ翻訳し直す手戻りが発生する。
+- コミットメッセージは Conventional Commits 形式とし、変更内容を最も具体的に
+  表す種類（`feat` / `fix` / `docs` / `build` / `ci` / `refactor` / `test` /
+  `perf` / `style` / `revert`）を MUST 選ぶ。`chore` は他のどの種類にも
+  当てはまらない場合にのみ使い、何でも入る受け皿として MUST NOT 使わない。
+  種類の異なる変更は MUST 別のコミットに分ける。
+  - 例: 依存関係（`requirements.txt`）は `build`、ワークフロー・Dependabot は
+    `ci`、ドキュメントは `docs`、不具合を直すデータ・設定の変更（除外イベントの
+    追加など）は `fix(data)`。
+  - 自動化ワークフローが定期的に行うデータ更新の `chore(data):` は、既存の
+    慣習として許容する。
+  Rationale: `chore` を受け皿として使うと、コミットの中身が履歴から読み取れ
+  なくなる。実際に、依存関係・Dependabot・セキュリティポリシーの追加を1つの
+  `chore` コミットにまとめた例や、カーソルの停止を直す除外設定を `chore` に
+  した例があった。
 
 ## Governance
 
@@ -145,4 +152,4 @@ Rationale: 統一されたリトライ経路がないと、一部スクリプト
   `docs/data_model.md` / `docs/startgg_design.md` / `docs/flow.md` /
   `docs/githubAction.md` / `docs/directory.md` / `docs/fix.md` を参照する。
 
-**Version**: 2.1.0 | **Ratified**: 2026-07-31 | **Last Amended**: 2026-08-26
+**Version**: 2.2.0 | **Ratified**: 2026-07-31 | **Last Amended**: 2026-10-05
