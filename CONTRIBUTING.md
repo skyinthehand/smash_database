@@ -113,7 +113,7 @@ ID から選手名を調べるには、[`data/startgg/users.jsonl`](data/startgg
 - **古いイベントに項目が足りない**: データの形式は段階的に拡張されていて、古いイベントには新しい項目(`end_at`、`player_id` など)がまだないことがあります。`event_data_version` が小さいイベントは、自動の補完処理で順次更新されます。
 - **開催中・未終了の大会がない**: 終了した大会だけを保存しています。
 - **最新の大会がまだない**: 日本の大会は毎日 日本時間 3:00 頃に自動で取得しています。終了直後の大会は、翌日以降に反映されます。
-- **意図的に除外しているイベント**: [`data/startgg/excluded_events.json`](data/startgg/excluded_events.json) に載っているイベントは、理由があって取得対象から外しています。
+- **意図的に除外しているイベント**: [`config/startgg/excluded_events.json`](config/startgg/excluded_events.json) に載っているイベントは、理由があって取得対象から外しています。
 
 ### 5. 報告する
 

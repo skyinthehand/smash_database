@@ -3,7 +3,7 @@ import unittest
 from contextlib import redirect_stderr, redirect_stdout
 from unittest.mock import patch
 
-from scripts.fix import diagnose_missing_tournament as dmt
+from scripts.check import diagnose_missing_tournament as dmt
 from scripts.utils import FetchError, NoEventsForGameError
 
 

@@ -1,6 +1,6 @@
 """汎用イベントラベリング判定エンジン(specs/009-eligibility-restricted-labeling)。
 
-`data/startgg/label_rules.json`(トーナメント名/イベント名に対する宣言的な正規表現
+`config/startgg/label_rules.json`(トーナメント名/イベント名に対する宣言的な正規表現
 ルール)を読み込み・検証・コンパイルし、`attr.json` の `labels`/`label_version` を
 算出する。start.gg への通信は一切行わない、ローカル完結の純粋なロジックである。
 
@@ -16,7 +16,9 @@ from dataclasses import dataclass
 from functools import lru_cache
 from typing import FrozenSet, List, Optional, Tuple
 
-DEFAULT_LABEL_RULES_PATH = "data/startgg/label_rules.json"
+from scripts.utils import LABEL_RULES_PATH
+
+DEFAULT_LABEL_RULES_PATH = LABEL_RULES_PATH
 
 
 class LabelRuleError(Exception):

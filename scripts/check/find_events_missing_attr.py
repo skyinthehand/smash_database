@@ -13,8 +13,8 @@ attr.json を書く。しかし --matches_only モードのリフレッシュは
 (プレースホルダーが残っている)想定内パターンを区別して報告する。
 
 使い方:
-    python3 scripts/fix/find_events_missing_attr.py
-    python3 scripts/fix/find_events_missing_attr.py --events-root data/startgg/events
+    python3 scripts/check/find_events_missing_attr.py
+    python3 scripts/check/find_events_missing_attr.py --events-root data/startgg/events
 """
 
 from __future__ import annotations
@@ -29,7 +29,13 @@ if ROOT_DIR not in sys.path:
     sys.path.insert(0, ROOT_DIR)
 
 from scripts.fetch.download import build_path_index  # noqa: E402
-from scripts.utils import read_json, read_set, read_tournaments_jsonl  # noqa: E402
+from scripts.utils import (  # noqa: E402
+    DONE_EVENTS_PATH,
+    DONE_TOURNAMENTS_PATH,
+    read_json,
+    read_set,
+    read_tournaments_jsonl,
+)
 
 DATA_FILES = ("matches.json", "standings.json", "seeds.json")
 
@@ -40,8 +46,8 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--events-root", default="data/startgg/events")
     parser.add_argument("--tournaments-file", default="data/startgg/tournaments.jsonl")
-    parser.add_argument("--done-file", default="data/startgg/done.csv")
-    parser.add_argument("--done-events-file", default="data/startgg/done_events.csv")
+    parser.add_argument("--done-file", default=DONE_TOURNAMENTS_PATH)
+    parser.add_argument("--done-events-file", default=DONE_EVENTS_PATH)
     return parser.parse_args()
 
 

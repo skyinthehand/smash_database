@@ -28,6 +28,7 @@ from scripts.utils import (
     set_retry_parameters, set_api_parameters,
     FetchError, NoEventsForGameError, NoPhaseError, AllFallbacksExhaustedError, MaxPagesExceededError,
     EVENT_DATA_VERSION,
+    DONE_TOURNAMENTS_PATH, EXCLUDED_EVENTS_PATH,
 )
 
 REQUIRED_EVENT_FILES = ("attr.json", "matches.json", "standings.json", "seeds.json")
@@ -53,7 +54,6 @@ SET_IDS_PER_PAGE_FALLBACKS = (200, 100, 50, 25, 10)
 SET_BATCH_SIZE_FALLBACKS = (25, 10, 5, 1)
 PHASE_GROUPS_PER_PAGE = 100
 MAX_PHASE_GROUPS_FETCH_ITERATIONS = 50
-EXCLUDED_EVENTS_PATH = "data/startgg/excluded_events.json"
 STARTGG_BASE_URL = "https://www.start.gg"
 
 # 取得が完了しなかった理由の分類。reason -> (要約, 対処の目安)。
@@ -211,7 +211,7 @@ def main():
     parser.add_argument("--retry_delay", type=int, default=DEFAULT_RETRY_DELAY, help="Delay between retries in seconds")
     parser.add_argument("--indent_num", type=int, default=2, help="Indentation level for JSON output")
     parser.add_argument("--startgg_dir", default="data/startgg/events", help="Directory to save event data")
-    parser.add_argument("--done_file_path", default="data/startgg/done.csv", help="Path to the file recording completed downloads")
+    parser.add_argument("--done_file_path", default=DONE_TOURNAMENTS_PATH, help="Path to the file recording completed downloads")
     parser.add_argument("--users_file_path", default="data/startgg/users.jsonl", help="Path to the file recording startgg user info")
     parser.add_argument("--tournament_file_path", default="data/startgg/tournaments.jsonl", help="Path to the file recording tournament info")
     parser.add_argument("--game_id", default="1386", help="Game ID for tournament retrieval. see https://developer.start.gg/docs/examples/queries/videogame-id-by-name/")
@@ -1035,7 +1035,7 @@ def dedupe_set_nodes(all_sets, event_id=None):
     return unique_sets
 
 def load_excluded_phase_ids(path=EXCLUDED_EVENTS_PATH):
-    """data/startgg/excluded_events.json を読み込み、event_id -> {phase_id, ...} を返す。
+    """config/startgg/excluded_events.json を読み込み、event_id -> {phase_id, ...} を返す。
     ファイルが存在しない場合は空辞書を返す(通常運用ではこのファイルは無くても動く)。
     このファイルにはevent_id単位の除外エントリ(値がdict形状)も混在するため、
     値が配列(list)形状のエントリ(phase単位の除外)のみを対象にする。"""
@@ -1054,7 +1054,7 @@ def load_excluded_phase_ids(path=EXCLUDED_EVENTS_PATH):
 
 
 def load_excluded_event_ids(path=EXCLUDED_EVENTS_PATH):
-    """data/startgg/excluded_events.json を読み込み、event_id -> {"reason": str} を返す
+    """config/startgg/excluded_events.json を読み込み、event_id -> {"reason": str} を返す
     (イベント全体を除外するエントリのみ。値が`reason`を直下に持つdict形状のものが対象で、
     phase単位の除外エントリ(配列形状)は対象外)。ファイルが存在しない場合は空辞書を返す。"""
     try:

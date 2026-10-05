@@ -6,7 +6,7 @@ from contextlib import redirect_stdout
 from pathlib import Path
 from unittest.mock import patch
 
-from scripts.fix import find_path_collisions as fpc
+from scripts.check import find_path_collisions as fpc
 
 
 class FindPathCollisionsTests(unittest.TestCase):

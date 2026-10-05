@@ -50,7 +50,7 @@ jobs:
           # JP専用カーソル(--country_code "JP"固定の走査にのみ対応する。
           # JSTの「昨日まで」判定を安全マージンに使っているため、他地域の
           # 大会取得にこのファイルを流用してはならない)。
-          CURSOR_FILE="data/startgg/tournament_fetch_cursor_jp.txt"
+          CURSOR_FILE="state/startgg/tournament_fetch_cursor_jp.txt"
           TODAY_JST="$(TZ=Asia/Tokyo date +%F)"
           YESTERDAY_JST="$(TZ=Asia/Tokyo date -d '1 day ago' +%F)"
 

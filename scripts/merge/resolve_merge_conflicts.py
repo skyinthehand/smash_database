@@ -8,7 +8,7 @@ git merge 中に発生した競合ファイルを、重複排除ルールに従�
         解消結果を確認してから、手動で git add → git merge --continue すること。
 
 対象ファイル:
-  - data/startgg/done.csv         … ID（数値）の一覧。IDベースで重複削除。
+  - state/startgg/done.csv         … ID（数値）の一覧。IDベースで重複削除。
   - data/startgg/tournaments.jsonl … tournament_id をキーとした JSONL。IDベースで重複削除。
   - data/startgg/users.jsonl       … user_id をキーとした JSONL。IDベースで重複削除。
   - docs/chore-tournament/checked_dates.json … 日付をキーとした JSON。日付ベースで重複削除。
@@ -23,7 +23,7 @@ git merge 中に発生した競合ファイルを、重複排除ルールに従�
 オプション: --redownload-conflicts
   data/startgg/events 以下で競合している matches.json を、ours/theirs の
   マージではなく start.gg からの再取得で上書きする。
-  scripts/check_event_conflicts.py で競合イベントを検出し、
+  scripts/merge/check_event_conflicts.py で競合イベントを検出し、
   scripts/fix/redownload_event.py の再取得ロジックを呼び出す。
   --token が必須。デフォルトでは無効（何もしない）。
 """
@@ -37,9 +37,11 @@ import sys
 from collections import OrderedDict
 from pathlib import Path
 
-ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 if ROOT_DIR not in sys.path:
     sys.path.insert(0, ROOT_DIR)
+
+from scripts.utils import DONE_TOURNAMENTS_PATH  # noqa: E402
 
 
 # ---------------------------------------------------------------------------
@@ -372,7 +374,7 @@ def resolve_attr_json_conflicts() -> list[str]:
     ルールでマージしてワーキングツリーに書き出す。
 
     attr.json は matches.json と違って通常はあまり競合しない
-    (scripts/check_event_conflicts.py の get_event_id() のコメント参照)が、
+    (scripts/merge/check_event_conflicts.py の get_event_id() のコメント参照)が、
     両ブランチが同じイベントを独立に取得・更新した場合(ラベル判定機能の
     導入等で labels/label_version が食い違う場合を含む)は実際に競合しうる。
 
@@ -384,7 +386,7 @@ def resolve_attr_json_conflicts() -> list[str]:
     戻り値: 実際にマージを書き出した attr.json のパス一覧
             (git add 対象の案内に使う)。
     """
-    from scripts.check_event_conflicts import list_conflicting_event_paths
+    from scripts.merge.check_event_conflicts import list_conflicting_event_paths
 
     print(f"\n[5] data/startgg/events 以下の attr.json 競合をマージ")
 
@@ -454,7 +456,7 @@ def resolve_events_by_redownload(token: str, events_root: str, users_file_path: 
     only_event_ids が指定された場合は、競合イベントのうち該当する event_id のみを対象にする。
     戻り値: 実際に再取得を試みたイベントディレクトリのパス一覧（git add 対象の案内に使う）。
     """
-    from scripts.check_event_conflicts import get_event_id, list_conflicting_event_paths
+    from scripts.merge.check_event_conflicts import get_event_id, list_conflicting_event_paths
     from scripts.fix.redownload_event import redownload_event
     from scripts.utils import read_users_jsonl, set_api_parameters, set_indent_num, set_retry_parameters
 
@@ -563,7 +565,7 @@ def main():
     print("=" * 60)
 
     # -- done.csv --
-    resolve_done_csv("data/startgg/done.csv")
+    resolve_done_csv(DONE_TOURNAMENTS_PATH)
 
     # -- tournaments.jsonl --
     resolve_jsonl("data/startgg/tournaments.jsonl", "tournament_id")
@@ -582,7 +584,7 @@ def main():
 
     # -- 後検証 --
     all_paths = [
-        "data/startgg/done.csv",
+        DONE_TOURNAMENTS_PATH,
         "data/startgg/tournaments.jsonl",
         "data/startgg/users.jsonl",
         "docs/chore-tournament/checked_dates.json",
@@ -603,7 +605,7 @@ def main():
         print()
         print("次のステップ（手動で実行してください）:")
         git_add_targets = [
-            "data/startgg/done.csv",
+            DONE_TOURNAMENTS_PATH,
             "data/startgg/tournaments.jsonl",
             "data/startgg/users.jsonl",
             "docs/chore-tournament/checked_dates.json",

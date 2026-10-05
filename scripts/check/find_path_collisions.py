@@ -7,8 +7,8 @@
 research.md Decision 5)。
 
 使い方:
-    python3 scripts/fix/find_path_collisions.py
-    python3 scripts/fix/find_path_collisions.py --tournaments-file data/startgg/tournaments.jsonl
+    python3 scripts/check/find_path_collisions.py
+    python3 scripts/check/find_path_collisions.py --tournaments-file data/startgg/tournaments.jsonl
 """
 
 from __future__ import annotations

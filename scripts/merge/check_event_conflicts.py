@@ -8,7 +8,7 @@ data/startgg/events 以下の競合 JSON ファイルに対して、
 git add は一切行わない。読み取り専用の確認ツール。
 
 使い方:
-    python3 scripts/check_event_conflicts.py
+    python3 scripts/merge/check_event_conflicts.py
 
 出力:
     [OK]   <path>  ours=N theirs=N  → 順序のみの差。値は同一。

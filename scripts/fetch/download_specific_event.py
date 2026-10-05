@@ -25,6 +25,7 @@ from scripts.utils import (
     set_retry_parameters, set_api_parameters,
     FetchError, NoPhaseError,
     EVENT_DATA_VERSION,
+    DONE_EVENTS_PATH,
 )
 
 REQUIRED_EVENT_FILES = ("attr.json", "matches.json", "standings.json", "seeds.json")
@@ -792,7 +793,7 @@ def main():
     parser.add_argument("--indent_num", type=int, default=2, help="Indentation level for JSON output")
     parser.add_argument("--startgg_dir", default="data/startgg/events", help="Directory to save event data")
     # 完了済みリストはイベント単位にする
-    parser.add_argument("--done_file_path", default="data/startgg/done_events.csv", help="Path to the file recording completed event downloads")
+    parser.add_argument("--done_file_path", default=DONE_EVENTS_PATH, help="Path to the file recording completed event downloads")
     parser.add_argument("--users_file_path", default="data/startgg/users.jsonl", help="Path to the file recording startgg user info")
     parser.add_argument("--tournament_file_path", default="data/startgg/tournaments.jsonl", help="Path to the file recording tournament info")
     # game_id, country_code は特定イベントDLには直接不要

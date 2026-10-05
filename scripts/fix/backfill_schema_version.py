@@ -10,7 +10,7 @@ data/startgg/events 以下のイベントディレクトリを、Japanリージ�
 既に最新バージョンのイベントは API を呼ばずスキップする。
 
 使い方:
-    python3 scripts/fetch/backfill_schema_version.py --token <TOKEN>
+    python3 scripts/fix/backfill_schema_version.py --token <TOKEN>
 """
 
 from __future__ import annotations
@@ -35,6 +35,7 @@ from scripts.fetch.download import (  # noqa: E402
 from scripts.queries import get_event_details_by_id_query  # noqa: E402
 from scripts.utils import (  # noqa: E402
     EVENT_DATA_VERSION,
+    SCHEMA_BACKFILL_CURSOR_PATH,
     FetchError,
     NoPhaseError,
     fetch_data_with_retries,
@@ -318,7 +319,7 @@ def main() -> int:
     )
     parser.add_argument(
         "--cursor_path",
-        default="data/startgg/schema_backfill_cursor.txt",
+        default=SCHEMA_BACKFILL_CURSOR_PATH,
         help="Path to store and read the backfill scan cursor.",
     )
     parser.add_argument(

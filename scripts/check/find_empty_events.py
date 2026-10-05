@@ -11,7 +11,7 @@
 読み取り専用の確認ツール。ファイルの変更や git add は一切行わない。
 
 使い方:
-    python3 scripts/fix/find_empty_events.py
+    python3 scripts/check/find_empty_events.py
 """
 
 from __future__ import annotations

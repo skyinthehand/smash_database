@@ -49,7 +49,7 @@ jobs:
           python scripts/fetch/refresh_users.py \
             --token "$STARTGG_TOKEN" \
             --max_users 300 \
-            --cursor_path "data/startgg/users_refresh_cursor.txt"
+            --cursor_path "state/startgg/users_refresh_cursor.txt"
 
       - name: Detect changes
         id: detect_changes

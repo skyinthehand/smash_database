@@ -11,12 +11,12 @@
 
 使い方:
     # URLから調べる
-    python3 scripts/fix/diagnose_missing_tournament.py \\
+    python3 scripts/check/diagnose_missing_tournament.py \\
         --token <TOKEN> \\
         --url "https://www.start.gg/tournament/<slug>/event/<slug>"
 
     # スラッグを直接指定する場合
-    python3 scripts/fix/diagnose_missing_tournament.py \\
+    python3 scripts/check/diagnose_missing_tournament.py \\
         --token <TOKEN> --tournament-slug <slug> --event-slug <slug>
 """
 
@@ -35,6 +35,9 @@ if ROOT_DIR not in sys.path:
 from scripts.fetch.download import fetch_event_ids_from_tournament  # noqa: E402
 from scripts.fetch.download_specific_event import fetch_event_details_by_slug  # noqa: E402
 from scripts.utils import (  # noqa: E402
+    DONE_EVENTS_PATH,
+    DONE_TOURNAMENTS_PATH,
+    EXCLUDED_EVENTS_PATH,
     FetchError,
     NoEventsForGameError,
     read_json,
@@ -65,9 +68,9 @@ def parse_args() -> argparse.Namespace:
         help="Country code filter used by the daily fetch (default: JP; pass '' to skip this check)",
     )
     parser.add_argument("--tournaments-file", default="data/startgg/tournaments.jsonl")
-    parser.add_argument("--done-file", default="data/startgg/done.csv")
-    parser.add_argument("--done-events-file", default="data/startgg/done_events.csv")
-    parser.add_argument("--excluded-events-file", default="data/startgg/excluded_events.json")
+    parser.add_argument("--done-file", default=DONE_TOURNAMENTS_PATH)
+    parser.add_argument("--done-events-file", default=DONE_EVENTS_PATH)
+    parser.add_argument("--excluded-events-file", default=EXCLUDED_EVENTS_PATH)
     parser.add_argument("--api-url", default="https://api.start.gg/gql/alpha")
     parser.add_argument("--max-retries", type=int, default=5)
     parser.add_argument("--retry-delay", type=int, default=5)

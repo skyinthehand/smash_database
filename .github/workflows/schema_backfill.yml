@@ -80,7 +80,7 @@ jobs:
             THIS_BATCH=$((REMAINING < BATCH_SIZE ? REMAINING : BATCH_SIZE))
 
             echo "=== batch start: processed_so_far=$TOTAL_PROCESSED max_events=$THIS_BATCH ==="
-            OUTPUT="$(python scripts/fetch/backfill_schema_version.py \
+            OUTPUT="$(python scripts/fix/backfill_schema_version.py \
               --token "$STARTGG_TOKEN" \
               --max_events "$THIS_BATCH" 2>&1)"
             SCRIPT_EXIT=$?

@@ -17,7 +17,7 @@
 - Data Model: [docs/data_model.md](docs/data_model.md)
 - Directory 構成: [docs/directory.md](docs/directory.md)
 - Flow: [docs/flow.md](docs/flow.md)
-- GitHub Actions（想定）: [docs/githubAction.md](docs/githubAction.md)
+- GitHub Actions: [docs/github_actions.md](docs/github_actions.md)
 - Fix / 不完全な点メモ: [docs/fix.md](docs/fix.md)
 
 ## 参加する

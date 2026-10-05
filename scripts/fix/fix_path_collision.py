@@ -2,7 +2,7 @@
 """Repair a detected path collision between two or more event_ids (specs/008-
 tournament-path-collision, User Story 4).
 
-`scripts/fix/find_path_collisions.py` が報告した衝突のうち、指定したevent_id群
+`scripts/check/find_path_collisions.py` が報告した衝突のうち、指定したevent_id群
 (同一の同日同名グループに属する2件以上)を対象に分離する。
 
 衝突している対象同士は、実際には同一の物理ディレクトリを共有しており、衝突発生の
@@ -24,7 +24,7 @@ tournament_idが小さい方を勝者とする)。勝者は`redownload_event.py`
 0でない敗者が1件でもあれば、単純なテスト大会ではない可能性があるとして
 自動実行を中止する(手動確認を促す)。
 
-ただし、`data/startgg/excluded_events.json`(`load_excluded_event_ids()`)に
+ただし、`config/startgg/excluded_events.json`(`load_excluded_event_ids()`)に
 グループ内のちょうど1件だけが登録されている場合は、その1件を無条件に敗者、
 残りの1件を無条件に勝者とする(目視確認済みの人間の判断を、参加者数比較
 より優先する)。この場合、敗者側の参加者数が0であることは要求しない
@@ -74,7 +74,7 @@ from scripts.fetch.download import (  # noqa: E402
     load_excluded_event_ids,
     write_event_attributes,
 )
-from scripts.fix.find_path_collisions import find_collisions, group_events_by_path  # noqa: E402
+from scripts.check.find_path_collisions import find_collisions, group_events_by_path  # noqa: E402
 from scripts.fix.redownload_event import build_place_dict, fetch_event_details  # noqa: E402
 from scripts.utils import (  # noqa: E402
     FetchError,
@@ -272,7 +272,7 @@ def process_group(
 ) -> tuple[bool, List[int]]:
     """1つの衝突グループ(event_id群)を処理する。
 
-    excluded_event_ids(`data/startgg/excluded_events.json`由来、
+    excluded_event_ids(`config/startgg/excluded_events.json`由来、
     `load_excluded_event_ids()`の戻り値)に、このグループのうちちょうど1件だけが
     含まれる場合は、その1件を無条件に敗者、残りの1件を無条件に勝者とする
     (人間が既に目視確認した除外判断を、参加者数比較より優先する)。この場合、
