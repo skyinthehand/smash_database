@@ -54,6 +54,112 @@ SET_BATCH_SIZE_FALLBACKS = (25, 10, 5, 1)
 PHASE_GROUPS_PER_PAGE = 100
 MAX_PHASE_GROUPS_FETCH_ITERATIONS = 50
 EXCLUDED_EVENTS_PATH = "data/startgg/excluded_events.json"
+STARTGG_BASE_URL = "https://www.start.gg"
+
+# 取得が完了しなかった理由の分類。reason -> (要約, 対処の目安)。
+INCOMPLETE_REASONS = {
+    "standings_max_pages": (
+        "standings が --max_pages を超えた",
+        "参加者が非常に多いイベント。--max_pages を増やして再取得するか、除外を検討する。",
+    ),
+    "seeds_no_phase": (
+        "phase(ブラケット)が存在しない",
+        "start.gg 側でブラケットが作られていない、または削除されたイベント。結果が無いなら除外を検討する。",
+    ),
+    "seeds_max_pages": (
+        "seeds が --max_pages を超えた",
+        "参加者が非常に多いイベント。--max_pages を増やして再取得するか、除外を検討する。",
+    ),
+    "sets_outstanding": (
+        "対戦結果(sets)の取得が未完了",
+        "次回の実行で続きから取得する。何日も続く場合は start.gg 側のデータ不整合を疑い、phase 単位の除外を検討する。",
+    ),
+    "fetch_error": (
+        "start.gg API の取得エラー",
+        "一時的なエラーなら次回の実行で解消する。何日も続く場合はエラー内容を確認する。",
+    ),
+}
+INCOMPLETE_DETAIL_MAX_LENGTH = 300
+
+
+def record_incomplete(incomplete_events, tournament_id, tournament_name, tournament_url,
+                      event_id, event_name, reason, detail=""):
+    """取得が完了しなかったイベント(またはトーナメント)を incomplete_events に記録し、
+    ログにも1行で出力する。GitHub Actions 上では警告の注記(annotation)としても出力し、
+    run の画面から直接見つけられるようにする。"""
+    entry = {
+        "tournament_id": tournament_id,
+        "tournament_name": tournament_name,
+        "tournament_url": build_startgg_url(tournament_url),
+        "event_id": event_id,
+        "event_name": event_name,
+        "reason": reason,
+        "detail": " ".join(str(detail).split())[:INCOMPLETE_DETAIL_MAX_LENGTH],
+    }
+    incomplete_events.append(entry)
+    summary = INCOMPLETE_REASONS.get(reason, (reason, ""))[0]
+    target = f"{tournament_name} (tournament_id={tournament_id})"
+    if event_id is not None:
+        target += f" / {event_name} (event_id={event_id})"
+    print(f"[INCOMPLETE] {summary}: {target} {entry['detail']}".rstrip())
+    if os.environ.get("GITHUB_ACTIONS") == "true":
+        print(f"::warning title=取得未完了: {summary}::{target}")
+    return entry
+
+
+def build_startgg_url(url):
+    """start.gg API の url(例: "/tournament/xxx")を完全なURLにする。"""
+    if not url:
+        return None
+    if url.startswith("http://") or url.startswith("https://"):
+        return url
+    return f"{STARTGG_BASE_URL}{url}"
+
+
+def _escape_markdown_cell(value):
+    return str(value).replace("|", "\\|").replace("\n", " ")
+
+
+def format_incomplete_summary(incomplete_events):
+    """incomplete_events を GitHub Actions のジョブサマリー用の Markdown にする。"""
+    if not incomplete_events:
+        return ""
+    lines = [
+        f"## :warning: 取得が完了しなかったイベント: {len(incomplete_events)} 件",
+        "",
+        "| 大会 | イベント | 理由 | エラー内容 |",
+        "| --- | --- | --- | --- |",
+    ]
+    for entry in incomplete_events:
+        tournament = _escape_markdown_cell(entry["tournament_name"])
+        if entry["tournament_url"]:
+            tournament = f"[{tournament}]({entry['tournament_url']})"
+        tournament += f"<br>tournament_id: `{entry['tournament_id']}`"
+        if entry["event_id"] is None:
+            event = "(大会単位)"
+        else:
+            event = f"{_escape_markdown_cell(entry['event_name'])}<br>event_id: `{entry['event_id']}`"
+        reason = INCOMPLETE_REASONS.get(entry["reason"], (entry["reason"], ""))[0]
+        detail = _escape_markdown_cell(entry["detail"]) if entry["detail"] else ""
+        lines.append(f"| {tournament} | {event} | {_escape_markdown_cell(reason)} | {detail} |")
+
+    lines += ["", "### 対処の目安", ""]
+    for reason in dict.fromkeys(entry["reason"] for entry in incomplete_events):
+        summary, hint = INCOMPLETE_REASONS.get(reason, (reason, ""))
+        lines.append(f"- **{summary}**: {hint}")
+    lines.append(
+        f"- 除外する場合は `{EXCLUDED_EVENTS_PATH}` に event_id(または phase_id)を追加する"
+        "(形式は `docs/data_model.md` を参照)。"
+    )
+    return "\n".join(lines) + "\n"
+
+
+def write_incomplete_summary(incomplete_events, summary_path):
+    if not summary_path or not incomplete_events:
+        return
+    with open(summary_path, "a", encoding="utf-8") as f:
+        f.write(format_incomplete_summary(incomplete_events))
+
 
 def parse_date_or_datetime(value):
     for fmt in ("%Y-%m-%d", "%Y-%m-%dT%H:%M:%S"):
@@ -136,6 +242,14 @@ def main():
         default=None,
         help="Comma-separated tournament IDs to fetch directly, bypassing date-range pagination.",
     )
+    parser.add_argument(
+        "--incomplete_summary_path",
+        default=None,
+        help=(
+            "Append a Markdown table of events that could not be fetched completely to this file "
+            "(e.g. \"$GITHUB_STEP_SUMMARY\"). Nothing is written when every event completed."
+        ),
+    )
     args = parser.parse_args()
 
     set_indent_num(args.indent_num)
@@ -170,6 +284,7 @@ def main():
         force_refresh=args.force_refresh,
         matches_only=args.matches_only,
         max_pages=args.max_pages,
+        incomplete_summary_path=args.incomplete_summary_path,
     )
     print(f"Done. incomplete_count={incomplete_count}")
 
@@ -371,6 +486,7 @@ def download_all_tournaments(
     force_refresh=False,
     matches_only=False,
     max_pages=None,
+    incomplete_summary_path=None,
 ):
     done_tournaments = read_set(done_file_path, as_int=True)
     users = read_users_jsonl(users_file_path)
@@ -387,8 +503,8 @@ def download_all_tournaments(
     # 「今回は完了しなかった」ケース(MaxPagesExceededError/NoPhaseError/
     # 逐次取得が未完了のまま)もすべてここに数える。update_tournament.yml の
     # カーソルは、この値が0の場合のみ前進させる(1件でもあれば「漏れなく
-    # 取得できた」とは言えないため)。
-    incomplete_count = 0
+    # 取得できた」とは言えないため)。各要素の形式は record_incomplete() を参照。
+    incomplete_events = []
     page = 1
     reached_finish_date = False
     while True:
@@ -402,6 +518,8 @@ def download_all_tournaments(
             break
 
         for tournament in tournaments_info:
+            # トーナメント単位の FetchError がどのイベントの処理中に起きたかを記録するため。
+            current_event = (None, None)
             try:
                 tournament_id = tournament["id"]
                 tournament_name = tournament["name"]
@@ -482,6 +600,7 @@ def download_all_tournaments(
                 tournament_had_incomplete_event = False
 
                 for event_id, event_name, is_online, state, event_type in events_info:
+                    current_event = (event_id, event_name)
                     print(
                         f"Tournament {tournament_id}: processing event {event_id} ({event_name}) matches_only={matches_only}."
                     )
@@ -530,8 +649,10 @@ def download_all_tournaments(
                         try:
                             user_data, player_data, entrant2user = download_standings(event_id, event_dir, max_pages=max_pages)
                         except MaxPagesExceededError as e:
-                            print(f"Tournament {tournament_id}: event {event_id} standings exceeded max_pages ({e}); skipping this run.")
-                            incomplete_count += 1
+                            record_incomplete(
+                                incomplete_events, tournament_id, tournament_name, url,
+                                event_id, event_name, "standings_max_pages", e,
+                            )
                             tournament_had_incomplete_event = True
                             continue
                         num_entrants = len(user_data)
@@ -555,24 +676,28 @@ def download_all_tournaments(
 
                         try:
                             download_seeds(event_id, user_data, player_data, entrant2user, event_dir, max_pages=max_pages)
-                        except NoPhaseError:
-                            print(f"No phase found for event {event_name}. Skipping.")
-                            incomplete_count += 1
+                        except NoPhaseError as e:
+                            record_incomplete(
+                                incomplete_events, tournament_id, tournament_name, url,
+                                event_id, event_name, "seeds_no_phase", e,
+                            )
                             tournament_had_incomplete_event = True
                             continue
                         except MaxPagesExceededError as e:
-                            print(f"Tournament {tournament_id}: event {event_id} seeds exceeded max_pages ({e}); skipping this run.")
-                            incomplete_count += 1
+                            record_incomplete(
+                                incomplete_events, tournament_id, tournament_name, url,
+                                event_id, event_name, "seeds_max_pages", e,
+                            )
                             tournament_had_incomplete_event = True
                             continue
                         extend_user_info(user_data, player_data, users, users_file_path)
                         still_incomplete = download_all_set(event_id, entrant2user, event_dir, max_pages=max_pages)
                         if still_incomplete:
-                            print(
-                                f"Tournament {tournament_id}: event {event_id} ({event_name}) still has outstanding "
-                                "sets; will resume on a later run."
+                            record_incomplete(
+                                incomplete_events, tournament_id, tournament_name, url,
+                                event_id, event_name, "sets_outstanding",
+                                "will resume on a later run",
                             )
-                            incomplete_count += 1
                             tournament_had_incomplete_event = True
                             continue
                         labels = {}
@@ -612,8 +737,10 @@ def download_all_tournaments(
                         write_done_tournaments(tournament_id, done_file_path)
 
             except FetchError as e:
-                print(f"Tournament {tournament_id}: fetch failed, skipping. Error: {e}")
-                incomplete_count += 1
+                record_incomplete(
+                    incomplete_events, tournament_id, tournament_name, url,
+                    current_event[0], current_event[1], "fetch_error", e,
+                )
                 continue
 
         if reached_finish_date:
@@ -626,7 +753,8 @@ def download_all_tournaments(
     if rewrite_tournaments:
         write_jsonl(list(tournaments.values()), tournament_file_path, with_version=True)
 
-    return incomplete_count
+    write_incomplete_summary(incomplete_events, incomplete_summary_path)
+    return len(incomplete_events)
 
 
 # --- 未取得setの追跡・プレースホルダー関連ヘルパー ---------------------------------
