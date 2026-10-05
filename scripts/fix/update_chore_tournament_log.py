@@ -22,11 +22,11 @@ class CheckedRecord:
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Update docs/chore-tornament markdown from tournament folders."
+        description="Update docs/chore-tournament markdown from tournament folders."
     )
     parser.add_argument(
         "--docs-dir",
-        default="docs/chore-tornament",
+        default="docs/chore-tournament",
         help="Directory that stores the generated markdown and metadata.",
     )
     parser.add_argument(
