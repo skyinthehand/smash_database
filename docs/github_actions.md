@@ -15,12 +15,13 @@
 
 - **定期更新系**(上の4つ)は `main` を checkout し、差分があれば `main` へ**直接** commit / push する(中間ブランチや PR は経由しない)。
   複数のワークフローが同時に `main` へ push しうるため、`concurrency: group: main-data-commits` で直列化し、push が競合した場合は `git pull --rebase origin main` してリトライする。
+  `main` は ruleset で Pull Request を必須にしているため、`GITHUB_TOKEN` での直接 push は拒否される(`GH013`)。定期更新系は、ruleset の bypass list に登録したデプロイキー(Secret `DATA_PUSH_DEPLOY_KEY`)で checkout し、そのキーで push する。
   (旧: `chore-update` ブランチへ集約し、PR 経由の rebase auto-merge で `main` に反映していた。`main` への直接コミットが `chore-update` ベースの自動化から見えず、古い状態のまま処理が継続する実害が確認されたため廃止した。詳細は憲法 Principle IV を参照。)
 - **手動実行系**(下の3つ)は、大規模・破壊的になりうるため `main` へ直接は書き込まない。
 - `schedule` は GitHub Actions の仕様上、デフォルトブランチ(`main`)上のワークフロー定義を元に起動される。
 - 取得処理の進捗(取得済みID・巡回カーソル)は `state/startgg/`、人が編集する設定(除外イベント・ラベル判定ルール)は `config/startgg/` にある。
 - 大会データの取得状況は `docs/chore-tournament/README.md` に日付単位で記録する。記録対象の日付範囲は `2018-12-29` から当日まで。
-- 使うシークレットは `STARTGG_TOKEN` のみ。`data_gap_check.yml` の PR 作成には、自動で発行される `GITHUB_TOKEN` を使う。
+- 使うシークレットは `STARTGG_TOKEN` と `DATA_PUSH_DEPLOY_KEY`(定期更新系の push 用デプロイキー)。`data_gap_check.yml` の PR 作成には、自動で発行される `GITHUB_TOKEN` を使う。
 
 ### 廃止したワークフロー
 - `fetch_large_event.yml`: 大規模イベントが一括取得の上限を超えて失敗した場合の専用リカバリ手段だった。`scripts/fetch/download.py` が一括取得の失敗を検知して自動的に逐次(set 単位)取得へフォールバックし、実行回をまたいで再開できるようになったため削除した。
@@ -35,10 +36,13 @@
      カーソルは `state/startgg/tournament_fetch_cursor_jp.txt`。ファイルがなければ前日(JST)から取得する。
   2. 取得が1件も取りこぼしなく終わった場合(ログの `incomplete_count=0`)だけ、カーソルを前日(JST)に進める。
      1件でも未完了があればカーソルは進めず、次回も同じ区間を再走査する。
+     未完了のイベントは、大会・イベント・理由・エラー内容と対処の目安を run の Summary に表で出す(`download.py --incomplete_summary_path`)。
+     各イベントは run 画面の Annotations にも警告として出し、カーソルが何日止まっているかも Summary に出す。
   3. `scripts/fetch/download_upcoming_tournaments.py --country_code JP` で、未開催大会の一覧(`data/startgg/upcoming_tournaments.jsonl`)を作り直す。
   4. `python -m unittest scripts.test.test_validate_data` を実行する。
   5. `scripts/fix/update_chore_tournament_log.py` で `docs/chore-tournament/` を更新する。
   6. 差分があれば `main` へ直接 push する。
+  7. 取得が完了しなかったイベントが1件でもあれば、push の後で run を**失敗**にする(成功扱いのままカーソルだけが止まり続けると、問題に気づけないため)。
 
 ### `update_user.yml`
 - 起動: `schedule` 毎日 `18:05 UTC`(= `03:05 JST`)、`workflow_dispatch`
@@ -74,6 +78,7 @@
   2. `python -m unittest scripts.test.test_utils` / `scripts.test.test_validate_data` を実行する。
   3. 指定期間を `scripts/fix/update_chore_tournament_log.py` で記録する。
   4. 差分があれば `target_branch` へ push する。PR は作らない。
+     `target_branch` に `main` を指定すると、`GITHUB_TOKEN` での直接 push になり ruleset に拒否されるため、`main` 以外のブランチを指定して PR を作る。
 
 ### `data_force_refresh_backfill.yml`
 - 起動: `workflow_dispatch` のみ

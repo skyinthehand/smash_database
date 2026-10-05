@@ -2,29 +2,34 @@
 Sync Impact Report
 -------------------
 Version change: 2.1.0 → 2.2.0
-Rationale: MINOR — 公開に向けたディレクトリ構成の整理に伴い、データ保存規約と
-開発ワークフローのルールを追加・再定義した。既存原則の削除ではないため、本憲法
-自身のバージョニング方針（Governance節）に照らし MINOR とする。
+Rationale: MINOR — 開発ワークフロー節に、コミットメッセージの種類に関する
+ルールを新設する追加的なガイダンス。既存原則の削除・再定義ではないため、
+本憲法自身のバージョニング方針（Governance節）に照らし MINOR とする。
 
 Modified sections:
-- データ保存規約 (Data Storage Conventions): `data/` には公開データだけを置き、
-  取得処理の進捗を `state/startgg/`、人が編集する設定を `config/startgg/` に
-  分離する項目を追加。
-  Rationale: 公開データと管理用ファイルが `data/startgg/` に混在しており、
-  データだけを使いたい利用者にとって、どれが本体か分かりにくかったため。
-- 開発ワークフロー (Development Workflow): スクリプトの役割分担を
-  `fetch/` / `check/`（データを書き換えない）/ `fix/` / `merge/` と直下の
-  共通ライブラリに再定義。
-  Rationale: 調べるだけのスクリプトと書き換えるスクリプトが `scripts/fix/` に
-  混在し、`scripts/` 直下にもどこにも属さないスクリプトがあったため。
-- III. マージ前の検証ゲート: 例として挙げていた `data_monthly_check.yml` が
-  既に存在しないため、実在する定期更新系ワークフローに差し替え（意味は不変）。
-- `docs/githubAction.md` → `docs/github_actions.md`、`docs/chore-tornament` →
-  `docs/chore-tournament` の改名に参照を追随（意味は不変）。
+- 開発ワークフロー (Development Workflow): コミットメッセージは Conventional
+  Commits 形式とし、最も具体的な種類を選ぶこと、`chore` を受け皿として
+  使わないこと、種類の異なる変更はコミットを分けることを追加。自動化
+  ワークフローによる定期データ更新の `chore(data):` は既存の慣習として許容。
+  Rationale: `chore` を受け皿にするとコミットの中身が履歴から読み取れない。
+  依存関係・Dependabot・セキュリティポリシーの追加をまとめて `chore` にした
+  例や、カーソル停止を直す除外設定を `chore` にした例があったことを踏まえる。
 
-Added sections: none
+Added sections: none (既存の「開発ワークフロー」節への箇条書き追加のみ)
 
-Templates requiring updates: none
+Removed sections: none
+
+Templates requiring updates:
+- .specify/templates/plan-template.md: ✅ no change needed (コミットに関する
+  記述なし)
+- .specify/templates/spec-template.md: ✅ no change needed (同上)
+- .specify/templates/tasks-template.md: ✅ no change needed (同上)
+- .specify/templates/checklist-template.md: ✅ no change needed (同上)
+- .claude/skills/speckit-*/SKILL.md: ✅ no change needed
+  (`speckit-constitution` のコミットメッセージ例は `docs:` で、本ルールと整合)
+- README.md / docs/*.md: ✅ no change needed (コミット規約への言及なし)
+
+Follow-up TODOs: none
 -->
 
 # smash_database Constitution
@@ -53,8 +58,8 @@ Rationale: start.gg API への不要な負荷を避け、レート制限・API�
 `data/` やそれを生成する `scripts/` に変更を加える場合、`scripts/test` 配下の
 関連テスト（最低限 `scripts.test.test_validate_data`）が pass するまで MUST
 merge しない。新しいデータ形状・フィールドを追加する場合は、対応するテストを
-`scripts/test` に MUST 追加する。`update_tournament.yml` などの定期更新系
-ワークフローのように、検証失敗がワークフロー全体を失敗させる設計は MUST 維持する。
+`scripts/test` に MUST 追加する。`data_monthly_check.yml` のように検証失敗が
+ワークフロー全体を失敗させる設計は MUST 維持する。
 Rationale: データベース全体の一貫性は自動収集パイプラインの信頼性に直結し、
 一度壊れたデータは後から検出・修復するコストが高い。
 
@@ -65,13 +70,13 @@ Rationale: データベース全体の一貫性は自動収集パイプライン
 競合した場合は `git pull --rebase origin main` による MUST リトライを行う。
 `main` に変更を積む前に、Principle III（マージ前の検証ゲート）のテストを
 MUST pass させる。
-`docs/chore-tournament/README.md` と `checked_dates.json` は
+`docs/chore-tornament/README.md` と `checked_dates.json` は
 `scripts/fix/update_chore_tournament_log.py` 経由でのみ MUST 更新し、手動編集
 は MUST NOT 行わない。
 Rationale: 以前は自動更新を `chore-update` ブランチに集約し、PR 経由の
 rebase auto-merge で `main` に反映していたが、`main` への直接コミット(手動の
 修正など)が発生すると `chore-update` 側の自動化はそれに気づかず、古い状態を
-ベースに動き続けてしまう実害(例: `state/startgg/schema_backfill_cursor.txt`
+ベースに動き続けてしまう実害(例: `data/startgg/schema_backfill_cursor.txt`
 を `main` で手動削除したのに、`chore-update` ベースで動く定期実行がそれを
 無視して古いカーソル位置から処理を継続した実例)が確認された。二段階の
 ブランチ間接化が安全性ではなく不整合の温床になっていたため、直接 `main` へ
@@ -91,10 +96,6 @@ Rationale: 統一されたリトライ経路がないと、一部スクリプト
 
 - 取得データは `data/startgg/` に集約し、`docs/directory.md` で定義された
   `{Region}/{YYYY}/{MM}/{DD}/{Tournament}/{Event}` レイアウトに MUST 従う。
-- `data/` には利用者向けの公開データ以外を MUST NOT 置かない。取得処理の進捗
-  (取得済みID・巡回カーソル)は `state/startgg/`、人が編集する取得処理の設定
-  (除外イベント・ラベル判定ルール)は `config/startgg/` に置き、これらのパスは
-  `scripts/utils.py` の定数で一元管理する。
 - 既知の不完全な点・未対応事項はコードコメントではなく `docs/fix.md` に
   MUST 記録する（コメントは実装変更に追随せず陳腐化しやすいため）。
 - `STARTGG_TOKEN` 等のシークレットはリポジトリに MUST NOT コミットせず、
@@ -102,11 +103,9 @@ Rationale: 統一されたリトライ経路がないと、一部スクリプト
 
 ## 開発ワークフロー (Development Workflow)
 
-- スクリプトは役割ごとに `scripts/fetch/`（取得）、`scripts/check/`（検査・診断。
-  データを MUST NOT 書き換えない）、`scripts/fix/`（既存データの補完・修復）、
-  `scripts/merge/`（マージ競合解消の補助）に MUST 分離し、責務を混在させない。
-  `scripts/` 直下には共通ライブラリ（`utils.py` / `queries.py` / `labeling.py`）
-  だけを置く。
+- スクリプトは役割ごとに `scripts/fetch/`（取得）、`scripts/fix/`（補完・検証・
+  修復）、`scripts/queries.py`（読み取り専用の集計・分析）に MUST 分離し、
+  責務を混在させない。
 - スキーマやワークフロー（`.github/workflows/*.yml`）に変更を加える PR は、
   対応する `docs/*.md` の更新を同一PRに MUST 含める。
 - 大量の re-fetch や再構成を伴う破壊的なデータ移行を行う前に、対象範囲と
@@ -121,6 +120,20 @@ Rationale: 統一されたリトライ経路がないと、一部スクリプト
   Rationale: コミットメッセージや既存の `docs/` 配下のドキュメントは
   日本語で書かれており、spec-kit の成果物だけ英語のままだと一貫性が無く、
   後から日本語へ翻訳し直す手戻りが発生する。
+- コミットメッセージは Conventional Commits 形式とし、変更内容を最も具体的に
+  表す種類（`feat` / `fix` / `docs` / `build` / `ci` / `refactor` / `test` /
+  `perf` / `style` / `revert`）を MUST 選ぶ。`chore` は他のどの種類にも
+  当てはまらない場合にのみ使い、何でも入る受け皿として MUST NOT 使わない。
+  種類の異なる変更は MUST 別のコミットに分ける。
+  - 例: 依存関係（`requirements.txt`）は `build`、ワークフロー・Dependabot は
+    `ci`、ドキュメントは `docs`、不具合を直すデータ・設定の変更（除外イベントの
+    追加など）は `fix(data)`。
+  - 自動化ワークフローが定期的に行うデータ更新の `chore(data):` は、既存の
+    慣習として許容する。
+  Rationale: `chore` を受け皿として使うと、コミットの中身が履歴から読み取れ
+  なくなる。実際に、依存関係・Dependabot・セキュリティポリシーの追加を1つの
+  `chore` コミットにまとめた例や、カーソルの停止を直す除外設定を `chore` に
+  した例があった。
 
 ## Governance
 
@@ -137,6 +150,6 @@ Rationale: 統一されたリトライ経路がないと、一部スクリプト
   PR 説明にその理由を明記しなければ merge してはならない。
 - 実行時の詳細なガイダンス（スキーマ定義・API仕様・運用フロー）は
   `docs/data_model.md` / `docs/startgg_design.md` / `docs/flow.md` /
-  `docs/github_actions.md` / `docs/directory.md` / `docs/fix.md` を参照する。
+  `docs/githubAction.md` / `docs/directory.md` / `docs/fix.md` を参照する。
 
-**Version**: 2.2.0 | **Ratified**: 2026-07-31 | **Last Amended**: 2026-10-03
+**Version**: 2.2.0 | **Ratified**: 2026-07-31 | **Last Amended**: 2026-10-05
