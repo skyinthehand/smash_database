@@ -1975,6 +1975,58 @@ class DownloadTests(unittest.TestCase):
 
         self.assertNotIn(1, done_tournaments)
 
+    @patch("scripts.fetch.download.read_users_jsonl", return_value={})
+    @patch("scripts.fetch.download.fetch_tournament_by_id")
+    @patch("scripts.fetch.download.fetch_event_ids_from_tournament")
+    @patch("scripts.fetch.download.download_all_set")
+    @patch("scripts.fetch.download.download_standings")
+    @patch("scripts.fetch.download.download_seeds")
+    @patch("scripts.fetch.download.extend_user_info")
+    def test_download_by_ids_does_not_mark_tournament_done_with_non_completed_event_state(
+        self,
+        _mock_extend_user_info,
+        _mock_download_seeds,
+        mock_download_standings,
+        mock_download_all_set,
+        mock_fetch_event_ids,
+        mock_fetch_tournament_by_id,
+        _mock_read_users,
+    ):
+        """download_all_tournaments() と同じ回帰テスト: download_by_ids() 経由でも、
+        state が COMPLETED でないイベントがあれば done_tournaments に登録しない。"""
+        mock_fetch_tournament_by_id.return_value = {
+            "name": "Active Tournament",
+            "startAt": 1714780800,
+            "endAt": 1714784400,
+            "countryCode": "JP",
+            "city": "Tokyo",
+            "lat": None,
+            "lng": None,
+            "venueName": None,
+            "timezone": "Asia/Tokyo",
+            "postalCode": None,
+            "venueAddress": None,
+            "mapsPlaceId": None,
+            "url": "https://example.com",
+        }
+        mock_fetch_event_ids.return_value = [(10, "Singles", False, "ACTIVE", 1)]
+        mock_download_standings.return_value = ([], [], {})
+        mock_download_all_set.return_value = False
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            done_file_path = f"{tmpdir}/done.csv"
+            os.makedirs(get_event_directory(
+                f"{tmpdir}", "JP", "2024", "05", "04", "Active Tournament", "Singles",
+            ), exist_ok=True)
+            with redirect_stdout(io.StringIO()):
+                download_by_ids(
+                    [1], "1386", "JP", f"{tmpdir}", done_file_path,
+                    f"{tmpdir}/users.jsonl", f"{tmpdir}/tournaments.jsonl",
+                )
+            done_tournaments = read_set(done_file_path, as_int=True)
+
+        self.assertNotIn(1, done_tournaments)
+
     @patch("scripts.fetch.download.read_set", return_value=set())
     @patch("scripts.fetch.download.read_users_jsonl", return_value={})
     @patch("scripts.fetch.download.read_tournaments_jsonl", return_value={})
@@ -2430,6 +2482,110 @@ class DownloadTests(unittest.TestCase):
 
         self.assertEqual(incomplete_count, 1)
         self.assertNotIn(1, done_tournaments)
+
+    @patch("scripts.fetch.download.read_users_jsonl", return_value={})
+    @patch("scripts.fetch.download.fetch_latest_tournaments_by_game")
+    @patch("scripts.fetch.download.fetch_event_ids_from_tournament")
+    @patch("scripts.fetch.download.download_all_set")
+    @patch("scripts.fetch.download.download_standings")
+    @patch("scripts.fetch.download.download_seeds")
+    @patch("scripts.fetch.download.extend_user_info")
+    def test_download_all_tournaments_does_not_mark_tournament_done_with_non_completed_event_state(
+        self,
+        _mock_extend_user_info,
+        _mock_download_seeds,
+        mock_download_standings,
+        mock_download_all_set,
+        mock_fetch_event_ids,
+        mock_fetch_tournaments,
+        _mock_read_users,
+    ):
+        """回帰テスト: 全イベントの取得自体は完了しても、start.gg側の state が
+        COMPLETED でないイベント(20)があれば done_tournaments に登録してはならない。
+        登録すると、後から COMPLETED になっても should_skip_tournament() により
+        再取得されず、ACTIVE 時点の結果のまま残ってしまう。取得の失敗ではないため
+        incomplete_count には数えない(カーソルを止めない)。"""
+        mock_fetch_tournaments.return_value = self._incomplete_test_tournament(
+            name="Active Tournament"
+        )
+        mock_fetch_event_ids.return_value = [
+            (10, "Singles", False, "COMPLETED", 1),
+            (20, "Doubles", False, "ACTIVE", 1),
+        ]
+        mock_download_standings.return_value = ([], [], {})
+        mock_download_all_set.return_value = False
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            done_file_path = f"{tmpdir}/done.csv"
+            os.makedirs(get_event_directory(
+                f"{tmpdir}", "JP", "2024", "05", "04", "Active Tournament", "Singles",
+            ), exist_ok=True)
+            os.makedirs(get_event_directory(
+                f"{tmpdir}", "JP", "2024", "05", "04", "Active Tournament", "Doubles",
+            ), exist_ok=True)
+            with redirect_stdout(io.StringIO()):
+                incomplete_count = download_all_tournaments(
+                    "1386", "JP", None, datetime(2024, 5, 4, 0, 0, 0),
+                    f"{tmpdir}", done_file_path, f"{tmpdir}/users.jsonl",
+                    f"{tmpdir}/tournaments.jsonl",
+                )
+            done_tournaments = read_set(done_file_path, as_int=True)
+            attr_path = os.path.join(get_event_directory(
+                f"{tmpdir}", "JP", "2024", "05", "04", "Active Tournament", "Doubles",
+            ), "attr.json")
+            attr_written = os.path.exists(attr_path)
+
+        self.assertEqual(incomplete_count, 0)
+        self.assertNotIn(1, done_tournaments)
+        # 取得結果自体は書き出される(done 登録だけを見送る)。
+        self.assertTrue(attr_written)
+
+    @patch("scripts.fetch.download.read_users_jsonl", return_value={})
+    @patch("scripts.fetch.download.fetch_latest_tournaments_by_game")
+    @patch("scripts.fetch.download.fetch_event_ids_from_tournament")
+    @patch("scripts.fetch.download.download_all_set")
+    @patch("scripts.fetch.download.download_standings")
+    @patch("scripts.fetch.download.download_seeds")
+    @patch("scripts.fetch.download.extend_user_info")
+    def test_download_all_tournaments_marks_tournament_done_when_all_event_states_completed(
+        self,
+        _mock_extend_user_info,
+        _mock_download_seeds,
+        mock_download_standings,
+        mock_download_all_set,
+        mock_fetch_event_ids,
+        mock_fetch_tournaments,
+        _mock_read_users,
+    ):
+        """全イベントの取得が完了し、state もすべて COMPLETED なら done に登録する。"""
+        mock_fetch_tournaments.return_value = self._incomplete_test_tournament(
+            name="Completed Tournament"
+        )
+        mock_fetch_event_ids.return_value = [
+            (10, "Singles", False, "COMPLETED", 1),
+            (20, "Doubles", False, "COMPLETED", 1),
+        ]
+        mock_download_standings.return_value = ([], [], {})
+        mock_download_all_set.return_value = False
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            done_file_path = f"{tmpdir}/done.csv"
+            os.makedirs(get_event_directory(
+                f"{tmpdir}", "JP", "2024", "05", "04", "Completed Tournament", "Singles",
+            ), exist_ok=True)
+            os.makedirs(get_event_directory(
+                f"{tmpdir}", "JP", "2024", "05", "04", "Completed Tournament", "Doubles",
+            ), exist_ok=True)
+            with redirect_stdout(io.StringIO()):
+                incomplete_count = download_all_tournaments(
+                    "1386", "JP", None, datetime(2024, 5, 4, 0, 0, 0),
+                    f"{tmpdir}", done_file_path, f"{tmpdir}/users.jsonl",
+                    f"{tmpdir}/tournaments.jsonl",
+                )
+            done_tournaments = read_set(done_file_path, as_int=True)
+
+        self.assertEqual(incomplete_count, 0)
+        self.assertIn(1, done_tournaments)
 
     def _summary_test_tournament(self):
         tournaments, total = self._incomplete_test_tournament(name="Pipe | Tournament")

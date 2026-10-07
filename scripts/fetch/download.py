@@ -32,6 +32,8 @@ from scripts.utils import (
 )
 
 REQUIRED_EVENT_FILES = ("attr.json", "matches.json", "standings.json", "seeds.json")
+# start.gg の event.state のうち、大会側で結果が確定したことを表す値。
+COMPLETED_EVENT_STATE = "COMPLETED"
 DEFAULT_MAX_RETRIES = 100
 DEFAULT_RETRY_DELAY = 5
 DEFAULT_PAGE_DELAY = 2
@@ -598,6 +600,12 @@ def download_all_tournaments(
                 # 呼ばれなくなるため)。このトーナメント内で1件でも未完了イベントが
                 # あった場合は done 登録を見送り、次回また全イベントを再走査させる。
                 tournament_had_incomplete_event = False
+                # 取得自体は完了していても、start.gg側でイベントの state が COMPLETED に
+                # なっていない(主催者が結果を確定させていない)場合も done 登録を見送る。
+                # 登録してしまうと、後から COMPLETED になっても should_skip_tournament() に
+                # よって再取得されず、ACTIVE 時点の結果のまま残ってしまうため。
+                # 取得の失敗ではないので incomplete_events には数えない(カーソルは止めない)。
+                tournament_had_non_completed_event = False
 
                 for event_id, event_name, is_online, state, event_type in events_info:
                     current_event = (event_id, event_name)
@@ -706,6 +714,12 @@ def download_all_tournaments(
                     print(
                         f"Tournament {tournament_id}: finished event {event_id} ({event_name})."
                     )
+                    if state != COMPLETED_EVENT_STATE:
+                        print(
+                            f"Tournament {tournament_id}: event {event_id} ({event_name}) state is {state}, "
+                            "not COMPLETED; will not mark tournament as done."
+                        )
+                        tournament_had_non_completed_event = True
 
                     changed, stale_old_path = update_event_registration(
                         tournaments, tournament_id, event_id, event_name, event_dir, matches_only=matches_only
@@ -732,7 +746,12 @@ def download_all_tournaments(
                     # tournament_events_complete() は「登録済みのevents」しか見ないため、
                     # ここで登録してしまうと未登録のまま残った未完了イベントが
                     # should_skip_tournament() により二度と発見されなくなる。
-                    if not tournament_had_incomplete_event and tournament_id not in done_tournaments:
+                    # state が COMPLETED でないイベントがある場合も同様に登録しない。
+                    if (
+                        not tournament_had_incomplete_event
+                        and not tournament_had_non_completed_event
+                        and tournament_id not in done_tournaments
+                    ):
                         done_tournaments.add(tournament_id)
                         write_done_tournaments(tournament_id, done_file_path)
 
@@ -1816,6 +1835,9 @@ def download_by_ids(
         # 登録済みeventsのファイル存在で判定するため実害は限定的だが、
         # done.csv 自体の正確性のため揃えておく)。
         tournament_had_incomplete_event = False
+        # download_all_tournaments() と同様、state が COMPLETED でないイベントがあれば
+        # done_tournaments には登録しない。
+        tournament_had_non_completed_event = False
 
         for event_id, event_name, is_online, state, event_type in events_info:
             print(f"Tournament {tournament_id}: processing event {event_id} ({event_name}).")
@@ -1904,6 +1926,12 @@ def download_by_ids(
             guest_entrant_count = count_guest_entrants(user_data)
             write_event_attributes(num_entrants, event_id, event_name, tournament_name, timestamp, place, url, labels, is_online, event_dir, guest_entrant_count=guest_entrant_count, end_at=end_timestamp, state=state, event_type=event_type)
             print(f"Tournament {tournament_id}: finished event {event_id} ({event_name}).")
+            if state != COMPLETED_EVENT_STATE:
+                print(
+                    f"Tournament {tournament_id}: event {event_id} ({event_name}) state is {state}, "
+                    "not COMPLETED; will not mark tournament as done."
+                )
+                tournament_had_non_completed_event = True
 
             _, stale_old_path = update_event_registration(tournaments, tournament_id, event_id, event_name, event_dir)
             if stale_old_path:
@@ -1920,7 +1948,11 @@ def download_by_ids(
                 rewrite_tournaments = True
             else:
                 extend_tournament_info(tournaments[tournament_id], tournament_file_path)
-            if not tournament_had_incomplete_event and tournament_id not in done_tournaments:
+            if (
+                not tournament_had_incomplete_event
+                and not tournament_had_non_completed_event
+                and tournament_id not in done_tournaments
+            ):
                 done_tournaments.add(tournament_id)
                 write_done_tournaments(tournament_id, done_file_path)
 
