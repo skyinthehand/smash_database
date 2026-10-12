@@ -67,6 +67,7 @@ jobs:
             --country_code "JP" \
             --finish_date "$FINISH_DATE" \
             --incomplete_summary_path "$GITHUB_STEP_SUMMARY" \
+            --refresh_existing_users \
             2>&1 | tee /tmp/download_tournaments.log
 
           # download.pyが正常終了した場合のみここに到達する(set -euxo pipefailにより、

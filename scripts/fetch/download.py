@@ -252,6 +252,14 @@ def main():
             "(e.g. \"$GITHUB_STEP_SUMMARY\"). Nothing is written when every event completed."
         ),
     )
+    parser.add_argument(
+        "--refresh_existing_users",
+        action="store_true",
+        help=(
+            "Also overwrite users.jsonl records of already-registered participants with the "
+            "user/player info fetched for each downloaded event (e.g. to pick up renamed gamer tags)."
+        ),
+    )
     args = parser.parse_args()
 
     set_indent_num(args.indent_num)
@@ -287,6 +295,7 @@ def main():
         matches_only=args.matches_only,
         max_pages=args.max_pages,
         incomplete_summary_path=args.incomplete_summary_path,
+        refresh_existing_users=args.refresh_existing_users,
     )
     print(f"Done. incomplete_count={incomplete_count}")
 
@@ -489,6 +498,7 @@ def download_all_tournaments(
     matches_only=False,
     max_pages=None,
     incomplete_summary_path=None,
+    refresh_existing_users=False,
 ):
     done_tournaments = read_set(done_file_path, as_int=True)
     users = read_users_jsonl(users_file_path)
@@ -698,7 +708,12 @@ def download_all_tournaments(
                             )
                             tournament_had_incomplete_event = True
                             continue
-                        extend_user_info(user_data, player_data, users, users_file_path)
+                        updated_users = extend_user_info(
+                            user_data, player_data, users, users_file_path,
+                            refresh_existing=refresh_existing_users,
+                        )
+                        if updated_users:
+                            print(f"Event {event_id}: refreshed {updated_users} existing user(s) in users.jsonl.")
                         still_incomplete = download_all_set(event_id, entrant2user, event_dir, max_pages=max_pages)
                         if still_incomplete:
                             record_incomplete(
@@ -1619,8 +1634,16 @@ def download_seeds(event_id, user_data, player_data, entrant2user, event_dir, ma
     }
     write_json(json_data, f"{event_dir}/seeds.json", with_version=True)
 
-def extend_user_info(user_data, player_data, users, users_file_path):
+def extend_user_info(user_data, player_data, users, users_file_path, refresh_existing=False):
+    """standings で取得した参加者を users.jsonl に追記する。
+
+    refresh_existing=True のときは、登録済みの選手も今回取得した内容で上書きする
+    (standings の user/player は start.gg 上の現在の情報なので、名前の変更などが
+    refresh_users.py の巡回を待たずに反映される)。上書きが1件でもあれば
+    users.jsonl 全体を書き直す。
+    """
     new_users = []
+    updated_count = 0
     
     for user, player in zip(user_data, player_data):
         if user is None or player is None:
@@ -1644,23 +1667,33 @@ def extend_user_info(user_data, player_data, users, users_file_path):
                     discord_id = authorization['externalId']
                     discord_name = authorization['externalUsername']
 
+        new_user = {
+            "user_id": user_id,
+            "player_id": player_id,
+            "gamer_tag": gamer_tag,
+            "prefix": prefix,
+            "gender_pronoun": gender_pronoun,
+            "startgg_discriminator": startgg_discriminator,
+            "x_id": x_id,
+            "x_name": x_name,
+            "discord_id": discord_id,
+            "discord_name": discord_name
+        }
         if user_id not in users:
-            new_user = {
-                "user_id": user_id,
-                "player_id": player_id,
-                "gamer_tag": gamer_tag,
-                "prefix": prefix,
-                "gender_pronoun": gender_pronoun,
-                "startgg_discriminator": startgg_discriminator,
-                "x_id": x_id,
-                "x_name": x_name,
-                "discord_id": discord_id,
-                "discord_name": discord_name
-            }
             users[user_id] = new_user
             new_users.append(new_user)
+        elif refresh_existing:
+            # write_jsonl/extend_jsonl が書き込み時に "version" を足すため、比較からは除く。
+            existing = {k: v for k, v in users[user_id].items() if k != "version"}
+            if existing != new_user:
+                users[user_id] = new_user
+                updated_count += 1
 
-    extend_jsonl(new_users, users_file_path, with_version=True)
+    if updated_count:
+        write_jsonl(list(users.values()), users_file_path, with_version=True)
+    else:
+        extend_jsonl(new_users, users_file_path, with_version=True)
+    return updated_count
 
 def extend_tournament_info(new_tournament_info, tournament_file_path):
     extend_jsonl([new_tournament_info], tournament_file_path, with_version=True)

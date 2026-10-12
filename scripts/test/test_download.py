@@ -28,6 +28,7 @@ from scripts.fetch.download import (
     download_by_ids,
     download_seeds,
     download_standings,
+    extend_user_info,
     format_incomplete_summary,
     record_incomplete,
     event_in_fallback_mode,
@@ -64,6 +65,7 @@ from scripts.utils import (
     read_json,
     read_set,
     read_tournaments_jsonl,
+    read_users_jsonl,
 )
 
 
@@ -125,6 +127,68 @@ def _make_unplayed_set_node(set_id, entrant0=11, entrant1=22):
         "round": 1,
         "state": 1,
     }
+
+
+def _make_participant(user_id, player_id, gamer_tag, prefix=None):
+    user = {
+        "id": user_id,
+        "genderPronoun": None,
+        "discriminator": f"d{user_id}",
+        "authorizations": [{"type": "TWITTER", "externalId": "1", "externalUsername": f"x{user_id}"}],
+    }
+    player = {"id": player_id, "gamerTag": gamer_tag, "prefix": prefix}
+    return user, player
+
+
+class ExtendUserInfoTests(unittest.TestCase):
+    def _run(self, participants, initial_lines, refresh_existing):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            users_file = os.path.join(tmpdir, "users.jsonl")
+            with open(users_file, "w", encoding="utf-8") as f:
+                for line in initial_lines:
+                    f.write(json.dumps(line, ensure_ascii=False) + "\n")
+            users = read_users_jsonl(users_file)
+            user_data = [u for u, _ in participants]
+            player_data = [p for _, p in participants]
+            updated = extend_user_info(
+                user_data, player_data, users, users_file, refresh_existing=refresh_existing
+            )
+            with open(users_file, encoding="utf-8") as f:
+                lines = [json.loads(line) for line in f if line.strip()]
+            return updated, lines
+
+    def _existing(self, user_id, player_id, gamer_tag):
+        return {
+            "user_id": user_id, "player_id": player_id, "gamer_tag": gamer_tag, "prefix": None,
+            "gender_pronoun": "unknown", "startgg_discriminator": f"d{user_id}",
+            "x_id": "1", "x_name": f"x{user_id}", "discord_id": None, "discord_name": None,
+            "version": "1.0",
+        }
+
+    def test_without_refresh_keeps_existing_name(self):
+        initial = [self._existing(1, 10, "OldName")]
+        updated, lines = self._run([_make_participant(1, 10, "NewName")], initial, refresh_existing=False)
+        self.assertEqual(updated, 0)
+        self.assertEqual([l["gamer_tag"] for l in lines], ["OldName"])
+
+    def test_refresh_overwrites_renamed_user_and_keeps_order(self):
+        initial = [self._existing(1, 10, "OldName"), self._existing(2, 20, "Other")]
+        participants = [_make_participant(1, 10, "NewName", prefix="Team"), _make_participant(3, 30, "Fresh")]
+        updated, lines = self._run(participants, initial, refresh_existing=True)
+        self.assertEqual(updated, 1)
+        self.assertEqual([l["user_id"] for l in lines], [1, 2, 3])
+        self.assertEqual(lines[0]["gamer_tag"], "NewName")
+        self.assertEqual(lines[0]["prefix"], "Team")
+        self.assertTrue(all(l["version"] == "1.0" for l in lines))
+
+    def test_refresh_with_unchanged_data_only_appends_new_users(self):
+        initial = [self._existing(1, 10, "Same")]
+        participants = [_make_participant(1, 10, "Same"), _make_participant(3, 30, "Fresh")]
+        with patch("scripts.fetch.download.write_jsonl") as mock_write:
+            updated, lines = self._run(participants, initial, refresh_existing=True)
+        self.assertEqual(updated, 0)
+        mock_write.assert_not_called()
+        self.assertEqual([l["user_id"] for l in lines], [1, 3])
 
 
 class DownloadTests(unittest.TestCase):
