@@ -47,7 +47,7 @@
 ### `update_user.yml`
 - 起動: `schedule` 毎日 `18:05 UTC`(= `03:05 JST`)、`workflow_dispatch`
 - 処理:
-  1. `scripts/fetch/refresh_users.py --max_users 300` で、`data/startgg/users.jsonl` の選手情報を300件ずつ更新する。
+  1. `scripts/fetch/refresh_users.py --max_users 3000` で、`data/startgg/users.jsonl` の選手情報を3000件ずつ更新する。
      続きの位置は `state/startgg/users_refresh_cursor.txt` に保存する。
   2. 差分があれば `main` へ直接 push する。
 
