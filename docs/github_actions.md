@@ -34,6 +34,7 @@
 - 処理:
   1. `scripts/fetch/download.py --country_code JP --finish_date <カーソル>` で、カーソルの日付から当日までの日本の大会を取得する。
      カーソルは `state/startgg/tournament_fetch_cursor_jp.txt`。ファイルがなければ前日(JST)から取得する。
+     `--refresh_existing_users` を付けているので、取得したイベントの参加者は登録済みでも `data/startgg/users.jsonl` を最新の情報(名前・prefix・連携アカウントなど)で上書きする。
   2. 取得が1件も取りこぼしなく終わった場合(ログの `incomplete_count=0`)だけ、カーソルを前日(JST)に進める。
      1件でも未完了があればカーソルは進めず、次回も同じ区間を再走査する。
      未完了のイベントは、大会・イベント・理由・エラー内容と対処の目安を run の Summary に表で出す(`download.py --incomplete_summary_path`)。
