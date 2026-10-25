@@ -3,8 +3,8 @@
 GitHub Actions が確認した日付と、`data/startgg/events/Japan/YYYY/MM/DD` の存在状況を記録します。
 
 - 集計開始日: `2018-12-29`
-- 集計終了日: `2026-10-25`
-- 最終更新 (UTC): `2026-10-24 19:59:02 UTC`
+- 集計終了日: `2026-10-26`
+- 最終更新 (UTC): `2026-10-25 20:06:17 UTC`
 
 | Date | Folder Exists | Checked By GitHub Actions | Last Checked At (JST) | Workflow |
 | --- | --- | --- | --- | --- |
@@ -2862,7 +2862,8 @@ GitHub Actions が確認した日付と、`data/startgg/events/Japan/YYYY/MM/DD`
 | 2026-10-19 | yes | yes | 2026-10-21 05:58:15 JST | update_tournament |
 | 2026-10-20 | yes | yes | 2026-10-22 05:59:16 JST | update_tournament |
 | 2026-10-21 | yes | yes | 2026-10-23 05:56:59 JST | update_tournament |
-| 2026-10-22 | yes | yes | 2026-10-25 04:59:02 JST | update_tournament(incomplete) |
-| 2026-10-23 | yes | yes | 2026-10-25 04:59:02 JST | update_tournament(incomplete) |
-| 2026-10-24 | yes | yes | 2026-10-25 04:59:02 JST | update_tournament(incomplete) |
-| 2026-10-25 | no | yes | 2026-10-25 04:59:02 JST | update_tournament(incomplete) |
+| 2026-10-22 | yes | yes | 2026-10-26 05:06:17 JST | update_tournament(incomplete) |
+| 2026-10-23 | yes | yes | 2026-10-26 05:06:17 JST | update_tournament(incomplete) |
+| 2026-10-24 | yes | yes | 2026-10-26 05:06:17 JST | update_tournament(incomplete) |
+| 2026-10-25 | yes | yes | 2026-10-26 05:06:17 JST | update_tournament(incomplete) |
+| 2026-10-26 | no | yes | 2026-10-26 05:06:17 JST | update_tournament(incomplete) |
