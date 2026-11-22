@@ -146,6 +146,14 @@ def validate_event_dir(event_dir: Path) -> tuple[List[str], List[str]]:
                     f"{event_dir}: matches missing winner/loser IDs "
                     f"(winner={missing_winners}, loser={missing_losers})"
                 )
+        # set_id付きレコードとset_idなしの旧形式レコードの混在は、同じsetの二重保存を示す(issue #75)。
+        with_set_id = sum(1 for item in matches if item.get("set_id") is not None)
+        if with_set_id and with_set_id < len(matches):
+            errors.append(
+                f"{event_dir}: matches.json mixes records with and without set_id "
+                f"(with={with_set_id}, without={len(matches) - with_set_id}); "
+                "run scripts/fix/drop_legacy_match_records.py"
+            )
         if isinstance(standings, list) and standings and len(matches) == 0:
             warnings.append(f"{event_dir}: matches.json is empty but standings exist")
 
