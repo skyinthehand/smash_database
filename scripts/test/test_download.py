@@ -28,6 +28,7 @@ from scripts.fetch.download import (
     download_by_ids,
     download_seeds,
     download_standings,
+    drop_superseded_legacy_records,
     extend_user_info,
     format_incomplete_summary,
     record_incomplete,
@@ -809,6 +810,31 @@ class DownloadTests(unittest.TestCase):
         self.assertEqual(len(merged), 2)
         self.assertEqual(merged[0], {"set_id": 1, "winner_id": 11})
         self.assertEqual(merged[1], {"set_id": 2})
+
+    def test_drop_superseded_legacy_records_removes_records_without_set_id(self):
+        """issue #75: 全setをset_id付きで取得し終えたら、set_idなしの旧形式レコードを捨てる。"""
+        legacy = {"winner_id": 11, "loser_id": 12, "winner_score": 2, "loser_score": 1}
+        data = [legacy, {"set_id": 1, **legacy}]
+        self.assertEqual(drop_superseded_legacy_records(data), [{"set_id": 1, **legacy}])
+
+    def test_drop_superseded_legacy_records_keeps_legacy_while_placeholders_remain(self):
+        """逐次取得の途中は未取得分のデータを失わないよう旧形式レコードを残す。"""
+        data = [{"winner_id": 11}, {"set_id": 1, "winner_id": 11}, {"set_id": 2}]
+        self.assertEqual(drop_superseded_legacy_records(data), data)
+
+    def test_drop_superseded_legacy_records_keeps_all_legacy_data(self):
+        """set_id付きレコードが1件も無い(旧形式のみの)イベントには手を付けない。"""
+        data = [{"winner_id": 11}, {"winner_id": 12}]
+        self.assertEqual(drop_superseded_legacy_records(data), data)
+
+    def test_write_matches_data_does_not_duplicate_legacy_records_on_refetch(self):
+        """issue #75: 旧形式のmatches.jsonにset_id付きで再取得した結果をマージしても二重にならない。"""
+        legacy = {"winner_id": 11, "loser_id": 12, "winner_score": 2, "loser_score": 1}
+        with tempfile.TemporaryDirectory() as tmpdir:
+            write_matches_data([legacy], tmpdir)
+            merged = merge_matches_records(read_matches_data(tmpdir), [{"set_id": 1, **legacy}])
+            write_matches_data(merged, tmpdir)
+            self.assertEqual(read_matches_data(tmpdir), [{"set_id": 1, **legacy}])
 
     def test_event_in_fallback_mode_true_only_when_matches_json_exists_without_attr(self):
         with tempfile.TemporaryDirectory() as tmpdir:

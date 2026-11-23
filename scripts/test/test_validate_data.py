@@ -221,5 +221,30 @@ class ValidateDataTests(unittest.TestCase):
             self.assertTrue(any("match IDs not in standings" in warn for warn in warnings))
 
 
+    def test_mixed_set_id_records_is_an_error(self):
+        """issue #75: set_id付き/なしレコードの混在は同じsetの二重保存を示す。"""
+        with tempfile.TemporaryDirectory() as tmpdir:
+            event_dir = Path(tmpdir)
+            write_json(event_dir / "attr.json", {"place": {}, "num_entrants": 0})
+            write_json(event_dir / "standings.json", {"data": []})
+            write_json(event_dir / "seeds.json", {"data": []})
+            write_json(
+                event_dir / "matches.json",
+                {"data": [{"winner_id": 1, "loser_id": 2}, {"set_id": 9, "winner_id": 1, "loser_id": 2}]},
+            )
+            errors, _ = validate_event_dir(event_dir)
+            self.assertTrue(any("mixes records with and without set_id" in err for err in errors))
+
+    def test_records_all_with_set_id_is_not_a_mix_error(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            event_dir = Path(tmpdir)
+            write_json(event_dir / "attr.json", {"place": {}, "num_entrants": 0})
+            write_json(event_dir / "standings.json", {"data": []})
+            write_json(event_dir / "seeds.json", {"data": []})
+            write_json(event_dir / "matches.json", {"data": [{"set_id": 9, "winner_id": 1, "loser_id": 2}]})
+            errors, _ = validate_event_dir(event_dir)
+            self.assertFalse(any("set_id" in err for err in errors))
+
+
 if __name__ == "__main__":
     unittest.main()

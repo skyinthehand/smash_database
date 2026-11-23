@@ -827,7 +827,9 @@ def outstanding_set_ids(matches_data, known_set_ids):
 
 def merge_matches_records(existing_data, new_records):
     """existing_data に new_records をマージする。同じ set_id のレコードが既に
-    存在すればその場で置き換え、無ければ末尾に追加する(重複追記はしない)。"""
+    存在すればその場で置き換え、無ければ末尾に追加する(重複追記はしない)。
+    set_id を持たない旧形式レコードはここでは照合できないため、書き込み時に
+    drop_superseded_legacy_records() で取り除く(issue #75)。"""
     merged = list(existing_data)
     index_by_set_id = {
         record["set_id"]: i for i, record in enumerate(merged) if "set_id" in record
@@ -843,7 +845,26 @@ def merge_matches_records(existing_data, new_records):
     return merged
 
 
+def drop_superseded_legacy_records(matches_data):
+    """set_id を持たない旧形式(event_data_version < 6)のレコードが、set_id付きの
+    レコードで置き換え済みであれば取り除いたリストを返す(issue #75)。
+
+    旧形式レコードは set_id を持たないため merge_matches_records() の set_id 照合に
+    掛からず、再取得したset_id付きレコードと同じsetが二重に残ってしまう。
+    「set_id付きレコードが1件以上あり、かつプレースホルダーが1件も無い」=
+    イベントの全setをset_id付きで取得し終えた時点で、旧形式レコードは不要になる。
+    逐次取得の途中(プレースホルダーが残っている間)は、未取得分のデータを失わない
+    よう旧形式レコードをそのまま残す。"""
+    has_set_id_record = any(record.get("set_id") is not None for record in matches_data)
+    if not has_set_id_record:
+        return matches_data
+    if any(is_placeholder_record(record) for record in matches_data):
+        return matches_data
+    return [record for record in matches_data if record.get("set_id") is not None]
+
+
 def write_matches_data(matches_data, event_dir):
+    matches_data = drop_superseded_legacy_records(matches_data)
     write_json({"data": matches_data}, f"{event_dir}/matches.json", with_version=True)
 
 

@@ -215,6 +215,15 @@
 - `set_id`: start.gg上のset ID。`event_data_version < 6`の既存データには存在しない
   (`null`相当)。既存イベントは`scripts/fix/backfill_schema_version.py`の巡回
   バックフィルにより順次付与される。
+- 1つの`matches.json`に`set_id`付きのレコードと`set_id`を持たない旧形式レコードが
+  混在することはない。再取得でイベントの全setを`set_id`付きで取得し終えた時点
+  (プレースホルダーが1件も無い状態)で、旧形式レコードは書き込み時に取り除かれる
+  (`scripts/fetch/download.py`の`drop_superseded_legacy_records()`)。逐次取得の
+  途中は、未取得分のデータを失わないよう旧形式レコードを残す。この処理が入る前の
+  バックフィルでは旧形式レコードが残り、同じsetが二重に保存されていた(issue #75)。
+  既存データは`scripts/fix/drop_legacy_match_records.py`(start.gg再アクセス不要・
+  デフォルトdry-run、`--yes`で書き込み)で修正でき、混在は
+  `scripts/check/validate_data.py`がエラーとして検出する。
 
 ## 注意点
 - doubles/crew や、start.gg アカウントに一切リンクされていない参加者は user_id が
